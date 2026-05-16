@@ -15,10 +15,16 @@
   - location/region — `#ffe0b2` — parchment/tan, geographic territory
   - location/wilderness — `#43a047` — dense, wild
 - **Dungeons** — `#6a1b9a` — dark, sinister, underground
+- **Terrain features** — `#a5d6a7` — sage green, physical geography
+  - location/terrain-feature
 - **Factions** — `#ab47bc` — power, hierarchy, politics
+- **Cultures** — `#5c6bc0` — blue-purple, identity and society
+  - culture
 - **Items** — gear and treasure
   - item/magic — `#2196f3` — strong blue, arcane
   - item/mundane — `#8d6e63` — brown, common gear
+- **Resources** — `#795548` — brown, material and economic
+  - resource
 - **Events** — `#c2185b` — dark history, blood, tragedy
 - **Deities** — `#4dd0e1` — ethereal, divine
 - **Rumors** — `#a1887f` — muted, uncertain, secondhand
@@ -36,9 +42,7 @@
 ## Available (reserved for future types)
 
 - Orange `#ffa726`
-- Blue-Purple `#5c6bc0`
 - Deep Amber `#f57f17`
-- Sage Green `#a5d6a7`
 - Yellow `#ffca28`
 - Yellow-Green `#8bc34a`
 - Green `#66bb6a`

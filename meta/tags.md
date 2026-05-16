@@ -9,7 +9,6 @@ Authoritative list of all valid tags. **Before tagging any entity, check here.**
 - Tags follow `namespace/value` hierarchy for Obsidian/Foam nested tag support
 - Do not use frontmatter tags for values that correspond to existing entity documents. If a race, class, faction, location, or other entity already exists as a markdown file, reference it in the document body with `[[wiki-link]]` syntax instead of adding it as a tag.
 - `session/NN` tags increment with each session — add the new tag here when a session file is created
-- `player/name` tags are added per campaign — add one entry per real-world player when setting up your group
 
 ---
 
@@ -54,10 +53,14 @@ Authoritative list of all valid tags. **Before tagging any entity, check here.**
 | `location/city` | location entity | Entity subtype: city or town |
 | `location/region` | location entity | Entity subtype: region or territory |
 | `location/wilderness` | location entity | Entity subtype: wilderness area |
+| `location/terrain-feature` | location entity | Entity subtype: terrain feature (river, road, mountain range, pass, etc.) |
 | **party** | | |
 | `party` | party entity | Entity type: adventuring party |
 | **player/** | | |
-| `player/name` | pc | Add one entry per real-world player — e.g. `player/alice`, `player/bob` |
+| `player/ben` | pc | Character played by Ben |
+| `player/jeff` | pc | Character played by Jeff |
+| `player/miguel` | pc | Character played by Miguel |
+| `player/paul` | pc | Character played by Paul |
 | **race** | | |
 | `race` | race entity | Entity type: playable race — flat tag, no subtype |
 | **session/** | | |
@@ -66,3 +69,9 @@ Authoritative list of all valid tags. **Before tagging any entity, check here.**
 | `schema` | schema file | Meta document: entity schema definition |
 | **guideline** | | |
 | `guideline` | meta document | Meta document: design guideline that shapes story or game decisions |
+| **resource** | | |
+| `resource` | resource entity | Entity type: natural or economic resource |
+| **culture** | | |
+| `culture` | culture entity | Entity type: shared customs, values, and practices of a people |
+| **mechanic** | | |
+| `mechanic` | mechanic file | Meta document: gameplay mechanic or structured mini-game |

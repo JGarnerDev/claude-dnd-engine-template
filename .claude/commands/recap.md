@@ -78,7 +78,7 @@ For each entity flagged for canonization in Phase 3:
 
 **If an entity is missing (no file anywhere):**
 - Do not create it silently. Flag it clearly:
-  > "**[Entity Name]** was referenced in this session but has no file. Create it now? If yes, I'll follow the Entity Creation Protocol."
+  > "**[Entity Name]** was referenced in this session but has no file. Create it now? If yes, I'll read `meta/entity-creation.md` first."
 - Wait for DM confirmation before creating anything.
 
 ---

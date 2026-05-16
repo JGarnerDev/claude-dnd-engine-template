@@ -1,4 +1,4 @@
-Plan the next session. Follows the Session Generation Protocol defined in CLAUDE.md.
+Plan the next session.
 
 ---
 
@@ -10,6 +10,13 @@ Read the following files before doing anything else. Do not generate any content
 2. `scheduler/acts/` — any file with `state: active`; note its goal and current mission list
 3. `scheduler/missions/` — any file with `state: active`; note objective, hook, obstacles, and last_updated session
 4. `historian/sessions/` — find the highest-numbered session file; read its `cliffhanger`, `recap`, and any `new_entities`
+5. Meta reference files (read once; do not re-read per sub-task):
+   - `meta/worldbuilding-approach.md` — how to reason about worldbuilding: coherence, causality, consequences
+   - `meta/worldbuilding.md` — tone, themes, setting pillars, what to avoid
+   - `meta/difficulty.md` — encounter tiers, DC ranges, session mix
+   - `meta/rewards.md` — gold ranges, magic item philosophy, leveling pace
+   - `meta/players/*.md` (excluding `player-template.md`) — per-player preferences
+   - `meta/references.md` — where to look for external D&D data
 
 Determine the next session number: highest session number found + 1.
 
@@ -108,7 +115,7 @@ Using all context gathered, produce a session plan in chat. Follow the session s
 - **Closing hook** — how the session should end; the cliffhanger or question that sends players home wanting more
 - **Key locations** — where the session takes place; use `[[wiki-link]]` for any established entity
 - **Key NPCs** — who the players interact with; note if they are free (`data/`) or canon (`historian/`) entities
-- **Encounters** — any planned combat, social, or exploration encounters; note difficulty tier if relevant
+- **Encounters** — any planned combat, social, or exploration encounters; note difficulty tier if relevant. For non-standard encounter types (chase, puzzle, trade negotiation, performance, mini-game), check `meta/mechanics/` for an applicable mechanic file.
 - **Loose threads to address** — any unresolved promises, player action items, or dangling beats from previous sessions
 
 Apply the free entity rule: if the session requires an entity that doesn't exist in `data/` or `historian/`, **stop and flag it** rather than silently inventing one. Ask the DM whether to create it or proceed differently.

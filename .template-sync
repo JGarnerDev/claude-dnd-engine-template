@@ -1,0 +1,20 @@
+# Shareable file patterns — engine structure only, no campaign content
+# Machine-specific config (template repo path) lives in .template-sync.local (gitignored)
+CLAUDE.md
+README.md
+.claude/commands/inventory.md
+.claude/commands/session.md
+.claude/commands/recap.md
+.claude/commands/sync.md
+meta/schemas/*.md
+meta/entity-creation.md
+meta/graph-settings.md
+meta/types.md
+meta/tags.md
+meta/color-theory.md
+meta/mechanics/*.md
+meta/references.md
+meta/worldbuilding-approach.md
+meta/players/player-template.md
+.vscode/settings.json
+.obsidian/graph.json

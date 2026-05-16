@@ -28,6 +28,7 @@ Authoritative list of all valid `type` / `subtype` combinations. **Before declar
 | `event` | — | `meta/schemas/event.md` | `data/events/` | `historian/events/` |
 | `faction` | — | `meta/schemas/faction.md` | `data/factions/` | `historian/factions/` |
 | `creature` | — | `meta/schemas/creature.md` | `data/creatures/` | `historian/creatures/` |
+| `culture` | — | `meta/schemas/culture.md` | `data/cultures/` | `historian/cultures/` |
 | `item` | `magic` | `meta/schemas/item-magic.md` | `data/items/magic/` | `historian/items/magic/` |
 | `item` | `mundane` | `meta/schemas/item-mundane.md` | `data/items/mundane/` | `historian/items/mundane/` |
 | `location` | `city` | `meta/schemas/location-city.md` | `data/locations/cities/` | `historian/locations/cities/` |
@@ -35,8 +36,10 @@ Authoritative list of all valid `type` / `subtype` combinations. **Before declar
 | `location` | `region` | `meta/schemas/location-region.md` | `data/locations/regions/` | `historian/locations/regions/` |
 | `location` | `shop` | `meta/schemas/location-shop.md` | `data/locations/shops/` | `historian/locations/shops/` |
 | `location` | `wilderness` | `meta/schemas/location-wilderness.md` | `data/locations/wilderness/` | `historian/locations/wilderness/` |
+| `location` | `terrain-feature` | `meta/schemas/location-terrain-feature.md` | `data/locations/terrain-features/` | `historian/locations/terrain-features/` |
 | `mission` | — | `meta/schemas/mission.md` | `scheduler/missions/` | `historian/missions/` |
 | `party` | — | `meta/schemas/party.md` | — | `historian/characters/parties/` |
 | `race` | — | `meta/schemas/race.md` | `data/races/` | `historian/races/` |
+| `resource` | — | `meta/schemas/resource.md` | `data/resources/` | `historian/resources/` |
 | `rumor` | — | `meta/schemas/rumor.md` | `data/rumors/` | `historian/rumors/` |
 | `session` | — | `meta/schemas/session.md` | `scheduler/sessions/` | `historian/sessions/` |
