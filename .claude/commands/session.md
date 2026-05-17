@@ -113,7 +113,7 @@ Using all context gathered, produce a session plan in chat. Follow the session s
 - **Session name** — propose a name (the DM can change it)
 - **Opening scene** — where the party is, what's immediately in front of them, how the session begins
 - **Closing hook** — how the session should end; the cliffhanger or question that sends players home wanting more
-- **Key locations** — where the session takes place; use `[[wiki-link]]` for any established entity
+- **Key locations** — where the session takes place; use `[[wiki-link]]` linking to entities in `historian/locations/` or `data/locations/` only. Do not link to factions or other non-location types — e.g., `[[Domain of Barovia]]` is a faction; the region is `[[Barovia]]`
 - **Key NPCs** — who the players interact with; note if they are free (`data/`) or canon (`historian/`) entities
 - **Encounters** — any planned combat, social, or exploration encounters; note difficulty tier if relevant. For non-standard encounter types (chase, puzzle, trade negotiation, performance, mini-game), check `meta/mechanics/` for an applicable mechanic file.
 - **Loose threads to address** — any unresolved promises, player action items, or dangling beats from previous sessions

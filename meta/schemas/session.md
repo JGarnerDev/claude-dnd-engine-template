@@ -64,7 +64,7 @@ mission: [[Mission Name]]
 planned_date: ""
 
 # Optional fields:
-locations:
+locations:          # links to historian/locations/ or data/locations/ entities only — not factions
   - [[Location Name]]
 key_npcs:
   - [[NPC Name]] (role)
