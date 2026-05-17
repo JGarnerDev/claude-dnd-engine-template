@@ -33,9 +33,18 @@ A session is a single play session — typically three to four hours. The sessio
 
 ## Schema
 
-### Canonical Path
+### Canonical Paths
+
+**Inline** (single file):
 `scheduler/sessions/session-{nn}-{name}.md`
 Moves to `historian/sessions/session-{nn}-{name}.md` after play.
+
+**Linked** (folder):
+`scheduler/sessions/session-{nn}-{name}/session-{nn}-{name}.md` — main file
+`scheduler/sessions/session-{nn}-{name}/encounter-{slug}.md` — one per encounter
+Entire folder moves to `historian/sessions/session-{nn}-{name}/` after play.
+
+The main file always uses the same `session-{nn}-{name}` naming convention regardless of scope.
 
 ### Valid State Values
 | State | Meaning |
@@ -89,7 +98,29 @@ description: ""
 ---
 ```
 
+### Body Structure (pre-play)
+
+The body is the DM-facing runnable document. Sections in order:
+
+**Orientation** — party state paragraph (location, afflictions, resources, tone coming out of last session); bullet list of unresolved `new_entities` from the last session.
+
+**Scenes** — one `#### Scene N — [Title]` block per beat. Count scales to length (Short: 3–4, Standard: 4–6, Long: 6–8). Each block:
+- **Trigger** — what starts the scene
+- **Location** — `[[wiki-link]]`; one-line description
+- **NPCs present** — name, goal for this scene, voice note
+- **Beats** — ordered bullets; branch points inline (*"if party refuses → …"*)
+- **Narration** — `> *"..."*` blockquote for key moment (depth: narrated only; omit for depth: notes)
+- **Transition** — what moves to next scene or likely detour
+- If scope is linked: `→ see [[encounter-{slug}]]` replaces inline encounter detail
+
+**NPC Quick-Reference** — one entry per key NPC: `[[wiki-link]]`, motivation, what they know (bullets), voice (one sentence).
+
+**Contingencies** — 2–3 likely detours: trigger, how to handle, how to redirect.
+
+**Closing** — how to land the closing hook; what to leave unresolved.
+
 ### Notes
 - The plan and the recap live in the same file — the body holds the planned content, and `recap` captures what actually happened after play.
 - `entities_canonized` tracks which `data/` entities were used and should now have matching `historian/` files created with `exists: true`.
 - `new_entities` tracks anything invented at the table that needs to be backfilled into `historian/` as canon.
+- For linked sessions, encounter files are part of the same session unit — they move with the folder, not independently.

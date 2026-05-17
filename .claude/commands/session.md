@@ -1,5 +1,13 @@
 Plan the next session.
 
+**Arguments (optional):**
+- `--depth narrated` — key scenes include read-aloud blockquote narration
+- `--depth notes` — DM-facing bullet notes only
+- `--scope inline` — full session in a single file
+- `--scope linked` — session folder; encounter files live alongside the main file
+
+If `--depth` or `--scope` are not provided, ask in Phase 4.
+
 ---
 
 ## Phase 1 — Orient
@@ -93,12 +101,14 @@ Wait for the DM's response before continuing.
 
 ## Phase 4 — Scoping Questions
 
-After the hook is chosen (or confirmed in CONTINUATION mode), ask 2–3 targeted questions before generating the plan. Tailor the questions to what's genuinely unknown given the hook. Always ask:
+After the hook is chosen (or confirmed in CONTINUATION mode), ask targeted questions before generating the plan. Tailor to what's genuinely unknown. Always ask:
 
 1. **Session length** — Short (~1.5 hr), Standard (~2 hr), or Long (~2.5 hr+)?
 2. **Session shape** — Roleplay-heavy, combat-heavy, exploration-heavy, or balanced?
+3. **Depth** — (only if `--depth` not provided) `narrated` (read-aloud blockquotes for key moments) or `notes` (DM bullet notes only)?
+4. **Scope** — (only if `--scope` not provided) `inline` (single file) or `linked` (folder with separate encounter files)?
 
-Add a third question only if something specific about the hook warrants it (e.g. "Is the party expected to find Strahd's location this session, or is that still a mystery to preserve?").
+Add one more question only if something specific about the hook warrants it (e.g. "Is the party expected to find Strahd's location this session, or is that still a mystery to preserve?").
 
 Do not ask questions that the established context already answers.
 
@@ -108,17 +118,55 @@ Wait for the DM's response before continuing.
 
 ## Phase 5 — Generate Session Plan
 
-Using all context gathered, produce a session plan in chat. Follow the session schema fields:
+Using all context gathered, produce a session plan in chat.
 
+**Frontmatter fields to populate:**
 - **Session name** — propose a name (the DM can change it)
-- **Opening scene** — where the party is, what's immediately in front of them, how the session begins
-- **Closing hook** — how the session should end; the cliffhanger or question that sends players home wanting more
-- **Key locations** — where the session takes place; use `[[wiki-link]]` linking to entities in `historian/locations/` or `data/locations/` only. Do not link to factions or other non-location types — e.g., `[[Domain of Barovia]]` is a faction; the region is `[[Barovia]]`
-- **Key NPCs** — who the players interact with; note if they are free (`data/`) or canon (`historian/`) entities
-- **Encounters** — any planned combat, social, or exploration encounters; note difficulty tier if relevant. For non-standard encounter types (chase, puzzle, trade negotiation, performance, mini-game), check `meta/mechanics/` for an applicable mechanic file.
-- **Loose threads to address** — any unresolved promises, player action items, or dangling beats from previous sessions
+- **Key locations** — use `[[wiki-link]]` to entities in `historian/locations/` or `data/locations/` only; not factions (e.g., `[[Domain of Barovia]]` is a faction; the region is `[[Barovia]]`)
+- **Key NPCs** — note if free (`data/`) or canon (`historian/`)
+- **Encounters** — list planned encounters; note difficulty tier if relevant
+- **Loose threads** — unresolved promises, player action items, or dangling beats from prior sessions
+- **Opening scene** — where the party is, what's immediately in front of them
+- **Closing hook** — the cliffhanger or question that sends players home wanting more
 
-Apply the free entity rule: if the session requires an entity that doesn't exist in `data/` or `historian/`, **stop and flag it** rather than silently inventing one. Ask the DM whether to create it or proceed differently.
+**Body structure — produce the following sections in order:**
+
+### Orientation
+- One-paragraph party state: current location, known afflictions, resources expended, mood/tone coming out of the last session
+- Bullet list: any unresolved `new_entities` from the last session that need acknowledgment
+
+### Scenes
+One `#### Scene N — [Title]` block per beat. Scale count to session length (Short: 3–4, Standard: 4–6, Long: 6–8).
+
+Each scene block contains:
+- **Trigger** — what causes this scene to begin (party action, NPC move, time passing)
+- **Location** — `[[wiki-link]]`; one-line description of what the space looks/feels like
+- **NPCs present** — name, one-line goal for this scene, one-line voice note (how they talk/carry themselves)
+- **Beats** — ordered bullet list of what happens; branch points noted inline (e.g., *"if party refuses → …"*)
+- **Narration** — if `depth: narrated`, include a `> *"..."*` blockquote for the key moment of the scene; if `depth: notes`, omit
+- **Transition** — one line on what triggers the move to the next scene or a likely detour
+
+If `scope: linked`, replace the full encounter detail with a one-line reference: `→ see [[encounter-{slug}]]` and note that the encounter file will be written separately.
+
+### NPC Quick-Reference
+One entry per key NPC appearing this session:
+- **Name** — `[[wiki-link]]`
+- **Motivation** — what they want right now
+- **Knows** — bullet list of information they can reveal
+- **Voice** — one sentence on speech pattern, demeanor, tells
+
+### Contingencies
+2–3 likely detours the party might take. For each: what triggers it, how to handle it without derailing the session, how to redirect.
+
+### Closing
+- How to land the closing hook (specific DM move or line)
+- What to leave unresolved going into the next session
+
+---
+
+**Apply the free entity rule:** if the session requires an entity not in `data/` or `historian/`, **stop and flag it** rather than inventing one. Ask the DM whether to create it or proceed differently.
+
+For non-standard encounter types (chase, puzzle, trade negotiation, performance, mini-game), check `meta/mechanics/` for an applicable mechanic file before writing the scene.
 
 If meta preference files are blank, note: *"Group preferences and worldbuilding details are not yet filled in — session is based on campaign tone and themes only. Consider filling in meta/ files for more tailored generation."*
 
@@ -128,12 +176,15 @@ If meta preference files are blank, note: *"Group preferences and worldbuilding 
 
 After presenting the plan, ask:
 
-> "Should I save this as `scheduler/sessions/session-{nn}-{name}.md` with `state: draft`?"
+> "Should I save this as a session file with `state: draft`?"
 
 If yes:
 1. Read `meta/schemas/session.md` to confirm the frontmatter template
-2. Write the file at the canonical path
+2. Determine path based on scope:
+   - `scope: inline` → write `scheduler/sessions/session-{nn}-{name}.md`
+   - `scope: linked` → create folder `scheduler/sessions/session-{nn}-{name}/`; write main file as `scheduler/sessions/session-{nn}-{name}/session-{nn}-{name}.md`; write each encounter as `scheduler/sessions/session-{nn}-{name}/encounter-{slug}.md`
 3. Populate all mandatory frontmatter fields from the plan above
-4. Leave historian-only fields commented out (they are filled after play)
+4. Write the full body (Orientation, Scenes, NPC Quick-Reference, Contingencies, Closing) into the main file
+5. Leave historian-only fields commented out (they are filled after play)
 
 If no: leave the plan in chat for the DM to use or adapt manually.
