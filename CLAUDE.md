@@ -55,6 +55,18 @@ Entities in `./data` with `exists: false` are **free** — available to be used 
 
 Never silently generate a net-new entity during session planning or content generation. The data pool is intentional — running it low is meaningful signal, not a problem to paper over.
 
+## New Campaign Setup
+
+Before generating any content for a new campaign, collect player worldbuilding preferences and populate `meta/worldbuilding.md`. Ask players:
+
+- Tone and inspirations (books, games, films)
+- Biomes or settings they want to explore
+- Magic: how rare, how it works, who has access
+- Notable resources, economies, or factions of interest
+- Anything they want to avoid
+
+Fill in `meta/worldbuilding.md` from their answers before proceeding to campaign, act, or entity creation. This file is the creative contract for the campaign.
+
 ## Entity Creation
 
 When creating any entity, read `meta/entity-creation.md` before proceeding. It contains the full protocol, known schemas, Obsidian frontmatter rules, and gameplay mechanics guidance.
@@ -62,6 +74,26 @@ When creating any entity, read `meta/entity-creation.md` before proceeding. It c
 ## Graph Configuration
 
 When adding a new type, subtype, or entity folder, read `meta/graph-settings.md` before touching any config files.
+
+## Scripts
+
+PowerShell scripts in `./scripts/` replace repetitive multi-file reads. **Run these via Bash before manual file reads — they collapse 5–10 tool calls into one.**
+
+| Script | When to use | Usage |
+|---|---|---|
+| `session-brief.ps1` | Start of every `/session` | `.\scripts\session-brief.ps1` |
+| `session-state.ps1` | Quick campaign/act/mission check | `.\scripts\session-state.ps1` |
+| `party-status.ps1` | PC stats + afflictions | `.\scripts\party-status.ps1` |
+| `free-entities.ps1` | Find available entities by type | `.\scripts\free-entities.ps1 [-Type <type>]` |
+| `entity-graph.ps1` | 1-hop relations for any entity | `.\scripts\entity-graph.ps1 -Name "<name>"` |
+| `location-entities.ps1` | All historian entities near a location | `.\scripts\location-entities.ps1 -Location "<name>"` |
+
+**Mandatory pre-reads replaced by scripts:**
+- Before `/session`: run `session-brief.ps1` instead of reading campaign, act, PC files individually
+- Before entity lookup: run `free-entities.ps1 -Type <type>` instead of globbing data/
+- Before scene-building at a location: run `location-entities.ps1` instead of manual grep
+
+Scripts output plain text; parse with your own judgment. They read frontmatter only (except `session-brief.ps1` which also reads the last session body for cliffhanger).
 
 ## Commands
 

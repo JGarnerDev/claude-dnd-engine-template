@@ -75,3 +75,13 @@ Authoritative list of all valid tags. **Before tagging any entity, check here.**
 | `culture` | culture entity | Entity type: shared customs, values, and practices of a people |
 | **mechanic** | | |
 | `mechanic` | mechanic file | Meta document: gameplay mechanic or structured mini-game |
+| **spell** | | |
+| `spell` | spell entity | Entity type: any 5e spell — parent tag for all spell schools |
+| `spell/abjuration` | spell entity | Spell school: abjuration |
+| `spell/conjuration` | spell entity | Spell school: conjuration |
+| `spell/divination` | spell entity | Spell school: divination |
+| `spell/enchantment` | spell entity | Spell school: enchantment |
+| `spell/evocation` | spell entity | Spell school: evocation |
+| `spell/illusion` | spell entity | Spell school: illusion |
+| `spell/necromancy` | spell entity | Spell school: necromancy |
+| `spell/transmutation` | spell entity | Spell school: transmutation |
