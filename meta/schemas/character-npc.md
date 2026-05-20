@@ -91,6 +91,7 @@ family:
 enemies:
   - [[Character or Faction Name]] (nature of conflict)
 character_sheet: ""    # path to sheet file, or inline summary
+charm_hook: ""         # optional: one specific flaw, habit, fear, or absurdity that makes players want to root for them
 ---
 ```
 
@@ -105,6 +106,8 @@ Race: [[Race Name]] | Class: [[Class Name]] | Background: [[Background Name]]
 ```
 
 Omit any line for values that are unknown — do not create dead placeholder links.
+
+For `disposition: friendly` or `importance: major` NPCs, consider a `charm_hook` — one specific detail (flaw, habit, fear, absurdity) that makes players want to root for them rather than just use them.
 
 ### Form → Frontmatter Mapping
 | Form answer | Field |

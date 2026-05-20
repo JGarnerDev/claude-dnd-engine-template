@@ -91,6 +91,7 @@ family:
 enemies:
   - [[Character or Faction Name]] (nature of conflict)
 character_sheet: ""    # path to sheet file, or inline summary
+human_detail: ""       # recommended for all antagonists: one comprehensible motive, mundane habit, or thing they protect
 ---
 ```
 
@@ -105,6 +106,8 @@ Race: [[Race Name]] | Class: [[Class Name]] | Background: [[Background Name]]
 ```
 
 Omit any line for values that are unknown — do not create dead placeholder links.
+
+Fill `human_detail` for all antagonists regardless of importance — even minor ones. One comprehensible reason, mundane habit, or thing they protect separates them from obstacle NPCs and makes encounters land harder.
 
 ### Form → Frontmatter Mapping
 | Form answer | Field |
