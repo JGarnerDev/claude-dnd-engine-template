@@ -59,7 +59,7 @@ tags:
   - resource
 
 # --- MANDATORY (resource) ---
-resource_type: ore | timber | food | fresh-water | stone | arcane | livestock | textiles | alchemical | labor | other
+resource_type: ore | timber | food | fresh-water | stone | arcane | livestock | textiles | alchemical | labor | goods | other
 rarity: common | uncommon | rare | unique
 location:
   - [[Location or Region Name]]

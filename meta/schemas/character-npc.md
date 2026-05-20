@@ -92,6 +92,8 @@ enemies:
   - [[Character or Faction Name]] (nature of conflict)
 character_sheet: ""    # path to sheet file, or inline summary
 charm_hook: ""         # optional: one specific flaw, habit, fear, or absurdity that makes players want to root for them
+sells:
+  - [[Resource or Good Name]]  # optional: specific goods/services this NPC trades in; use only when economically relevant
 ---
 ```
 

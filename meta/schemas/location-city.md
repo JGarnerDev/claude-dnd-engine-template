@@ -91,6 +91,7 @@ factions:
 rulership: [[NPC Name]]
 shops:
   - [[Shop Name]]
+trade_specialty: ""    # optional: what this settlement is regionally known for producing or trading, e.g. "fine leatherwork", "dwarven arms"
 ---
 ```
 

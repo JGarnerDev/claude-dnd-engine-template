@@ -44,6 +44,14 @@ If a user provides form answers (structured or freeform), use the **Form → Fro
 | A natural resource (ore, timber, trade good, arcane material) | `meta/schemas/resource.md` |
 | A culture (customs, values, and practices of a people) | `meta/schemas/culture.md` |
 
+## Economic Depth (Optional Fields)
+
+Several schemas have optional economic fields: `sells` (NPC), `specialty` + `supply` (shop), `trade_specialty` (city), `resource_type: goods` (resource). These exist to add organic flavor — **do not populate them by default.**
+
+Populate when there is a narrative reason: the NPC's livelihood is trade-focused, the shop's identity hinges on what it stocks, or the city's founding purpose was economic. A random innkeeper needs no `sells`. A dwarven armorer in a mining town might. Use judgment; less is more.
+
+When linking `sells` or `supply` to resource entities, prefer wiki-links to existing `data/resources/` files. If no matching resource entity exists, use plain text rather than creating a new resource just to satisfy the link.
+
 ## Gameplay Mechanics
 
 Gameplay mechanics (mini-games, structured encounter types) live in `meta/mechanics/`. Use `meta/mechanics/_template.md` as the starting point for new mechanic files. These are GM design tools — they have no `type`, `exists`, or `state` fields and follow no entity protocol. The `/session` command checks `meta/mechanics/` for applicable mini-games when building non-standard encounters (chase, puzzle, trade, performance, etc.).

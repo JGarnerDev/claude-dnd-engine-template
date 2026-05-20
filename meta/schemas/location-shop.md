@@ -81,7 +81,9 @@ description: ""
 # --- OPTIONAL (shop) ---
 map_location: ""       # where within the city
 customers: ""
-supply: ""
+supply:
+  - [[Resource Name]]  # raw materials or trade goods the shop sources; wiki-link when a resource entity exists
+specialty: ""          # one-liner for what this shop is known for, e.g. "cold-forged iron weapons", "imported silk garments"
 ---
 ```
 
