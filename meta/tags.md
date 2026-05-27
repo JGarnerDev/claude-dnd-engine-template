@@ -20,6 +20,52 @@ Authoritative list of all valid tags. **Before tagging any entity, check here.**
 | `class` | class entity | Entity type: playable class — flat tag, no subtype |
 | **creature/** | | |
 | `creature` | creature entity | Entity type: notable creature with narrative presence |
+| **cr/** | | |
+| `cr/0` | monster | Challenge Rating 0 |
+| `cr/0.125` | monster | Challenge Rating 1/8 |
+| `cr/0.25` | monster | Challenge Rating 1/4 |
+| `cr/0.5` | monster | Challenge Rating 1/2 |
+| `cr/1` | monster | Challenge Rating 1 |
+| `cr/2` | monster | Challenge Rating 2 |
+| `cr/3` | monster | Challenge Rating 3 |
+| `cr/4` | monster | Challenge Rating 4 |
+| `cr/5` | monster | Challenge Rating 5 |
+| `cr/6` | monster | Challenge Rating 6 |
+| `cr/7` | monster | Challenge Rating 7 |
+| `cr/8` | monster | Challenge Rating 8 |
+| `cr/9` | monster | Challenge Rating 9 |
+| `cr/10` | monster | Challenge Rating 10 |
+| `cr/11` | monster | Challenge Rating 11 |
+| `cr/12` | monster | Challenge Rating 12 |
+| `cr/13` | monster | Challenge Rating 13 |
+| `cr/14` | monster | Challenge Rating 14 |
+| `cr/15` | monster | Challenge Rating 15 |
+| `cr/16` | monster | Challenge Rating 16 |
+| `cr/17` | monster | Challenge Rating 17 |
+| `cr/18` | monster | Challenge Rating 18 |
+| `cr/19` | monster | Challenge Rating 19 |
+| `cr/20` | monster | Challenge Rating 20 |
+| `cr/21` | monster | Challenge Rating 21 |
+| `cr/22` | monster | Challenge Rating 22 |
+| `cr/23` | monster | Challenge Rating 23 |
+| `cr/24` | monster | Challenge Rating 24 |
+| `cr/30` | monster | Challenge Rating 30 |
+| **monster/** | | |
+| `monster` | monster entity | Entity type: Monster Manual template (encounter archetype) |
+| `monster/undead` | monster entity | Creature type: undead |
+| `monster/beast` | monster entity | Creature type: beast |
+| `monster/humanoid` | monster entity | Creature type: humanoid |
+| `monster/aberration` | monster entity | Creature type: aberration |
+| `monster/fiend` | monster entity | Creature type: fiend |
+| `monster/monstrosity` | monster entity | Creature type: monstrosity |
+| `monster/dragon` | monster entity | Creature type: dragon |
+| `monster/construct` | monster entity | Creature type: construct |
+| `monster/elemental` | monster entity | Creature type: elemental |
+| `monster/fey` | monster entity | Creature type: fey |
+| `monster/giant` | monster entity | Creature type: giant |
+| `monster/ooze` | monster entity | Creature type: ooze |
+| `monster/plant` | monster entity | Creature type: plant |
+| `monster/other` | monster entity | Creature type: other |
 | **background** | | |
 | `background` | background entity | Entity type: character background — flat tag, no subtype |
 | **character** | | |
@@ -48,6 +94,7 @@ Authoritative list of all valid tags. **Before tagging any entity, check here.**
 | `item/mundane` | item entity | Entity subtype: mundane item with narrative significance |
 | **location** | | |
 | `location` | location entity | Entity type: any location — parent tag for all location subtypes |
+| `location/building` | location entity | Entity subtype: non-commercial building (residence, manor, civic hall, etc.) |
 | `location/dungeon` | location entity | Entity subtype: dungeon |
 | `location/shop` | location entity | Entity subtype: shop (covers inns, taverns, and establishments) |
 | `location/city` | location entity | Entity subtype: city or town |
@@ -69,6 +116,8 @@ Authoritative list of all valid tags. **Before tagging any entity, check here.**
 | `schema` | schema file | Meta document: entity schema definition |
 | **guideline** | | |
 | `guideline` | meta document | Meta document: design guideline that shapes story or game decisions |
+| **faction/** | | |
+| `faction/guild` | faction entity | Faction subtype: organized guild or professional society |
 | **resource** | | |
 | `resource` | resource entity | Entity type: natural or economic resource |
 | **culture** | | |

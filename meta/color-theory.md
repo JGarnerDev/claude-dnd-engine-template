@@ -7,13 +7,15 @@
   - character/npc
 - **Antagonists** — `#ff5722` — threat, active enemies
   - character/antagonist
-- **Creatures** — `#ef5350` — danger, predator
+- **Creatures** — `#ef5350` — danger, predator (named individuals)
+- **Monsters** — `#ffa726` — orange, encounter templates (MM archetypes)
 - **Settlements** — settled locations
   - location/city — `#aed581` — open, polished, urban
-  - location/shop — `#7cb342` — grounded, commerce
+  - location/building — `#4caf50` — vivid mid-green, inhabited, residential
+  - location/shop — `#558b2f` — dark olive, grounded, commerce
 - **Wilderness** — open world locations
   - location/region — `#ffe0b2` — parchment/tan, geographic territory
-  - location/wilderness — `#43a047` — dense, wild
+  - location/wilderness — `#2e7d32` — dark forest, dense, wild
 - **Dungeons** — `#6a1b9a` — dark, sinister, underground
 - **Terrain features** — `#a5d6a7` — sage green, physical geography
   - location/terrain-feature
@@ -41,7 +43,6 @@
 
 ## Available (reserved for future types)
 
-- Orange `#ffa726`
 - Deep Amber `#f57f17`
 - Yellow `#ffca28`
 - Yellow-Green `#8bc34a`

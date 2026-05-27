@@ -162,6 +162,21 @@ One entry per key NPC appearing this session:
 - How to land the closing hook (specific DM move or line)
 - What to leave unresolved going into the next session
 
+### Cameo Candidates
+
+After building the session plan, scan `questionnaires/` for filled cameo files. A file is "filled" if any `> ` answer lines contain actual text (not just blank `> `).
+
+For each filled questionnaire, compare:
+- `preferred_alignment` against the role and disposition of NPCs in this session
+- `preferred_archetypes` against NPC archetypes and scene types
+
+Surface up to 3 strong matches as a short block:
+
+> **Cameo Candidates**
+> - **{Name}** — fits [{NPC or role}] ({one-line reason based on their stated preferences})
+
+Omit this block entirely if no questionnaires are filled. Do not force matches — only surface genuinely good fits. If nothing fits well, skip silently.
+
 ---
 
 **Apply the free entity rule:** if the session requires an entity not in `data/` or `historian/`, **stop and flag it** rather than inventing one. Ask the DM whether to create it or proceed differently.

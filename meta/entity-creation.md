@@ -43,6 +43,7 @@ If a user provides form answers (structured or freeform), use the **Form → Fro
 | A terrain feature (river, road, mountain range, pass, lake) | `meta/schemas/location-terrain-feature.md` |
 | A natural resource (ore, timber, trade good, arcane material) | `meta/schemas/resource.md` |
 | A culture (customs, values, and practices of a people) | `meta/schemas/culture.md` |
+| A Monster Manual entry (encounter template) | `meta/schemas/monster.md` |
 
 ## Economic Depth (Optional Fields)
 

@@ -11,27 +11,98 @@ Covers real-world players at the table. This is **not** an in-world entity — i
 
 ## Player Form
 
-*Answer these questions to set up your player file. Required answers are marked with \*.*
+*Required fields marked with \*.*
 
 **\* Your name (or handle):**
 
-**\* Role:** Are you a core player (attend most sessions) or a cameo player (occasional / guest)?
+**\* Role:** Core player (most sessions) or cameo (occasional / guest)?
 
-**\* Character(s):** List any characters you play or have played, and their current status (active / retired / dead).
+**\* Characters:** List any characters you play or have played, and their current status (active / retired / dead). Leave blank if undecided.
 
 **Pronouns (optional):**
 
-**Availability (optional):** How often can you attend? Any scheduling constraints?
+**Availability (optional):** How often can you join? Any scheduling constraints?
 
-**What's fun for you (optional):** What kinds of moments, scenes, or challenges do you enjoy most?
+**Ally, obstacle, or villain — where do you land naturally?**
 
-**Spotlight moments you'd love (optional):** Specific scenes, beats, or story threads you want to see.
+**Powerful figure or street-level? Big political footprint or stays in the shadows?**
 
-**Your character's arc (optional):** Where do you want your character to go? What resolution feels satisfying?
+**Pick archetypes that appeal to you** *(see valid values below — choose as many as you want)*:
 
-**Things you'd rather avoid (optional):** Any content or situations that aren't fun for you personally.
+**What kind of scene do you want to be remembered for?**
 
-**Notes for the DM (optional):** Anything else useful — engagement style, things you've loved in past campaigns.
+**Any character type you've always wanted to try but never got to play?**
+
+**Things you'd rather avoid:** Content or situations that aren't fun for you personally.
+
+**Notes for the DM:** Anything else — engagement style, what you've loved in past campaigns.
+
+---
+
+## Questionnaire Template
+
+Use this exact structure when generating a player questionnaire. No schema jargon, no YAML. Sections and labels are canonical — do not reorder or rename them.
+
+```markdown
+## About You
+
+**Pronouns** *(Optional)*:
+
+**Availability** — How often could you join a session? Any scheduling constraints? *(Optional — helps us know when to build you in)*:
+
+---
+
+## How You Like to Play
+
+**Ally, obstacle, or villain** — where do you land naturally when you play a character? *(Optional — but it shapes what kind of role we build for you)*:
+
+**Power level** — do you prefer playing someone with real weight (a lord, a crime boss, a high priest), or someone street-level who operates in the shadows? *(Optional)*:
+
+**Pick any archetypes that appeal to you** *(circle or list as many as you want — optional, but the more you give us, the better the fit)*:
+
+> **Power / Political:** noble, city official, guild master, church authority, crime boss
+>
+> **Antagonist:** main villain, lieutenant, rival, corrupt official, morally grey threat
+>
+> **Social / Commerce:** merchant, information broker, innkeeper, fence, smuggler
+>
+> **Combat / Underworld:** mercenary, bounty hunter, bandit leader, assassin, monster hunter
+>
+> **Arcane / Esoteric:** sage, cult leader, oracle, artificer
+>
+> **Humble / Community:** commoner, priest, craftsperson, guide
+>
+> **Wild:** trickster, mysterious stranger, shapeshifter
+
+---
+
+## The Creative Stuff
+
+**What kind of scene do you want to be remembered for?** *(Optional — a big moment, a twist, a speech, a fight? Dream out loud.)*:
+
+**Any character type you've always wanted to try but never got to play?** *(Optional — now's your chance)*:
+
+**Anything you'd rather avoid** — content, situations, or dynamics that aren't fun for you? *(Optional — totally valid, we'll work around it)*:
+
+---
+
+## Cameo-Specific
+*(Omit this section for core players.)*
+
+**Do you have a character concept in mind, or would you rather be handed one?** *(Your call — both are great options)*:
+
+**How do you want to enter the story?** — Already know the party? A stranger they meet? Someone with history (friendly or otherwise)? *(Your call — this is the entry point question)*:
+
+**Heavy drama or lighter moments?** — Some players want real weight and consequences; others want more levity. Both have a place. *(Your call — helps us pitch your character at the right register)*:
+
+---
+
+**Anything else for the DM** — how you like to engage, stuff you've loved in past campaigns, etc.?
+
+---
+
+*Hand back to your DM when done.*
+```
 
 ---
 
@@ -53,6 +124,36 @@ Covers real-world players at the table. This is **not** an in-world entity — i
 | `hiatus` | Temporarily away but expected to return |
 | `retired` | No longer playing in this campaign |
 
+### Valid Preferred Alignment Values
+| Value | Meaning |
+|---|---|
+| `heroic` | Prefers playing characters who help or protect |
+| `grey` | Prefers morally complex, ambiguous characters |
+| `villainous` | Prefers playing antagonists, threats, or corrupted figures |
+
+### Valid Preferred Archetype Values
+
+**Power / Political**
+`noble`, `city-official`, `guild-master`, `church-authority`, `crime-boss`
+
+**Antagonist Flavors**
+`main-villain`, `lieutenant`, `rival`, `corrupt-official`, `morally-grey-threat`
+
+**Social / Commerce**
+`merchant`, `information-broker`, `innkeeper`, `fence`, `smuggler`
+
+**Combat / Underworld**
+`mercenary`, `bounty-hunter`, `bandit-leader`, `assassin`, `monster-hunter`
+
+**Arcane / Esoteric**
+`sage`, `cult-leader`, `oracle`, `artificer`
+
+**Humble / Community**
+`commoner`, `priest`, `craftsperson`, `guide`
+
+**Wild**
+`trickster`, `mysterious-stranger`, `shapeshifter`
+
 ### Frontmatter Template
 
 ```yaml
@@ -68,6 +169,9 @@ characters:
 # --- OPTIONAL ---
 pronouns: ""
 availability: ""          # e.g. "weekly", "every other session", "guest only"
+preferred_alignment: heroic | grey | villainous
+preferred_archetypes:     # list from valid values above
+  - ""
 description: ""           # one-line summary for hover previews
 ---
 ```
@@ -80,19 +184,19 @@ description: ""           # one-line summary for hover previews
 | Character(s) | `characters` |
 | Pronouns | `pronouns` |
 | Availability | `availability` |
+| Ally / obstacle / villain | `preferred_alignment` |
+| Archetype picks | `preferred_archetypes` |
 
 ### Body Structure
-
-After the frontmatter, use these sections. All are optional — blank sections are fine for new players; fill in over time.
 
 ```markdown
 # {Name}
 
-## What's Fun For Me
+## Archetype Preferences
 
-## Spotlight Moments I'd Love
+## Scene I Want to Be Remembered For
 
-## My Character's Arc
+## Characters I've Always Wanted to Try
 
 ## Things I'd Rather Avoid
 
@@ -107,3 +211,4 @@ After the frontmatter, use these sections. All are optional — blank sections a
 - When creating a new PC file, the `player:` field on that PC must link back to this file: `player: [[meta/players/{name}]]`.
 - `player-template.md` in `meta/players/` is the blank starter — do not treat it as an active player file.
 - Core and cameo players use identical file structure. Role is tracked in frontmatter, not by file format.
+- `preferred_archetypes` and `preferred_alignment` are optional but valuable for cameos — use them to match candidates against open narrative slots during session planning.

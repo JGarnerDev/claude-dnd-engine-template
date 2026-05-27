@@ -57,15 +57,7 @@ Never silently generate a net-new entity during session planning or content gene
 
 ## New Campaign Setup
 
-Before generating any content for a new campaign, collect player worldbuilding preferences and populate `meta/worldbuilding.md`. Ask players:
-
-- Tone and inspirations (books, games, films)
-- Biomes or settings they want to explore
-- Magic: how rare, how it works, who has access
-- Notable resources, economies, or factions of interest
-- Anything they want to avoid
-
-Fill in `meta/worldbuilding.md` from their answers before proceeding to campaign, act, or entity creation. This file is the creative contract for the campaign.
+When starting a new campaign, read `meta/new-campaign-setup.md` before generating any content.
 
 ## Entity Creation
 
@@ -87,16 +79,36 @@ PowerShell scripts in `./scripts/` replace repetitive multi-file reads. **Run th
 | `free-entities.ps1` | Find available entities by type | `.\scripts\free-entities.ps1 [-Type <type>]` |
 | `entity-graph.ps1` | 1-hop relations for any entity | `.\scripts\entity-graph.ps1 -Name "<name>"` |
 | `location-entities.ps1` | All historian entities near a location | `.\scripts\location-entities.ps1 -Location "<name>"` |
-
-**Mandatory pre-reads replaced by scripts:**
-- Before `/session`: run `session-brief.ps1` instead of reading campaign, act, PC files individually
-- Before entity lookup: run `free-entities.ps1 -Type <type>` instead of globbing data/
-- Before scene-building at a location: run `location-entities.ps1` instead of manual grep
+| `pitch-brief.ps1` | Start of every `/pitch` | `.\scripts\pitch-brief.ps1 [-Type <type>]` |
+| `monster-lookup.ps1` | Find monsters by CR, creature type, or habitat | `.\scripts\monster-lookup.ps1 [-Type <type>] [-CRMin <n>] [-CRMax <n>] [-Habitat <name>]` |
 
 Scripts output plain text; parse with your own judgment. They read frontmatter only (except `session-brief.ps1` which also reads the last session body for cliffhanger).
 
+## Player Entity Submissions
+
+**Auto-ingestion trigger:** If any message, pasted content, or file contains a `<!-- CLAUDE-INGEST type: entity-questionnaire -->` block, treat it as a filled player questionnaire awaiting ingestion. Read `.claude/commands/entity-ingest.md` for the full flow. Never create an entity directly from raw player input.
+
+## PC Backstory Ingestion
+
+**Trigger:** Any of the following activate this flow:
+- A file is placed in `historian/characters/pcs/` that lacks proper PC frontmatter (`exists: true`, `type: character`, `subtype: pc`)
+- A message or pasted content contains raw backstory text that names a known PC
+
+Read `.claude/commands/pc-backstory.md` for the full ingestion flow, gap analysis, and entity sourcing rules. **Do not write anything until DM confirms.**
+
+## Recap Format
+
+Whenever presenting a session recap — whether via `/session` Phase 1 orientation, a direct "what's the recap" prompt, or any other context — use this two-part format:
+
+1. **Narrative prose** — 2–4 sentences, story-flavor, "previously on..." voice. Past tense, third person.
+2. **TL;DR bullets** — party status (afflictions, notable conditions), open threads, cliffhanger. One line per item.
+
+No DM brief card needed. No other formats unless explicitly requested.
+
 ## Commands
 
+- `/commands` — `.claude/commands/commands.md`
 - `/inventory` — `.claude/commands/inventory.md`
 - `/session` — `.claude/commands/session.md`
 - `/recap` — `.claude/commands/recap.md`
+- `/entity-questionnaire` — `.claude/commands/entity-questionnaire.md`

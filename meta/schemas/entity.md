@@ -62,6 +62,21 @@ confirmed_date: ""                          # in-world date or session number wh
 supersedes: [[data/path/to/entity]]      # data/ draft this entry replaces
 ```
 
+### Backstory-Sourced Entities
+
+Entities canonized through PC backstory ingestion (not from a played session) use a plain string for `source_session` instead of a wiki-link:
+
+```yaml
+source_session: "player backstory (Character Name)"   # e.g. "player backstory (Iggy Wallaed)"
+confirmed_date: "pre-campaign"
+```
+
+These entities are player-confirmed canon for their character's history. They do not require a session wiki-link because they predate the campaign. Add a reliability callout in the body if any detail is flagged as partial or subject to revision:
+
+```markdown
+> **Reliability:** Sourced from [Character]'s player backstory. [Note any fragments, tiers, or unconfirmed details.]
+```
+
 ## Rules
 
 - Every entity file must open with a YAML frontmatter block (`---`).

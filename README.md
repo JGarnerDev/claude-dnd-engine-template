@@ -141,36 +141,17 @@ Every piece of content is an entity — a markdown file with YAML frontmatter. V
 
 ## Current Campaign State
 
-**Curse of Strahd** — Party at level 3 after 10 sessions
-
-| Player | Character | Race/Class | Status |
-|---|---|---|---|
-| Jeff | Iggadreon "Iggy" Wallaed | Aasimar (Celestial) Bard | Alive — shadow affliction |
-| Paul | Luci | Aasimar (Scourge) | Alive — no Sacred Flame |
-| Miguel | Odibli "ODB" | Gnome Wizard | Alive |
-| Ben | Dip | Unknown | Alive — whisper affliction |
-
-**Current Location:** Outside Death House, Barovia. Strahd has greeted the party.
-
-**Open Threads:**
-- Rose and Thorn (young NPCs) stranded inside Death House
-- Iggy's shadow doesn't match his form
-- Dip hears whispers in silence
-- Luci was retrieved from death by Strahd (why?)
-
-See `scheduler/campaign.md` for full campaign details.
+See `scheduler/campaign.md` for live campaign state, party status, and open threads.
 
 ---
 
 ## Operational Instructions
 
 For detailed procedures on:
-- **Session generation protocol** — See `CLAUDE.md` > "Session Generation Protocol"
 - **Reading strategy** — See `CLAUDE.md` > "Context and Reading Strategy"
-- **Entity creation** — See `CLAUDE.md` > "Entity Creation Protocol"
-- **Free entity rule specifics** — See `CLAUDE.md` > "Free Entity Rule"
-
-For the entity creation protocol details and mandatory instructions, see [`CLAUDE.md`](./CLAUDE.md).
+- **Entity creation** — See `CLAUDE.md` > "Entity Creation"
+- **Free entity rule** — See `CLAUDE.md` > "Free Entity Rule"
+- **Scripts reference** — See `CLAUDE.md` > "Scripts"
 
 ---
 

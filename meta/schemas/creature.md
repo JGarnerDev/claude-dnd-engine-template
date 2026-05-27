@@ -7,7 +7,7 @@ tags:
 
 Extends: `entity.md`
 
-Covers two use cases: (1) **Named creatures** — individuals with personality, recurring presence, or narrative significance. A random goblin patrol does not need a file; a named villain's mount does. (2) **Monster archetypes** — canonical creature types available as encounter templates (e.g., Vampire Spawn, Werewolf, Dire Wolf). Set `archetype: true` on archetype files. Archetypes never move to `historian/` when used in sessions; the named instances they spawn do.
+Covers **named creatures** — individuals with personality, recurring presence, or narrative significance. A random goblin patrol does not need a file; a named villain's mount does. For generic Monster Manual templates, use `meta/schemas/monster.md` instead.
 
 ---
 
@@ -89,7 +89,6 @@ enemies:
 tactics: ""         # brief combat or behavioral notes
 weaknesses: ""      # narrative or mechanical vulnerabilities
 stat_block: ""      # path to external stat block, or "inline" if appended to body
-archetype: false    # true = monster-type template; named instances are tracked separately in historian
 ---
 ```
 
