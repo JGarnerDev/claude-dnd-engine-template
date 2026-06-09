@@ -15,7 +15,7 @@ Covers real-world players at the table. This is **not** an in-world entity — i
 
 **\* Your name (or handle):**
 
-**\* Role:** Core player (most sessions) or cameo (occasional / guest)?
+**\* Role:** Core player (most sessions), cameo (occasional / guest), or patron (offscreen — no sessions required)?
 
 **\* Characters:** List any characters you play or have played, and their current status (active / retired / dead). Leave blank if undecided.
 
@@ -48,17 +48,37 @@ Use this exact structure when generating a player questionnaire. No schema jargo
 
 **Pronouns** *(Optional)*:
 
-**Availability** — How often could you join a session? Any scheduling constraints? *(Optional — helps us know when to build you in)*:
+> 
+
+**Availability** *(Optional)*:
+
+> 
 
 ---
 
-## How You Like to Play
+**How do you want to participate?** *(Required — circle one)*:
 
-**Ally, obstacle, or villain** — where do you land naturally when you play a character? *(Optional — but it shapes what kind of role we build for you)*:
+> **Cameo** — Join occasionally as a guest character for a session or arc.
+> **Patron** — No sessions required. You run a faction or power behind the scenes; the DM brings your decisions to life at the table.
 
-**Power level** — do you prefer playing someone with real weight (a lord, a crime boss, a high priest), or someone street-level who operates in the shadows? *(Optional)*:
+---
 
-**Pick any archetypes that appeal to you** *(circle or list as many as you want — optional, but the more you give us, the better the fit)*:
+*Filled in **Cameo**? Complete the next two sections, then skip to "Anything else."*
+*Filled in **Patron**? Skip to the Patron section.*
+
+---
+
+## If Cameo — How You Like to Play
+
+**Ally, obstacle, or villain** — where do you land naturally? *(Optional)*:
+
+> 
+
+**Power level** — real weight (lord, crime boss, high priest) or street-level? *(Optional)*:
+
+> 
+
+**Pick any archetypes that appeal to you** *(optional — circle or list as many as you want)*:
 
 > **Power / Political:** noble, city official, guild master, church authority, crime boss
 >
@@ -74,30 +94,59 @@ Use this exact structure when generating a player questionnaire. No schema jargo
 >
 > **Wild:** trickster, mysterious stranger, shapeshifter
 
----
+*My picks:*
 
-## The Creative Stuff
-
-**What kind of scene do you want to be remembered for?** *(Optional — a big moment, a twist, a speech, a fight? Dream out loud.)*:
-
-**Any character type you've always wanted to try but never got to play?** *(Optional — now's your chance)*:
-
-**Anything you'd rather avoid** — content, situations, or dynamics that aren't fun for you? *(Optional — totally valid, we'll work around it)*:
+> 
 
 ---
 
-## Cameo-Specific
-*(Omit this section for core players.)*
+## If Cameo — The Creative Stuff
 
-**Do you have a character concept in mind, or would you rather be handed one?** *(Your call — both are great options)*:
+**What kind of scene do you want to be remembered for?** *(Optional)*:
 
-**How do you want to enter the story?** — Already know the party? A stranger they meet? Someone with history (friendly or otherwise)? *(Your call — this is the entry point question)*:
+> 
 
-**Heavy drama or lighter moments?** — Some players want real weight and consequences; others want more levity. Both have a place. *(Your call — helps us pitch your character at the right register)*:
+**Any character type you've always wanted to try?** *(Optional)*:
+
+> 
+
+**Do you have a concept in mind, or would you rather be handed one?** *(Your call)*:
+
+> 
+
+**How do you want to enter the story?** — Known to the party? A stranger? Someone with history? *(Your call)*:
+
+> 
+
+**Heavy drama or lighter moments?** *(Your call)*:
+
+> 
+
+**Anything you'd rather avoid** — content or dynamics that aren't fun for you? *(Optional)*:
+
+> 
 
 ---
 
-**Anything else for the DM** — how you like to engage, stuff you've loved in past campaigns, etc.?
+## If Patron — Your Power
+
+**What kind of power would you want to control?** — One faction or several, your call. For each, describe the type and decision style — not a specific name. *(Required — e.g. "a trading guild that bribes rather than fights / a minor noble house playing both sides")*:
+
+> 
+
+**What do they want?** — One line per faction if you listed more than one. *(Required — e.g. "expand trade routes / stay neutral and survive")*:
+
+> 
+
+**Anything they'd never do?** *(Optional)*:
+
+> 
+
+---
+
+**Anything else for the DM**?
+
+> 
 
 ---
 
@@ -116,6 +165,7 @@ Use this exact structure when generating a player questionnaire. No schema jargo
 |---|---|
 | `core` | Attends most sessions; central to the campaign |
 | `cameo` | Occasional or guest player; may join for specific arcs or one-shots |
+| `patron` | Offscreen power-broker; controls a faction, nation, or organization and makes decisions asynchronously with the DM — no session attendance required or expected |
 
 ### Valid Status Values
 | Status | Meaning |
@@ -160,15 +210,16 @@ Use this exact structure when generating a player questionnaire. No schema jargo
 ---
 # --- MANDATORY ---
 name: ""                  # real name or handle; matches filename
-role: core | cameo
+role: core | cameo | patron
 status: active | hiatus | retired
 
 characters:
-  - [[PC Name]] (active | retired | dead)   # all PCs this player has had
+  - [[PC Name]] (active | retired | dead)   # all PCs this player has had; omit for patrons with no PC
 
 # --- OPTIONAL ---
 pronouns: ""
-availability: ""          # e.g. "weekly", "every other session", "guest only"
+availability: ""          # e.g. "weekly", "every other session", "guest only", "async only"
+faction: [[Faction Name]] # patron only — filled after DM creates/assigns the faction
 preferred_alignment: heroic | grey | villainous
 preferred_archetypes:     # list from valid values above
   - ""
@@ -210,5 +261,7 @@ description: ""           # one-line summary for hover previews
 - `characters` must use `[[wiki-link]]` syntax pointing to `data/characters/pcs/{name}.md` (or `historian/` once canonized).
 - When creating a new PC file, the `player:` field on that PC must link back to this file: `player: [[meta/players/{name}]]`.
 - `player-template.md` in `meta/players/` is the blank starter — do not treat it as an active player file.
-- Core and cameo players use identical file structure. Role is tracked in frontmatter, not by file format.
+- Core, cameo, and patron players use identical file structure. Role is tracked in frontmatter, not by file format.
 - `preferred_archetypes` and `preferred_alignment` are optional but valuable for cameos — use them to match candidates against open narrative slots during session planning.
+- Patron players typically have no `characters` entry until/unless they take the field. `faction` is the key link field for patrons — point it at the faction/nation entity in `data/` or `historian/`.
+- Patron decisions are async — the DM surfaces relevant events after sessions and the patron responds out-of-band. Standing orders in the player file body can reduce how often the DM needs to check in.

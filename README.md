@@ -12,6 +12,45 @@ This engine generates sessions for the **Curse of Strahd** campaign by synthesiz
 
 When you plan a session, the engine reads the campaign state and asks "what's the story trying to do next?" — then surfaces hooks from unresolved threads, the free entity pool, and thematic preferences.
 
+## Setup
+
+**Requires:** Python 3.10, PowerShell, Claude Code (claude.ai/code)
+
+```powershell
+# Install Python dependency
+py -3.10 -m pip install -r requirements.txt
+
+# Build the semantic search index (~17s first run, downloads 79MB ONNX model)
+py -3.10 scripts\index-entities.py
+```
+
+The index is stored locally in `vector-index/` (gitignored) and must be built on each new clone. Re-run `index-entities.py` after bulk entity additions. Individual entity changes don't require a full rebuild — run with `--reset` only if the index feels stale.
+
+> **Note:** `py -3.10` is the Windows Python Launcher syntax. If `py` is not available, use the full path to your Python 3.10 executable.
+
+### Why the semantic index?
+
+The core engine uses deterministic, keyword-based retrieval — scripts query entities by type, state, and field value. This works well but has a blind spot: **thematic and implicit connections**. If you can't remember which NPC was involved in a betrayal two sessions ago, or you want to surface forgotten pool entities that fit the current session's mood, keyword search can't help.
+
+The vector index adds semantic similarity search over all entity bodies. Use cases:
+
+- **Callback surfacing** — "what have we seen that's similar to this?" before writing a scene
+- **Forgotten entity discovery** — find pool entities that thematically fit the session hook without manually scanning `data/`
+- **Thematic resonance** — surface characters or locations connected to a theme (loyalty, corruption, grief) even when those words don't appear in their frontmatter
+- **Contradiction detection** — before canonizing a recap, check whether new facts conflict with existing historian entries
+- **NPC voice consistency** — pull past descriptions of an NPC to ground new dialogue in established characterization
+- **"Who would care about this?"** — find entities with motivations or histories that make them plausible reactors to an in-world event
+
+Query it directly:
+
+```powershell
+.\scripts\semantic-search.ps1 -Query "betrayal and political intrigue" -Type character -Source historian
+.\scripts\semantic-search.ps1 -Query "ancient ritual site" -Type location -Exists false -K 10
+.\scripts\semantic-search.ps1 -Query "merchant with a secret"
+```
+
+---
+
 ## Quick Start
 
 ### Run the Next Session

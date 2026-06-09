@@ -11,6 +11,10 @@ location: []
 trade_value: moderate
 description: "Shortbows and longbows crafted by fletchers and woodworkers for hunters, scouts, and militia."
 hook: "A region without bows is either disarmed by decree or stripped by war."
+depends_on:
+  - [[Timber]] (staves and limbs)
 ---
 
 Shortbows and longbows. Crafted by fletchers and woodworkers. Common in frontier towns, hunting villages, and military outposts. Quality tied to available timber.
+
+Depends on [[Timber]] for staves and limbs.

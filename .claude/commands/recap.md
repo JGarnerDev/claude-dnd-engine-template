@@ -23,6 +23,7 @@ Ask the DM the following. Keep it conversational — rough notes are fine.
 3. **Cliffhanger** — Where did things end? What question or situation carries into next session?
 4. **State changes** — Any significant PC or NPC changes? (Deaths, level-ups, new afflictions, relationship shifts, items gained or lost.)
 5. **New entities** — Anything invented at the table that doesn't have a file yet? (NPCs named on the fly, locations described, items handed out.)
+6. **Table reaction** — What landed? Anything that fell flat or felt off? (One line is fine — this informs future planning, not canonization.)
 
 Wait for the DM's response before continuing.
 
@@ -34,7 +35,11 @@ For each entity listed in `locations` and `key_npcs` in the session plan:
 
 1. Check `historian/` — if it already exists there, confirm its current state is still accurate given what happened.
 2. Check `data/` — if it exists there with `exists: false`, flag it for canonization.
-3. If it exists in neither place, flag it as a **missing entity** — do not silently create it.
+3. If it exists in neither place, run semantic search as a fuzzy fallback — the entity may exist under a different name than the session plan used:
+   ```powershell
+   .\scripts\semantic-search.ps1 -Query "<entity name and any known description>" -K 3
+   ```
+   Any result with score > 0.45 is a likely match — confirm with DM before assuming missing. If no match found, flag as a **missing entity** — do not silently create it.
 
 Report findings before proceeding:
 - Entities to canonize: [list]
@@ -44,6 +49,8 @@ Report findings before proceeding:
 ---
 
 ## Phase 4 — Write the Historian Session Record
+
+Before writing, run `/check <recap summary>` to flag any historian conflicts in the DM's account. Surface CONFLICT and POSSIBLE results to the DM; do not silently canonize content that contradicts existing canon. If the DM confirms the new account supersedes old canon, note the discrepancy in `table_notes`.
 
 Update the session file with the following historian fields (do not remove any existing frontmatter fields):
 
@@ -57,6 +64,7 @@ entities_canonized:
   - [[Entity Name]]   # one per entity moved to historian this session
 new_entities:
   - "{description}"     # one per thing invented at the table, not yet filed
+table_notes: "{what landed, what didn't — from Phase 2 question 6. Omit field if no feedback given.}"
 ```
 
 Then move the file from `scheduler/sessions/` to `historian/sessions/`.

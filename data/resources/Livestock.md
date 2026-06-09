@@ -16,8 +16,15 @@ active: true
 description: "Cattle, pigs, chickens, and goats raised for food, dairy, and draft labor. The caloric foundation beneath the grain economy."
 trade_value: low
 accessibility: open
+consumers:
+  - [[Preserved Food]] (salted and smoked meats)
+  - [[Hides]] (source animals for tanning)
+  - [[Candles and Torches]] (tallow)
+  - [[Books and Scrolls]] (vellum)
 ---
 
 Livestock is found in plains, farmland, hills. Cattle, pigs, chickens, and goats raised for food, dairy, and draft labor. The caloric foundation beneath the grain economy.
 
 Disease, drought, or raiding that strips a settlement of its animals is slower than burning the granary but just as fatal. A faction controlling breeding stock after a plague holds enormous leverage.
+
+Consumed downstream by [[Preserved Food]], [[Hides]], [[Candles and Torches]], and [[Books and Scrolls]].

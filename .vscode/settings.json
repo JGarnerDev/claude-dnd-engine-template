@@ -65,6 +65,8 @@
         { "id": "cultures",          "label": "Cultures",               "match": { "property": "path", "value": "data/cultures" },                  "color": "#5c6bc0", "enabled": true },
         { "id": "h-resources",       "label": "Resources (canon)",      "match": { "property": "path", "value": "historian/resources" },            "color": "#795548", "enabled": true },
         { "id": "h-cultures",        "label": "Cultures (canon)",       "match": { "property": "path", "value": "historian/cultures" },             "color": "#5c6bc0", "enabled": true },
+        { "id": "routes",            "label": "Routes",                 "match": { "property": "path", "value": "data/routes" },                   "color": "#f57f17", "enabled": true },
+        { "id": "h-routes",          "label": "Routes (canon)",         "match": { "property": "path", "value": "historian/routes" },              "color": "#f57f17", "enabled": true },
         { "id": "h-sessions",        "label": "Sessions",               "match": { "property": "path", "value": "historian/sessions" },             "color": "#f48fb1", "enabled": true },
         { "id": "h-missions-done",   "label": "Missions (done)",        "match": { "property": "path", "value": "historian/missions" },             "color": "#f06292", "enabled": true },
         { "id": "h-acts-done",       "label": "Acts (done)",            "match": { "property": "path", "value": "historian/acts" },                 "color": "#ec407a", "enabled": true },

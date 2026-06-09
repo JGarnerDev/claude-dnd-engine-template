@@ -30,6 +30,8 @@
     { "query": "path:historian/items/magic",            "color": { "a": 1, "rgb": 33150243 } },
     { "query": "path:data/items/mundane",               "color": { "a": 1, "rgb": 141110099 } },
     { "query": "path:historian/items/mundane",          "color": { "a": 1, "rgb": 141110099 } },
+    { "query": "path:data/routes",                      "color": { "a": 1, "rgb": 245127023 } },
+    { "query": "path:historian/routes",                 "color": { "a": 1, "rgb": 245127023 } },
     { "query": "path:data/resources",                   "color": { "a": 1, "rgb": 121085072 } },
     { "query": "path:historian/resources",              "color": { "a": 1, "rgb": 121085072 } },
     { "query": "path:data/cultures",                    "color": { "a": 1, "rgb": 92107192 } },

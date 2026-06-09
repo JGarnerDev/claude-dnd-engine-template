@@ -11,6 +11,15 @@ location: []
 trade_value: high
 description: "Rings, necklaces, bracelets, and decorative pins made from metal and stone — both currency and status marker."
 hook: "Jewelry is portable wealth. A merchant's rings are emergency funds; a noble's necklace is a political statement."
+depends_on:
+  - [[Copper Ore]] (copper pieces and wire)
+  - [[Silver Ore]] (silver settings and pieces)
+  - [[Gold Ore]] (gold settings and pieces)
+  - [[Gemstones]] (cut stones)
+  - [[Amber]] (decorative resin)
+  - [[Pearl]] (high-value settings)
 ---
 
 Rings, necklaces, bracelets, brooches, and hair ornaments. Made by jewelers and goldsmiths from metal and semi-precious stone. Ranges from cheap copper wire rings to elaborate gem-set pieces worth a small estate. Functions as both decoration and portable, liquid wealth. Widely traded and universally understood as a store of value.
+
+Depends on [[Copper Ore]], [[Silver Ore]], [[Gold Ore]], [[Gemstones]], [[Amber]], and [[Pearl]] as raw materials.

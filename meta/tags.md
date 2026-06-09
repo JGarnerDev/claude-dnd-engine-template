@@ -111,19 +111,34 @@ Authoritative list of all valid tags. **Before tagging any entity, check here.**
 | **race** | | |
 | `race` | race entity | Entity type: playable race — flat tag, no subtype |
 | **session/** | | |
-| `session/NN` | session | Identifies the session number — e.g. `session/01`, `session/11` |
+| `session/NN` | session | Identifies the session number — e.g. `session/01`, `session/11`, `session/13` |
 | **schema** | | |
 | `schema` | schema file | Meta document: entity schema definition |
 | **guideline** | | |
 | `guideline` | meta document | Meta document: design guideline that shapes story or game decisions |
 | **faction/** | | |
 | `faction/guild` | faction entity | Faction subtype: organized guild or professional society |
+| `faction/religious` | faction entity | Faction subtype: religious order or church |
+| `faction/cult` | faction entity | Faction subtype: cult or mystic sect |
+| `faction/labor` | faction entity | Faction subtype: labor class or underclass |
+| `faction/academic` | faction entity | Faction subtype: scholarly institution |
+| `faction/noble` | faction entity | Faction subtype: noble house or aristocracy |
+| `faction/administrative` | faction entity | Faction subtype: administrative authority or bureaucracy |
 | **resource** | | |
 | `resource` | resource entity | Entity type: natural or economic resource |
+| **route** | | |
+| `route` | route entity | Entity type: any route — parent tag for all route subtypes |
+| `route/trade` | route entity | Route subtype: commercial trade route (any medium) |
+| `route/pilgrimage` | route entity | Route subtype: religious or spiritual pilgrimage route |
+| `route/military` | route entity | Route subtype: military road or logistics corridor |
+| `route/highway` | route entity | Route subtype: major public civic thoroughfare |
+| `route/trail` | route entity | Route subtype: informal or wilderness path |
 | **culture** | | |
 | `culture` | culture entity | Entity type: shared customs, values, and practices of a people |
 | **mechanic** | | |
 | `mechanic` | mechanic file | Meta document: gameplay mechanic or structured mini-game |
+| **skill** | | |
+| `skill` | skill entity | Entity type: 5e skill — flat tag, no subtype |
 | **spell** | | |
 | `spell` | spell entity | Entity type: any 5e spell — parent tag for all spell schools |
 | `spell/abjuration` | spell entity | Spell school: abjuration |

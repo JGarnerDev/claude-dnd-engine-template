@@ -15,9 +15,15 @@ active: true
 description: "Taken for granted in temperate regions, fiercely contested wherever water is scarce."
 trade_value: negligible
 accessibility: open
+consumers:
+  - [[Ale]] (brewing medium)
+  - [[Ale and Beer]] (brewing medium)
+  - [[Wine]] (fermentation medium)
 ---
 
 Fresh Water is found in rivers, lakes. Taken for granted in temperate regions, fiercely contested wherever water is scarce.
 
 Controlling a water source in arid or isolated regions is controlling life itself.
+
+Consumed downstream by [[Ale]], [[Ale and Beer]], and [[Wine]].
 

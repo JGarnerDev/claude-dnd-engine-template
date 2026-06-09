@@ -79,7 +79,7 @@ description: ""
 
 # --- OPTIONAL (region) ---
 climate: ""
-biome: arctic | tundra | taiga | temperate-forest | tropical-forest | grassland | savanna | desert | scrubland | wetland | coastal | alpine | volcanic | underdark | planar
+biome: arctic | tundra | taiga | temperate-forest | tropical-forest | grassland | savanna | desert | scrubland | wetland | coastal | alpine | volcanic | aerial | underdark | planar  # list ok: [temperate-forest, tundra]
 tensions: []
 settlements:
   - [[City or Town Name]]

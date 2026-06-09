@@ -11,6 +11,12 @@ location: []
 trade_value: low
 description: "Spears, halberds, glaives, and pikes — cheap to produce, effective in formation."
 hook: "A surplus of pole arms often means a disbanded army or militia that never mobilized."
+depends_on:
+  - [[Iron Ore]] (tips and fittings)
+  - [[Timber]] (shafts)
+  - [[Coal]] (forge smelting)
 ---
 
 Spears, halberds, glaives, and pikes. Among the cheapest weapons to produce — a spear is a sharpened iron tip on a wooden shaft. Standard issue for militia, levies, and city guards. Rarely glamorous, always practical.
+
+Depends on [[Iron Ore]] for tips and fittings, [[Timber]] for shafts, and [[Coal]] for forge smelting.

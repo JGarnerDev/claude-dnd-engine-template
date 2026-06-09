@@ -25,6 +25,9 @@ Read the following files before doing anything else. Do not generate any content
    - `meta/rewards.md` — gold ranges, magic item philosophy, leveling pace
    - `meta/players/*.md` (excluding `player-template.md`) — per-player preferences
    - `meta/references.md` — where to look for external D&D data
+   - `meta/campaign-design-preferences.md` — player-sourced event desires, antagonist archetypes, mission preferences; note which items have `Deployed: —` (not yet used)
+   - `meta/mysteries.md` — load-bearing unknowns; do not accidentally answer these in session content
+   - `meta/party-relationships.md` — PC bonds, tensions, and defining moments; use when planning scenes with PC-to-PC stakes
 
 Determine the next session number: highest session number found + 1.
 
@@ -33,6 +36,14 @@ After reading, state aloud:
 - What active mission(s) exist (or "no active mission")
 - What the last session ended on (cliffhanger or final recap note)
 - What the next session number will be
+
+Then run semantic search on the cliffhanger or active mission hook to surface historian entities the story may be ready to revisit:
+
+```powershell
+.\scripts\semantic-search.ps1 -Query "<cliffhanger or mission hook text>" -Source historian -K 5
+```
+
+Note any results with score > 0.35 — these are callback candidates. Do not force them into the plan; use only if they fit naturally.
 
 ---
 
@@ -64,19 +75,31 @@ When there is no active mission or the arc has reached a conclusion, surface opt
 
 **Step 1 — Scan historian/ for unresolved threads**
 
+Run `/threads` for a full standalone view, or inline the same logic here:
+
 Read frontmatter only (state, description) across `historian/characters/`, `historian/locations/`, and `historian/sessions/`. Look for:
 - NPCs with `state: missing`, `state: imprisoned`, or `state: transformed`
 - PC afflictions noted in historian PC files
 - Stranded or abandoned entities called out in session recaps (e.g. Rose and Thorn)
 - Cliffhangers from any recent session that were never resolved
 
-**Step 2 — Scan data/ for notable free entities**
+**Step 2 — Find free entities**
 
-Read frontmatter only (`name`, `type`, `subtype`, `importance`, `active`, `description`) across all of `data/`. Filter to `exists: false`, `active: true`, `importance: major` or `critical`. These are entities ready to enter play.
+First identify the active campaign from `scheduler/campaign.md`. When surfacing entities, exclude historian entities tagged `campaign: strahd` unless the active campaign is Strahd or the DM explicitly requests a crossover. Untagged data entities are campaign-agnostic and always eligible.
+
+Run semantic search using the themes of the current session direction (from cliffhanger, mission hook, or chosen thread):
+
+```powershell
+.\scripts\semantic-search.ps1 -Query "<themes from cliffhanger or direction>" -Exists false -K 8
+```
+
+This surfaces thematically matching pool entities regardless of importance level. Also read frontmatter only (`name`, `type`, `subtype`, `importance`, `active`, `description`) across `data/` and filter to `exists: false`, `active: true`, `importance: major` or `critical` for high-priority entities the semantic search may not rank highly. Combine both lists — semantic results for thematic fit, frontmatter scan for importance-flagged entities.
 
 **Step 3 — Check meta preferences**
 
 Read `meta/worldbuilding.md` and any filled `meta/players/*.md` files (excluding the template). Note which sections are populated and which are blank. If all are blank, fall back to the campaign's `themes` and `tone` from `scheduler/campaign.md`.
+
+Also check `meta/campaign-design-preferences.md`: identify items with `Deployed: —` that haven't fired yet. If any are aging (many sessions have passed without use), flag the most relevant one as a candidate for Option C. Do not force a preference into a hook — only suggest it if the current story state creates a plausible opening.
 
 **Step 4 — Present 3 hooks**
 
@@ -148,8 +171,13 @@ Each scene block contains:
 
 If `scope: linked`, replace the full encounter detail with a one-line reference: `→ see [[encounter-{slug}]]` and note that the encounter file will be written separately.
 
+### Elaboration Check
+
+Before writing NPC and location detail, check every key `./data` and `./historian` entity in this session against the elaboration protocol in `data/CLAUDE.md`. Historian entities can be just as sparse as data entities — canonized does not mean ready for detailed play. For each sparse key entity: flag it and ask the DM whether to draft elaboration or let them write it. **Do not fill gaps silently.** Resolve all elaboration decisions before continuing to NPC Quick-Reference.
+
 ### NPC Quick-Reference
-One entry per key NPC appearing this session:
+One entry per key NPC appearing this session. For any NPC with historian canon, run `/voice <name>` first to ground the voice note in established characterization — do not invent fresh voice from scratch if history exists.
+
 - **Name** — `[[wiki-link]]`
 - **Motivation** — what they want right now
 - **Knows** — bullet list of information they can reveal
@@ -180,6 +208,8 @@ Omit this block entirely if no questionnaires are filled. Do not force matches �
 ---
 
 **Apply the free entity rule:** if the session requires an entity not in `data/` or `historian/`, **stop and flag it** rather than inventing one. Ask the DM whether to create it or proceed differently.
+
+**Deployment tracking:** if a preference item from `meta/campaign-design-preferences.md` is used in this session, note it in the session plan. After the session is played and canonized via `/recap`, update that item's `Deployed:` line with a wikilink to the session file.
 
 For non-standard encounter types (chase, puzzle, trade negotiation, performance, mini-game), check `meta/mechanics/` for an applicable mechanic file before writing the scene.
 

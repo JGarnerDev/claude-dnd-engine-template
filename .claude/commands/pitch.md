@@ -40,6 +40,14 @@ Additional reads:
 - If `--tone` is explicitly set: skip the script's tone output; use the provided value instead
 - Do not read historian, sessions, missions, or act files unless the user explicitly asks for continuity with current story
 
+Run semantic search to surface thematically matching pool entities that could seed the pitch:
+
+```powershell
+.\scripts\semantic-search.ps1 -Query "<type> <tone> <setting>" -Exists false -K 5
+```
+
+Scan results for contributed entities (`contributed_by` field) — prefer these as source material. Others may inspire names, details, or hooks. Do not force results into the pitch; use only what genuinely fits.
+
 ---
 
 ## Phase 3 — Generate Pitch
@@ -87,6 +95,16 @@ For each selected pitch, write full prose. Structure depends on `--type`:
 **hook:** A single evocative opening scenario — where the party is, what they see, what they're about to step into
 
 **monster:** Name, creature type, what makes this variant or encounter fresh (not just "it's a zombie"), habitat or lair thumbnail, one distinctive behavioral or tactical trait, one narrative hook or complication the party might discover
+
+**Step 3d — Source Faithfulness Note (when player resources used):**
+
+If the pitch drew on any `./data` entity with a `contributed_by` field, append a short note after the pitch output — whether brief (3a) or expanded (3c):
+
+- One line: what was pulled directly from source material
+- One line: biggest invention or unsupported inference (if any)
+- Offer: "Want the full faithfulness breakdown?"
+
+Keep it to 2–3 lines total. Skip if `--no-read` or if no player-contributed entities were referenced.
 
 ---
 

@@ -43,6 +43,12 @@ Authoritative list of all valid `type` / `subtype` combinations. **Before declar
 | `party` | — | `meta/schemas/party.md` | — | `historian/characters/parties/` |
 | `race` | — | `meta/schemas/race.md` | `data/races/` | `historian/races/` |
 | `resource` | — | `meta/schemas/resource.md` | `data/resources/` | `historian/resources/` |
+| `route` | `trade` | `meta/schemas/route.md` | `data/routes/` | `historian/routes/` |
+| `route` | `pilgrimage` | `meta/schemas/route.md` | `data/routes/` | `historian/routes/` |
+| `route` | `military` | `meta/schemas/route.md` | `data/routes/` | `historian/routes/` |
+| `route` | `highway` | `meta/schemas/route.md` | `data/routes/` | `historian/routes/` |
+| `route` | `trail` | `meta/schemas/route.md` | `data/routes/` | `historian/routes/` |
 | `rumor` | — | `meta/schemas/rumor.md` | `data/rumors/` | `historian/rumors/` |
 | `session` | — | `meta/schemas/session.md` | `scheduler/sessions/` | `historian/sessions/` |
+| `skill` | — | `meta/schemas/skill.md` | `data/skills/` | `historian/skills/` |
 | `spell` | — | `meta/schemas/spell.md` | `data/spells/` | `historian/spells/` |

@@ -25,6 +25,8 @@
 - **Items** — gear and treasure
   - item/magic — `#2196f3` — strong blue, arcane
   - item/mundane — `#8d6e63` — brown, common gear
+- **Routes** — `#f57f17` — deep amber, movement and commerce
+  - route
 - **Resources** — `#795548` — brown, material and economic
   - resource
 - **Events** — `#c2185b` — dark history, blood, tragedy
@@ -43,7 +45,6 @@
 
 ## Available (reserved for future types)
 
-- Deep Amber `#f57f17`
 - Yellow `#ffca28`
 - Yellow-Green `#8bc34a`
 - Green `#66bb6a`

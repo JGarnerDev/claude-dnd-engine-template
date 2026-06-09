@@ -41,6 +41,8 @@ known_by:
 
 owner: [[Player Character Name]]     # player who is narratively responsible for this entity
 
+contributed_by: paul | ben | miguel | jeff   # real-world player who created or submitted this entity
+
 description: "One-sentence summary shown in Obsidian hover previews."
 ---
 ```

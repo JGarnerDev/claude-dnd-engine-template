@@ -92,6 +92,8 @@ rulership: [[NPC Name]]
 shops:
   - [[Shop Name]]
 trade_specialty: ""    # optional: what this settlement is regionally known for producing or trading, e.g. "fine leatherwork", "dwarven arms"
+routes:
+  - [[Route Name]]     # trade routes, highways, or sea lanes that serve this city (enables route-cities.ps1)
 ---
 ```
 

@@ -82,6 +82,9 @@ trade_value: negligible | low | moderate | high | priceless
 accessibility: open | restricted | hidden | monopolized
 consumers:
   - [[Faction or Location Name]] (nature of dependency)
+depends_on:
+  - [[Resource Name]] (what this resource requires to be produced or sustained)
+  # Sync rule: if A depends_on B, B should list A in consumers. Keep both ends updated.
 hook: ""
 ---
 ```

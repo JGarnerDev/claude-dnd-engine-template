@@ -11,6 +11,11 @@ location: []
 trade_value: low
 description: "Brewed grain beverages — the default drink of commoners in most temperate civilizations."
 hook: "Ale is so common its absence is alarming. A dry tavern means something has gone wrong upstream."
+depends_on:
+  - [[Grain]] (primary fermentation input)
+  - [[Fresh Water]] (brewing medium)
 ---
 
 Brewed from barley, wheat, or oats by local brewers and sold in casks. The default drink of commoners — safer than water in many settlements. Local recipes vary enormously. A region's ale reflects its grain surplus; a poor harvest shows up in the taste and price within months.
+
+Depends on [[Grain]] as primary fermentation input and [[Fresh Water]] as brewing medium.
