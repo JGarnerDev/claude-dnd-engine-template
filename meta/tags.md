@@ -94,6 +94,7 @@ Authoritative list of all valid tags. **Before tagging any entity, check here.**
 | `item/mundane` | item entity | Entity subtype: mundane item with narrative significance |
 | **location** | | |
 | `location` | location entity | Entity type: any location — parent tag for all location subtypes |
+| `location/biome` | location entity | Entity subtype: biome (terrain/climate type — desert, tundra, forest, etc.) |
 | `location/building` | location entity | Entity subtype: non-commercial building (residence, manor, civic hall, etc.) |
 | `location/dungeon` | location entity | Entity subtype: dungeon |
 | `location/shop` | location entity | Entity subtype: shop (covers inns, taverns, and establishments) |

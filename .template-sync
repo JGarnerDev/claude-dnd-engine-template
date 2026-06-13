@@ -88,11 +88,7 @@ data/spells/*.md
 # These are homebrew or world-economy entries that belong to this campaign, not the engine.
 # A new campaign should create its own world resources from scratch.
 # Add a line here whenever a new world-specific resource lands in data/resources/.
-!data/resources/Coffee.md          # five-house monopoly; this world's economy
 !data/resources/Fargrsh.md         # Ben's contributed resource
-!data/resources/Serhari.md         # Jeff's contributed resource
-!data/resources/Stonecap Mushroom.md  # world-specific flora
-!data/resources/Whatwill.md        # world-specific material
 
 # Scripts — all engine scripts and shared library
 scripts/lib/common.ps1

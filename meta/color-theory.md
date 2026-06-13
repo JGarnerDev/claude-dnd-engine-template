@@ -16,6 +16,7 @@
 - **Wilderness** — open world locations
   - location/region — `#ffe0b2` — parchment/tan, geographic territory
   - location/wilderness — `#2e7d32` — dark forest, dense, wild
+  - location/biome — `#8bc34a` — yellow-green, terrain/climate type (ecological matrix)
 - **Dungeons** — `#6a1b9a` — dark, sinister, underground
 - **Terrain features** — `#a5d6a7` — sage green, physical geography
   - location/terrain-feature
@@ -46,7 +47,6 @@
 ## Available (reserved for future types)
 
 - Yellow `#ffca28`
-- Yellow-Green `#8bc34a`
 - Green `#66bb6a`
 - Yellow-Orange `#ffb300`
 - Light Grey `#bdbdbd`

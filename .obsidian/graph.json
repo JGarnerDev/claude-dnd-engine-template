@@ -16,6 +16,8 @@
     { "query": "path:historian/locations/shops",        "color": { "a": 1, "rgb": 085139047 } },
     { "query": "path:data/locations/buildings",         "color": { "a": 1, "rgb": 076175080 } },
     { "query": "path:historian/locations/buildings",    "color": { "a": 1, "rgb": 076175080 } },
+    { "query": "path:data/locations/biomes",            "color": { "a": 1, "rgb": 139195074 } },
+    { "query": "path:historian/locations/biomes",       "color": { "a": 1, "rgb": 139195074 } },
     { "query": "path:data/locations/regions",           "color": { "a": 1, "rgb": 255224178 } },
     { "query": "path:historian/locations/regions",      "color": { "a": 1, "rgb": 255224178 } },
     { "query": "path:data/locations/wilderness",        "color": { "a": 1, "rgb": 046125050 } },

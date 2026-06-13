@@ -4,27 +4,14 @@ Progress tracker for getting this project ready to generate sessions and run cam
 
 ---
 
-## Cleanup — Stale Files to Remove
-*Files that exist in this repo but should not — campaign content that leaked in, or files now excluded from sync. Remove manually; `/sync` will not auto-delete these.*
-
-- [x] `data/resources/Coffee.md` — world-specific economy resource; excluded from sync
-- [x] `data/resources/Serhari.md` — player-contributed resource; excluded from sync
-- [x] `data/resources/Stonecap Mushroom.md` — world-specific flora; excluded from sync
-- [x] `data/resources/Whatwill.md` — world-specific material; excluded from sync
-- [x] `meta/worldbuilding.md` — already a blank template (no campaign lore present); kept in place — the Meta Configuration section below needs it to exist and be filled
-- [x] `scheduler/campaign.md` — removed (also vacated old top-level path; convention is `scheduler/campaign/{name}.md`)
-- [x] `scheduler/acts/Act 1 - Opening Arc.md` — campaign-specific act; removed (`acts/` kept via `.gitkeep`)
-
----
-
 ## Schemas
 *These files exist as placeholders. They need actual campaign content before session generation will be meaningful.*
 
-- [ ] Make a biome schema (terrain types to shape flora, fauna, and logistics of a region)
-- [ ] Make a terrain feature schema (forests, rivers, roads, or anything on a map that effects the populations around them)
-- [ ] Make a natural resource schema (what locations consume, including abstract location, rarity, accessibility, trade)
-- [ ] Make a culture schema (what certain peoples, factions, etc. from certain regions are generally shaped by)
-- [ ] Make a gameplay mechanic schema (mini games that can constitute a session/mission, make .claude\commands\session.md aware of it)
+- [x] Make a biome schema (terrain types to shape flora, fauna, and logistics of a region) — `meta/schemas/location-biome.md` (`type: location, subtype: biome`); registered in types/tags/entity-creation/color-theory + both graph configs
+- [x] Make a terrain feature schema (forests, rivers, roads, or anything on a map that effects the populations around them) — already exists: `meta/schemas/location-terrain-feature.md`
+- [x] Make a natural resource schema (what locations consume, including abstract location, rarity, accessibility, trade) — already exists: `meta/schemas/resource.md`
+- [x] Make a culture schema (what certain peoples, factions, etc. from certain regions are generally shaped by) — already exists: `meta/schemas/culture.md`
+- [x] Make a gameplay mechanic schema (mini games that can constitute a session/mission, make .claude\commands\session.md aware of it) — already exists: `meta/mechanics/_template.md` + library; `/session` checks `meta/mechanics/` (session.md:275)
 
 ---
 
@@ -80,7 +67,7 @@ Progress tracker for getting this project ready to generate sessions and run cam
 ---
 
 ## Scheduler
-- [ ] Fill in `scheduler/campaign.md` — name, premise, central conflict, tone
+- [ ] Create the campaign doc at `scheduler/campaign/{name}.md` (per `meta/schemas/campaign.md`) — name, premise, central conflict, tone
 - [ ] Create **first act** once the campaign document exists. An act splits the whole campaign into a sort of "chapter", and has goals and leveling brackets.
 - [ ] Create **first mission(s)** once the opening act is defined. A mission is a variable-sized story unit, with mini-goals that either contribute to the act, or can be completely side-quests.
 - [ ] Draft the **first session plan** once meta configuration and starting data are in place. Sessions are the times the players come together to play.

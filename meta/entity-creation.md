@@ -42,6 +42,7 @@ If a user provides form answers (structured or freeform), use the **Form → Fro
 | A skill (Acrobatics, Athletics, etc.) | `meta/schemas/skill.md` |
 | A player (real-world, core or cameo) | `meta/schemas/player.md` |
 | A terrain feature (river, road, mountain range, pass, lake) | `meta/schemas/location-terrain-feature.md` |
+| A biome (terrain/climate type — desert, tundra, forest, that shapes flora, fauna, logistics) | `meta/schemas/location-biome.md` |
 | A natural resource (ore, timber, trade good, arcane material) | `meta/schemas/resource.md` |
 | A culture (customs, values, and practices of a people) | `meta/schemas/culture.md` |
 | A Monster Manual entry (encounter template) | `meta/schemas/monster.md` |
