@@ -11,7 +11,6 @@ location:
   - unknown
 importance: background
 description: "Cultivated fruit grown in warm climates with good drainage. Primary input for wine production."
-contributed_by: jeff
 trade_value: low
 accessibility: open
 consumers:
