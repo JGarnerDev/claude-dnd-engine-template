@@ -2,16 +2,7 @@
 
 Progress tracker for getting this project ready to generate sessions and run campaigns.
 
----
 
-## Schemas
-*These files exist as placeholders. They need actual campaign content before session generation will be meaningful.*
-
-- [x] Make a biome schema (terrain types to shape flora, fauna, and logistics of a region) — `meta/schemas/location-biome.md` (`type: location, subtype: biome`); registered in types/tags/entity-creation/color-theory + both graph configs
-- [x] Make a terrain feature schema (forests, rivers, roads, or anything on a map that effects the populations around them) — already exists: `meta/schemas/location-terrain-feature.md`
-- [x] Make a natural resource schema (what locations consume, including abstract location, rarity, accessibility, trade) — already exists: `meta/schemas/resource.md`
-- [x] Make a culture schema (what certain peoples, factions, etc. from certain regions are generally shaped by) — already exists: `meta/schemas/culture.md`
-- [x] Make a gameplay mechanic schema (mini games that can constitute a session/mission, make .claude\commands\session.md aware of it) — already exists: `meta/mechanics/_template.md` + library; `/session` checks `meta/mechanics/` (session.md:275)
 
 ---
 
@@ -22,15 +13,6 @@ Progress tracker for getting this project ready to generate sessions and run cam
 - [ ] `meta/difficulty.md` — fill in party profile, encounter mix, DC ranges
 - [ ] `meta/rewards.md` — fill in gold ranges, magic item philosophy, leveling pace
 - [ ] Create per-player files in `meta/players/` (copy `player-template.md` per player, add `player/name` tag to `meta/tags.md`)
-
----
-
-## Data — Canonical D&D
-*Source material seeded from the 5e API or training knowledge. Forms the base creative pool.*
-
-- [ ] Monsters — seed `data/creatures/` with notable monsters from the 5e API (good for dungeon population and encounter planning)
-- [ ] Magic items — seed `data/items/magic/` with canonical items from the 5e API
-- [ ] Spells — consider a `data/spells/` reference or inline on NPC/item files
 
 ---
 
