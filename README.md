@@ -249,3 +249,5 @@ For detailed procedures on:
 **To create a new entity:** Follow the Entity Creation Protocol in `CLAUDE.md`
 
 **To add a player preference:** Create a file in `meta/players/{player-name}.md` (copy `meta/players/player-template.md`)
+
+**To browse the vault visually (optional):** The engine runs entirely through slash commands — no editor required. But entities use Obsidian-style frontmatter and `[[wikilinks]]`, so the repo opens cleanly as an [Obsidian](https://obsidian.md) vault or a [Foam](https://foambubble.github.io/foam/) workspace in VS Code. Either gives you a clickable graph view of the entity web. This is a nice-to-have for exploring relationships, not a setup step.
