@@ -61,7 +61,7 @@ Query it directly:
 
 This command:
 1. Reads your campaign, active act, and active mission
-2. Detects whether you're mid-arc (continue) or between arcs (transition)
+2. Detects whether you're mid-mission with an open cliffhanger (continue) or at a clean break — mission complete or no active mission (transition)
 3. In transition mode, surfaces 3 narrative hooks and asks which direction
 4. Generates a session plan (opening scene, key NPCs, encounters, closing hook)
 5. Offers to write the plan as a draft in `scheduler/sessions/`
@@ -97,7 +97,7 @@ After you play a session:
 | Folder | Role |
 |---|---|
 | `./data/` | Free entity pool — creative material available for session generation |
-| `./historian/` | Authoritative record of campaign history — what actually happened |
+| `./historian/` | Authoritative record of campaign history and world — what actually happened and what actually exists |
 | `./meta/` | Design principles, table preferences, schemas, and decision frameworks |
 | `./scheduler/` | Active story layer — campaign doc, acts, missions, and session plans |
 | `./meta/schemas/` | Entity file templates and frontmatter specifications |
@@ -158,14 +158,58 @@ Every piece of content is an entity — a markdown file with YAML frontmatter. V
 
 ### Before Session Generation
 
-1. **Fill meta files** (`meta/worldbuilding.md`, `meta/difficulty.md`, `meta/rewards.md`) with table preferences and design guidelines
-2. **Seed the free pool** (`data/`) with 5–10 key campaign entities (NPCs, locations, factions, rumors)
-3. **Define acts and missions** in `scheduler/` to frame the story progression
+`/session` is only as good as the material it reads. On a fresh clone the pool is empty and the meta files are blank, so generation invents everything from scratch instead of drawing on *your* table. The prep below tunes the engine to your campaign — do it once up front, top it up as you play.
+
+> **New campaign?** Read `meta/new-campaign-setup.md` first (or tell Claude "I'm starting a new campaign"). It orders world-naming and first-act setup so you don't seed content that contradicts itself later.
+
+**1. Tune the table — fill the meta files.** These govern *how* sessions are built and are read once per task, so the effort compounds across every future `/session`.
+
+- `meta/worldbuilding.md` / `meta/worldbuilding-approach.md` — tone, themes, who generates what (DM vs. players)
+- `meta/difficulty.md` — encounter difficulty spectrum and the Rest Clock pacing model
+- `meta/rewards.md` — loot and reward calibration
+- `meta/campaign-design-preferences.md` — table-level style preferences
+- `meta/players/{name}.md` — one per player (copy `player-template.md`): spotlight wants, lines/veils, character hooks. Honest answers → better `/session` hooks.
+
+Blank fields are fine — deliberate elaboration space, not gaps. Fill what you have an opinion on; leave the rest.
+
+**2. Seed the free pool (`data/`).** Generation pulls existing free entities (`exists: false`) before inventing new ones, so a seeded pool means sessions reuse *your* NPCs and hooks instead of one-off strangers. Aim for 5–10 starters across types (a couple NPCs, a location or two, a faction, a few rumors).
+
+- `/entity-questionnaire` — design an entity *with* your players: produces a shareable form, their answers ingest into a schema'd entity. Highest-leverage move — player-authored entities give ownership and hooks you didn't have to write.
+- `/inventory` — see the pool by type with **gaps** (types with zero free entities) flagged. Your shopping list.
+
+**3. Ground it in a map *(optional, recommended)*.** Not required for `/session`, but a world map gives entities a real place and keeps travel and adjacency consistent. Map-light campaign (theater-of-the-mind, or a module's existing map)? Skip this whole step — pool entities don't *need* coordinates. Otherwise, from a blank `maps/` folder:
+
+*Layers — separate PNGs that must share identical dimensions so they register pixel-for-pixel. Higher resolution = sharper labels in tile reads; keep each file under 100MB.*
+
+- `maps/world/world-names.png` — **base layer and source of truth.** Surface features (continents, ranges, rivers, seas) plus every *named* label; if a label's on this image, the place is canon. The one file you can't skip — drop your world image here, and match every other layer to its exact dimensions. No map yet? [Inkarnate](https://inkarnate.com) is a solid browser-based maker — export the highest-resolution PNG you can (under the 100MB ceiling).
+- `maps/world/world-sky.png` — **optional overlay** — skip if nothing's above ground. Same canvas, for geography in its own plane above the surface (floating islands, aerial realm). Separate because surface scripts read only `world-names.png`. Edited manually.
+- `maps/world/city-markers.png` — **transparent overlay**, same canvas. Red dots = cities that exist but aren't named/detailed yet ("work needed here" pins). A city "graduates" by getting a label on `world-names.png` and its dot deleted here.
+- `maps/world/city-registry.md` — stable text IDs (e.g. `C05-04a`) per undetailed marker, so you can assign/cross-reference a city before it's named.
+
+*Tiles:* the Read tool downsamples a large image until labels are unreadable, so nothing reads the full map directly. `python scripts\gen-tiles.py` slices each layer into **nine overlapping, legible tiles** (`tiles/nw.png … se.png`, plus `markers-*.png`). Run once after placing `world-names.png`, and again after any layer edit — tiles are regenerated, never hand-edited.
+
+*Scale (your call):* places are addressed by a column/row grid over the map, but **what a cell represents is yours** — pick a real-world distance per cell and write it into `maps/world/index.md` → Grid Scale (the template uses ~16×13 cells at 1000km each, just one campaign's choice). That scale drives `/region` travel-time and city-spacing math, so set it before detailing regions and keep the base image at full resolution.
+
+*Blank → populated:*
+
+- `/region` — takes a map chunk from geography → draft → player questionnaire in one flow. Cleanest on-ramp.
+- Manual edits (drawing region/city maps, labels) can go to a designated world-builder via `maps/map-request-template.md` — see `maps/CLAUDE.md` for delegation and spoiler rules.
+
+**4. Frame the story arc (`scheduler/`).** Give the engine a spine:
+
+- A `campaign` file in `scheduler/campaign/` with `state: active` — `/session` reads this to find the active campaign.
+- `act` files for arcs, `mission` files for the objectives inside them.
+
+No need to map the whole campaign — one active act with a mission or two lets `/session` detect where you are (mid-mission vs. at a clean break) and surface coherent hooks.
+
+**5. Build the semantic index.** If skipped during Setup, run `py -3.10 scripts\index-entities.py` once the pool has entities — it powers callback surfacing, forgotten-entity discovery, and `/recap` contradiction checks. Re-run after bulk additions.
+
+Minimum viable prep: one active `campaign`, an active act, a handful of seeded entities. Everything else sharpens output — start thin, enrich as you play.
 
 ### Running `/session`
 
 1. Reads campaign state and active story layer
-2. Detects **continuation** (mid-arc) or **transition** (between arcs)
+2. Detects **continuation** (active mission, open cliffhanger) or **transition** (mission complete, or no active mission)
 3. Surfaces 3 narrative hooks and asks which direction
 4. Generates a full session plan (scenes, NPCs, encounters, structure)
 
