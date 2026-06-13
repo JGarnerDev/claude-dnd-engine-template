@@ -9,7 +9,9 @@
 #   data/factions/*, data/locations/*, data/routes/*, data/lore/*, data/characters/*
 #   data/items/magic/*               — contains Strahd-specific items
 #   data/world-events-pool.md        — campaign event pool
-#   historian/*, scheduler/*, maps/* (except maps/CLAUDE.md)
+#   historian/*, scheduler/*, maps/* (except maps/CLAUDE.md and the structural scaffolds below:
+#     maps/map-request-template.md, maps/world/index-template.md, maps/world/city-registry-template.md)
+#   maps/world/index.md, maps/world/city-registry.md — built per campaign from the *-template.md skeletons
 #   tests/commands/*/runs/, tests/commands/*/personas/
 
 # Root
@@ -61,6 +63,11 @@ data/CLAUDE.md
 maps/CLAUDE.md
 scheduler/CLAUDE.md
 tests/CLAUDE.md
+
+# Maps — structural scaffolds only (built into index.md / city-registry.md per campaign)
+maps/map-request-template.md
+maps/world/index-template.md
+maps/world/city-registry-template.md
 
 # Tests — structural audit infrastructure only
 tests/rubrics/principles.md

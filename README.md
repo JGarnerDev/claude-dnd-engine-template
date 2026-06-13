@@ -186,9 +186,11 @@ Blank fields are fine — deliberate elaboration space, not gaps. Fill what you 
 - `maps/world/city-markers.png` — **transparent overlay**, same canvas. Red dots = cities that exist but aren't named/detailed yet ("work needed here" pins). A city "graduates" by getting a label on `world-names.png` and its dot deleted here.
 - `maps/world/city-registry.md` — stable text IDs (e.g. `C05-04a`) per undetailed marker, so you can assign/cross-reference a city before it's named.
 
+*Build the text data files from skeletons, not by hand:* `maps/world/index.md` (world data — Status, Images, **Biome Census**, tile coverage, feature positions) and `maps/world/city-registry.md` are copied from `index-template.md` / `city-registry-template.md` and filled once your layers are placed. The biome census — what biomes exist and roughly where — is captured at setup and feeds `/region` and entity generation. See `meta/new-campaign-setup.md` → Map & geography setup.
+
 *Tiles:* the Read tool downsamples a large image until labels are unreadable, so nothing reads the full map directly. `python scripts\gen-tiles.py` slices each layer into **nine overlapping, legible tiles** (`tiles/nw.png … se.png`, plus `markers-*.png`). Run once after placing `world-names.png`, and again after any layer edit — tiles are regenerated, never hand-edited.
 
-*Scale (your call):* places are addressed by a column/row grid over the map, but **what a cell represents is yours** — pick a real-world distance per cell and write it into `maps/world/index.md` → Grid Scale (the template uses ~16×13 cells at 1000km each, just one campaign's choice). That scale drives `/region` travel-time and city-spacing math, so set it before detailing regions and keep the base image at full resolution.
+*Scale (your call):* places are addressed by a column/row grid over the map, but **what a cell represents is yours** — pick a real-world distance per cell and set it in `maps/CLAUDE.md` → Grid Scale (the template uses ~16×13 cells at 1000km each, just one campaign's choice). That scale drives `/region` travel-time and city-spacing math, so set it before detailing regions and keep the base image at full resolution.
 
 *Blank → populated:*
 
