@@ -7,13 +7,13 @@ Progress tracker for getting this project ready to generate sessions and run cam
 ## Cleanup — Stale Files to Remove
 *Files that exist in this repo but should not — campaign content that leaked in, or files now excluded from sync. Remove manually; `/sync` will not auto-delete these.*
 
-- [ ] `data/resources/Coffee.md` — world-specific economy resource; excluded from sync
-- [ ] `data/resources/Serhari.md` — player-contributed resource; excluded from sync
-- [ ] `data/resources/Stonecap Mushroom.md` — world-specific flora; excluded from sync
-- [ ] `data/resources/Whatwill.md` — world-specific material; excluded from sync
-- [ ] `meta/worldbuilding.md` — contains campaign-specific world lore; replace with a blank version per `meta/new-campaign-setup.md`
-- [ ] `scheduler/campaign.md` — campaign-specific scheduler file; should not be in the template
-- [ ] `scheduler/acts/Act 1 - Opening Arc.md` — campaign-specific act; should not be in the template
+- [x] `data/resources/Coffee.md` — world-specific economy resource; excluded from sync
+- [x] `data/resources/Serhari.md` — player-contributed resource; excluded from sync
+- [x] `data/resources/Stonecap Mushroom.md` — world-specific flora; excluded from sync
+- [x] `data/resources/Whatwill.md` — world-specific material; excluded from sync
+- [x] `meta/worldbuilding.md` — already a blank template (no campaign lore present); kept in place — the Meta Configuration section below needs it to exist and be filled
+- [x] `scheduler/campaign.md` — removed (also vacated old top-level path; convention is `scheduler/campaign/{name}.md`)
+- [x] `scheduler/acts/Act 1 - Opening Arc.md` — campaign-specific act; removed (`acts/` kept via `.gitkeep`)
 
 ---
 
