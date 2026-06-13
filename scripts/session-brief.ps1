@@ -124,6 +124,18 @@ if ($activeCampaign) {
             $line = $line.TrimEnd("`r")
             if ($line -match '^- (.+)$') { Write-Host "  $($Matches[1])" -ForegroundColor White }
         }
+        # Long-rest availability: derive from the 24h time gate (meta/difficulty.md -> Long Rest Rules).
+        # Only the time condition is computable here; safe location + no PC at 0 HP stay DM judgment.
+        if ($clockBlock -match '(?im)^\s*-\s*Hours since last long rest:\s*~?\s*(\d+(?:\.\d+)?)') {
+            $hrs = [double]$Matches[1]
+            if ($hrs -ge 24) {
+                Write-Host "  > Long rest TIME GATE met ($hrs h >= 24) - offerable if location is safe and no PC at 0 HP." -ForegroundColor Green
+            } else {
+                Write-Host ("  ! Long rest NOT available: only {0} h since last (needs 24) - {1} h more in-world before a fresh reset." -f $hrs, (24 - $hrs)) -ForegroundColor Red
+            }
+        } else {
+            Write-Host "  ! Long rest availability UNKNOWN - 'Hours since last long rest' not numeric; reconstruct with DM." -ForegroundColor Yellow
+        }
         if ($clockSession -lt $latestPlayed) {
             Write-Host "  ! REST CLOCK STALE: as of Session $clockSession, latest played is $latestPlayed - reconstruct with DM before encounter planning." -ForegroundColor Red
         }

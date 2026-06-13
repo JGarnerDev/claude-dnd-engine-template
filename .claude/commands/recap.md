@@ -26,7 +26,7 @@ Otherwise, ask the DM the following. Keep it conversational — rough notes are 
 2. **Recap** — What actually happened? Walk me through it. (Free-form; DM can paste notes or speak informally.)
 3. **Cliffhanger** — Where did things end? What question or situation carries into next session?
 4. **State changes** — Any significant PC or NPC changes? (Deaths, level-ups, new afflictions, relationship shifts, items gained or lost.) Always confirm levels explicitly — state the current party level from PC frontmatter and ask "still correct?" rather than waiting for the DM to volunteer a level-up.
-5. **Rests & rounds** — Did the party take a long rest at any point (especially before the cliffhanger)? Any short rests? Roughly how many rounds of combat were fought? (Rough estimates are fine — this feeds the Rest Clock, which only needs to distinguish fresh from half-spent from running-on-fumes. Zero rounds is a normal answer for a roleplay-only session; the clock still gets restamped.) Any notable resource burns worth recording (big spells gone, hit dice low)?
+5. **Rests, rounds & in-world time** — Did the party take a long rest at any point (especially before the cliffhanger)? Any short rests? Roughly how many rounds of combat were fought? Roughly how much in-world time passed this session, and what's the in-world date/time the party ends on? (Rough estimates are fine — this feeds the Rest Clock, which only needs to distinguish fresh from half-spent from running-on-fumes, and to know the in-world time for the long-rest 24-hour gate. Zero rounds is a normal answer for a roleplay-only session; the clock still gets restamped.) Any notable resource burns worth recording (big spells gone, hit dice low)?
 6. **New entities** — Anything invented at the table that doesn't have a file yet? (NPCs named on the fly, locations described, items handed out.)
 7. **Table reaction** — What landed? Anything that fell flat or felt off? (One line is fine — this informs future planning, not canonization.)
 
@@ -120,7 +120,8 @@ Read the active campaign file (`state: active` in `scheduler/campaign/`). Propos
 - Any resolved or newly opened threads
 
 **Rest Clock (every recap, never skipped):** update the `### Rest Clock` block from Phase 2's rests-and-rounds answer, then restamp the header to `(as of: Session {NN})` even if nothing changed — the stamp is what `session-brief.ps1` checks for staleness:
-- Long rest taken → reset: new `Last long rest` anchor, rounds and short rests to 0, clear notable burns
+- Always update `In-world time now` to where the party ends, and recompute `Hours since last long rest` and `Long rest available` (≥24h since last + safe location + no PC at 0 HP) from it — these drive the long-rest gate in `meta/difficulty.md`
+- Long rest taken → reset: new `Last long rest (in-world)` anchor, `Hours since last long rest` to 0, rounds and short rests to 0, clear notable burns
 - No long rest → add this session's rounds to `Rounds of combat since`, increment `Short rests since`, append notable burns
 - DM unsure → record best estimate marked `(~estimate)`; never leave the old numbers standing unstamped
 

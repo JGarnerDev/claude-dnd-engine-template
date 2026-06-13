@@ -27,6 +27,19 @@ Tiers (rounds of combat per long rest):
 - **Standard** — ~18–24 rounds. The DMG baseline. Resource management matters; the party should feel the squeeze by the last encounter.
 - **Grinding** — 30+ rounds. Dungeon crawls, sieges, forced marches. Danger comes from depletion, not any single fight. Short rest access becomes a meaningful tactical question.
 
+## Long Rest Rules
+
+A long rest is what resets the Rest Clock — so when one can be *offered* is a difficulty lever, not a free button. Default 5e (2014 PHB), which this campaign uses unless the DM overrides:
+
+- **Duration:** 8 hours — ~6 hours sleep + up to 2 hours light activity (reading, talking, eating, keeping watch).
+- **Once per 24 hours:** a character benefits from only one long rest per 24-hour period, and must have at least 1 hour since the *end* of the last long rest before starting another. This is the gate `/session` enforces with the in-world clock.
+- **Interruption:** ≥1 hour of strenuous activity (walking, fighting, casting spells, taking damage) breaks the rest — it must restart for any benefit. A planned rest in unsafe territory is therefore a *scene*, not a guaranteed reset (interrupted-rest encounters are valid attrition content).
+- **0 HP:** a character who began the rest with 0 HP gets no benefit.
+
+**Pacing variants** (DMG): gritty realism = long rest needs 7 days; epic heroism = 1 hour. If the DM switches variants, note it in the Rest Clock block — the 24-hour gate scales with it.
+
+**What `/session` must honor:** never offer or assume a long rest unless (a) ≥24 in-world hours since the last long rest started, (b) the location is safe enough for 8 uninterrupted hours, and (c) no PC is sitting at 0 HP. When any condition fails, plan the rest as a scene with stakes (or a short rest) rather than a clean reset. Track in-world time across travel legs and downtime so this gate is always computable.
+
 ## Axis 2: Lethality
 
 How capable the monsters are of actually killing a PC. Measured by two numbers and one behavior dial:
