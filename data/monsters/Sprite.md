@@ -1,6 +1,7 @@
 ﻿---
 name: Sprite
 type: monster
+exists: true
 tags:
   - monster
   - monster/fey

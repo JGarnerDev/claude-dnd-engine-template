@@ -1,6 +1,7 @@
 ﻿---
 name: Efreeti
 type: monster
+exists: true
 tags:
   - monster
   - monster/elemental

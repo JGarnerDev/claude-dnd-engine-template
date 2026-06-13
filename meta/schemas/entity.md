@@ -14,7 +14,7 @@ The base schema for every file in this campaign engine. All entities — regardl
 # --- MANDATORY ---
 name: "Exact display name"
 type: location | character | faction | item | event   # pick one
-exists: true | false      # true = canonized in historian; false = data/creative material only
+exists: true | false      # true = a real/canon thing in the world; false = homebrew draft not yet canonized
 state: ""                 # current in-world condition, valid values defined per type/subtype schema
 
 tags:
@@ -82,10 +82,13 @@ These entities are player-confirmed canon for their character's history. They do
 ## Rules
 
 - Every entity file must open with a YAML frontmatter block (`---`).
-- `name` must match the filename (spaces replaced with hyphens, lowercase).
-- `name` must also be the entity’s exact canonical display name, with correct spelling, punctuation, and capitalization.
+- The filename (excluding `.md`) must equal the `name` field **exactly** — the human-readable display name with correct spelling, punctuation, and capitalization. No slugs, kebab-case, or lowercase transformations (ruling 2026-06-10; matches canon precedent, e.g. `Session 13 Dream Pastries.md`).
+- `name` must be the entity’s exact canonical display name.
 - Entity names and wiki-links must contain no broken characters, stray quotes, or malformed punctuation.
-- `exists` mirrors the file's location: `data/` entities are `false`, `historian/` entities are `true`. Both must agree.
+- `exists` records whether the entity is a **real/canon thing in the world**, not where the file lives:
+  - `historian/` entities are **always** `exists: true` (canonized fact).
+  - `data/` entities may be **either**: core D&D / published material (monsters, spells, deities, official items, etc.) is real → `exists: true`; homebrew creative-pool drafts (custom NPCs, locations, factions, resources) are `exists: false` until canonized into historian.
+  - Core is identified by a rulebook `source:` field or a reference-catalog `type` (monster, spell, deity, feat, race, class, background, skill). A `contributed_by` field marks player homebrew, which stays `false` until canon.
 - `relates_to`, `resources`, `known_by`, and `owner` must use `[[wiki-link]]` syntax so Obsidian graph edges are preserved. Relationship annotations after the link are allowed.
 - **Every `[[wiki-link]]` in frontmatter must also appear somewhere in the markdown body.** Obsidian reads frontmatter links; Foam (VS Code) reads body links only. Both must be satisfied for full graph coverage in either tool.
 - `tags` should follow a `category/specific` hierarchy for Obsidian nested tag support.

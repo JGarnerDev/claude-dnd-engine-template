@@ -1,7 +1,7 @@
 ---
 name: "Wind Wall"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

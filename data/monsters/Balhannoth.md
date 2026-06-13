@@ -1,6 +1,7 @@
 ---
 name: Balhannoth
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

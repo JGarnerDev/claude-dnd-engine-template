@@ -1,6 +1,7 @@
 ﻿---
 name: Young Copper Dragon
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

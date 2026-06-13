@@ -1,6 +1,7 @@
 ﻿---
 name: Drow Priestess of Lolth
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

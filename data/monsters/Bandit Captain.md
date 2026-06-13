@@ -1,6 +1,7 @@
 ﻿---
 name: Bandit Captain
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

@@ -1,6 +1,7 @@
 ---
 name: Mouth of Grolantor
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

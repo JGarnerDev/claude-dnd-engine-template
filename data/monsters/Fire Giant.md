@@ -1,6 +1,7 @@
 ﻿---
 name: Fire Giant
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

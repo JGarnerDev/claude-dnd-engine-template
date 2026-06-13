@@ -1,6 +1,7 @@
 ﻿---
 name: Piercer
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

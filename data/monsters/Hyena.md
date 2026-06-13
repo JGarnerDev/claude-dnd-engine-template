@@ -1,6 +1,7 @@
 ﻿---
 name: Hyena
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

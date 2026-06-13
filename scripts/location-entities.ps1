@@ -1,4 +1,5 @@
 ﻿# location-entities.ps1 -- find all historian entities at or near a location
+# consumers: CLAUDE.md -- update these if usage, flags, or output format change.
 # Hop 0: direct location/region/relates_to match
 # Hops 1-N: BFS via all frontmatter entity-name references
 # Usage: .\scripts\location-entities.ps1 -Location "Barovia Village" [-Depth 3]
@@ -12,30 +13,7 @@ param(
 $root = Resolve-Path "$PSScriptRoot\.."
 $histDir = "$root\historian"
 
-function Get-Frontmatter($path) {
-    $lines = Get-Content $path -Raw -Encoding UTF8
-    if ($lines -notmatch '(?s)^---\r?\n(.+?)\r?\n---') { return @{} }
-    $block = $Matches[1]
-    $fm = @{}
-    $currentKey = $null
-    foreach ($line in ($block -split "`n")) {
-        $line = $line.TrimEnd("`r")
-        if ($line -match '^(\w[\w_]*):\s*\[\[([^\]]+)\]\]') {
-            $currentKey = $Matches[1].Trim()
-            $fm[$currentKey] = ($Matches[2] -split '\|')[0].Trim()
-        } elseif ($line -match '^(\w[\w_]*):\s*"?([^"#\r\n]*)"?\s*$') {
-            $currentKey = $Matches[1].Trim()
-            $fm[$currentKey] = $Matches[2].Trim()
-        } elseif ($line -match '^\s+-\s+\[\[([^\]]+)\]\]') {
-            if (-not $fm.ContainsKey("_list_$currentKey")) { $fm["_list_$currentKey"] = @() }
-            $fm["_list_$currentKey"] += ($Matches[1] -split '\|')[0].Trim()
-        } elseif ($line -match '^\s+-\s+"?([^"#\r\n]+)"?\s*$') {
-            if ($currentKey -and -not $fm.ContainsKey("_list_$currentKey")) { $fm["_list_$currentKey"] = @() }
-            if ($currentKey) { $fm["_list_$currentKey"] += $Matches[1].Trim() }
-        }
-    }
-    return $fm
-}
+. "$PSScriptRoot\lib\common.ps1"
 
 function Get-AllRefs($fm) {
     $refs = @()

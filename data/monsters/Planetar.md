@@ -1,6 +1,7 @@
 ﻿---
 name: Planetar
 type: monster
+exists: true
 tags:
   - monster
   - monster/celestial

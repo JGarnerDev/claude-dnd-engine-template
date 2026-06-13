@@ -1,7 +1,7 @@
 ---
 name: "Spare the Dying"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

@@ -1,6 +1,7 @@
 ﻿---
 name: Thri-kreen
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

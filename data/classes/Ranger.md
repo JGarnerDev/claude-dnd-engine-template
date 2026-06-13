@@ -1,7 +1,7 @@
 ﻿---
 name: "Ranger"
 type: class
-exists: false
+exists: true
 state: available
 tags:
   - class

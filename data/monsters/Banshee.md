@@ -1,6 +1,7 @@
 ﻿---
 name: Banshee
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

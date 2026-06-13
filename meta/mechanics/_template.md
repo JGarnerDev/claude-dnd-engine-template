@@ -10,7 +10,7 @@ tags:
 ## Overview
 
 - **Encounter type:** combat | social | exploration | puzzle | chase | trade | crafting | performance | other
-- **Session fit:** short | standard | long | any
+- **Session fit:** short | standard | long | downtime | any
 - **Time estimate:** ~X minutes of real-world table time
 - **Difficulty:** easy | medium | hard | deadly | scalable
 - **Player count:** works best with N–N players

@@ -1,7 +1,7 @@
 ---
 name: "Crown of Madness"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

@@ -1,6 +1,7 @@
 ---
 name: Vegepygmy Chief
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

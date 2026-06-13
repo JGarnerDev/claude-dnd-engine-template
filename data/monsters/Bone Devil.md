@@ -1,6 +1,7 @@
 ﻿---
 name: Bone Devil
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

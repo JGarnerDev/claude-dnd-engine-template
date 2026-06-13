@@ -1,6 +1,7 @@
 ﻿---
 name: Rust Monster
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

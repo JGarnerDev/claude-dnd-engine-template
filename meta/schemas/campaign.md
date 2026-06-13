@@ -28,7 +28,7 @@ The root document of the entire campaign. There is one campaign file per campaig
 ## Schema
 
 ### Canonical Path
-`scheduler/campaign.md` — singular file, always at this path.
+`scheduler/campaign/{name}.md` — one file per campaign. Exactly one file carries `state: active` at a time; the rest are `draft`, `on-hiatus`, or awaiting move to historian.
 
 ### Valid State Values
 | State | Meaning |

@@ -1,6 +1,7 @@
 ---
 name: Ogre Howdah
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

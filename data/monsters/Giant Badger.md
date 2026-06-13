@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Badger
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

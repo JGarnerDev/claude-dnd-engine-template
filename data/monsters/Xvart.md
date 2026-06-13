@@ -1,6 +1,7 @@
 ---
 name: Xvart
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

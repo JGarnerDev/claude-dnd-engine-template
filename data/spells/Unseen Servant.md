@@ -1,7 +1,7 @@
 ---
 name: "Unseen Servant"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

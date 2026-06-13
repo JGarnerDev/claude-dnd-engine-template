@@ -1,6 +1,7 @@
 ﻿---
 name: Will-o-Wisp
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

@@ -1,6 +1,7 @@
 ﻿---
 name: Yuan-ti Abomination
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

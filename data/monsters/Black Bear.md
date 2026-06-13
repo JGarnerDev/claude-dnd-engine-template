@@ -1,6 +1,7 @@
 ﻿---
 name: Black Bear
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

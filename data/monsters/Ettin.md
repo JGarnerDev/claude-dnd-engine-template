@@ -1,6 +1,7 @@
 ﻿---
 name: Ettin
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

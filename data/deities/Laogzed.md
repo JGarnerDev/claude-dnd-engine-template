@@ -2,7 +2,7 @@
 name: "Laogzed"
 type: deity
 tier: greater
-exists: false
+exists: true
 state: active
 tags:
   - deity

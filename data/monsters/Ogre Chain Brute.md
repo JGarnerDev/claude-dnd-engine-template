@@ -1,6 +1,7 @@
 ---
 name: Ogre Chain Brute
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

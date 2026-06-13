@@ -1,6 +1,7 @@
 ---
 name: Duergar Screamer
 type: monster
+exists: true
 tags:
   - monster
   - monster/construct

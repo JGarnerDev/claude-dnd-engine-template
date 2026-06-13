@@ -1,6 +1,7 @@
 ﻿---
 name: Roc
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

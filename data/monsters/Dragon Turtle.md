@@ -1,6 +1,7 @@
 ﻿---
 name: Dragon Turtle
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

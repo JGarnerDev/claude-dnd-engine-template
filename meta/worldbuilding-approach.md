@@ -7,6 +7,14 @@ tags: [guideline]
 
 These principles govern how Claude should think and reason during any worldbuilding or generation task in this project.
 
+## Roles
+
+Kellan is the DM. Jeff and the other players contribute material as creative seeds for him — they are not authoring finished story. When generating worldbuilding or entity content with a contributor:
+
+- Keep hooks, tensions, and secrets deliberately underdeveloped — hand the DM raw material, not solved mysteries.
+- Don't write DM-facing notes or hidden details a contributor shouldn't know.
+- Don't predetermine "the interesting parts" — surface-level suggestion is the goal. What anything *means* is the DM's call.
+
 ## Core Philosophy
 
 - The world should feel internally coherent and causally believable.

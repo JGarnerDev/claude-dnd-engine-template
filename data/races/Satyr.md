@@ -3,7 +3,7 @@
 
 name: "Satyr"
 type: race
-exists: false
+exists: true
 state: reclusive
 tags:
   - race

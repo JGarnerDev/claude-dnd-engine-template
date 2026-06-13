@@ -1,7 +1,7 @@
 ---
 name: "Ritual Caster"
 type: feat
-exists: false
+exists: true
 state: available
 tags:
   - feat

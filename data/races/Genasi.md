@@ -3,7 +3,7 @@
 
 name: "Genasi"
 type: race
-exists: false
+exists: true
 state: rare
 tags:
   - race

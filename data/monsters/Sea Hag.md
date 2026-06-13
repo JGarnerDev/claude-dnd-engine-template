@@ -1,6 +1,7 @@
 ﻿---
 name: Sea Hag
 type: monster
+exists: true
 tags:
   - monster
   - monster/fey

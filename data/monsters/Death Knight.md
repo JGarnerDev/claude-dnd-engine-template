@@ -1,6 +1,7 @@
 ﻿---
 name: Death Knight
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

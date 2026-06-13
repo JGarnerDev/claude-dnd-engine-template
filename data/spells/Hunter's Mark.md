@@ -1,7 +1,7 @@
 ---
 name: "Hunter's Mark"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

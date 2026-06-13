@@ -2,7 +2,7 @@
 name: "Luthic"
 type: deity
 tier: intermediate
-exists: false
+exists: true
 state: active
 tags:
   - deity

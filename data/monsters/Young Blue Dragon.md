@@ -1,6 +1,7 @@
 ﻿---
 name: Young Blue Dragon
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

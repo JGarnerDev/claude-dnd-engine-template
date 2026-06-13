@@ -1,6 +1,7 @@
 ﻿---
 name: Mummy
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

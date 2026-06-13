@@ -1,7 +1,7 @@
 ---
 name: "Athlete"
 type: feat
-exists: false
+exists: true
 state: available
 tags:
   - feat

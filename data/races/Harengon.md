@@ -3,7 +3,7 @@
 
 name: "Harengon"
 type: race
-exists: false
+exists: true
 state: scattered
 tags:
   - race

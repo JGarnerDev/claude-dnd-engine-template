@@ -1,6 +1,7 @@
 ---
 name: Thorny
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

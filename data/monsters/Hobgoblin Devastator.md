@@ -1,6 +1,7 @@
 ---
 name: Hobgoblin Devastator
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

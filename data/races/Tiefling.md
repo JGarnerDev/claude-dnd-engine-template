@@ -3,7 +3,7 @@
 
 name: "Tiefling"
 type: race
-exists: false
+exists: true
 state: scattered
 tags:
   - race

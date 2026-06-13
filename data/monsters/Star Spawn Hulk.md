@@ -1,6 +1,7 @@
 ---
 name: Star Spawn Hulk
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

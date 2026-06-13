@@ -1,6 +1,7 @@
 ---
 name: Boggle
 type: monster
+exists: true
 tags:
   - monster
   - monster/fey

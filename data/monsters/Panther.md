@@ -1,6 +1,7 @@
 ﻿---
 name: Panther
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

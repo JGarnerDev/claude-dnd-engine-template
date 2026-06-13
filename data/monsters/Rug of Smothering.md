@@ -1,6 +1,7 @@
 ﻿---
 name: Rug of Smothering
 type: monster
+exists: true
 tags:
   - monster
   - monster/construct

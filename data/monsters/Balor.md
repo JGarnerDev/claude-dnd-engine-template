@@ -1,6 +1,7 @@
 ﻿---
 name: Balor
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

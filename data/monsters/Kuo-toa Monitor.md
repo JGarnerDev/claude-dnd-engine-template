@@ -1,6 +1,7 @@
 ﻿---
 name: Kuo-toa Monitor
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

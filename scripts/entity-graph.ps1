@@ -1,4 +1,5 @@
 ﻿# entity-graph.ps1 -- show 1-hop relation graph for a named entity
+# consumers: CLAUDE.md -- update these if usage, flags, or output format change.
 # Usage: .\scripts\entity-graph.ps1 -Name "Strahd Von Zarovich"
 # Searches both ./data and ./historian
 
@@ -10,24 +11,7 @@ param(
 $root = Resolve-Path "$PSScriptRoot\.."
 $searchDirs = @("data", "historian", "scheduler")
 
-function Get-Frontmatter($path) {
-    $lines = Get-Content $path -Raw -Encoding UTF8
-    if ($lines -notmatch '(?s)^---\r?\n(.+?)\r?\n---') { return @{} }
-    $block = $Matches[1]
-    $fm = @{}
-    $currentKey = $null
-    foreach ($line in ($block -split "`n")) {
-        $line = $line.TrimEnd("`r")
-        if ($line -match '^(\w[\w_]*):\s*"?([^"#\r\n]*)"?\s*$') {
-            $currentKey = $Matches[1].Trim()
-            $fm[$currentKey] = $Matches[2].Trim()
-        } elseif ($line -match '^\s+-\s+(.+)$' -and $currentKey) {
-            if (-not $fm.ContainsKey("_list_$currentKey")) { $fm["_list_$currentKey"] = @() }
-            $fm["_list_$currentKey"] += $Matches[1].Trim()
-        }
-    }
-    return $fm
-}
+. "$PSScriptRoot\lib\common.ps1"
 
 function Get-WikiLinks($text) {
     $links = @()

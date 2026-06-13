@@ -1,6 +1,7 @@
 ---
 name: Spirit Troll
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

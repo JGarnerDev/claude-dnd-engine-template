@@ -1,6 +1,7 @@
 ---
 name: Darkling Elder
 type: monster
+exists: true
 tags:
   - monster
   - monster/fey

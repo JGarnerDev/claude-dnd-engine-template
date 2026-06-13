@@ -1,7 +1,7 @@
 ---
 name: "Moderately Armored"
 type: feat
-exists: false
+exists: true
 state: available
 tags:
   - feat

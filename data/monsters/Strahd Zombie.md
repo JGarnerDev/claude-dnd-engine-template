@@ -1,6 +1,7 @@
 ﻿---
 name: Strahd Zombie
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

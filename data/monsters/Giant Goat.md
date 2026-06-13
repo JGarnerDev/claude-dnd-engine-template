@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Goat
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

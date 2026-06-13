@@ -3,7 +3,7 @@
 
 name: "Changeling"
 type: race
-exists: false
+exists: true
 state: scattered
 tags:
   - race

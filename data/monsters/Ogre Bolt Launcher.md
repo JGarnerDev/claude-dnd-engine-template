@@ -1,6 +1,7 @@
 ---
 name: Ogre Bolt Launcher
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

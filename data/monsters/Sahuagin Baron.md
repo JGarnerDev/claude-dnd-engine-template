@@ -1,6 +1,7 @@
 ﻿---
 name: Sahuagin Baron
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

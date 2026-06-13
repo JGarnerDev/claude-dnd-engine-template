@@ -1,6 +1,7 @@
 ﻿---
 name: Arcanaloth
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

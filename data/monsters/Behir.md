@@ -1,6 +1,7 @@
 ﻿---
 name: Behir
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

@@ -3,7 +3,7 @@
 
 name: "Loxodon"
 type: race
-exists: false
+exists: true
 state: regional
 tags:
   - race

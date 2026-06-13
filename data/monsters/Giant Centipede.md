@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Centipede
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

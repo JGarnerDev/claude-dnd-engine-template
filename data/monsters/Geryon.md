@@ -1,6 +1,7 @@
 ---
 name: Geryon
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

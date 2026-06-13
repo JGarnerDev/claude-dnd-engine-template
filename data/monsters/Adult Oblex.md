@@ -1,6 +1,7 @@
 ---
 name: Adult Oblex
 type: monster
+exists: true
 tags:
   - monster
   - monster/ooze

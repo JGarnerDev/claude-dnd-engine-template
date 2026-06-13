@@ -1,6 +1,7 @@
 ﻿---
 name: Adult Black Dragon
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

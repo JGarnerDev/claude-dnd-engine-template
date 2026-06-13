@@ -1,7 +1,7 @@
 ---
 name: "Tasha's Mind Whip"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

@@ -1,6 +1,7 @@
 ﻿---
 name: Water Weird
 type: monster
+exists: true
 tags:
   - monster
   - monster/elemental

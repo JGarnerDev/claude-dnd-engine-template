@@ -1,6 +1,7 @@
 ﻿---
 name: Pony
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

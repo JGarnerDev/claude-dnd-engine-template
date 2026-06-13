@@ -1,7 +1,7 @@
 ---
 name: "Create or Destroy Water"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

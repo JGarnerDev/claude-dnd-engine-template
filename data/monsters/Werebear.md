@@ -1,6 +1,7 @@
 ﻿---
 name: Werebear
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

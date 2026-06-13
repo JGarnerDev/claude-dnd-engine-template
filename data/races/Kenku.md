@@ -3,7 +3,7 @@
 
 name: "Kenku"
 type: race
-exists: false
+exists: true
 state: scattered
 tags:
   - race

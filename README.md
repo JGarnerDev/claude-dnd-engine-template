@@ -105,7 +105,7 @@ After you play a session:
 ## Story Hierarchy
 
 ```
-Campaign (scheduler/campaign.md)
+Campaign (scheduler/campaign/*.md)
   ├── Act (scheduler/acts/*.md)
   │     ├── Mission (scheduler/missions/*.md)
   │     │     └── Session (scheduler/sessions/*.md) ← moves to historian/ when played
@@ -180,7 +180,7 @@ Every piece of content is an entity — a markdown file with YAML frontmatter. V
 
 ## Current Campaign State
 
-See `scheduler/campaign.md` for live campaign state, party status, and open threads.
+See the `state: active` file in `scheduler/campaign/` for live campaign state, party status, and open threads.
 
 ---
 

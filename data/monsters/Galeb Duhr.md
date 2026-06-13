@@ -1,6 +1,7 @@
 ﻿---
 name: Galeb Duhr
 type: monster
+exists: true
 tags:
   - monster
   - monster/elemental

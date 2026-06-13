@@ -1,6 +1,7 @@
 ﻿---
 name: Gnoll Pack Lord
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

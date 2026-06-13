@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Weasel
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

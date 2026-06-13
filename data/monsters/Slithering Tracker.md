@@ -1,6 +1,7 @@
 ---
 name: Slithering Tracker
 type: monster
+exists: true
 tags:
   - monster
   - monster/ooze

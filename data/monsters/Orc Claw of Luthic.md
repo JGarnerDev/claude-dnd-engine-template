@@ -1,6 +1,7 @@
 ---
 name: Orc Claw of Luthic
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

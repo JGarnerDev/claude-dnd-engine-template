@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Octopus
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

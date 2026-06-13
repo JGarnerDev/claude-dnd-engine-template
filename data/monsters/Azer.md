@@ -1,6 +1,7 @@
 ﻿---
 name: Azer
 type: monster
+exists: true
 tags:
   - monster
   - monster/elemental

@@ -1,6 +1,7 @@
 ﻿---
 name: Killer Whale
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

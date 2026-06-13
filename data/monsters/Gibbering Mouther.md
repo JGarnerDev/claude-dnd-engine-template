@@ -1,6 +1,7 @@
 ﻿---
 name: Gibbering Mouther
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

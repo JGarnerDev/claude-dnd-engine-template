@@ -1,6 +1,7 @@
 ﻿---
 name: Death Slaad
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

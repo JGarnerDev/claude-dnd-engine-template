@@ -1,6 +1,7 @@
 ﻿---
 name: Crab
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

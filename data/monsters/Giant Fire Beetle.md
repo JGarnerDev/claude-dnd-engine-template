@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Fire Beetle
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

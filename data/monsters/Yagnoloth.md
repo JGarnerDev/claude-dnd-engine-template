@@ -1,6 +1,7 @@
 ---
 name: Yagnoloth
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

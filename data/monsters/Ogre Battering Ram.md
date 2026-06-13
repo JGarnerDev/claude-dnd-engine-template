@@ -1,6 +1,7 @@
 ---
 name: Ogre Battering Ram
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

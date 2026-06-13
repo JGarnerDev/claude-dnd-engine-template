@@ -1,7 +1,7 @@
 ---
 name: "Charger"
 type: feat
-exists: false
+exists: true
 state: available
 tags:
   - feat

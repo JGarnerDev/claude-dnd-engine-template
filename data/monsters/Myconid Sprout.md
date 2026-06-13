@@ -1,6 +1,7 @@
 ﻿---
 name: Myconid Sprout
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

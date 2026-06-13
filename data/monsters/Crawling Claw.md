@@ -1,6 +1,7 @@
 ﻿---
 name: Crawling Claw
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

@@ -1,6 +1,7 @@
 ﻿---
 name: Reef Shark
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

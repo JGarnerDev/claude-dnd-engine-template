@@ -1,6 +1,7 @@
 ﻿---
 name: Gnoll Fang of Yeenoghu
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

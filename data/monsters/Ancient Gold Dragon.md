@@ -1,6 +1,7 @@
 ﻿---
 name: Ancient Gold Dragon
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

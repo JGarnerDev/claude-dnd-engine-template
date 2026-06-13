@@ -1,7 +1,7 @@
 ---
 name: "Aasimar"
 type: race
-exists: false
+exists: true
 state: rare
 tags:
   - race

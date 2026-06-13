@@ -1,6 +1,7 @@
 ---
 name: Mindwitness
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

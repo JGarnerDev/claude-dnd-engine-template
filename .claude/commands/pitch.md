@@ -128,4 +128,6 @@ After Step 3c (expansion), offer one line:
 
 > "Want to develop any of these further, or formalize one as an entity?"
 
+If the DM wants to formalize: for event-type pitches, point to `/event --add`; for everything else, follow the entity creation protocol (read `meta/entity-creation.md` first).
+
 Do not proceed unless the user responds affirmatively. Skip this phase if no expansion was requested.

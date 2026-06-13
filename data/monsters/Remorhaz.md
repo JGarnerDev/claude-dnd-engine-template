@@ -1,6 +1,7 @@
 ﻿---
 name: Remorhaz
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

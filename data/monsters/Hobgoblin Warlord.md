@@ -1,6 +1,7 @@
 ﻿---
 name: Hobgoblin Warlord
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

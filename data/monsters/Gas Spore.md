@@ -1,6 +1,7 @@
 ﻿---
 name: Gas Spore
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

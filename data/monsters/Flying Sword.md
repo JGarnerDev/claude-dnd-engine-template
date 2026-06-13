@@ -1,6 +1,7 @@
 ﻿---
 name: Flying Sword
 type: monster
+exists: true
 tags:
   - monster
   - monster/construct

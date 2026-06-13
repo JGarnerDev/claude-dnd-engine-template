@@ -1,6 +1,7 @@
 ---
 name: Star Spawn Grue
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

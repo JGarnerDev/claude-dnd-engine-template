@@ -1,7 +1,7 @@
 ---
 name: "Great Weapon Master"
 type: feat
-exists: false
+exists: true
 state: available
 tags:
   - feat

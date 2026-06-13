@@ -1,6 +1,7 @@
 ---
 name: Hobgoblin Iron Shadow
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

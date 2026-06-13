@@ -1,7 +1,7 @@
 ---
 name: "Create Bonfire"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

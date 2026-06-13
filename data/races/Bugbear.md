@@ -3,7 +3,7 @@
 
 name: "Bugbear"
 type: race
-exists: false
+exists: true
 state: monstrous
 tags:
   - race

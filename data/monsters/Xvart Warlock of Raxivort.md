@@ -1,6 +1,7 @@
 ---
 name: Xvart Warlock of Raxivort
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

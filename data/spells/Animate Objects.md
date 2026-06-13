@@ -1,7 +1,7 @@
 ---
 name: "Animate Objects"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

@@ -1,6 +1,7 @@
 ﻿---
 name: Merfolk
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

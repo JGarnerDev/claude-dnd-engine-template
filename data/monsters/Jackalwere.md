@@ -1,6 +1,7 @@
 ﻿---
 name: Jackalwere
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

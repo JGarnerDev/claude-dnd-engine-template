@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Toad
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

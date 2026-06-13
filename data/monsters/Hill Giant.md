@@ -1,6 +1,7 @@
 ﻿---
 name: Hill Giant
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

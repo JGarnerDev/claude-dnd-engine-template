@@ -1,6 +1,7 @@
 ---
 name: Star Spawn Larva Mage
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

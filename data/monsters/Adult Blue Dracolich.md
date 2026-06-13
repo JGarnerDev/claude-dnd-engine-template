@@ -1,6 +1,7 @@
 ﻿---
 name: Adult Blue Dracolich
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

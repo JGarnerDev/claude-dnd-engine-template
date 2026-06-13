@@ -1,6 +1,7 @@
 ﻿---
 name: Blink Dog
 type: monster
+exists: true
 tags:
   - monster
   - monster/fey

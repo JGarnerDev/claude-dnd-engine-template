@@ -1,7 +1,7 @@
 ---
 name: "Maximilian's Earthen Grasp"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

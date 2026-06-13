@@ -1,6 +1,7 @@
 ---
 name: Guard Drake
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

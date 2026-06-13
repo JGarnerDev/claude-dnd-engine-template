@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Frog
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

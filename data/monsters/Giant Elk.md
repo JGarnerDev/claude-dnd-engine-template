@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Elk
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

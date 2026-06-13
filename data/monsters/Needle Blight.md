@@ -1,6 +1,7 @@
 ﻿---
 name: Needle Blight
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

@@ -1,6 +1,7 @@
 ---
 name: Mind Flayer Lich
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

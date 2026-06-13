@@ -1,6 +1,7 @@
 ---
 name: Shadow Mastiff Alpha
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

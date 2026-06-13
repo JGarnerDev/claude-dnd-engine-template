@@ -1,6 +1,7 @@
 ---
 name: Barghest
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

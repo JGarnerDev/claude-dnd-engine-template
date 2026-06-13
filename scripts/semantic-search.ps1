@@ -1,4 +1,5 @@
 # semantic-search.ps1 -- Semantic similarity search over indexed entities
+# consumers: CLAUDE.md, README.md, .claude/commands/{check,entity-questionnaire,event,find,pc-backstory,pitch,recap,region,session,threads,voice}.md, tests/commands/session/spec.md, data/CLAUDE.md -- update these if usage, flags, or output format change.
 # Requires index built first: python scripts/index-entities.py
 # Usage: .\scripts\semantic-search.ps1 -Query "betrayal and political intrigue" [-Type character] [-Subtype npc] [-Exists true] [-Source historian] [-K 8]
 

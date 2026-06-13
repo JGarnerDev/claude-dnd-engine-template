@@ -1,7 +1,7 @@
 ---
 name: "Cone of Cold"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

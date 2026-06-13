@@ -1,7 +1,7 @@
 ---
 name: "Outlander"
 type: background
-exists: false
+exists: true
 state: available
 tags:
   - background

@@ -1,6 +1,7 @@
 ﻿---
 name: Tridrone
 type: monster
+exists: true
 tags:
   - monster
   - monster/construct

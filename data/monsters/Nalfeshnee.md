@@ -1,6 +1,7 @@
 ﻿---
 name: Nalfeshnee
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

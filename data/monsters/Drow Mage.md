@@ -1,6 +1,7 @@
 ﻿---
 name: Drow Mage
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

@@ -1,6 +1,7 @@
 ﻿---
 name: Monodrone
 type: monster
+exists: true
 tags:
   - monster
   - monster/construct

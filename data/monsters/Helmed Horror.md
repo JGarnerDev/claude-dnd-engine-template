@@ -1,6 +1,7 @@
 ﻿---
 name: Helmed Horror
 type: monster
+exists: true
 tags:
   - monster
   - monster/construct

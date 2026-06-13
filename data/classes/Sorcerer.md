@@ -1,7 +1,7 @@
 ﻿---
 name: "Sorcerer"
 type: class
-exists: false
+exists: true
 state: available
 tags:
   - class

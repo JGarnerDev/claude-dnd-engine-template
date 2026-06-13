@@ -1,6 +1,7 @@
 ﻿---
 name: Flameskull
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

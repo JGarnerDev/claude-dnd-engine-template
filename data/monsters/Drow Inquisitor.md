@@ -1,6 +1,7 @@
 ---
 name: Drow Inquisitor
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

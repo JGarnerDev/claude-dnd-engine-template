@@ -1,6 +1,7 @@
 ---
 name: Elder Oblex
 type: monster
+exists: true
 tags:
   - monster
   - monster/ooze

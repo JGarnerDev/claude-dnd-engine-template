@@ -1,6 +1,7 @@
 ---
 name: Giant Strider
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

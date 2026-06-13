@@ -1,6 +1,7 @@
 ---
 name: Firenewt Warrior
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

@@ -1,6 +1,7 @@
 ---
 name: Cloud Giant Smiling One
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

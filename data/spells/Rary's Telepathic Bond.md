@@ -1,7 +1,7 @@
 ---
 name: "Rary's Telepathic Bond"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

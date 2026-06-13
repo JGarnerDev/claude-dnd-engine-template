@@ -3,7 +3,7 @@
 
 name: "Yuan Ti Pureblood"
 type: race
-exists: false
+exists: true
 state: monstrous
 tags:
   - race

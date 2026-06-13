@@ -3,7 +3,7 @@
 
 name: "Elf"
 type: race
-exists: false
+exists: true
 state: widespread
 tags:
   - race

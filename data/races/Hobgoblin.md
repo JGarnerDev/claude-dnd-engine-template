@@ -3,7 +3,7 @@
 
 name: "Hobgoblin"
 type: race
-exists: false
+exists: true
 state: monstrous
 tags:
   - race

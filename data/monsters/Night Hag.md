@@ -1,6 +1,7 @@
 ﻿---
 name: Night Hag
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

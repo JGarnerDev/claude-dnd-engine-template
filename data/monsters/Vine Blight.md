@@ -1,6 +1,7 @@
 ﻿---
 name: Vine Blight
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

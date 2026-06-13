@@ -1,6 +1,7 @@
 ---
 name: Orc Blade of Ilneval
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

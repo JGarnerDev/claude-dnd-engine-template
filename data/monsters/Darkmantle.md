@@ -1,6 +1,7 @@
 ﻿---
 name: Darkmantle
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

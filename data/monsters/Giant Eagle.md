@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Eagle
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

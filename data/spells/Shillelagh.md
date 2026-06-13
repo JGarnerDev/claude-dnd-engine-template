@@ -1,7 +1,7 @@
 ---
 name: "Shillelagh"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

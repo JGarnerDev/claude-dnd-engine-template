@@ -1,6 +1,7 @@
 ﻿---
 name: Fire Snake
 type: monster
+exists: true
 tags:
   - monster
   - monster/elemental

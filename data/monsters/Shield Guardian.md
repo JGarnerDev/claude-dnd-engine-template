@@ -1,6 +1,7 @@
 ﻿---
 name: Shield Guardian
 type: monster
+exists: true
 tags:
   - monster
   - monster/construct

@@ -1,6 +1,7 @@
 ﻿---
 name: Guardian Naga
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

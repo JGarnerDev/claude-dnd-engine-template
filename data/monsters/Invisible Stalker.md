@@ -1,6 +1,7 @@
 ﻿---
 name: Invisible Stalker
 type: monster
+exists: true
 tags:
   - monster
   - monster/elemental

@@ -1,7 +1,7 @@
 ---
 name: "Water Breathing"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

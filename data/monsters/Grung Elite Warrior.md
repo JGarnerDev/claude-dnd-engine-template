@@ -1,6 +1,7 @@
 ---
 name: Grung Elite Warrior
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

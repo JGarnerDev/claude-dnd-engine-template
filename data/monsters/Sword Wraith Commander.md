@@ -1,6 +1,7 @@
 ---
 name: Sword Wraith Commander
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

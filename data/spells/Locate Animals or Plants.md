@@ -1,7 +1,7 @@
 ---
 name: "Locate Animals or Plants"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

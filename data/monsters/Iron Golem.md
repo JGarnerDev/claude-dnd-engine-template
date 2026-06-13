@@ -1,6 +1,7 @@
 ﻿---
 name: Iron Golem
 type: monster
+exists: true
 tags:
   - monster
   - monster/construct

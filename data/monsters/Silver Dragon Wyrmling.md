@@ -1,6 +1,7 @@
 ﻿---
 name: Silver Dragon Wyrmling
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

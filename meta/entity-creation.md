@@ -29,7 +29,7 @@ If a user provides form answers (structured or freeform), use the **Form → Fro
 | A city, town, or village | `meta/schemas/location-city.md` |
 | A shop, inn, or establishment | `meta/schemas/location-shop.md` |
 | A dungeon, ruin, cave, or delve | `meta/schemas/location-dungeon.md` |
-| A wilderness area, road, or named outdoor space | `meta/schemas/location-wilderness.md` |
+| A wilderness area, road, or named outdoor space (a *narrative space* — somewhere scenes happen) | `meta/schemas/location-wilderness.md` |
 | An NPC | `meta/schemas/character-npc.md` |
 | An antagonist NPC (hostile, active threat) | `meta/schemas/character-antagonist.md` |
 | A player character | `meta/schemas/character-pc.md` |
@@ -45,15 +45,13 @@ If a user provides form answers (structured or freeform), use the **Form → Fro
 | A natural resource (ore, timber, trade good, arcane material) | `meta/schemas/resource.md` |
 | A culture (customs, values, and practices of a people) | `meta/schemas/culture.md` |
 | A Monster Manual entry (encounter template) | `meta/schemas/monster.md` |
-| A trade route, road, sea lane, pilgrimage way, or trail | `meta/schemas/route.md` |
+| A trade route, sea lane, pilgrimage way, or trail (an *economic/graph edge* — defined by origin/destination traffic) | `meta/schemas/route.md` |
 
-## Trade Routes for Cities
+**Roads can be either:** a road the party travels through in scenes is `location-wilderness`; a road whose identity is the commerce between two endpoints is a `route`. If both apply, wilderness for the playable stretch, route for the trade edge — they can coexist and link to each other.
 
-Cities with `importance: critical` or `importance: major` should have at least one route entity that names them in `origin` or `destination`. A city with no route connections is a design gap — flag it and fill it when the city becomes relevant.
+## Settlement & Route Conventions
 
-Cities with `importance: minor` or `importance: background` may defer. Do not create placeholder routes just to satisfy coverage; wait until narrative context makes the route meaningful.
-
-The route's `origin`/`destination` fields create the graph edge — no `routes` field is needed on the city entity itself.
+When creating a city, town, village, hamlet, road, or route — read `meta/settlements.md` before proceeding. It holds the settlement tier conventions, the road promotion ladder, trade-route coverage rules for cities, and the City Registry Graduation checklist.
 
 ## Economic Depth (Optional Fields)
 
@@ -68,17 +66,6 @@ When linking `sells` or `supply` to resource entities, prefer wiki-links to exis
 Gameplay mechanics (mini-games, structured encounter types) live in `meta/mechanics/`. Use `meta/mechanics/_template.md` as the starting point for new mechanic files. These are GM design tools — they have no `type`, `exists`, or `state` fields and follow no entity protocol. The `/session` command checks `meta/mechanics/` for applicable mini-games when building non-standard encounters (chase, puzzle, trade, performance, etc.).
 
 Each schema file also contains a **Player Form** section — a set of plain-language questions suitable to give directly to players when they want to create an entity.
-
-## City Registry Graduation
-
-When creating a `location-city` entity that corresponds to a dot in `maps/world/city-registry.md`:
-
-1. Look up the city's registry ID by its col/row position in `city-registry.md`
-2. Add the ID to the entity's `aliases:` field (e.g. `aliases: [C05-04a]`) so any prior cross-references resolve
-3. Remove the entry from `city-registry.md` — the city is now canonical
-4. Follow the full graduation checklist in `maps/CLAUDE.md` (label on map, dot removed, tiles regenerated)
-
-If no registry entry matches (city was newly placed, not a pre-existing dot), skip steps 1–3.
 
 ## Obsidian Frontmatter Rules
 

@@ -1,6 +1,7 @@
 ﻿---
 name: Gray Ooze
 type: monster
+exists: true
 tags:
   - monster
   - monster/ooze

@@ -1,6 +1,7 @@
 ---
 name: Star Spawn Mangler
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Owl
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

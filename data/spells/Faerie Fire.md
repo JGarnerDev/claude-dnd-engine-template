@@ -1,7 +1,7 @@
 ---
 name: "Faerie Fire"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

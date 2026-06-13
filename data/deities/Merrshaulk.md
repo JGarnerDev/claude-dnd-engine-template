@@ -2,7 +2,7 @@
 name: "Merrshaulk"
 type: deity
 tier: greater
-exists: false
+exists: true
 state: dormant
 tags:
   - deity

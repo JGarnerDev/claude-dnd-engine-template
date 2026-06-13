@@ -3,7 +3,7 @@
 
 name: "Warforged"
 type: race
-exists: false
+exists: true
 state: regional
 tags:
   - race

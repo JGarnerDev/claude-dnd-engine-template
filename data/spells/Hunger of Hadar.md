@@ -1,7 +1,7 @@
 ---
 name: "Hunger of Hadar"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

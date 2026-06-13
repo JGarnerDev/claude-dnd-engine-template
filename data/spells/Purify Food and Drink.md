@@ -1,7 +1,7 @@
 ---
 name: "Purify Food and Drink"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

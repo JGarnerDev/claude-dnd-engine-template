@@ -1,18 +1,18 @@
 ---
-name: "Player Name"
+name: "{Player Name}"
 role: core
 status: active
 characters:
-  - [[Character Name]] (active)
+  - [[{Character Name}]] (active)
 pronouns: ""
 availability: ""
-description: ""
-tags: [guideline]
+description: "{One line: since when they play, who their character is.}"
+tags: [guideline, template]
 ---
 
-# Player Name
+# {Player Name}
 
-Character: [[Character Name]]
+Character: [[{Character Name}]]
 
 ## What's Fun For Me
 <!-- Open-ended: what kinds of moments, scenes, or challenges do you enjoy most? -->

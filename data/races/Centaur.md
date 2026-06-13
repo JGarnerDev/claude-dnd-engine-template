@@ -3,7 +3,7 @@
 
 name: "Centaur"
 type: race
-exists: false
+exists: true
 state: reclusive
 tags:
   - race

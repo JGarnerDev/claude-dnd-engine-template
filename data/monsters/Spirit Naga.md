@@ -1,6 +1,7 @@
 ﻿---
 name: Spirit Naga
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

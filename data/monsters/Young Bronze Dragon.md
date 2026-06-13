@@ -1,6 +1,7 @@
 ﻿---
 name: Young Bronze Dragon
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

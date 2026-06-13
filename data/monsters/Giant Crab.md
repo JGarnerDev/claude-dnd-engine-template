@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Crab
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

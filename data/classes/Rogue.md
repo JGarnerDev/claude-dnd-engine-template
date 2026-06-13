@@ -1,7 +1,7 @@
 ﻿---
 name: "Rogue"
 type: class
-exists: false
+exists: true
 state: available
 tags:
   - class

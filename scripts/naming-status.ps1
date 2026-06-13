@@ -1,4 +1,5 @@
 ﻿# naming-status.ps1
+# consumers: CLAUDE.md -- update these if usage, flags, or output format change.
 # Scan questionnaires/world-naming.md and report named vs. unnamed entries by section.
 
 param(

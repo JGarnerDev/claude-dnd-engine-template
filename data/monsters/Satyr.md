@@ -1,6 +1,7 @@
 ﻿---
 name: Satyr
 type: monster
+exists: true
 tags:
   - monster
   - monster/fey

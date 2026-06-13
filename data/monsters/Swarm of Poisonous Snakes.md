@@ -1,6 +1,7 @@
 ﻿---
 name: Swarm of Poisonous Snakes
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

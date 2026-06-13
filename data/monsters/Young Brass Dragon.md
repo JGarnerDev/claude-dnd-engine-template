@@ -1,6 +1,7 @@
 ﻿---
 name: Young Brass Dragon
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

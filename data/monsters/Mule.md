@@ -1,6 +1,7 @@
 ﻿---
 name: Mule
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

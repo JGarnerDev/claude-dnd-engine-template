@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Ape
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

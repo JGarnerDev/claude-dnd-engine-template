@@ -1,6 +1,7 @@
 ﻿---
 name: Dao
 type: monster
+exists: true
 tags:
   - monster
   - monster/elemental

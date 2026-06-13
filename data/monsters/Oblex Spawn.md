@@ -1,6 +1,7 @@
 ---
 name: Oblex Spawn
 type: monster
+exists: true
 tags:
   - monster
   - monster/ooze

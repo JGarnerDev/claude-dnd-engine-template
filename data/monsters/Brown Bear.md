@@ -1,6 +1,7 @@
 ﻿---
 name: Brown Bear
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

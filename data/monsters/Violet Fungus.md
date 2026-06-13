@@ -1,6 +1,7 @@
 ﻿---
 name: Violet Fungus
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

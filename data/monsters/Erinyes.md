@@ -1,6 +1,7 @@
 ﻿---
 name: Erinyes
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

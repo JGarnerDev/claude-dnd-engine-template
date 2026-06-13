@@ -1,7 +1,7 @@
 ---
 name: "Toll the Dead"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

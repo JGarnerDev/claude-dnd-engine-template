@@ -1,21 +1,10 @@
 ï»¿# session-state.ps1 Ã¢‚¬" dump current campaign/act/mission/session state
+# consumers: CLAUDE.md, .claude/commands/threads.md -- update these if usage, flags, or output format change.
 # Usage: .\scripts\session-state.ps1
 
 $root = Resolve-Path "$PSScriptRoot\.."
 
-function Get-Frontmatter($path) {
-    $lines = Get-Content $path -Raw -Encoding UTF8
-    if ($lines -notmatch '(?s)^---\r?\n(.+?)\r?\n---') { return @{} }
-    $block = $Matches[1]
-    $fm = @{}
-    foreach ($line in ($block -split "`n")) {
-        $line = $line.TrimEnd("`r")
-        if ($line -match '^(\w[\w_]*):\s*"?([^"#\r\n]*)"?\s*$') {
-            $fm[$Matches[1].Trim()] = $Matches[2].Trim()
-        }
-    }
-    return $fm
-}
+. "$PSScriptRoot\lib\common.ps1"
 
 function Show-Entity($label, $fm, $path) {
     $relPath = $path.Replace($root.Path + "\", "")

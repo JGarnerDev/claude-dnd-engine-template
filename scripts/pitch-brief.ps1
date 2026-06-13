@@ -1,4 +1,5 @@
 ﻿# pitch-brief.ps1 - pre-pitch context summary
+# consumers: CLAUDE.md, .claude/commands/event.md, .claude/commands/pitch.md -- update these if usage, flags, or output format change.
 # Replaces manual reads of meta/worldbuilding.md and pitch-log/pitch-history.md
 # Usage: .\scripts\pitch-brief.ps1 [-Type <type>]
 

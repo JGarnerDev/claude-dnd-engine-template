@@ -1,6 +1,7 @@
 ---
 name: Duergar Hammerer
 type: monster
+exists: true
 tags:
   - monster
   - monster/construct

@@ -1,7 +1,7 @@
 ---
 name: "Mage Armor"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

@@ -1,7 +1,7 @@
 ---
 name: "Mass Healing Word"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

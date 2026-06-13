@@ -1,6 +1,7 @@
 ﻿---
 name: Githyanki Knight
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

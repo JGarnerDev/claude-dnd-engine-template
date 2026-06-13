@@ -1,6 +1,7 @@
 ﻿---
 name: Quaggoth Spore Servant
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

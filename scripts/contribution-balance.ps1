@@ -1,4 +1,5 @@
 ﻿# contribution-balance.ps1 -- show contributed_by counts per player across ./data and ./historian
+# consumers: CLAUDE.md, .claude/commands/region.md, data/CLAUDE.md -- update these if usage, flags, or output format change.
 # Usage: .\scripts\contribution-balance.ps1
 
 $repoRoot = Resolve-Path "$PSScriptRoot\.."

@@ -3,7 +3,7 @@
 
 name: "Shifter"
 type: race
-exists: false
+exists: true
 state: scattered
 tags:
   - race

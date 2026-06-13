@@ -1,6 +1,7 @@
 ---
 name: Neogi
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

@@ -1,6 +1,7 @@
 ﻿---
 name: Green Slaad
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

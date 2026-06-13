@@ -1,6 +1,7 @@
 ---
 name: Duergar Kavalrachni
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

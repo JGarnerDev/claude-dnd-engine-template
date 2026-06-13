@@ -1,6 +1,7 @@
 ﻿---
 name: Kuo-toa Whip
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

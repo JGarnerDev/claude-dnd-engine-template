@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Spider
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

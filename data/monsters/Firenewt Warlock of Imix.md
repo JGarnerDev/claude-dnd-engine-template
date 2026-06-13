@@ -1,6 +1,7 @@
 ---
 name: Firenewt Warlock of Imix
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

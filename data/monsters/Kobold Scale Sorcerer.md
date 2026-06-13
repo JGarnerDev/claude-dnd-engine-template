@@ -1,6 +1,7 @@
 ---
 name: Kobold Scale Sorcerer
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

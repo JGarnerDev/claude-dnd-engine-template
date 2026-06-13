@@ -1,6 +1,7 @@
 ---
 name: Yuan-ti Mind Whisperer
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

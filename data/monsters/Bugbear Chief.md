@@ -1,6 +1,7 @@
 ﻿---
 name: Bugbear Chief
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

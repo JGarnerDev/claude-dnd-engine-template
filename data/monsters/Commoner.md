@@ -1,6 +1,7 @@
 ﻿---
 name: Commoner
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

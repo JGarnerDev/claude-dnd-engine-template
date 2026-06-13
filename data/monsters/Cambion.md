@@ -1,6 +1,7 @@
 ﻿---
 name: Cambion
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

@@ -1,6 +1,7 @@
 ﻿---
 name: Bandit
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

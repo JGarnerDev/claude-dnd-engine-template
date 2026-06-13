@@ -1,6 +1,7 @@
 ﻿---
 name: Black Pudding
 type: monster
+exists: true
 tags:
   - monster
   - monster/ooze

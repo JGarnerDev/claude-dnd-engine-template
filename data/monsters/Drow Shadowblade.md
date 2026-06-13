@@ -1,6 +1,7 @@
 ---
 name: Drow Shadowblade
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

@@ -1,6 +1,7 @@
 ﻿---
 name: Awakened Shrub
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

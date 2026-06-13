@@ -1,23 +1,10 @@
 ﻿# party-status.ps1 -- show all PCs from historian + afflictions from campaign file
+# consumers: CLAUDE.md, .claude/commands/session.md, meta/difficulty.md, tests/commands/session/spec.md -- update these if usage, flags, or output format change.
 # Usage: .\scripts\party-status.ps1
 
 $root = Resolve-Path "$PSScriptRoot\.."
 
-function Get-Frontmatter($path) {
-    $lines = Get-Content $path -Raw -Encoding UTF8
-    if ($lines -notmatch '(?s)^---\r?\n(.+?)\r?\n---') { return @{} }
-    $block = $Matches[1]
-    $fm = @{}
-    foreach ($line in ($block -split "`n")) {
-        $line = $line.TrimEnd("`r")
-        if ($line -match '^(\w[\w_]*):\s*\[\[([^\]]+)\]\]') {
-            $fm[$Matches[1].Trim()] = $Matches[2].Trim()
-        } elseif ($line -match '^(\w[\w_]*):\s*"?([^"#\r\n]*)"?\s*$') {
-            $fm[$Matches[1].Trim()] = $Matches[2].Trim()
-        }
-    }
-    return $fm
-}
+. "$PSScriptRoot\lib\common.ps1"
 
 # Load afflictions from campaign party table
 $afflictions = @{}
@@ -37,6 +24,15 @@ if ($campaignFile) {
             }
         }
     }
+}
+
+# Latest played session number -- staleness baseline for level_confirmed
+$latestSession = 0
+$sessionFiles = Get-ChildItem "$root\historian\sessions" -Filter "*.md" -ErrorAction SilentlyContinue
+foreach ($sf in $sessionFiles) {
+    $sfm = Get-Frontmatter $sf.FullName
+    $n = 0
+    if ([int]::TryParse($sfm['session_number'], [ref]$n) -and $n -gt $latestSession) { $latestSession = $n }
 }
 
 # Load all PCs
@@ -64,6 +60,16 @@ foreach ($file in $pcFiles) {
     Write-Host "`n  $name" -ForegroundColor White -NoNewline
     Write-Host " ($player)" -ForegroundColor Gray
     Write-Host ("    {0} {1}, Level {2}" -f $race, $class, $level) -ForegroundColor White
+
+    # Level staleness -- level_confirmed must match the latest played session
+    if ($state -eq 'active' -and $latestSession -gt 0) {
+        $confirmed = 0
+        if (-not [int]::TryParse($fm['level_confirmed'], [ref]$confirmed)) {
+            Write-Host "    LEVEL STALE: no level_confirmed stamp (latest session: $latestSession)" -ForegroundColor Red
+        } elseif ($confirmed -lt $latestSession) {
+            Write-Host "    LEVEL STALE: confirmed at session $confirmed, latest is $latestSession" -ForegroundColor Red
+        }
+    }
     Write-Host "    State: " -ForegroundColor Gray -NoNewline
     Write-Host $state -ForegroundColor $stateColor
 

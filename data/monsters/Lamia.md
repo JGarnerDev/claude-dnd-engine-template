@@ -1,6 +1,7 @@
 ﻿---
 name: Lamia
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

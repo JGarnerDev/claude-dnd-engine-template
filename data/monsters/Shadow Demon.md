@@ -1,6 +1,7 @@
 ﻿---
 name: Shadow Demon
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

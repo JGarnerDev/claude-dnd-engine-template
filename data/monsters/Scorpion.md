@@ -1,6 +1,7 @@
 ﻿---
 name: Scorpion
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

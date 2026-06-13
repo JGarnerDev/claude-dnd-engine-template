@@ -1,6 +1,7 @@
 ﻿---
 name: Lizardfolk Shaman
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

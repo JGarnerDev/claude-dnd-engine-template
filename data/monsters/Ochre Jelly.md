@@ -1,6 +1,7 @@
 ﻿---
 name: Ochre Jelly
 type: monster
+exists: true
 tags:
   - monster
   - monster/ooze

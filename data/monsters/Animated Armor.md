@@ -1,6 +1,7 @@
 ﻿---
 name: Animated Armor
 type: monster
+exists: true
 tags:
   - monster
   - monster/construct

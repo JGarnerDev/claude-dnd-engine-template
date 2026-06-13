@@ -1,6 +1,7 @@
 ﻿---
 name: Spy
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

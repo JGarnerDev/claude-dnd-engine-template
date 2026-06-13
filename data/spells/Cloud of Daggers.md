@@ -1,7 +1,7 @@
 ---
 name: "Cloud of Daggers"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

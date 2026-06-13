@@ -1,4 +1,5 @@
 ﻿# region-scale.ps1 -- travel scale context for a region
+# consumers: CLAUDE.md, .claude/commands/region.md -- update these if usage, flags, or output format change.
 # Usage: .\scripts\region-scale.ps1 -SpanGrids <decimal> [-WaterBody sea|river|both|none] [-Locations <n>]
 
 param(

@@ -1,6 +1,7 @@
 ﻿---
 name: Kuo-toa Archpriest
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

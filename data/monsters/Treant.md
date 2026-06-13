@@ -1,6 +1,7 @@
 ﻿---
 name: Treant
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

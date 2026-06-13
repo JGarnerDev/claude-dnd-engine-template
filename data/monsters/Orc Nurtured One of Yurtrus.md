@@ -1,6 +1,7 @@
 ---
 name: Orc Nurtured One of Yurtrus
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

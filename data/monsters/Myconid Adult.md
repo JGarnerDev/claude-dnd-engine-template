@@ -1,6 +1,7 @@
 ﻿---
 name: Myconid Adult
 type: monster
+exists: true
 tags:
   - monster
   - monster/plant

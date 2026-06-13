@@ -35,16 +35,18 @@ A session is a single play session — typically three to four hours. The sessio
 
 ### Canonical Paths
 
+Filenames use the exact display name, matching `name:` per `entity.md` (e.g. `Session 13 Dream Pastries.md`).
+
 **Inline** (single file):
-`scheduler/sessions/session-{nn}-{name}.md`
-Moves to `historian/sessions/session-{nn}-{name}.md` after play.
+`scheduler/sessions/Session {NN} {Name}.md`
+Moves to `historian/sessions/Session {NN} {Name}.md` after play.
 
 **Linked** (folder):
-`scheduler/sessions/session-{nn}-{name}/session-{nn}-{name}.md` — main file
-`scheduler/sessions/session-{nn}-{name}/encounter-{slug}.md` — one per encounter
-Entire folder moves to `historian/sessions/session-{nn}-{name}/` after play.
+`scheduler/sessions/Session {NN} {Name}/Session {NN} {Name}.md` — main file
+`scheduler/sessions/Session {NN} {Name}/Encounter {Name}.md` — one per encounter
+Entire folder moves to `historian/sessions/Session {NN} {Name}/` after play.
 
-The main file always uses the same `session-{nn}-{name}` naming convention regardless of scope.
+The main file always uses the same `Session {NN} {Name}` naming convention regardless of scope.
 
 ### Valid State Values
 | State | Meaning |
@@ -69,7 +71,7 @@ tags:
   - mission/
 
 session_number:
-mission: [[Mission Name]]
+mission: [[Mission Name]]   # or `none` — TRANSITION sessions planned with no active mission; backfill if a mission emerges from play. An act placeholder link is also acceptable.
 planned_date: ""
 
 # Optional fields:

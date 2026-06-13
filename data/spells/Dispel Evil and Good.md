@@ -1,7 +1,7 @@
 ---
 name: "Dispel Evil and Good"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

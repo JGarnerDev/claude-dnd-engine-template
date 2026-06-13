@@ -3,7 +3,7 @@
 
 name: "Half Elf"
 type: race
-exists: false
+exists: true
 state: scattered
 tags:
   - race

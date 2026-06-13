@@ -1,6 +1,7 @@
 ﻿---
 name: Abominable Yeti
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

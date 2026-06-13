@@ -1,6 +1,7 @@
 ﻿---
 name: Swarm of Rats
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

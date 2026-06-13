@@ -1,6 +1,7 @@
 ---
 name: Neothelid
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

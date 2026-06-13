@@ -1,6 +1,7 @@
 ﻿---
 name: Young Red Shadow Dragon
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

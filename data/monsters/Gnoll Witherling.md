@@ -1,6 +1,7 @@
 ---
 name: Gnoll Witherling
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

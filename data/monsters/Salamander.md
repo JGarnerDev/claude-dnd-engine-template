@@ -1,6 +1,7 @@
 ﻿---
 name: Salamander
 type: monster
+exists: true
 tags:
   - monster
   - monster/elemental

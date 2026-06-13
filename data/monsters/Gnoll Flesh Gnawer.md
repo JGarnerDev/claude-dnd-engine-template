@@ -1,6 +1,7 @@
 ---
 name: Gnoll Flesh Gnawer
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

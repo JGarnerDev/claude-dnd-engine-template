@@ -1,6 +1,7 @@
 ---
 name: Kobold Inventor
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

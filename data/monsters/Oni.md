@@ -1,6 +1,7 @@
 ﻿---
 name: Oni
 type: monster
+exists: true
 tags:
   - monster
   - monster/giant

@@ -1,6 +1,7 @@
 ﻿---
 name: Giant Sea Horse
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

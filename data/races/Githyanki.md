@@ -3,7 +3,7 @@
 
 name: "Githyanki"
 type: race
-exists: false
+exists: true
 state: rare
 tags:
   - race

@@ -2,6 +2,10 @@
 
 The world map lives at `maps/world/world-names.png` (8192×6144px). The Read tool downsamples it — labels are unreadable at full scale.
 
+**Two separate map files — ground vs. sky:**
+- `maps/world/world-names.png` — all surface features: continents, mountains, rivers, plains, seas, cities, etc.
+- `maps/world/world-sky.png` — all air-situated features: Islifts, Slices, and anything else floating above the surface. These are **not** in `world-names.png` and are updated separately. When labeling sky features (e.g. Islift names), the user must edit `world-sky.png` manually. Scripts and crops that pull from `world-names.png` will not show sky features.
+
 **Always use pre-cropped tiles.** Nine tiles cover the full map with overlap: `maps/world/tiles/nw.png`, `n.png`, `ne.png`, `w.png`, `c.png`, `e.png`, `sw.png`, `s.png`, `se.png`. Read the tile that contains your area of interest. Tile coverage and key content are documented in `maps/world/index.md`.
 
 **City markers layer:** `maps/world/city-markers.png` is a transparent PNG (same 8192×6144px as `world-names.png`) with red dots marking cities that exist in the world but are unnamed and undetailed. Dots carry no labels — they mean "work needed here." Tiles of this layer live in `maps/world/tiles/markers-{nw,n,...}.png` (regenerate with `gen-tiles.py`). Read a markers tile alongside the base tile to see which cities in an area are undetailed. Use `map-crop.ps1 -Markers` to crop both layers for a specific region at once.
@@ -26,3 +30,7 @@ After graduation the city appears in base tile reads and no longer appears in ma
 **When replacing `world-names.png`**, regenerate all tiles immediately: `python scripts\gen-tiles.py`. Then read affected tiles to diff labels before updating `index.md`.
 
 Region and location drafts can have their own permanent crop. Use `.\scripts\map-crop.ps1 -Feature "<name>"` — looks up col/row from the index and saves to `maps/locations/<slug>-map.png` automatically.
+
+**Map work delegation:** Jeff (player, original world-builder) is available for manual map-making — world map edits, region/city/derivative maps. When manual map or image work comes up, remind the DM it can be handed to Jeff **unless the map is a secret** (content players should only see when they discover it in play — Jeff is a player and would be spoiled). The DM decides which maps are safe to delegate; spoiler-free maps default to "Jeff can do this."
+
+To hand work off, copy `maps/map-request-template.md` to `questionnaires/jeff-map-<slug>.md`, fill the DM sections (the spoiler check is mandatory), and send it to Jeff. Claude can draft the fill from canon — pull must-include features from the relevant tiles, drafts, and registry entries rather than asking the DM to recall them.

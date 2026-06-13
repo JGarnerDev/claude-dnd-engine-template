@@ -1,6 +1,7 @@
 ---
 name: Yuan-ti Anathema
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

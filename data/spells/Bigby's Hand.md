@@ -1,7 +1,7 @@
 ---
 name: "Bigby's Hand"
 type: spell
-exists: false
+exists: true
 state: known
 tags:
   - spell

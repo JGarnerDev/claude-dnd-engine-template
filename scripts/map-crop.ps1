@@ -1,4 +1,5 @@
 ﻿# map-crop.ps1
+# consumers: CLAUDE.md, .claude/commands/region.md, maps/CLAUDE.md -- update these if usage, flags, or output format change.
 # Crop a region from world-names.png by feature name (looked up in index) or by explicit col/row.
 # Saves permanent crops to maps/locations/<slug>-map.png.
 # Saves temp crops to maps/world/temp-crop.png (caller must delete).

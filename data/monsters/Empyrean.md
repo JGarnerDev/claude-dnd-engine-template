@@ -1,6 +1,7 @@
 ﻿---
 name: Empyrean
 type: monster
+exists: true
 tags:
   - monster
   - monster/celestial

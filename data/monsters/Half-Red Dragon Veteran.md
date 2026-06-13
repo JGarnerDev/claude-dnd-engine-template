@@ -1,6 +1,7 @@
 ﻿---
 name: Half-Red Dragon Veteran
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

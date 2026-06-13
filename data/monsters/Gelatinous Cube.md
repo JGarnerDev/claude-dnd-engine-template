@@ -1,6 +1,7 @@
 ﻿---
 name: Gelatinous Cube
 type: monster
+exists: true
 tags:
   - monster
   - monster/ooze

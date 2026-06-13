@@ -1,4 +1,5 @@
 ﻿# count-markers.ps1
+# consumers: CLAUDE.md, .claude/commands/region.md -- update these if usage, flags, or output format change.
 # Count undetailed city markers (red dots) in a map region.
 # Uses Python/PIL to detect and count distinct red blobs in city-markers.png.
 #

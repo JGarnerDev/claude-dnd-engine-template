@@ -1,6 +1,7 @@
 ﻿---
 name: Mind Flayer
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

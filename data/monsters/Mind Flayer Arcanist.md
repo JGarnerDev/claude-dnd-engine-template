@@ -1,6 +1,7 @@
 ﻿---
 name: Mind Flayer Arcanist
 type: monster
+exists: true
 tags:
   - monster
   - monster/aberration

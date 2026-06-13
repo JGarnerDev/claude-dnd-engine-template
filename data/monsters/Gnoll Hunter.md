@@ -1,6 +1,7 @@
 ---
 name: Gnoll Hunter
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

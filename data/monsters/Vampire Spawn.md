@@ -1,6 +1,7 @@
 ﻿---
 name: Vampire Spawn
 type: monster
+exists: true
 tags:
   - monster
   - monster/undead

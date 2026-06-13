@@ -19,7 +19,7 @@ Authoritative list of all valid `type` / `subtype` combinations. **Before declar
 |---|---|---|---|---|
 | `act` | — | `meta/schemas/act.md` | `scheduler/acts/` | `historian/acts/` |
 | `background` | — | `meta/schemas/background.md` | `data/backgrounds/` | `historian/backgrounds/` |
-| `campaign` | — | `meta/schemas/campaign.md` | `scheduler/campaign.md` | — |
+| `campaign` | — | `meta/schemas/campaign.md` | `scheduler/campaign/` | — |
 | `class` | — | `meta/schemas/class.md` | `data/classes/` | `historian/classes/` |
 | `character` | `antagonist` | `meta/schemas/character-antagonist.md` | `data/characters/antagonists/` | `historian/characters/antagonists/` |
 | `character` | `npc` | `meta/schemas/character-npc.md` | `data/characters/npcs/` | `historian/characters/npcs/` |

@@ -1,6 +1,7 @@
 ﻿---
 name: Orc War Chief
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

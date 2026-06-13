@@ -3,7 +3,7 @@
 
 name: "Human"
 type: race
-exists: false
+exists: true
 state: widespread
 tags:
   - race

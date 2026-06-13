@@ -1,6 +1,7 @@
 ﻿---
 name: Githzerai Zerth
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

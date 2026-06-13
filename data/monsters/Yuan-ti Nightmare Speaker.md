@@ -1,6 +1,7 @@
 ---
 name: Yuan-ti Nightmare Speaker
 type: monster
+exists: true
 tags:
   - monster
   - monster/monstrosity

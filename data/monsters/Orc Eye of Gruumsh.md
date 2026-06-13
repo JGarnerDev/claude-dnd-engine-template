@@ -1,6 +1,7 @@
 ﻿---
 name: Orc Eye of Gruumsh
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

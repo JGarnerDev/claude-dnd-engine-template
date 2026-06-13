@@ -1,6 +1,7 @@
 ﻿---
 name: Young White Dragon
 type: monster
+exists: true
 tags:
   - monster
   - monster/dragon

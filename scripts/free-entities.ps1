@@ -1,4 +1,5 @@
 ﻿# free-entities.ps1 -- list all free (exists: false) entities in ./data
+# consumers: CLAUDE.md, .claude/commands/entity-ingest.md, .claude/commands/entity-questionnaire.md, .claude/commands/region.md, .claude/commands/session.md, tests/commands/session/spec.md, data/CLAUDE.md -- update these if usage, flags, or output format change.
 # Usage: .\scripts\free-entities.ps1 [-Type npc|location|deity|etc] [-Player paul|ben|miguel|jeff]
 
 param(
@@ -9,18 +10,7 @@ param(
 $root = Join-Path (Join-Path $PSScriptRoot "..") "data"
 $files = Get-ChildItem $root -Recurse -Filter "*.md"
 
-function Get-Frontmatter($path) {
-    $lines = Get-Content $path -Raw -Encoding UTF8
-    if ($lines -notmatch '(?s)^---\r?\n(.+?)\r?\n---') { return @{} }
-    $block = $Matches[1]
-    $fm = @{}
-    foreach ($line in ($block -split "`n")) {
-        if ($line -match '^(\w[\w_]*):\s*"?([^"#\r\n]*)"?\s*$') {
-            $fm[$Matches[1].Trim()] = $Matches[2].Trim()
-        }
-    }
-    return $fm
-}
+. "$PSScriptRoot\lib\common.ps1"
 
 $results = @()
 

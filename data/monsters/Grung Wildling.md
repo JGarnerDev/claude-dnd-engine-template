@@ -1,6 +1,7 @@
 ---
 name: Grung Wildling
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid

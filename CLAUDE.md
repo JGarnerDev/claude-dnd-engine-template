@@ -10,6 +10,8 @@ This file provides operational guidance to Claude Code (claude.ai/code) for work
 
 This engine generates D&D sessions by synthesizing creative material, campaign history, design principles, and session planning into coherent, playable content.
 
+**Roles:** Kellan is the DM. Jeff and the other players contribute creative material as seeds for him. Generation rules for this split live in `meta/worldbuilding-approach.md`.
+
 ## Folder Roles
 
 - `./data` — Creative source material (lore, worldbuilding, inspiration). Informational "food" that shapes story flavor and content, but is not authoritative.
@@ -39,6 +41,10 @@ Scan commands (e.g. `/inventory`) read **frontmatter only** — never the body.
 
 **Writing** — before editing any existing file, read its frontmatter to confirm `state` and `exists`. Never overwrite without knowing current state. Before creating new content, declare what you're creating and why — same discipline as declaring read scope.
 
+## Placeholder Files
+
+Blank or incomplete files (meta templates, draft lore, unfilled player files) are intentional placeholders the group fills later. When an audit or task surfaces one, the only required action is ensuring `todo.md` has an entry for filling it, with a note on what degrades until then. Don't flag them as defects, don't propose detection heuristics or workarounds to skip them, and don't score them as gaps beyond the todo entry.
+
 ## Entity Selection
 
 Entity protocol (free entity rule, data transparency, contribution balance) documented in `data/CLAUDE.md` — auto-loaded when working with data files.
@@ -50,12 +56,16 @@ This repo spans two campaigns: `strahd` (Curse of Strahd, sessions 1–present) 
 **`campaign` field** — historian and scheduler entities carry `campaign: strahd` or `campaign: <new-world-name>`. Data entities are campaign-agnostic by default (no tag) unless they are explicitly tied to one world.
 
 **Session planning rules:**
-- Identify the active campaign from `scheduler/campaign.md`
+- Identify the active campaign from `scheduler/campaign/` — the campaign file with `state: active`
 - Do not pull `campaign: strahd` entities into new-world sessions unless the DM explicitly requests a crossover
 - Strahd-tagged entities are still visible and searchable — they just don't surface automatically in new-world content
 - Crossover is always allowed when the DM asks for it (throwbacks, callbacks, deliberate bleed)
 
 **New entities** created during or after the world transition should carry the new-world campaign tag. Entities created now, during seeding, are untagged (agnostic) unless clearly Strahd-specific.
+
+## Command Audits
+
+`tests/` holds command audit specs, rubrics, and run logs — engine QA, not campaign content. Read `tests/CLAUDE.md` before running or writing a command audit. Files in `tests/` are never entities; they are excluded from `validate.ps1` and the semantic index.
 
 ## New Campaign Setup
 
@@ -81,6 +91,9 @@ PowerShell scripts in `./scripts/` replace repetitive multi-file reads. **Run th
 |---|---|---|
 | `session-brief.ps1` | Start of every `/session` | `.\scripts\session-brief.ps1` |
 | `session-state.ps1` | Quick campaign/act/mission check | `.\scripts\session-state.ps1` |
+| `todo-brief.ps1` | Start of every `/todo` — all DM action-item signals in one call | `.\scripts\todo-brief.ps1` |
+| `inventory-brief.ps1` | Start of every `/inventory` — free entity pool grouped by type, with gaps | `.\scripts\inventory-brief.ps1 [-Type <type>]` |
+| `threads-brief.ps1` | Start of every `/threads` Phase 2 — unresolved states, hostiles, pending seeds | `.\scripts\threads-brief.ps1` |
 | `party-status.ps1` | PC stats + afflictions | `.\scripts\party-status.ps1` |
 | `free-entities.ps1` | Find available entities by type or player | `.\scripts\free-entities.ps1 [-Type <type>] [-Player <name>]` |
 | `contribution-balance.ps1` | Player contribution counts (pool vs. canonized) | `.\scripts\contribution-balance.ps1` |
@@ -98,16 +111,29 @@ PowerShell scripts in `./scripts/` replace repetitive multi-file reads. **Run th
 | `gen-tiles.py` | Regenerate all 9 world map tiles from `world-names.png` after replacing the source image | `python scripts\gen-tiles.py` |
 | `index-entities.py` | Build/rebuild the semantic vector index (run after adding new entities) | `py -3.10 scripts\index-entities.py [--reset]` |
 | `semantic-search.ps1` | Semantic similarity search — find entities by meaning, not keywords | `.\scripts\semantic-search.ps1 -Query "<text>" [-Type <type>] [-Subtype <sub>] [-Exists true\|false] [-Source data\|historian\|scheduler] [-K <n>]` |
+| `validate.ps1` | Graph integrity check — dangling `[[links]]`, missing/invalid `exists`/`name`/`type`, broken canon. Run before canonizing or after bulk edits | `.\scripts\validate.ps1 [-Scope all\|links\|frontmatter] [-Quiet]` |
+| `validate-refs.ps1` | Instruction-file reference lint — finds path refs in CLAUDE.md files, commands, meta, tests, and todo files that point at renamed/deleted files. Run after renaming, moving, or deleting any instruction file or script | `.\scripts\validate-refs.ps1 [-Quiet]` |
+| `refs.ps1` | Reverse dependency lookup — every file:line that references a target file. Run before renaming a file or changing a script's flags/output format, then update what it lists | `.\scripts\refs.ps1 -Target <path-or-filename>` |
+
+**Script dependents:** each consumed script carries a `# consumers:` header line listing the instruction files that reference it. When changing a script's usage, flags, or output format, update those files in the same change.
 
 Scripts output plain text; parse with your own judgment. They read frontmatter only (except `session-brief.ps1` which also reads the last session body for cliffhanger).
 
 **Semantic index:** `vector-index/` (gitignored, rebuilt from source). Build once with `py -3.10 scripts\index-entities.py`, re-run after bulk entity additions. Use `semantic-search.ps1` to surface entities by thematic relevance — betrayal arcs, forgotten NPCs, callback hooks, contradiction checks.
 
-**Index staleness check:** At the start of any session, read `vector-index/.index-built` (line 1: ISO timestamp, line 2: git commit SHA). Then run `git log --oneline <sha>..HEAD -- data/ historian/ scheduler/`. If any commits appear, flag it: "Semantic index stale since `<sha[:7]>` — run `py -3.10 scripts\index-entities.py`." Do not rebuild automatically; prompt the user. If `.index-built` is missing, index has never been built — prompt to run it.
+**Index staleness check:** At the start of any session, read `vector-index/.index-built` (line 1: ISO timestamp, line 2: git commit SHA). Then run `git log --oneline <sha>..HEAD -- data/ historian/ scheduler/`. If any commits appear, flag it: "Semantic index stale since `<sha[:7]>` — run `py -3.10 scripts\index-entities.py`." Ignore commits that touch only non-indexed files (`CLAUDE.md`, `README.md`) — the indexer skips them, so they cannot stale the index. Do not rebuild automatically; prompt the user. If `.index-built` is missing, index has never been built — prompt to run it.
+
+## Stamp Pattern
+
+Recurring engine idiom for drift-prone state: stamp the state with the marker it was last confirmed at (session number or git SHA), restamp on every `/recap` even when nothing changed, and let a script flag when the stamp lags the latest played session. A stale stamp means reconstruct-with-DM — never trust the old numbers. Current instances: `vector-index/.index-built` (git SHA), PC `level_confirmed`, the campaign Rest Clock header. Use this pattern for any new state that can go silently stale.
 
 ## Player Entity Submissions
 
 **Auto-ingestion trigger:** If any message, pasted content, or file contains a `<!-- CLAUDE-INGEST type: entity-questionnaire -->` block, treat it as a filled player questionnaire awaiting ingestion. Read `.claude/commands/entity-ingest.md` for the full flow. Never create an entity directly from raw player input.
+
+## Session Notes Ingestion (Recap Inbox)
+
+**Auto-ingestion trigger:** any markdown file in `recaps/inbox/` is raw session notes awaiting canonization — the DM drops rough notes there after play. When one exists at session start (`session-brief.ps1` flags it, along with any session whose `planned_date` has passed with no historian record), offer to run `/recap` using that file as the what-happened notes. Never canonize without the DM walking the `/recap` flow; after canonization completes, delete the inbox file — its content lives in the historian record.
 
 ## PC Backstory Ingestion
 
@@ -128,6 +154,14 @@ These phrases may appear casually — do not trigger on obvious metaphor or out-
 
 If confirmed, read `.claude/commands/transition.md` and follow the full transition flow. Do not make any changes until the DM confirms each step.
 
+## Output Style
+
+No markdown tables in chat responses or generated campaign documents — use bullet lists with inline formatting instead. Existing tables inside instruction files (like the scripts table in this file) are exempt.
+
+## Followup Suggestions
+
+When a task reaches a natural endpoint, suggest at most **one** followup command — and only when the current state actually warrants it (e.g. entities just written → index rebuild; gap surfaced → fill command). Name the command and the reason in a single line: "Run `/x` to <reason>." Never append a boilerplate suggestion tail to every response; no state signal, no suggestion. Command files may specify their own closing suggestions — those take precedence.
+
 ## Recap Format
 
 Whenever presenting a session recap — whether via `/session` Phase 1 orientation, a direct "what's the recap" prompt, or any other context — use this two-part format:
@@ -139,13 +173,15 @@ No DM brief card needed. No other formats unless explicitly requested.
 
 ## Commands
 
-- `/commands` — `.claude/commands/commands.md`
-- `/inventory` — `.claude/commands/inventory.md`
-- `/session` — `.claude/commands/session.md`
-- `/recap` — `.claude/commands/recap.md`
-- `/entity-questionnaire` — `.claude/commands/entity-questionnaire.md`
+- `/commands` — `.claude/commands/commands.md` — list all available slash commands with descriptions
+- `/inventory` — `.claude/commands/inventory.md` — scan all entities in `./data` and report what's in the pool
+- `/session` — `.claude/commands/session.md` — plan the next session from campaign state, threads, and scheduler
+- `/recap` — `.claude/commands/recap.md` — canonize a played session and write it to historian
+- `/entity-questionnaire` — `.claude/commands/entity-questionnaire.md` — generate a player-facing questionnaire to design a new world entity
 - `/find <query>` — `.claude/commands/find.md` — semantic entity search; surfaces entities by meaning
 - `/threads` — `.claude/commands/threads.md` — surfaces forgotten/unresolved campaign threads
 - `/voice <npc name>` — `.claude/commands/voice.md` — DM voice brief grounded in established canon
+- `/rumor [count] [theme]` — `.claude/commands/rumor.md` — surface pool rumors as session-opener flavor; read-only
 - `/check <claim>` — `.claude/commands/check.md` — contradiction check against historian before canonizing
 - `/transition` — `.claude/commands/transition.md` — guided campaign transition flow; also auto-triggered by language cues
+- `/todo` — `.claude/commands/todo.md` — plain-language DM dashboard of everything needing attention or action

@@ -1,6 +1,7 @@
 ﻿---
 name: Swarm of Quippers
 type: monster
+exists: true
 tags:
   - monster
   - monster/beast

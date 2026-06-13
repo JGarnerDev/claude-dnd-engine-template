@@ -1,6 +1,7 @@
 ---
 name: Vargouille
 type: monster
+exists: true
 tags:
   - monster
   - monster/fiend

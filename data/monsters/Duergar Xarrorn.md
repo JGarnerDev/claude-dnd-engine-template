@@ -1,6 +1,7 @@
 ---
 name: Duergar Xarrorn
 type: monster
+exists: true
 tags:
   - monster
   - monster/humanoid
