@@ -1,7 +1,8 @@
 # todo-brief.ps1 -- DM action-item dashboard. Backbone of the /todo command.
 # consumers: CLAUDE.md, .claude/commands/todo.md -- update these if usage, flags, or output format change.
 # Collects every mechanical "needs attention" signal in one call:
-#   uncanonized sessions, recap inbox, index staleness, unchecked todo.md items,
+#   uncanonized sessions, recap inbox, index staleness, unchecked topic-todo items,
+#   world buildout gaps (empty entity types, scheduler structure),
 #   questionnaire fill states, draft files, undeployed design preferences.
 # Output is raw signals; /todo translates them to plain DM language.
 # Usage: .\scripts\todo-brief.ps1
@@ -172,7 +173,9 @@ if (Test-Path $stamp) {
     Write-Host "  Never built - run: py -3.10 scripts\index-entities.py" -ForegroundColor Red
 }
 
-# -- 3. Unchecked todo items (todo.md + topic files like todo-worldmap.md) -------
+# -- 3. Unchecked todo items (topic files like todo-worldmap.md) ------------------
+# Derivable buildout work comes from the WORLD BUILDOUT scan below; genuine manual
+# items live in todo-dashboard.md and are preserved by /todo's merge.
 # todo-dashboard.md is /todo output, not a source -- always excluded.
 Write-Host "`n--- TODO FILES (unchecked) ---" -ForegroundColor DarkGray
 $todoFiles = Get-ChildItem "$root" -Filter "todo*.md" -File -ErrorAction SilentlyContinue |
@@ -192,6 +195,54 @@ if ($todoFiles) {
     }
 } else {
     Write-Host "  (no todo files found)" -ForegroundColor DarkGray
+}
+
+# -- 3b. World buildout (empty entity types + scheduler structure) ----------------
+# Derives the "create regions/factions/PCs/..." checklist from reality:
+# an entity type with zero files is an open buildout gap; a populated one is done.
+Write-Host "`n--- WORLD BUILDOUT ---" -ForegroundColor DarkGray
+$buildoutDirs = [ordered]@{
+    "regions"    = "data\locations\regions"
+    "cities"     = "data\locations\cities"
+    "dungeons"   = "data\locations\dungeons"
+    "wilderness" = "data\locations\wilderness"
+    "shops"      = "data\locations\shops"
+    "factions"   = "data\factions"
+    "NPCs"       = "data\characters\npcs"
+    "PCs"        = "data\characters\pcs"
+    "events"     = "data\events"
+    "rumors"     = "data\rumors"
+}
+$empty = @(); $populated = @()
+foreach ($k in $buildoutDirs.Keys) {
+    $n = (Get-ChildItem (Join-Path $root $buildoutDirs[$k]) -Filter *.md -File -ErrorAction SilentlyContinue | Measure-Object).Count
+    if ($n -eq 0) { $empty += $k } else { $populated += "$k ($n)" }
+}
+if ($empty.Count) {
+    Write-Host "  EMPTY - no entities yet: $($empty -join ', ')" -ForegroundColor Yellow
+} else {
+    Write-Host "  All core entity types populated." -ForegroundColor DarkGray
+}
+Write-Host "  Populated: $($populated -join ', ')" -ForegroundColor DarkGray
+
+$actFiles = @(Get-ChildItem "$root\scheduler\acts" -Filter *.md -File -ErrorAction SilentlyContinue)
+$misN = (Get-ChildItem "$root\scheduler\missions" -Filter *.md -File -ErrorAction SilentlyContinue | Measure-Object).Count
+if ($actFiles.Count -eq 0) {
+    Write-Host "  SCHEDULER: no act defined yet" -ForegroundColor Yellow
+} elseif (@($actFiles | Where-Object { $_.Name -match 'Placeholder' }).Count -gt 0) {
+    Write-Host "  SCHEDULER: only a placeholder act exists - needs real act notes" -ForegroundColor Yellow
+}
+if ($misN -eq 0) {
+    Write-Host "  SCHEDULER: no missions defined yet" -ForegroundColor Yellow
+}
+
+# Party still on the placeholder name "The Party" -- nudge the group to name it.
+foreach ($pf in @(Get-ChildItem "$root\historian\characters\parties" -Filter *.md -File -ErrorAction SilentlyContinue)) {
+    $fm = Get-Frontmatter $pf.FullName
+    $pname = ("$($fm['name'])" -replace '"', '').Trim()
+    if ($pname -match '^the party$') {
+        Write-Host "  PARTY UNNAMED: still called 'The Party' - encourage the group to pick a name" -ForegroundColor Yellow
+    }
 }
 
 # -- 4. Questionnaires ------------------------------------------------------------

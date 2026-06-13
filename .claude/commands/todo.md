@@ -10,7 +10,9 @@ Give the DM a plain-language summary of everything that needs attention or actio
 .\scripts\todo-brief.ps1
 ```
 
-This collects: uncanonized/pending sessions, recap inbox files, **no-plan-for-next-game-night warning** (game night is Tuesday — sourced from the campaign's Rules Decisions), open threads (characters missing/imprisoned/transformed), party state staleness (level stamps and the Rest Clock — translate as "character levels / the party's rest tracker haven't been confirmed since session N; next session's encounter math leans on them"), graph health (validate error count), index staleness, unchecked todo items (`todo.md` plus topic files like `todo-worldmap.md`; `todo-dashboard.md` is output, never a source), questionnaire fill states, draft lore/acts/missions, and undeployed design preferences (with an AGING CHECK line every 5th played session — when it appears, surface it as a 🤝 item: review the group wishlist together, seed or retire what's stalling). **Do not re-read the underlying files** — the script output is the complete signal set. Read a file only if the DM asks a follow-up about a specific item.
+This collects: uncanonized/pending sessions, recap inbox files, **no-plan-for-next-game-night warning** (game night is Tuesday — sourced from the campaign's Rules Decisions), open threads (characters missing/imprisoned/transformed), party state staleness (level stamps and the Rest Clock — translate as "character levels / the party's rest tracker haven't been confirmed since session N; next session's encounter math leans on them"), graph health (validate error count), index staleness, unchecked topic-todo items (topic files like `todo-worldmap.md`; `todo-dashboard.md` is output, never a source), **world buildout gaps** (the `--- WORLD BUILDOUT ---` block: empty entity types like PCs/events/rumors, and scheduler structure — placeholder-only act, no missions), questionnaire fill states, draft lore/acts/missions, and undeployed design preferences (with an AGING CHECK line every 5th played session — when it appears, surface it as a 🤝 item: review the group wishlist together, seed or retire what's stalling). **Do not re-read the underlying files** — the script output is the complete signal set. Read a file only if the DM asks a follow-up about a specific item.
+
+There is no separate master-checklist file. Derivable "create regions/factions/PCs/…" work surfaces automatically from the WORLD BUILDOUT scan; genuinely-manual items (stretch ideas, historian backfill, pre-canon checks) live as backlog items inside `todo-dashboard.md` itself and are preserved across runs by the merge in Step 3.
 
 **Stale-checklist cross-check:** while translating todo-file items, flag any that look already done against other signals in the same script output — e.g. a lore file listed as no-longer-draft while its fill-it item sits unchecked, or a "create X" item where X now exists. Present those as *"possibly done — confirm and check off"* rather than as open work. Do not check items off yourself.
 
@@ -22,10 +24,17 @@ Three groups, in this order. One line per item: plain-language what + why it mat
 
 **Number every item sequentially across all groups (1, 2, 3… — do not restart per group)** so the DM can reference items in conversation ("tell me more about 7", "do 3"). When the DM refers to an item by number in a follow-up, resolve it against the numbering from your most recent /todo output.
 
+**Within-group ordering** — inside 🟡 Waiting on people and ⚪ Backlog, order items by actor tag in this fixed sequence: 🤖, then 🤝, then 🙋, then ❓, then ⚪. 🔴 Do soon is the exception: it stays urgency-ranked (no plan for game night pinned at top), not actor-sorted.
+
+**Lead every item with its actor emoji, then the person who should do it.** After the number comes the emoji tag, then the responsible person in bold, then an em-dash, then the what+why. The party counts as a "person" — use **The party** when the task is theirs collectively. Named people: **Kellan** (DM's creative calls), a specific player (**Jeff**, etc.), **Claude** (anything 🤖). When it's genuinely unclear who should act, use **anyone** with a parenthetical reason — e.g. "**anyone** (whoever opens the file next)". Never leave an item without an emoji and a person.
+
+Format per line: `N. <emoji> **<Person>** — <what + why>`
+
 **Tag every item with who can act**, so the DM sees at a glance what to delegate to Claude vs. chase in person:
 - 🤖 — Claude can do it now; name the command or script ("say *do 2* and I'll rebuild the search index")
 - 🙋 — needs a human: a player filling something in, the DM making a creative call (name them — "Kellan decides"), or manual work outside the engine (image edits)
 - 🤝 — joint: Claude drafts or runs the mechanics, but the DM must decide or approve (session plans, canonization, ingesting questionnaires)
+- ⚪ — just FYI: nothing to do right now, worth knowing (parked story ideas, open threads the DM may never touch, informational counts). Use only when no one is expected to act; if an item has any owner, tag that owner instead.
 
 Judge honestly: anything requiring taste, approval, or table knowledge is 🤝 at best, not 🤖. Pure script runs, index rebuilds, validation, drafting from existing answers are 🤖.
 
@@ -51,9 +60,17 @@ Judge honestly: anything requiring taste, approval, or table knowledge is 🤝 a
 - Unused design wishlist count ("N story ideas from the group still waiting for their moment")
 - Anything else from the todo files, summarized — collapse long sections to "N items about X" rather than listing every line
 
-## Step 3 — Write the dashboard file
+## Step 3 — Merge into the dashboard file
 
-After presenting the list in chat, write the same content to `todo-dashboard.md` at the repo root (overwrite every run — it is a snapshot, not a log). Same numbering, same wording, plus a first line noting the generation date: `*Generated 2026-06-10 by /todo*`. This file is disposable output, not an entity — no frontmatter. Number references in conversation resolve against this file when chat history is unavailable.
+`todo-dashboard.md` is now the source of truth for manual todos, so do **not** blind-overwrite it. **Read the existing file first, then merge:**
+
+1. **Auto items** — anything the brief regenerates (sessions, threads, party state, index, graph, questionnaires, drafts, design prefs, **world buildout gaps**). Rewrite these freshly from this run's signals. Drop any whose signal has cleared (e.g. a buildout type that is no longer empty, a questionnaire now ingested).
+2. **Manual items** — backlog lines with **no matching signal in the brief** (stretch ideas, historian backfill, pre-canon checks, faction-internal notes, anything the DM typed). **Preserve these verbatim.** Carry forward any DM edits, relocations, or inline notes from the prior file — if the DM moved an item to another section or annotated it, honor that placement on the next write.
+3. Renumber sequentially across all groups after merging. Keep the same sectioned format (no fences, no checkboxes) — every line is `N. <emoji> **<Person>** — <task>`, leading with the actor emoji then the bold responsible person (**The party** / **Kellan** / a player / **Claude** / **anyone** (reason)) per Step 2. First line records the date: `*Generated <today> by /todo*`. No frontmatter — this is a working dashboard, not an entity.
+
+After the date line, emit the actor legend as a flat bullet list (one tag per line, not an inline `·`-separated run) under a `**Who acts:**` heading: 🤖 / 🙋 / 🤝 / ⚪ / ❓ with the short gloss for each.
+
+When unsure whether a line is auto or manual, treat it as manual and preserve it; never silently drop a DM-authored line. Number references in conversation resolve against this file.
 
 ## Step 4 — Close with one suggestion
 

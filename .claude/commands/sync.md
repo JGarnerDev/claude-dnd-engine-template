@@ -31,6 +31,12 @@ Report:
 - Files that will be copied: [new or changed, with classification]
 - Files in the template repo matching shareable patterns that no longer exist here: [stale — flag but don't delete automatically]
 
+**Stale file handling:** for each stale file, append a cleanup entry to `{template_repo}/TODO.md` under a `## Cleanup — Stale Files to Remove` section (create the section if absent). Format:
+```
+- [ ] `{path}` — {reason: "removed from sync" or "excluded via !-pattern"}
+```
+Do this as part of Step 4 (after the DM confirms), before the commit. This ensures stale files are never silently forgotten.
+
 Ask: *"Sync N file(s) to the template repo?"*
 
 Wait for confirmation before writing anything.
