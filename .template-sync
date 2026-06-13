@@ -1,11 +1,43 @@
 # Shareable file patterns — engine structure only, no campaign content
 # Machine-specific config (template repo path) lives in .template-sync.local (gitignored)
+#
+# NOT synced (campaign-specific content):
+#   meta/worldbuilding.md            — this world's lore; create fresh per campaign
+#   meta/mysteries.md                — campaign load-bearing unknowns; create fresh per campaign
+#   meta/campaign-design-preferences.md — this group's wishlist; create fresh per campaign
+#   meta/party-relationships.md      — this party's bonds; create fresh per campaign
+#   data/factions/*, data/locations/*, data/routes/*, data/lore/*, data/characters/*
+#   data/items/magic/*               — contains Strahd-specific items
+#   data/world-events-pool.md        — campaign event pool
+#   historian/*, scheduler/*, maps/* (except maps/CLAUDE.md)
+#   tests/commands/*/runs/, tests/commands/*/personas/
+
+# Root
 CLAUDE.md
 README.md
+.template-sync
+
+# Commands — all slash commands
+.claude/commands/check.md
+.claude/commands/commands.md
+.claude/commands/entity-ingest.md
+.claude/commands/entity-questionnaire.md
+.claude/commands/event.md
+.claude/commands/find.md
 .claude/commands/inventory.md
-.claude/commands/session.md
+.claude/commands/pc-backstory.md
+.claude/commands/pitch.md
 .claude/commands/recap.md
+.claude/commands/region.md
+.claude/commands/rumor.md
+.claude/commands/session.md
 .claude/commands/sync.md
+.claude/commands/threads.md
+.claude/commands/todo.md
+.claude/commands/transition.md
+.claude/commands/voice.md
+
+# Meta — engine protocol and structural guidelines
 meta/schemas/*.md
 meta/entity-creation.md
 meta/graph-settings.md
@@ -16,5 +48,74 @@ meta/mechanics/*.md
 meta/references.md
 meta/worldbuilding-approach.md
 meta/players/player-template.md
+meta/difficulty.md
+meta/literary-devices.md
+meta/new-campaign-setup.md
+meta/rewards.md
+meta/settlements.md
+meta/trait-registry.md
+meta/warfare.md
+
+# Subdirectory CLAUDE.md files
+data/CLAUDE.md
+maps/CLAUDE.md
+scheduler/CLAUDE.md
+tests/CLAUDE.md
+
+# Tests — structural audit infrastructure only
+tests/rubrics/principles.md
+tests/commands/session/spec.md
+
+# Data — standard D&D reference catalogs
+data/backgrounds/*.md
+data/classes/*.md
+data/deities/*.md
+data/feats/*.md
+data/monsters/*.md
+data/races/*.md
+data/resources/*.md
+data/skills/*.md
+data/spells/*.md
+
+# Exclusions — world-specific resources inside data/resources/
+# These are homebrew or world-economy entries that belong to this campaign, not the engine.
+# A new campaign should create its own world resources from scratch.
+# Add a line here whenever a new world-specific resource lands in data/resources/.
+!data/resources/Coffee.md          # five-house monopoly; this world's economy
+!data/resources/Fargrsh.md         # Ben's contributed resource
+!data/resources/Serhari.md         # Jeff's contributed resource
+!data/resources/Stonecap Mushroom.md  # world-specific flora
+!data/resources/Whatwill.md        # world-specific material
+
+# Scripts — all engine scripts and shared library
+scripts/lib/common.ps1
+scripts/contribution-balance.ps1
+scripts/count-markers.ps1
+scripts/entity-graph.ps1
+scripts/free-entities.ps1
+scripts/gen-tiles.py
+scripts/index-entities.py
+scripts/inventory-brief.ps1
+scripts/location-entities.ps1
+scripts/map-crop.ps1
+scripts/monster-lookup.ps1
+scripts/naming-status.ps1
+scripts/party-status.ps1
+scripts/pitch-brief.ps1
+scripts/refs.ps1
+scripts/region-brief.ps1
+scripts/region-scale.ps1
+scripts/region-world-context.ps1
+scripts/route-cities.ps1
+scripts/semantic-search.ps1
+scripts/semantic-search.py
+scripts/session-brief.ps1
+scripts/session-state.ps1
+scripts/threads-brief.ps1
+scripts/todo-brief.ps1
+scripts/validate-refs.ps1
+scripts/validate.ps1
+
+# IDE / graph config
 .vscode/settings.json
 .obsidian/graph.json
