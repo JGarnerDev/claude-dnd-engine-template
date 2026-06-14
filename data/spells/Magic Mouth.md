@@ -24,4 +24,4 @@ available_to:
 description: "Level 2 ritual. Program an object to speak a 25-word message when a trigger condition occurs."
 ---
 
-Magic Mouth is a persistent environmental storytelling tool — useful for leaving instructions, warnings, greetings, or trap components. The trigger condition can be creative. In dungeons and estates like Castle Ravenloft, this spell explains how messages from long-dead occupants persist.
+Magic Mouth is a persistent environmental storytelling tool — useful for leaving instructions, warnings, greetings, or trap components. The trigger condition can be creative. In ancient dungeons and estates, this spell explains how messages from long-dead occupants persist.

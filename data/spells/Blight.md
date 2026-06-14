@@ -24,4 +24,4 @@ available_to:
 description: "Level 4. 30 ft: 8d8 necrotic (Con save). Maximum damage against plants. No effect on undead/constructs."
 ---
 
-Blight is a reliable single-target damage spell — 8d8 necrotic (average 36) is solid for a 4th-level slot with no concentration. Constitution saves are often strong on martial enemies, but necrotic damage is one of the harder types to resist. No effect on undead or constructs is the notable limitation. In Barovia's undead-heavy environment, this spell has limited target validity in many encounters but excels against living enemies.
+Blight is a reliable single-target damage spell — 8d8 necrotic (average 36) is solid for a 4th-level slot with no concentration. Constitution saves are often strong on martial enemies, but necrotic damage is one of the harder types to resist. No effect on undead or constructs is the notable limitation. In undead-heavy environments, this spell has limited target validity in many encounters but excels against living enemies.

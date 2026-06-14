@@ -26,4 +26,4 @@ available_to:
 description: "Level 3. 1 hour, 100 gp consumed. 10-ft cylinder: chosen creature types can't enter, charm, possess, or use natural weapons inside."
 ---
 
-Magic Circle is the containment and protection spell for supernatural threats — in Barovia, it can exclude undead and fiends from a protected area. Inverted, it can trap summoned creatures for interrogation or binding. The 100gp material cost is significant. Non-concentration and 1-hour duration make it excellent for pre-combat preparation or rest protection against specific threats.
+Magic Circle is the containment and protection spell for supernatural threats — it can exclude undead and fiends from a protected area. Inverted, it can trap summoned creatures for interrogation or binding. The 100gp material cost is significant. Non-concentration and 1-hour duration make it excellent for pre-combat preparation or rest protection against specific threats.

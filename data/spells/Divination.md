@@ -24,4 +24,4 @@ available_to:
 description: "Level 4. Ritual. Ask your deity one question about events within 7 days; receive truthful answer. Degraded by repeated use."
 ---
 
-Divination is the party's oracle for critical planning questions — asking about a specific encounter, trap, or decision gets a DM-adjudicated honest answer about the near future. The ritual option means it costs no spell slot the first time each rest. Repeated use risks false answers (cumulative 25%). In Barovia, divine contact is complicated by Strahd's domain, and the Dark Powers may intercept or distort answers — a rich narrative opportunity.
+Divination is the party's oracle for critical planning questions — asking about a specific encounter, trap, or decision gets a DM-adjudicated honest answer about the near future. The ritual option means it costs no spell slot the first time each rest. Repeated use risks false answers (cumulative 25%). In sealed or cursed domains, divine contact may be complicated, and hostile powers may intercept or distort answers — a rich narrative opportunity.

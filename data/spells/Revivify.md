@@ -26,4 +26,4 @@ available_to:
 description: "Level 3. Revive a creature dead within 1 minute (300 gp diamonds consumed). Returns with 1 HP."
 ---
 
-Revivify is the in-combat resurrection — the 1-minute window means it can bring back allies who fell mid-fight, which no higher-level resurrection can do. The 300gp cost is substantial but finite. In Barovia, Strahd's domain prevents most resurrection magic from working (by RAW in CoS, resurrection spells require DM permission in Barovia). Revivify may be the only viable option for bringing back fallen party members in the setting.
+Revivify is the in-combat resurrection — the 1-minute window means it can bring back allies who fell mid-fight, which no higher-level resurrection can do. The 300gp cost is substantial but finite. In some settings, the domain prevents most resurrection magic from working (DM permission may be required). Revivify may then be the only viable option for bringing back fallen party members.

@@ -25,4 +25,4 @@ available_to:
 description: "Level 4. Concentration, 10 min. Control a 100-ft water cube: flood, part, redirect flow, or whirlpool."
 ---
 
-Control Water requires large bodies of water to be useful but is transformative in those environments — parting Lake Zarovich to cross, creating whirlpools around enemy ships, or flooding lower dungeon levels. In Barovia, the lake surrounding Castle Ravenloft is the primary target. Niche spell but high impact when conditions are right.
+Control Water requires large bodies of water to be useful but is transformative in those environments — parting a lake to cross, creating whirlpools around enemy ships, or flooding lower dungeon levels. A lake or moat surrounding a stronghold is the ideal target. Niche spell but high impact when conditions are right.

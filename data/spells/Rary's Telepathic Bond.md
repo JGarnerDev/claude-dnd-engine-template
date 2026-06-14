@@ -23,4 +23,4 @@ available_to:
 description: "Level 5. Ritual, 1 hour. Up to 8 creatures share a telepathic link across any distance. No language required."
 ---
 
-Rary's Telepathic Bond establishes silent, language-independent communication across the entire party simultaneously. The ritual option means no slot cost. In Barovia, where conversations may be overheard by Strahd's spy network (ravens, bats, animated shadows), silent mental communication enables coordinated plans without revealing intentions to listeners. Critical for stealth operations in Castle Ravenloft.
+Rary's Telepathic Bond establishes silent, language-independent communication across the entire party simultaneously. The ritual option means no slot cost. Where conversations may be overheard by a villain's spy network (ravens, bats, animated shadows), silent mental communication enables coordinated plans without revealing intentions to listeners. Critical for stealth operations in enemy strongholds.

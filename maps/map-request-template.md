@@ -1,7 +1,7 @@
-<!-- Template, not an entity — no frontmatter. Copy per request to questionnaires/jeff-map-<slug>.md, fill the DM sections, send to Jeff. -->
+<!-- Template, not an entity — no frontmatter. Copy per request to questionnaires/map-<slug>.md, fill the DM sections, send to the world-builder. -->
 
 # Map Work Request — {working name}
-*For Jeff — a map the campaign needs. Fill in questions at the bottom, leave blanks where you'd rather improvise.*
+*For the world-builder — a map the campaign needs. Fill in questions at the bottom, leave blanks where you'd rather improvise.*
 
 ## ✅ Spoiler check *(DM fills before sending — required)*
 
@@ -25,7 +25,7 @@
 
 ---
 
-## Your call, Jeff *(fill what you like, blanks are fine)*
+## Your call *(fill what you like, blanks are fine)*
 
 **Style — match the world map's look, or something different for this one?**
 
@@ -45,4 +45,4 @@
 
 ---
 
-*Return the finished map to the DM. He'll place it in the repo (usually `maps/locations/`) and canonize any new features you added.*
+*Return the finished map to the DM. They'll place it in the repo (usually `maps/locations/`) and canonize any new features you added.*

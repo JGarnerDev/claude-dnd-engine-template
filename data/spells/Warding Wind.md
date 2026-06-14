@@ -23,4 +23,4 @@ available_to:
 description: "Level 2. Concentration, 10 min. 10-ft wind aura: blocks ranged attacks, extinguishes flames, blocks gas/fog, deafens."
 ---
 
-Warding Wind is a niche but powerful defensive spell in specific situations — it hard-counters ranged attackers, gaseous enemies, and fog/smoke hazards. The deafness is a self-debuff that disrupts verbal spells and communication. In Barovia, the gas/fog immunity matters against Strahd's mist form and the pervasive environmental fog. Costs concentration, which limits synergy with other buffs.
+Warding Wind is a niche but powerful defensive spell in specific situations — it hard-counters ranged attackers, gaseous enemies, and fog/smoke hazards. The deafness is a self-debuff that disrupts verbal spells and communication. The gas/fog immunity matters against vampire mist form and pervasive environmental fog. Costs concentration, which limits synergy with other buffs.

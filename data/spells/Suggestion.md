@@ -25,4 +25,4 @@ available_to:
 description: "Level 2. Concentration, 8 hours. Compel a creature to follow a reasonable-sounding 2-sentence instruction (Wisdom save)."
 ---
 
-Suggestion is one of the most powerful social and infiltration spells — 8 hours of concentration means complex, multi-step instructions can be followed. Strahd himself uses variants of this as his primary social manipulation. For PCs, it can redirect guards, extract information, delay enemies, or send targets on lengthy errands while the party accomplishes objectives.
+Suggestion is one of the most powerful social and infiltration spells — 8 hours of concentration means complex, multi-step instructions can be followed. Many villains use variants of this as their primary social manipulation. For PCs, it can redirect guards, extract information, delay enemies, or send targets on lengthy errands while the party accomplishes objectives.

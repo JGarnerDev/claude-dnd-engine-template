@@ -17,7 +17,7 @@ Distinct from `location-wilderness`: a wilderness area is a named zone you trave
 
 *Answer these questions and give them to your DM or paste them into chat. Required answers are marked with \*.*
 
-**\* Name:** What is this terrain feature called? (e.g. the Ivlis River, the Tsolenka Pass, the Old Svalich Road)
+**\* Name:** What is this terrain feature called? (e.g. the Silver River, the High Pass, the Old King's Road)
 
 **\* Type:** What kind of feature is it — river, lake, mountain range, peak, pass, road, bridge, ford, valley, cliff, swamp, coastline, or something else?
 

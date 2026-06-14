@@ -22,4 +22,4 @@ available_to:
 description: "Level 5. Concentration, 1 hour. Weapon: +2d8 radiant/hit. On dismiss: 4d8 radiant burst (undead/fiends at disadvantage)."
 ---
 
-Holy Weapon transforms a melee fighter into a sustained radiant damage dealer — 2d8 radiant per hit for an hour is significant total damage, and the detonation on dismissal creates an AoE burst option when surrounded. Bonus action cast means it doesn't compete with the attack action. In Barovia, radiant damage is particularly effective against undead; the dual-purpose (sustained hits + burst) makes this one of the best paladin/cleric 5th-level martial options.
+Holy Weapon transforms a melee fighter into a sustained radiant damage dealer — 2d8 radiant per hit for an hour is significant total damage, and the detonation on dismissal creates an AoE burst option when surrounded. Bonus action cast means it doesn't compete with the attack action. Radiant damage is particularly effective against undead; the dual-purpose (sustained hits + burst) makes this one of the best paladin/cleric 5th-level martial options.

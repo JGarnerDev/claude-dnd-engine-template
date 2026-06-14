@@ -26,4 +26,4 @@ available_to:
 description: "Level 3. Ritual. Touch: willing creature appears dead (1 hour). Blinded, incapacitated, resistance all damage (not psychic), pauses disease/poison."
 ---
 
-Feign Death serves both infiltration and survival — a downed ally can fake death to avoid coup de graces, or the party can slip past undead that only attack the living. Disease/poison pause is surprisingly useful in Barovia where afflictions like werewolf lycanthropy or Strahd's curse can be temporarily suspended. Ritual casting means no slot cost for non-combat applications.
+Feign Death serves both infiltration and survival — a downed ally can fake death to avoid coup de graces, or the party can slip past undead that only attack the living. Disease/poison pause is surprisingly useful where afflictions like lycanthropy or magical curses can be temporarily suspended. Ritual casting means no slot cost for non-combat applications.

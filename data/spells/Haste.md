@@ -25,4 +25,4 @@ available_to:
 description: "Level 3. Concentration, 1 min. Target: doubled speed, +2 AC, advantage Dex saves, +1 action. Lethargy when ends."
 ---
 
-Haste is one of the best single-target buffs in 5e — the extra attack action alone effectively doubles a martial's damage output, and the AC/save bonuses add meaningful defense. The concentration cost and lethargy-on-end are the costs (dropping concentration mid-fight wastes a turn). Best on the party's primary attacker. In Barovia combat, the Haste-lethargy turn can be dangerous if the target is still in melee.
+Haste is one of the best single-target buffs in 5e — the extra attack action alone effectively doubles a martial's damage output, and the AC/save bonuses add meaningful defense. The concentration cost and lethargy-on-end are the costs (dropping concentration mid-fight wastes a turn). Best on the party's primary attacker. The Haste-lethargy turn can be dangerous if the target is still in melee.

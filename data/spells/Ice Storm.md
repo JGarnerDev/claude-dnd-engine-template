@@ -25,4 +25,4 @@ available_to:
 description: "Level 4. 300 ft, 20-ft radius: 2d8 bludgeoning + 4d6 cold (Dex save), leaves difficult terrain. No concentration."
 ---
 
-Ice Storm delivers mixed bludgeoning and cold damage (harder to resist together than either alone) with persistent difficult terrain in a large area, at 300-foot range, with no concentration. The damage is slightly lower than Fireball at the same slot but adds difficult terrain and longer range. In Barovia's outdoor encounters, the terrain creation can shape the rest of the battle. The cold damage is thematic and relevant against fire-resistant creatures.
+Ice Storm delivers mixed bludgeoning and cold damage (harder to resist together than either alone) with persistent difficult terrain in a large area, at 300-foot range, with no concentration. The damage is slightly lower than Fireball at the same slot but adds difficult terrain and longer range. In outdoor encounters, the terrain creation can shape the rest of the battle. The cold damage is thematic and relevant against fire-resistant creatures.

@@ -23,4 +23,4 @@ available_to:
 description: "Level 5. Ritual. Ask your deity three yes/no questions; receive honest answers. Cleric-only."
 ---
 
-Commune is divine consultation — three yes/no questions with truthful divine answers, as a ritual (no slot cost). In Barovia, cleric contact with their deity is complicated: the domain is sealed by the Dark Powers, and divine entities may be limited in their sight here. This creates a natural tension where Commune may reveal that even the gods have limited knowledge of Barovia's situation, which is itself significant information.
+Commune is divine consultation — three yes/no questions with truthful divine answers, as a ritual (no slot cost). In sealed or cursed domains, cleric contact with their deity may be complicated, and divine entities may be limited in their sight. This creates a natural tension where Commune may reveal that even the gods have limited knowledge of the situation, which is itself significant information.

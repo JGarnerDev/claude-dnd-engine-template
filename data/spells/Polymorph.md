@@ -26,4 +26,4 @@ available_to:
 description: "Level 4. Concentration, 1 hour. Transform creature into beast. Unwilling: Wisdom save. New form uses beast's stats."
 ---
 
-Polymorph is one of the most versatile 4th-level spells — offensively it transforms dangerous enemies into harmless rabbits; defensively it can turn a dying ally into a Giant Ape with 157 HP as a pseudo-revival; tactically it grants flight (pteranodon), stealth (cat), or aquatic capability (octopus). Concentration dependency means it competes with other spells. In Barovia, polymorphing Strahd's minions mid-fight can tilt encounters dramatically.
+Polymorph is one of the most versatile 4th-level spells — offensively it transforms dangerous enemies into harmless rabbits; defensively it can turn a dying ally into a Giant Ape with 157 HP as a pseudo-revival; tactically it grants flight (pteranodon), stealth (cat), or aquatic capability (octopus). Concentration dependency means it competes with other spells. Polymorphing a villain's minions mid-fight can tilt encounters dramatically.

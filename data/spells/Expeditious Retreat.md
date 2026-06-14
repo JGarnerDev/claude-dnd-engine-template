@@ -23,4 +23,4 @@ available_to:
 description: "Level 1. Concentration, 10 min. Bonus action Dash each turn — effectively doubles your speed every turn."
 ---
 
-Expeditious Retreat enables sustained high-speed movement — effectively double speed every turn for up to 10 minutes. Useful for chase sequences, kiting dangerous enemies, reaching objectives quickly, or escaping in the narrow corridors common in Barovian dungeons.
+Expeditious Retreat enables sustained high-speed movement — effectively double speed every turn for up to 10 minutes. Useful for chase sequences, kiting dangerous enemies, reaching objectives quickly, or escaping in the narrow corridors common in dungeons.

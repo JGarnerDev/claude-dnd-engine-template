@@ -23,4 +23,4 @@ available_to:
 description: "Level 5. Concentration, 10 min. Indestructible invisible wall up to 10 panels. Immune to all damage; only Disintegrate destroys it."
 ---
 
-Wall of Force is arguably the best defensive and control spell in the game — an invisible, indestructible barrier that can enclose enemies in a sphere or divide a battlefield. Nothing (no spells, no attacks, no breath weapons) passes through it. Only Disintegrate bypasses it. In Barovia against Strahd, enclosing him in a force sphere while the party destroys his minions, then focusing on him together, is a textbook strategy. Wizard-exclusive.
+Wall of Force is arguably the best defensive and control spell in the game — an invisible, indestructible barrier that can enclose enemies in a sphere or divide a battlefield. Nothing (no spells, no attacks, no breath weapons) passes through it. Only Disintegrate bypasses it. Against a powerful single boss, enclosing it in a force sphere while the party destroys its minions, then focusing it down together, is a textbook strategy. Wizard-exclusive.

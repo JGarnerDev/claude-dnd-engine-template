@@ -24,4 +24,4 @@ available_to:
 description: "Level 2 ritual. Learn a vague omen (weal/woe) about a course of action taken within 30 minutes."
 ---
 
-Augury is a ritual divination for high-stakes decisions — \"should we open this door,\" \"should we attack now or wait.\" The DM's omen gives information without specifics. Multiple casts about the same action within a day may give false results. Extremely valuable in exploration-heavy modules like Curse of Strahd.
+Augury is a ritual divination for high-stakes decisions — \"should we open this door,\" \"should we attack now or wait.\" The DM's omen gives information without specifics. Multiple casts about the same action within a day may give false results. Extremely valuable in exploration-heavy modules.

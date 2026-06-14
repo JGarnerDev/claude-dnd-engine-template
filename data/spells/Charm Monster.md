@@ -25,4 +25,4 @@ available_to:
 description: "Level 4. 1 hour. Any creature (not just humanoids): Wisdom save or charmed. Multiple targets at higher levels."
 ---
 
-Charm Monster is Charm Person without the humanoid restriction — any creature type, which makes it vastly more useful. In Barovia, charming a werewolf, vampire spawn, or other non-humanoid monster can neutralize it or extract information. Non-concentration means it doesn't compete with combat spells. Ends on harm — cannot be used to trick the creature into walking into danger.
+Charm Monster is Charm Person without the humanoid restriction — any creature type, which makes it vastly more useful. Charming a werewolf, vampire spawn, or other non-humanoid monster can neutralize it or extract information. Non-concentration means it doesn't compete with combat spells. Ends on harm — cannot be used to trick the creature into walking into danger.

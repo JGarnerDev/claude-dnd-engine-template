@@ -23,4 +23,4 @@ available_to:
 description: "Level 3. Two modes: instant 100-ft radius difficult terrain (indefinite); or 8-hr ritual to double crop yields for 1 year."
 ---
 
-Plant Growth's combat application creates indefinite difficult terrain across a massive area — a 100-foot radius means most outdoor battles become severely constrained. No concentration, no saves, and the effect lasts until cleared. The agricultural version has narrative utility in Barovia where the cursed land prevents crops from growing; restoring growth could be a meaningful story beat.
+Plant Growth's combat application creates indefinite difficult terrain across a massive area — a 100-foot radius means most outdoor battles become severely constrained. No concentration, no saves, and the effect lasts until cleared. The agricultural version has narrative utility in settings where cursed or blighted land prevents crops from growing; restoring growth could be a meaningful story beat.

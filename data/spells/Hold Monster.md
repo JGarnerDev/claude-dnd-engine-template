@@ -26,4 +26,4 @@ available_to:
 description: "Level 5. Concentration, 1 min. Any creature (not just humanoids): Wis save or paralyzed. Repeat save each turn."
 ---
 
-Hold Monster is the single-target paralysis spell with no creature-type restriction — unlike Hold Person (humanoids only), this works on undead, beasts, fiends, and aberrations. Paralyzed is one of the most severe conditions (can't move or act, attacks against it are automatic critical hits within 5 feet). In Barovia, this can paralyze Strahd, vampire spawn, or any enemy regardless of type, setting up devastating follow-up attacks with guaranteed crits.
+Hold Monster is the single-target paralysis spell with no creature-type restriction — unlike Hold Person (humanoids only), this works on undead, beasts, fiends, and aberrations. Paralyzed is one of the most severe conditions (can't move or act, attacks against it are automatic critical hits within 5 feet). This can paralyze a vampire, vampire spawn, or any enemy regardless of type, setting up devastating follow-up attacks with guaranteed crits.

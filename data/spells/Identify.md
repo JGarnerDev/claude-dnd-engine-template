@@ -24,4 +24,4 @@ available_to:
 description: "Level 1 ritual. Learn all magical properties of a held object — effects, attunement, charges, curses."
 ---
 
-Identify is the primary tool for understanding magic items — ritual castable (no slot), reveals all properties including curses. Essential in Curse of Strahd where cursed items are a real threat and unknown magic items are encountered frequently. The 100 gp pearl component is a recurring cost unless taken as an arcane focus.
+Identify is the primary tool for understanding magic items — ritual castable (no slot), reveals all properties including curses. Essential where cursed items are a real threat and unknown magic items are encountered frequently. The 100 gp pearl component is a recurring cost unless taken as an arcane focus.

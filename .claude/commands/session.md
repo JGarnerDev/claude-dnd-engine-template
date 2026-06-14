@@ -105,7 +105,7 @@ Read frontmatter only (state, description) across `historian/characters/`, `hist
 
 **Step 2 — Find free entities**
 
-First identify the active campaign (`state: active` file in `scheduler/campaign/`). When surfacing entities, exclude historian entities tagged `campaign: strahd` unless the active campaign is Strahd or the DM explicitly requests a crossover. Untagged data entities are campaign-agnostic and always eligible.
+First identify the active campaign (`state: active` file in `scheduler/campaign/`). When surfacing entities, exclude historian entities tagged for a campaign other than the active one unless the DM explicitly requests a crossover. Untagged data entities are campaign-agnostic and always eligible.
 
 Run semantic search using the themes of the current session direction (from cliffhanger, mission hook, or chosen thread):
 
@@ -172,7 +172,7 @@ After the hook is chosen (or confirmed in CONTINUATION mode), do the **Elaborati
 4. **Depth** — (only if `--depth` not provided) `narrated` (read-aloud blockquotes for key moments) or `notes` (DM bullet notes only)?
 5. **Scope** — (only if `--scope` not provided) `inline` (single file) or `linked` (folder with separate encounter files)?
 6. **Elaboration decisions** — for each sparse key entity: draft the elaboration, or leave it to the DM?
-7. At most **one** hook-specific question, only if something genuinely warrants it (e.g. "Is the party expected to find Strahd's location this session, or is that still a mystery to preserve?").
+7. At most **one** hook-specific question, only if something genuinely warrants it (e.g. "Is the party expected to find the villain's location this session, or is that still a mystery to preserve?").
 
 Do not ask questions that the established context already answers. Do not split these into multiple messages.
 
@@ -194,7 +194,7 @@ Using all context gathered, produce a session plan in chat.
 
 **Frontmatter fields to populate:**
 - **Session name** — propose a name (the DM can change it)
-- **Key locations** — use `[[wiki-link]]` to entities in `historian/locations/` or `data/locations/` only; not factions (e.g., `[[Domain of Barovia]]` is a faction; the region is `[[Barovia]]`)
+- **Key locations** — use `[[wiki-link]]` to entities in `historian/locations/` or `data/locations/` only; not factions (a ruling faction and the region it controls are two different entities — link the location)
 - **Key NPCs** — note if free (`data/`) or canon (`historian/`)
 - **Encounters** — for a roleplay-only shape, write `none planned` and stop; never invent encounters to satisfy a budget. Otherwise, list planned encounters sized to the resolved attrition tier (encounter count, round budget) and lethality tier (CR targets, tactics note per encounter); sanity-check with RTD math per `meta/difficulty.md`. The attrition budget belongs to the **adventuring day**, not the session: subtract the Rest Clock's rounds-since-long-rest from the tier budget and size to the remainder. If the remainder is near zero, the long rest is the content — plan it as a scene, or flag that pushing past budget bumps effective lethality a tier
 - **Loose threads** — unresolved promises, player action items, or dangling beats from prior sessions

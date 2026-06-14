@@ -21,4 +21,4 @@ available_to:
 description: "Level 3. Concentration, 10 min. Repeatable 3d10 lightning bolt each turn (bonus 1d10 in existing storms). Druid-only."
 ---
 
-Call Lightning is one of the most sustained damage-per-slot options in the game — 3d10 every turn for up to 10 minutes means 100 lightning bolt actions off a single 3rd-level slot. Concentration dependency is the cost. Outdoors (or in Barovia's perpetual storm) the bonus die applies constantly. Druid exclusive; excellent for outdoor/wilderness encounters.
+Call Lightning is one of the most sustained damage-per-slot options in the game — 3d10 every turn for up to 10 minutes means 100 lightning bolt actions off a single 3rd-level slot. Concentration dependency is the cost. Outdoors (or in a storm) the bonus die applies constantly. Druid exclusive; excellent for outdoor/wilderness encounters.

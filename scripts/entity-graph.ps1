@@ -1,6 +1,6 @@
 ﻿# entity-graph.ps1 -- show 1-hop relation graph for a named entity
 # consumers: CLAUDE.md -- update these if usage, flags, or output format change.
-# Usage: .\scripts\entity-graph.ps1 -Name "Strahd Von Zarovich"
+# Usage: .\scripts\entity-graph.ps1 -Name "<entity name>"
 # Searches both ./data and ./historian
 
 param(

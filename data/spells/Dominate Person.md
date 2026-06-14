@@ -23,4 +23,4 @@ available_to:
 description: "Level 5. Concentration, 1 min (longer at higher slots). Control a humanoid (Wis save). Telepathic commands, free action. New save on damage."
 ---
 
-Dominate Person is direct mental control of humanoids — the telepathic command link requires no action, leaving you free to cast other spells. Best used against powerful enemy humanoids (commanders, guards) to turn them against their allies. In Barovia, dominating a Barovian guard, Vistani informant, or even one of Strahd's lieutenants can reshape encounters. The new-save-on-damage caveat means using the dominated target as a combatant is risky.
+Dominate Person is direct mental control of humanoids — the telepathic command link requires no action, leaving you free to cast other spells. Best used against powerful enemy humanoids (commanders, guards) to turn them against their allies. Dominating a guard, an informant, or even one of the villain's lieutenants can reshape encounters. The new-save-on-damage caveat means using the dominated target as a combatant is risky.

@@ -25,4 +25,4 @@ available_to:
 description: "Level 3. 8 hours. Target creature or object becomes immune to all divination magic and scrying."
 ---
 
-Nondetection is the counterspell for Strahd's Scrying — he uses the spell regularly to observe the party, making Nondetection a key asset for planning ambushes or secret operations. The 8-hour non-concentration duration covers long rests and most dungeon runs. The 25gp material cost is per-cast. In Barovia, Strahd's ability to scry anywhere in his domain makes this spell strategically critical before major heists or confrontations.
+Nondetection is the counterspell for enemy Scrying — a villain may use it regularly to observe the party, making Nondetection a key asset for planning ambushes or secret operations. The 8-hour non-concentration duration covers long rests and most dungeon runs. The 25gp material cost is per-cast. An enemy's ability to scry anywhere in its domain makes this spell strategically critical before major heists or confrontations.

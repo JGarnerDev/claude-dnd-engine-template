@@ -25,4 +25,4 @@ available_to:
 description: "Level 2. Concentration, 1 hour. Touch target: climb any surface (including ceilings) at full walking speed."
 ---
 
-Spider Climb enables vertical traversal for any party member — bypassing locked doors by going through windows, reaching enemies on elevated positions, escaping by climbing walls. Particularly useful in Castle Ravenloft's multi-level architecture where vertical movement creates significant tactical advantages.
+Spider Climb enables vertical traversal for any party member — bypassing locked doors by going through windows, reaching enemies on elevated positions, escaping by climbing walls. Particularly useful in multi-level architecture where vertical movement creates significant tactical advantages.

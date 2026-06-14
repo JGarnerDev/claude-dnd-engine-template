@@ -24,4 +24,4 @@ available_to:
 description: "Level 5. 20-ft sphere: 8d6 psychic (Int save) + ongoing -1d6 to attacks/checks/concentration checks until saved again."
 ---
 
-Synaptic Static combines AoE psychic damage with persistent debuffing — the -1d6 on concentration checks is particularly powerful against enemy spellcasters, making their maintained spells unreliable. Psychic damage is rarely resisted. No concentration. The secondary effect persists until the end of each long rest unless another save is made, but the ongoing save means it typically lasts 1-2 combat turns. Best against spellcaster enemies or as a debuff before Strahd's attacks.
+Synaptic Static combines AoE psychic damage with persistent debuffing — the -1d6 on concentration checks is particularly powerful against enemy spellcasters, making their maintained spells unreliable. Psychic damage is rarely resisted. No concentration. The secondary effect persists until the end of each long rest unless another save is made, but the ongoing save means it typically lasts 1-2 combat turns. Best against spellcaster enemies or as a debuff before a boss's attacks.

@@ -21,4 +21,4 @@ available_to:
 description: "Level 5. Ritual. Ask five one-word-answer questions to an extraplanar entity. DC 15 Int save or 6d6 psychic + insane until long rest."
 ---
 
-Contact Other Plane trades sanity risk for five questions — the DC 15 Intelligence save is meaningful, and failure means the caster is incapacitated for the rest of the day. In Barovia, the sealed domain may limit extraplanar contact; the Dark Powers may intercept or distort answers. Ritual casting means no slot cost, making the risk-reward more palatable. Best reserved for critical intelligence needs when Divination and Commune are exhausted.
+Contact Other Plane trades sanity risk for five questions — the DC 15 Intelligence save is meaningful, and failure means the caster is incapacitated for the rest of the day. In sealed or cursed domains, extraplanar contact may be limited, and hostile powers may intercept or distort answers. Ritual casting means no slot cost, making the risk-reward more palatable. Best reserved for critical intelligence needs when Divination and Commune are exhausted.

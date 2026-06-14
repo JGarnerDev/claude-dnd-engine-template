@@ -22,4 +22,4 @@ available_to:
 description: "Level 5. Concentration, 10 min. 20-ft radius drifting poison cloud: 5d8 poison/turn (Con save), heavily obscured. Moves 10 ft/round."
 ---
 
-Cloudkill is a persistent area denial spell — 10-minute concentration with 5d8 poison per turn per creature is enormous sustained damage. The cloud's automatic drift (10 ft away each round) makes placement important; at a chokepoint or against cornered enemies it's devastating. Heavily obscured prevents targeting from within. Concentration dependency and poison resistance on many undead limit its value in Barovia specifically.
+Cloudkill is a persistent area denial spell — 10-minute concentration with 5d8 poison per turn per creature is enormous sustained damage. The cloud's automatic drift (10 ft away each round) makes placement important; at a chokepoint or against cornered enemies it's devastating. Heavily obscured prevents targeting from within. Concentration dependency and poison resistance on many undead limit its value in undead-heavy settings.

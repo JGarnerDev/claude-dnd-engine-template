@@ -16,7 +16,7 @@ source: Monster Manual p.235
 habitats:
   - "[[Abyss]]"
   - "[[Forest]]"
-description: Fiendish horse wreathed in fire. Confers fire damage on its rider's mount checks. Ethereal Stride lets it move between planes. Strahd's mount is a Nightmare — the template for that specific creature.
+description: Fiendish horse wreathed in fire. Confers fire damage on its rider's mount checks. Ethereal Stride lets it move between planes.
 weaknesses: []
 resistances: []
 immunities:
@@ -26,5 +26,5 @@ movement:
   - "fly 90"
 ---
 
-Fiendish horse wreathed in fire. Confers fire damage on its rider's mount checks. Ethereal Stride lets it move between planes. Strahd's mount is a Nightmare — the template for that specific creature.
+Fiendish horse wreathed in fire. Confers fire damage on its rider's mount checks. Ethereal Stride lets it move between planes.
 **Habitats:** [[Abyss]] | [[Forest]]

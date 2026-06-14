@@ -21,4 +21,4 @@ available_to:
 description: "Level 1. Concentration. Wisdom save or target is frightened — must flee or be restrained. No effect on constructs/undead."
 ---
 
-Cause Fear is a strong single-target control spell for non-undead enemies — frighten effect forces them to flee or be restrained, effectively removing them from combat. Critically weak in Barovia since undead (the most common enemy type) are immune. Best used against living enemies, cultists, and humanoid threats.
+Cause Fear is a strong single-target control spell for non-undead enemies — frighten effect forces them to flee or be restrained, effectively removing them from combat. Critically weak in undead-heavy campaigns, since undead are immune. Best used against living enemies, cultists, and humanoid threats.

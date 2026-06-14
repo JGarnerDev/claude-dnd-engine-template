@@ -24,4 +24,4 @@ available_to:
 description: "Level 4. 8 hours, no concentration. Invisible phantom hound: alerts when creatures approach within 30 ft, attacks for 4d8 piercing."
 ---
 
-Mordenkainen's Faithful Hound is a combination alarm system and attack dog — the 8-hour no-concentration duration covers long rest security, and the bark alerts the party while the attack discourages intrusion. The hound is invisible, so enemies don't know it's there until it barks. In Barovia, camping security is a real concern; the hound patrols a 100-foot radius from its placement position.
+Mordenkainen's Faithful Hound is a combination alarm system and attack dog — the 8-hour no-concentration duration covers long rest security, and the bark alerts the party while the attack discourages intrusion. The hound is invisible, so enemies don't know it's there until it barks. Where camping security is a real concern, the hound patrols a 100-foot radius from its placement position.

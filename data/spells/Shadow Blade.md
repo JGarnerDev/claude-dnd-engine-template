@@ -23,4 +23,4 @@ available_to:
 description: "Level 2. Concentration. Psychic damage sword (2d8, finesse, light, thrown). Advantage in dim light/darkness."
 ---
 
-Shadow Blade creates a reliable melee weapon for casters who enter combat — psychic damage is rarely resisted, finesse means it uses the higher of Str/Dex, and the advantage in dim light makes it powerful in dark settings. In Barovia's perpetual gloom, the advantage condition is almost constantly active.
+Shadow Blade creates a reliable melee weapon for casters who enter combat — psychic damage is rarely resisted, finesse means it uses the higher of Str/Dex, and the advantage in dim light makes it powerful in dark settings. In perpetually gloomy settings, the advantage condition is almost constantly active.

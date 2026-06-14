@@ -24,4 +24,4 @@ available_to:
 description: "Level 3. Concentration, 1 min. 50-ft wind wall: 3d8 bludgeoning, blocks ranged attacks and gases, knocks down small fliers."
 ---
 
-Wind Wall is a battlefield geometry spell — a 50-foot long wall blocks entire flanks from ranged fire and aerial threats. Small flying creatures (bats, ravens, imps) fall immediately on contact, which is relevant in Barovia where Strahd uses bat swarms and ravens as scouts. The gas-blocking also counters Stinking Cloud, Cloudkill, or Strahd's mist-form movement through the wall.
+Wind Wall is a battlefield geometry spell — a 50-foot long wall blocks entire flanks from ranged fire and aerial threats. Small flying creatures (bats, ravens, imps) fall immediately on contact, relevant where an enemy uses bat swarms and ravens as scouts. The gas-blocking also counters Stinking Cloud, Cloudkill, or a vampire's mist-form movement through the wall.

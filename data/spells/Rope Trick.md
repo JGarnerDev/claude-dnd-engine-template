@@ -23,4 +23,4 @@ available_to:
 description: "Level 2. 1 hour. Extradimensional safe space attached to a rope. Holds 8 creatures. Invisible from outside."
 ---
 
-Rope Trick creates a safe rest space inaccessible from outside during short or long rests — significant in hostile environments where the party needs downtime without being disturbed. The 1-hour duration limits long rest use, but combining multiple castings or using it for short rests makes camp security possible in Barovia's dangerous wilderness.
+Rope Trick creates a safe rest space inaccessible from outside during short or long rests — significant in hostile environments where the party needs downtime without being disturbed. The 1-hour duration limits long rest use, but combining multiple castings or using it for short rests makes camp security possible in dangerous wilderness.

@@ -25,4 +25,4 @@ available_to:
 description: "Level 2. 1 hour. See invisible creatures/objects as visible. See into the Ethereal Plane."
 ---
 
-See Invisibility counters Invisibility and Greater Invisibility effects, reveals Ethereal creatures, and exposes hidden enemies. In Barovia, incorporeal undead (ghosts, specters, wraiths) frequently use the Ethereal Plane — a caster with See Invisibility provides critical detection capability that bypasses a common enemy advantage.
+See Invisibility counters Invisibility and Greater Invisibility effects, reveals Ethereal creatures, and exposes hidden enemies. Incorporeal undead (ghosts, specters, wraiths) frequently use the Ethereal Plane — a caster with See Invisibility provides critical detection capability that bypasses a common enemy advantage.

@@ -24,4 +24,4 @@ available_to:
 description: "Level 1. Concentration. Wisdom save or target falls prone and incapacitated (laughing). Repeats save each turn."
 ---
 
-Tasha's Hideous Laughter is a soft crowd-control spell — incapacitating (can't act) and prone (disadvantage on attacks, advantage for adjacent attackers). Repeated saves mean it won't last the full minute against most creatures, but even 1-2 turns of incapacitation is significant. Ineffective against unintelligent creatures and undead, which limits its use in Barovia.
+Tasha's Hideous Laughter is a soft crowd-control spell — incapacitating (can't act) and prone (disadvantage on attacks, advantage for adjacent attackers). Repeated saves mean it won't last the full minute against most creatures, but even 1-2 turns of incapacitation is significant. Ineffective against unintelligent creatures and undead, which limits its use in undead-heavy campaigns.

@@ -26,4 +26,4 @@ description: "Bonus action teleport up to 30 feet. Verbal only — usable while 
 
 Misty Step is one of the most efficient mobility spells in the game. Bonus action teleport up to 30 feet to any visible unoccupied space — passes through walls, escapes grapples and restraints, bypasses opportunity attacks. The verbal-only component means it works even while physically bound.
 
-Extremely practical in tight corridors, trap-laden rooms, and the multi-level encounters common in Barovian dungeons and castles.
+Extremely practical in tight corridors, trap-laden rooms, and the multi-level encounters common in dungeons and castles.

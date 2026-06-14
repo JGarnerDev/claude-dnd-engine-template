@@ -22,4 +22,4 @@ available_to:
 description: "Level 1. 2d8 poison (ranged attack) + Constitution save or poisoned until end of its next turn."
 ---
 
-Ray of Sickness deals poison damage (widely resisted, especially by undead) and inflicts the poisoned condition on a failed Constitution save. The poisoned condition imposes disadvantage on attacks and ability checks, providing control value. Limited by poison immunity, which is extremely common in Barovia's undead-heavy encounters.
+Ray of Sickness deals poison damage (widely resisted, especially by undead) and inflicts the poisoned condition on a failed Constitution save. The poisoned condition imposes disadvantage on attacks and ability checks, providing control value. Limited by poison immunity, which is extremely common in undead-heavy encounters.

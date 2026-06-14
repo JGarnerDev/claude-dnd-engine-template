@@ -22,4 +22,4 @@ available_to:
 description: "Level 3. Ritual, 8 hours. Merge into a stone object: immune to nonmagical damage, untargetable by spells. Exit at will."
 ---
 
-Meld into Stone is a powerful short rest or hiding option — immunity to nonmagical damage and untargetable by spells while inside. Ritual casting costs no slot. The 8-hour duration covers a full long rest inside stone in a dungeon. High risk: magical damage inside causes forced expulsion with 6d6 damage. In Barovia's stone-heavy castle environment, every exterior wall and floor qualifies.
+Meld into Stone is a powerful short rest or hiding option — immunity to nonmagical damage and untargetable by spells while inside. Ritual casting costs no slot. The 8-hour duration covers a full long rest inside stone in a dungeon. High risk: magical damage inside causes forced expulsion with 6d6 damage. In stone-heavy castle environments, every exterior wall and floor qualifies.

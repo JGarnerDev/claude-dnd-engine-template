@@ -31,9 +31,9 @@ After graduation the city appears in base tile reads and no longer appears in ma
 
 Region and location drafts can have their own permanent crop. Use `.\scripts\map-crop.ps1 -Feature "<name>"` — looks up col/row from the index and saves to `maps/locations/<slug>-map.png` automatically.
 
-**Map work delegation:** Jeff (player, original world-builder) is available for manual map-making — world map edits, region/city/derivative maps. When manual map or image work comes up, remind the DM it can be handed to Jeff **unless the map is a secret** (content players should only see when they discover it in play — Jeff is a player and would be spoiled). The DM decides which maps are safe to delegate; spoiler-free maps default to "Jeff can do this."
+**Map work delegation:** the table's designated world-builder (often a player) may be available for manual map-making — world map edits, region/city/derivative maps. When manual map or image work comes up, remind the DM it can be handed off **unless the map is a secret** (content players should only see when they discover it in play — a player world-builder would be spoiled). The DM decides which maps are safe to delegate; spoiler-free maps default to the world-builder.
 
-To hand work off, copy `maps/map-request-template.md` to `questionnaires/jeff-map-<slug>.md`, fill the DM sections (the spoiler check is mandatory), and send it to Jeff. Claude can draft the fill from canon — pull must-include features from the relevant tiles, drafts, and registry entries rather than asking the DM to recall them.
+To hand work off, copy `maps/map-request-template.md` to `questionnaires/map-<slug>.md`, fill the DM sections (the spoiler check is mandatory), and send it to the world-builder. Claude can draft the fill from canon — pull must-include features from the relevant tiles, drafts, and registry entries rather than asking the DM to recall them.
 
 ---
 

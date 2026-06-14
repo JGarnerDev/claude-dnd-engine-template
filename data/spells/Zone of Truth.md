@@ -23,4 +23,4 @@ available_to:
 description: "Level 2. 10 min. 15-ft sphere: Charisma save or can't lie (can stay silent). You know who failed."
 ---
 
-Zone of Truth is an interrogation tool — not infallible (creatures can refuse to speak) but forces failed creatures to be truthful. Knowing who passed or failed the save is itself useful information. In Barovia, where lies and deception are common from both allies and enemies, this spell reveals trust relationships quickly.
+Zone of Truth is an interrogation tool — not infallible (creatures can refuse to speak) but forces failed creatures to be truthful. Knowing who passed or failed the save is itself useful information. Where lies and deception are common from both allies and enemies, this spell reveals trust relationships quickly.

@@ -1,6 +1,6 @@
 ﻿# free-entities.ps1 -- list all free (exists: false) entities in ./data
 # consumers: CLAUDE.md, .claude/commands/entity-ingest.md, .claude/commands/entity-questionnaire.md, .claude/commands/region.md, .claude/commands/session.md, tests/commands/session/spec.md, data/CLAUDE.md -- update these if usage, flags, or output format change.
-# Usage: .\scripts\free-entities.ps1 [-Type npc|location|deity|etc] [-Player paul|ben|miguel|jeff]
+# Usage: .\scripts\free-entities.ps1 [-Type npc|location|deity|etc] [-Player <name>]
 
 param(
     [string]$Type   = "",

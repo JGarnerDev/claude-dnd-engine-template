@@ -26,4 +26,4 @@ available_to:
 description: "Level 4. 1 hour. Immunity to difficult terrain, most speed reduction, paralysis, and restraint. Can escape grapples with 5 ft of movement."
 ---
 
-Freedom of Movement provides near-complete immunity to mobility control — Web, Evard's Black Tentacles, paralysis effects, Hold Person, and most restraint effects simply don't work against the target. The 1-hour non-concentration duration is excellent. In Barovia against Strahd who uses Hold Person, Charm, and similar control spells, this buff on the party's most action-critical member is extremely valuable.
+Freedom of Movement provides near-complete immunity to mobility control — Web, Evard's Black Tentacles, paralysis effects, Hold Person, and most restraint effects simply don't work against the target. The 1-hour non-concentration duration is excellent. Against enemies who use Hold Person, Charm, and similar control spells, this buff on the party's most action-critical member is extremely valuable.

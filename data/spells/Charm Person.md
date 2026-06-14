@@ -25,4 +25,4 @@ available_to:
 description: "Level 1. Charm a humanoid for 1 hour (Wisdom save). Friendly acquaintance only — not a puppet."
 ---
 
-Charm Person is one of Strahd's signature manipulation tools, and a powerful social lever for PC casters. The charmed creature treats the caster as a friendly acquaintance — not a puppet, but enough to open doors, delay combat, or extract information. The creature knows it was charmed when the spell ends, which can create complications.
+Charm Person is a classic villain manipulation tool, and a powerful social lever for PC casters. The charmed creature treats the caster as a friendly acquaintance — not a puppet, but enough to open doors, delay combat, or extract information. The creature knows it was charmed when the spell ends, which can create complications.

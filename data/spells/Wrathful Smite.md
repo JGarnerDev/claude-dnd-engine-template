@@ -20,4 +20,4 @@ available_to:
 description: "Level 1. Concentration. Bonus action smite: +1d6 psychic and target must save vs frightened."
 ---
 
-Wrathful Smite is a Paladin smite spell notable for the psychic damage type and the frightened condition — fear effects against creatures in Barovia are thematically appropriate and mechanically strong, since frightened creatures can't approach the source of their fear. The Wisdom save means intelligent creatures may resist.
+Wrathful Smite is a Paladin smite spell notable for the psychic damage type and the frightened condition — fear effects are thematically appropriate and mechanically strong, since frightened creatures can't approach the source of their fear. The Wisdom save means intelligent creatures may resist.

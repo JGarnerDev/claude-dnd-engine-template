@@ -24,7 +24,7 @@ Each `meta/` file read at most once per task. Re-reads within sub-tasks are fail
 
 ## 6. Campaign separation
 
-No `campaign: strahd` entities surfaced into new-world content without explicit DM request, and vice versa. Untagged data entities are fine anywhere.
+No entities tagged for a campaign other than the active one surfaced into its content without explicit DM request, and vice versa. Untagged data entities are fine anywhere.
 
 ## 7. Interaction economy
 

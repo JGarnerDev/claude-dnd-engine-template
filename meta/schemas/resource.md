@@ -15,7 +15,7 @@ Covers named natural or economic resources: ore deposits, timber stands, fishing
 
 *Answer these questions and give them to your DM or paste them into chat. Required answers are marked with \*.*
 
-**\* Name:** What is this resource called? (e.g. the Barovian Amber Fields, the Tser Pool Salmon Run, Iron Veins of Mount Ghakis)
+**\* Name:** What is this resource called? (e.g. the Amber Fields, a salmon run, the Iron Veins of a mountain)
 
 **\* Type:** What category — ore, timber, food, fresh water, stone, arcane material, livestock, textiles, alchemical components, labor, or something else?
 

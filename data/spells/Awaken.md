@@ -24,4 +24,4 @@ available_to:
 description: "Level 5. 8-hour ritual, 1,000 gp consumed. Permanently awaken a beast or plant with Intelligence 10, language, sapience."
 ---
 
-Awaken creates a permanent intelligent ally or NPC — a tree can become a guardian, a wolf a companion, a raven an informant. The 8-hour cast and 1,000gp cost are significant investments, but the result is a permanent sapient being with agency. In Barovia, awakening one of the raven scouts of the Keepers of the Feather creates a permanent communication line. The 30-day charm gives time to build genuine loyalty.
+Awaken creates a permanent intelligent ally or NPC — a tree can become a guardian, a wolf a companion, a raven an informant. The 8-hour cast and 1,000gp cost are significant investments, but the result is a permanent sapient being with agency. Awakening a raven or other scout creates a permanent communication line. The 30-day charm gives time to build genuine loyalty.

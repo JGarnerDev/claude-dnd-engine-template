@@ -22,6 +22,6 @@ available_to:
 description: "Concentration, 1 min. Melee touch: 3d6 necrotic, regain half as HP. Repeat each turn."
 ---
 
-Vampiric Touch is a sustained self-healing damage spell — each turn, a melee touch attack deals 3d6 necrotic damage and restores half that amount to the caster. Thematically on-point in Barovia and mechanically strong for durable casters willing to wade into melee.
+Vampiric Touch is a sustained self-healing damage spell — each turn, a melee touch attack deals 3d6 necrotic damage and restores half that amount to the caster. Thematically on-point in dark campaigns and mechanically strong for durable casters willing to wade into melee.
 
-This is a spell Strahd and other powerful undead may use against the party — and it's equally potent for a PC warlock or wizard who can handle close-range combat.
+This is a spell vampires and other powerful undead may use against the party — and it's equally potent for a PC warlock or wizard who can handle close-range combat.

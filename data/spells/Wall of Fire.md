@@ -25,4 +25,4 @@ available_to:
 description: "Level 4. Concentration, 1 min. Wall: 5d8 fire on creation, 5d8 to enter, 5d8 to start turn within 10 ft of chosen side. Opaque."
 ---
 
-Wall of Fire creates both a barrier and a damage zone — the wall blocks vision and passage, while the 10-foot AoE on one side deals 5d8 fire per turn to anyone nearby. The ring formation can trap enemies inside with the damage side pointing inward. In Barovia, undead enemies vulnerable to fire (ghouls, zombies, skeletons) take full damage; fire-resistant enemies like vampires may still take damage unless fire immunity applies.
+Wall of Fire creates both a barrier and a damage zone — the wall blocks vision and passage, while the 10-foot AoE on one side deals 5d8 fire per turn to anyone nearby. The ring formation can trap enemies inside with the damage side pointing inward. Undead enemies vulnerable to fire (ghouls, zombies, skeletons) take full damage; fire-resistant enemies like vampires may still take damage unless fire immunity applies.

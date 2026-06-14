@@ -23,4 +23,4 @@ available_to:
 description: "Level 4. Concentration, 1 min. 20-ft square: difficult terrain, restrained + 3d6/turn bludgeoning (Dex save). Escape: Str/Dex action check."
 ---
 
-Evard's Black Tentacles is one of the best level-4 control spells — restrained is a strong condition, the damage is sustained each turn, and the save to escape costs an action (which means no offensive output while restrained). Wizard-exclusive. The 20-foot square covers a large area. In Barovia's dungeons, placing this in a doorway or corridor forces enemies into the zone or creates impassable terrain.
+Evard's Black Tentacles is one of the best level-4 control spells — restrained is a strong condition, the damage is sustained each turn, and the save to escape costs an action (which means no offensive output while restrained). Wizard-exclusive. The 20-foot square covers a large area. In dungeons, placing this in a doorway or corridor forces enemies into the zone or creates impassable terrain.

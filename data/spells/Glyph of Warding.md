@@ -27,4 +27,4 @@ available_to:
 description: "Level 3. Permanent trap: 5d8 AoE damage or stored spell triggers on condition you set. 200 gp material consumed."
 ---
 
-Glyph of Warding is the pre-combat preparation spell — set traps in advance, protect rooms, or create triggers for complex scenarios. The 200gp material cost is significant but permanent (until triggered/dispelled). At higher slots, the stored spell can be 4th, 5th+ level. In Barovia, creating glyphs in safe rooms or along known enemy patrol routes rewards careful preparation.
+Glyph of Warding is the pre-combat preparation spell — set traps in advance, protect rooms, or create triggers for complex scenarios. The 200gp material cost is significant but permanent (until triggered/dispelled). At higher slots, the stored spell can be 4th, 5th+ level. Creating glyphs in safe rooms or along known enemy patrol routes rewards careful preparation.

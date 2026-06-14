@@ -21,4 +21,4 @@ available_to:
 description: "Level 1. Melee spell attack: 3d10 necrotic. High damage for level 1 but requires touch."
 ---
 
-Inflict Wounds is the highest-damage level-1 spell when it connects — 3d10 necrotic far exceeds other level-1 options. The melee touch requirement and attack roll (rather than save) make it risky in practice, but the damage output rewards aggressive Clerics willing to enter melee range. Thematically appropriate in Barovia.
+Inflict Wounds is the highest-damage level-1 spell when it connects — 3d10 necrotic far exceeds other level-1 options. The melee touch requirement and attack roll (rather than save) make it risky in practice, but the damage output rewards aggressive Clerics willing to enter melee range. Thematically appropriate in dark or necromantic campaigns.

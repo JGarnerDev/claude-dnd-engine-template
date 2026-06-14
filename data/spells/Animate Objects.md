@@ -24,4 +24,4 @@ available_to:
 description: "Level 5. Concentration, 1 min. Animate up to 10 objects; bonus action commands all. 10 Tiny objects deal 10d4+40 total force damage/turn."
 ---
 
-Animate Objects is one of the highest-damage 5th-level spells — ten Tiny objects commanded with one bonus action deal 10d4+40 (average 65) force damage to a single target, splitting the attack bonus across 10 rolls. Force damage is universally unresisted. The action economy (bonus action for all attacks) leaves the caster free to cast other spells. In Castle Ravenloft, furniture, stones, or decorative items all qualify.
+Animate Objects is one of the highest-damage 5th-level spells — ten Tiny objects commanded with one bonus action deal 10d4+40 (average 65) force damage to a single target, splitting the attack bonus across 10 rolls. Force damage is universally unresisted. The action economy (bonus action for all attacks) leaves the caster free to cast other spells. In a furnished dungeon or manor, furniture, stones, or decorative items all qualify.

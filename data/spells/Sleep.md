@@ -25,4 +25,4 @@ available_to:
 description: "Level 1. Creatures in 20-ft sphere sleep based on HP total (5d8 HP affected). No concentration."
 ---
 
-Sleep is extremely powerful at low levels — no save, no attack roll, just HP-based effect that renders creatures unconscious. Falls off as enemy HP pools grow, but at levels 1-4 it reliably drops minions and weaker creatures. No effect on undead (critically important in Barovia) or charm-immune creatures. Sleeping creatures can be killed outright (auto-crit and instant death on 2 failed death saves).
+Sleep is extremely powerful at low levels — no save, no attack roll, just HP-based effect that renders creatures unconscious. Falls off as enemy HP pools grow, but at levels 1-4 it reliably drops minions and weaker creatures. No effect on undead (critically important in undead-heavy campaigns) or charm-immune creatures. Sleeping creatures can be killed outright (auto-crit and instant death on 2 failed death saves).

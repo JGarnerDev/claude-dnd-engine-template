@@ -27,4 +27,4 @@ available_to:
 description: "Level 3. Ritual. Up to 10 creatures breathe underwater for 24 hours. No concentration."
 ---
 
-Water Breathing is pure utility — no combat value, but the ritual option means it costs no spell slot for preparation. 24-hour duration and coverage for the whole party (10 creatures) means a single ritual cast before a water dungeon covers everything. Relevant in Barovia for the lake beneath Castle Ravenloft and any flooded dungeon areas.
+Water Breathing is pure utility — no combat value, but the ritual option means it costs no spell slot for preparation. 24-hour duration and coverage for the whole party (10 creatures) means a single ritual cast before a water dungeon covers everything. Relevant for lakes beneath fortresses and any flooded dungeon areas.

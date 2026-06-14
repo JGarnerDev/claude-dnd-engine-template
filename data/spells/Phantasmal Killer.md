@@ -21,4 +21,4 @@ available_to:
 description: "Level 4. Concentration, 1 min. Wisdom save or frightened + 4d10 psychic each turn (new save ends). Wizard-only."
 ---
 
-Phantasmal Killer is a single-target psychic damage-over-time with frightened on top — two failed Wisdom saves per round (one initial, one ongoing) means high-Wisdom targets often escape, but low-Wisdom enemies take 4d10 each turn while being unable to approach. Wizard-exclusive. Psychic damage is rarely resisted. In Barovia, the "deepest fears" flavor creates strong roleplay moments — every character's nightmare manifests visibly.
+Phantasmal Killer is a single-target psychic damage-over-time with frightened on top — two failed Wisdom saves per round (one initial, one ongoing) means high-Wisdom targets often escape, but low-Wisdom enemies take 4d10 each turn while being unable to approach. Wizard-exclusive. Psychic damage is rarely resisted. The "deepest fears" flavor creates strong roleplay moments — every character's nightmare manifests visibly.

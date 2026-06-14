@@ -1,6 +1,6 @@
 Give the DM a plain-language summary of everything that needs attention or action — outstanding player questionnaires, unfinished drafts, sessions awaiting canonization, engine housekeeping.
 
-**Audience note: the output is for a DM, not an engine operator.** The DM's name appears in the script header (`DM: <name>` — sourced from the active campaign's `dm:` field; currently Kellan). Address them by name where it reads naturally, and never list the DM as someone to "chase" — 🙋 chasing is for players; the DM's own creative calls are just stated as theirs. No frontmatter jargon, no file paths unless the DM would open the file, no internal terms (`exists: false`, "canonize" → say "make official", "stale index" → say "search needs a refresh"). Every line says *what* and *why it matters* in one sentence.
+**Audience note: the output is for a DM, not an engine operator.** The DM's name appears in the script header (`DM: <name>` — sourced from the active campaign's `dm:` field). Address them by name where it reads naturally, and never list the DM as someone to "chase" — 🙋 chasing is for players; the DM's own creative calls are just stated as theirs. No frontmatter jargon, no file paths unless the DM would open the file, no internal terms (`exists: false`, "canonize" → say "make official", "stale index" → say "search needs a refresh"). Every line says *what* and *why it matters* in one sentence.
 
 ---
 
@@ -26,19 +26,19 @@ Three groups, in this order. One line per item: plain-language what + why it mat
 
 **Within-group ordering** — inside 🟡 Waiting on people and ⚪ Backlog, order items by actor tag in this fixed sequence: 🤖, then 🤝, then 🙋, then ❓, then ⚪. 🔴 Do soon is the exception: it stays urgency-ranked (no plan for game night pinned at top), not actor-sorted.
 
-**Lead every item with its actor emoji, then the person who should do it.** After the number comes the emoji tag, then the responsible person in bold, then an em-dash, then the what+why. The party counts as a "person" — use **The party** when the task is theirs collectively. Named people: **Kellan** (DM's creative calls), a specific player (**Jeff**, etc.), **Claude** (anything 🤖). When it's genuinely unclear who should act, use **anyone** with a parenthetical reason — e.g. "**anyone** (whoever opens the file next)". Never leave an item without an emoji and a person.
+**Lead every item with its actor emoji, then the person who should do it.** After the number comes the emoji tag, then the responsible person in bold, then an em-dash, then the what+why. The party counts as a "person" — use **The party** when the task is theirs collectively. Named people: the **DM** (creative calls), a specific player by name, **Claude** (anything 🤖). When it's genuinely unclear who should act, use **anyone** with a parenthetical reason — e.g. "**anyone** (whoever opens the file next)". Never leave an item without an emoji and a person.
 
 Format per line: `N. <emoji> **<Person>** — <what + why>`
 
 **Tag every item with who can act**, so the DM sees at a glance what to delegate to Claude vs. chase in person:
 - 🤖 — Claude can do it now; name the command or script ("say *do 2* and I'll rebuild the search index")
-- 🙋 — needs a human: a player filling something in, the DM making a creative call (name them — "Kellan decides"), or manual work outside the engine (image edits)
+- 🙋 — needs a human: a player filling something in, the DM making a creative call (name them — e.g. "the DM decides"), or manual work outside the engine (image edits)
 - 🤝 — joint: Claude drafts or runs the mechanics, but the DM must decide or approve (session plans, canonization, ingesting questionnaires)
 - ⚪ — just FYI: nothing to do right now, worth knowing (parked story ideas, open threads the DM may never touch, informational counts). Use only when no one is expected to act; if an item has any owner, tag that owner instead.
 
 Judge honestly: anything requiring taste, approval, or table knowledge is 🤝 at best, not 🤖. Pure script runs, index rebuilds, validation, drafting from existing answers are 🤖.
 
-**Map work is delegable:** when a 🙋 item is manual map or image work (world map labels, region/city maps, derivatives), remind the DM that Jeff (player, original world-builder) can take it — *unless* the map is a secret players should only see when discovered in play. Phrase it as an option, not an assignment: "hand to Jeff if it's not a spoiler — say the word and I'll draft a request sheet from `maps/map-request-template.md`."
+**Map work is delegable:** when a 🙋 item is manual map or image work (world map labels, region/city maps, derivatives), remind the DM that the table's designated world-builder (often a player) can take it — *unless* the map is a secret players should only see when discovered in play. Phrase it as an option, not an assignment: "hand it off if it's not a spoiler — say the word and I'll draft a request sheet from `maps/map-request-template.md`."
 
 **🔴 Do soon** — things that block or degrade the next session:
 - No plan drafted for the next game night (the single most urgent line when it appears)
@@ -66,7 +66,7 @@ Judge honestly: anything requiring taste, approval, or table knowledge is 🤝 a
 
 1. **Auto items** — anything the brief regenerates (sessions, threads, party state, index, graph, questionnaires, drafts, design prefs, **world buildout gaps**). Rewrite these freshly from this run's signals. Drop any whose signal has cleared (e.g. a buildout type that is no longer empty, a questionnaire now ingested).
 2. **Manual items** — backlog lines with **no matching signal in the brief** (stretch ideas, historian backfill, pre-canon checks, faction-internal notes, anything the DM typed). **Preserve these verbatim.** Carry forward any DM edits, relocations, or inline notes from the prior file — if the DM moved an item to another section or annotated it, honor that placement on the next write.
-3. Renumber sequentially across all groups after merging. Keep the same sectioned format (no fences, no checkboxes) — every line is `N. <emoji> **<Person>** — <task>`, leading with the actor emoji then the bold responsible person (**The party** / **Kellan** / a player / **Claude** / **anyone** (reason)) per Step 2. First line records the date: `*Generated <today> by /todo*`. No frontmatter — this is a working dashboard, not an entity.
+3. Renumber sequentially across all groups after merging. Keep the same sectioned format (no fences, no checkboxes) — every line is `N. <emoji> **<Person>** — <task>`, leading with the actor emoji then the bold responsible person (**The party** / the **DM** / a player / **Claude** / **anyone** (reason)) per Step 2. First line records the date: `*Generated <today> by /todo*`. No frontmatter — this is a working dashboard, not an entity.
 
 After the date line, emit the actor legend as a flat bullet list (one tag per line, not an inline `·`-separated run) under a `**Who acts:**` heading: 🤖 / 🙋 / 🤝 / ⚪ / ❓ with the short gloss for each.
 

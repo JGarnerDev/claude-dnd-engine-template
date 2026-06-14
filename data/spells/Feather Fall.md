@@ -24,4 +24,4 @@ available_to:
 description: "Level 1 reaction. Up to 5 falling creatures take no falling damage. Essential in vertical dungeons."
 ---
 
-Feather Fall is a critical defensive reaction in multi-level environments — castles, towers, cliffs, and pit traps. Covers up to 5 creatures, costs a reaction (not a spell slot trigger), and prevents all falling damage. Extremely valuable in Barovian castle encounters where vertical falls are common.
+Feather Fall is a critical defensive reaction in multi-level environments — castles, towers, cliffs, and pit traps. Covers up to 5 creatures, costs a reaction (not a spell slot trigger), and prevents all falling damage. Extremely valuable in castle and tower encounters where vertical falls are common.

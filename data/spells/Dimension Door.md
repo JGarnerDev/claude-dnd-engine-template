@@ -23,4 +23,4 @@ available_to:
 description: "Level 4. Teleport self + one ally up to 500 ft (line of sight or described location). Verbal only."
 ---
 
-Dimension Door is the most flexible teleportation spell — 500-foot range, verbal-only components, and can bring an ally. Unlike Misty Step (self only, 30 ft), this crosses the battlefield or exits a building entirely. In Castle Ravenloft, it enables bypassing entire dungeon sections, extracting allies from traps, or escaping Strahd's lair when the fight turns. The fail-into-damage condition means visualizing the destination accurately matters.
+Dimension Door is the most flexible teleportation spell — 500-foot range, verbal-only components, and can bring an ally. Unlike Misty Step (self only, 30 ft), this crosses the battlefield or exits a building entirely. It enables bypassing entire dungeon sections, extracting allies from traps, or escaping a boss's lair when the fight turns. The fail-into-damage condition means visualizing the destination accurately matters.

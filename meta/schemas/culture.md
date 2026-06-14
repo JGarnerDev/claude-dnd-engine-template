@@ -15,7 +15,7 @@ Covers the shared customs, values, taboos, and aesthetic sensibilities of a peop
 
 *Answer these questions and give them to your DM or paste them into chat. Required answers are marked with \*.*
 
-**\* Name:** What is this culture called? (e.g. Barovian Peasant Culture, the Old Dwarven Mountain Tradition, Vistani Road Culture)
+**\* Name:** What is this culture called? (e.g. the Old Dwarven Mountain Tradition, a nomadic Road Culture, a coastal trading culture)
 
 **\* Where it's centered:** Which region or location is the heartland of this culture?
 

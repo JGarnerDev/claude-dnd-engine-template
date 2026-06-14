@@ -24,4 +24,4 @@ available_to:
 description: "Level 3. Ritual, 8 hours. Dome of force: weather-proof, opaque outside, blocks all passage/spells. Safe rest for 9 creatures."
 ---
 
-Leomund's Tiny Hut is the gold standard for safe short and long rests — the dome blocks all ingress, weather, and magical detection. Ritual casting means no slot cost. The opaque exterior conceals the party while the interior is lit. 8-hour duration covers a full long rest. In Barovia where nowhere is truly safe, this spell changes the rest economy significantly. Limitation: can't move while active (you become the anchor).
+Leomund's Tiny Hut is the gold standard for safe short and long rests — the dome blocks all ingress, weather, and magical detection. Ritual casting means no slot cost. The opaque exterior conceals the party while the interior is lit. 8-hour duration covers a full long rest. In campaigns where nowhere is truly safe, this spell changes the rest economy significantly. Limitation: can't move while active (you become the anchor).

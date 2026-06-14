@@ -25,4 +25,4 @@ available_to:
 description: "Level 3. Instant 25-word two-way message to any familiar creature, anywhere. Unlimited range, cross-planar (5% failure)."
 ---
 
-Sending is the 5e long-distance communication standard — unlimited range, cross-planar, and the target can immediately respond. 25 words is enough for meaningful tactical information. In Barovia, the closed-domain nature of the demiplane doesn't block Sending within Barovia itself, but messages to the outside world may face resistance from the Mists. A critical spell for maintaining contact with allies in different locations.
+Sending is the 5e long-distance communication standard — unlimited range, cross-planar, and the target can immediately respond. 25 words is enough for meaningful tactical information. In a closed or sealed domain, Sending may work within the domain itself but face resistance reaching the outside world. A critical spell for maintaining contact with allies in different locations.

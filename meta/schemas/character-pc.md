@@ -60,7 +60,7 @@ state: active | dead | retired | missing | transformed
 tags:
   - character
   - character/pc
-  - player/          # player/jeff, player/ben, etc.
+  - player/          # player/<name>, e.g. player/alice
 
 # --- MANDATORY (pc) ---
 player: [[meta/players/player-name]]   # links to meta/players/{name}.md

@@ -25,4 +25,4 @@ available_to:
 description: "Level 3. Concentration, 1 hour. Transform creature into mist: immune to nonmagical damage, fly 10, pass through cracks. Can't attack/cast."
 ---
 
-Gaseous Form is the premier infiltration and escape spell — a mist can slip through keyholes, under doors, and through cracks to scout or escape. Resistance to magical damage and immunity to nonmagical means it's nearly unkillable in gas form (only spells threaten it). Trade-off: no offensive capability and speed is very slow. In Barovia, this mirrors Strahd's own escape ability — knowing how to use it creates interesting parallel tactics.
+Gaseous Form is the premier infiltration and escape spell — a mist can slip through keyholes, under doors, and through cracks to scout or escape. Resistance to magical damage and immunity to nonmagical means it's nearly unkillable in gas form (only spells threaten it). Trade-off: no offensive capability and speed is very slow. This mirrors a vampire's own escape ability — knowing how to use it creates interesting parallel tactics.

@@ -24,4 +24,4 @@ available_to:
 description: "Level 3. 100-ft line: 8d6 lightning (Dex save). Same damage as Fireball but line AoE."
 ---
 
-Lightning Bolt matches Fireball's damage (8d6) in a 100-foot line versus 20-foot sphere — in corridors the line shape wins, in open space the sphere wins. Lightning damage is rarely resisted. The extreme range (100 feet straight) can hit targets Fireball couldn't. In Barovia's castle corridors and dungeon hallways, Lightning Bolt's line shape is often superior to Fireball. No friendly fire safety: the caster is at one end of the line.
+Lightning Bolt matches Fireball's damage (8d6) in a 100-foot line versus 20-foot sphere — in corridors the line shape wins, in open space the sphere wins. Lightning damage is rarely resisted. The extreme range (100 feet straight) can hit targets Fireball couldn't. In castle corridors and dungeon hallways, Lightning Bolt's line shape is often superior to Fireball. No friendly fire safety: the caster is at one end of the line.

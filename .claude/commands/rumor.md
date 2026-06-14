@@ -24,7 +24,7 @@ If a theme was given, also rank by relevance:
 .\scripts\semantic-search.ps1 -Query "<theme>" -Type rumor -K 5
 ```
 
-Respect campaign separation: skip `campaign: strahd`-tagged rumors when the active campaign is not Strahd, and vice versa. Untagged rumors are always eligible.
+Respect campaign separation: skip rumors tagged for a campaign other than the active one, and vice versa. Untagged rumors are always eligible.
 
 ## Phase 2 — Present
 

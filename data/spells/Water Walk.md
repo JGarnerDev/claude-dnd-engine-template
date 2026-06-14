@@ -27,4 +27,4 @@ available_to:
 description: "Level 3. Ritual, 1 hour. Up to 10 creatures walk on any liquid surface (including acid/lava). Ritual."
 ---
 
-Water Walk handles hazardous terrain at scale — the notable applications are acid, quicksand, and lava in addition to water. The ritual option makes this a zero-cost preparation when time permits. In Barovia, relevant for crossing Lake Zarovich, dungeon flooded areas, or the moat approaches to Castle Ravenloft.
+Water Walk handles hazardous terrain at scale — the notable applications are acid, quicksand, and lava in addition to water. The ritual option makes this a zero-cost preparation when time permits. Relevant for crossing lakes, flooded dungeon areas, or moat approaches to a fortress.

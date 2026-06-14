@@ -20,4 +20,4 @@ available_to:
 description: "Level 5. Concentration, 1 min. 8d6 fire initial + 4d6/turn ongoing (Dex save). Target sheds bright light while burning. Sorcerer-only."
 ---
 
-Immolation front-loads 8d6 fire damage with 4d6/turn DoT on a failed save — total potential damage is enormous over the full minute. The burning creature sheds bright light, removing its ability to hide in darkness and revealing invisible/stealthed creatures in its radius. Sorcerer-exclusive. In Barovia, the light emission from a burning target counters darkness-exploiting enemies. Concentration cost competes with other sustained sorcerer options.
+Immolation front-loads 8d6 fire damage with 4d6/turn DoT on a failed save — total potential damage is enormous over the full minute. The burning creature sheds bright light, removing its ability to hide in darkness and revealing invisible/stealthed creatures in its radius. Sorcerer-exclusive. The light emission from a burning target counters darkness-exploiting enemies. Concentration cost competes with other sustained sorcerer options.

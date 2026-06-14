@@ -21,4 +21,4 @@ available_to:
 description: "Level 5. Concentration, 1 hour. 10-ft moving bubble: living creatures cannot enter or reach through. Does not stop undead."
 ---
 
-Antilife Shell creates an uncrossable bubble against living enemies — a druid in the center of a mob can never be touched by humanoids, beasts, or fey. The critical limitation is that it doesn't affect undead or constructs, making it specifically weak in Barovia's undead-heavy encounters. It also ends if the caster moves into enemies. Best against humanoid and animal threats rather than the primary Barovian antagonists.
+Antilife Shell creates an uncrossable bubble against living enemies — a druid in the center of a mob can never be touched by humanoids, beasts, or fey. The critical limitation is that it doesn't affect undead or constructs, making it specifically weak in undead-heavy encounters. It also ends if the caster moves into enemies. Best against humanoid and animal threats rather than undead or construct antagonists.

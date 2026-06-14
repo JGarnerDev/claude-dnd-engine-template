@@ -26,4 +26,4 @@ available_to:
 description: "Level 3. Concentration, 1 min. 30-ft cone: Wisdom save or frightened and forced to flee. Repeatable save without line of sight."
 ---
 
-Fear is a powerful crowd control spell — the forced-flee component removes enemies from melee entirely, and frightened (disadvantage on attacks, checks) compounds the effect even if they can't flee further. Multi-target AoE makes it efficient against groups. No line of sight breaks the condition, so terrain matters. In Barovia's tight dungeon corridors, fleeing enemies often can't escape line of sight.
+Fear is a powerful crowd control spell — the forced-flee component removes enemies from melee entirely, and frightened (disadvantage on attacks, checks) compounds the effect even if they can't flee further. Multi-target AoE makes it efficient against groups. No line of sight breaks the condition, so terrain matters. In tight dungeon corridors, fleeing enemies often can't escape line of sight.

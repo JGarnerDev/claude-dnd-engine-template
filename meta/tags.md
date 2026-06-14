@@ -105,10 +105,7 @@ Authoritative list of all valid tags. **Before tagging any entity, check here.**
 | **party** | | |
 | `party` | party entity | Entity type: adventuring party |
 | **player/** | | |
-| `player/ben` | pc | Character played by Ben |
-| `player/jeff` | pc | Character played by Jeff |
-| `player/miguel` | pc | Character played by Miguel |
-| `player/paul` | pc | Character played by Paul |
+| `player/<name>` | pc | Character played by that player (one tag per player, e.g. `player/alice`) |
 | **race** | | |
 | `race` | race entity | Entity type: playable race — flat tag, no subtype |
 | **session/** | | |

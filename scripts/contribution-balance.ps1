@@ -3,7 +3,8 @@
 # Usage: .\scripts\contribution-balance.ps1
 
 $repoRoot = Resolve-Path "$PSScriptRoot\.."
-$players  = @('paul', 'ben', 'miguel', 'jeff')
+# Edit this to your table's player names (lowercase, matching the `contributed_by` field).
+$players  = @('player1', 'player2', 'player3', 'player4')
 
 function Get-Counts($folder) {
     $counts = @{}

@@ -75,9 +75,9 @@ Any entity type can spawn children if the narrative warrants it. The paths above
 
 ## Contribution Balance
 
-Every entity has an optional `contributed_by` field (values: `paul`, `ben`, `miguel`, `jeff`). Use this to keep player contributions roughly equal over time.
+Every entity has an optional `contributed_by` field (your table's player names, e.g. `player1`, `player2`). Use this to keep player contributions roughly equal over time.
 
-**When choosing between comparable free entities of the same type**, prefer the one whose `contributed_by` player has the fewest entries in `./historian`. If contributions are unequal, note it briefly: *"Pulling from Paul's pool — Ben and Miguel are underrepresented."*
+**When choosing between comparable free entities of the same type**, prefer the one whose `contributed_by` player has the fewest entries in `./historian`. If contributions are unequal, note it briefly: *"Pulling from one player's pool — the others are underrepresented."*
 
 **When planning a session**, if one player's entities dominate the candidate pool, flag it and suggest pulling from another player's material where the story permits.
 

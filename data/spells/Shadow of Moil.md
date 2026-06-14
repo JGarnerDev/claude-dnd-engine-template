@@ -23,4 +23,4 @@ available_to:
 description: "Level 4. Concentration, 1 min. Radiant resistance; heavily obscured in dim light/darkness; 2d8 necrotic/turn to creatures within 10 ft. Warlock-only."
 ---
 
-Shadow of Moil turns Barovia's permanent gloom into a combat advantage — the heavily obscured condition in dim light or darkness makes you effectively invisible in most of Barovia's outdoor and dungeon environments. Radiant resistance protects against one of the few damage types that threatens undead-adjacent creatures. The passive 2d8 necrotic aura punishes melee attackers. The 150gp material component is consumed on cast.
+Shadow of Moil turns ambient gloom into a combat advantage — the heavily obscured condition in dim light or darkness makes you effectively invisible in most dim outdoor and dungeon environments. Radiant resistance protects against one of the few damage types that threatens undead-adjacent creatures. The passive 2d8 necrotic aura punishes melee attackers. The 150gp material component is consumed on cast.

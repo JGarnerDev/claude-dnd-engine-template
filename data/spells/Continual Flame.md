@@ -26,4 +26,4 @@ available_to:
 description: "Level 2. Permanent torch-equivalent light on an object. No heat, no oxygen needed, can't be quenched."
 ---
 
-Continual Flame is a permanent light source — no concentration, no duration. The 50gp material cost is a meaningful investment. In Barovia's permanent gloom, reliable lighting matters; this spell cannot be extinguished by wind or water, though it can be covered. Useful for creating lit safe-rooms or permanent illumination in explored dungeon areas.
+Continual Flame is a permanent light source — no concentration, no duration. The 50gp material cost is a meaningful investment. In darkness-heavy environments, reliable lighting matters; this spell cannot be extinguished by wind or water, though it can be covered. Useful for creating lit safe-rooms or permanent illumination in explored dungeon areas.

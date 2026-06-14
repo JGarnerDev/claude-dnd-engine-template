@@ -24,4 +24,4 @@ available_to:
 description: "Level 4. Concentration, 1 min. Indestructible sphere: encloses one creature or object, immune to all damage, blocks all interaction inside/outside."
 ---
 
-Resilient Sphere creates a perfect prison that cannot be broken by force — immune to all damage, can't be dispelled by anything short of Disintegrate. Used offensively, it removes an enemy from the fight entirely without killing it; defensively, it can shelter a downed ally. In Barovia, it can contain Strahd temporarily or protect the party's most critical member from multi-attack bosses. The creature inside can still move the sphere by rolling it.
+Resilient Sphere creates a perfect prison that cannot be broken by force — immune to all damage, can't be dispelled by anything short of Disintegrate. Used offensively, it removes an enemy from the fight entirely without killing it; defensively, it can shelter a downed ally. It can contain a boss temporarily or protect the party's most critical member from multi-attack enemies. The creature inside can still move the sphere by rolling it.

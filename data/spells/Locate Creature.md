@@ -28,4 +28,4 @@ available_to:
 description: "Level 4. Concentration, 1 hour. Sense direction to a known creature or nearest creature of a type within 1,000 ft. Blocked by running water."
 ---
 
-Locate Creature is the tracking and hunting spell — once within 1,000 feet, you always know the direction to a specific target. The running-water blocker is meaningful in Barovia given the rivers and streams throughout the region; Strahd is well aware of this limitation and may position himself across running water. Critical for hunting a fleeing Strahd or locating trapped party members.
+Locate Creature is the tracking and hunting spell — once within 1,000 feet, you always know the direction to a specific target. The running-water blocker is meaningful in regions with many rivers and streams; a savvy enemy may position itself across running water. Critical for hunting a fleeing target or locating trapped party members.

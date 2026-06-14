@@ -26,4 +26,4 @@ available_to:
 description: "Level 4. Reshape a stone object or 5-ft stone section instantly. Can create passages, seal doors, or form objects."
 ---
 
-Stone Shape is dungeon-manipulation at its finest — create a 3-inch passage through a 5-foot-thick wall (enough to peer through), seal a stone door shut permanently, create an ambush cavity in a wall, or form a makeshift stone weapon or ladder. The instantaneous, no-concentration nature means it requires no follow-up resources. In Castle Ravenloft, nearly every surface is stone, making this spell applicable in almost every room.
+Stone Shape is dungeon-manipulation at its finest — create a 3-inch passage through a 5-foot-thick wall (enough to peer through), seal a stone door shut permanently, create an ambush cavity in a wall, or form a makeshift stone weapon or ladder. The instantaneous, no-concentration nature means it requires no follow-up resources. In stone dungeons and castles, nearly every surface is stone, making this spell applicable in almost every room.

@@ -50,6 +50,6 @@ Any question outside these five is a rubric-7 finding.
 - No writes outside `scheduler/sessions/` (no historian edits, no `Deployed:` updates — those happen at `/recap`)
 - No entity creation — free entity rule flags instead
 - No semantic index rebuild
-- No `campaign: strahd` entities in new-world sessions without explicit DM request, and vice versa
+- No entities tagged for a campaign other than the active one in its sessions without explicit DM request, and vice versa
 - No answering `meta/mysteries.md` unknowns in session content
 - No re-reading any `meta/` file after Phase 1

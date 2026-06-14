@@ -23,4 +23,4 @@ available_to:
 description: "Level 3. Concentration, 10 min. 15-ft aura: 3d8 radiant/necrotic per turn (Wis save half), halves movement through area."
 ---
 
-Spirit Guardians is considered the best cleric combat spell — 3d8 damage per creature per turn in a large radius, applied passively without using your action. The damage scales with slot level and accumulates over the 10-minute duration. The movement halving prevents enemies from simply walking through quickly. Cleric-exclusive. In Barovia, the radiant damage option is relevant against undead with vulnerability to radiant.
+Spirit Guardians is considered the best cleric combat spell — 3d8 damage per creature per turn in a large radius, applied passively without using your action. The damage scales with slot level and accumulates over the 10-minute duration. The movement halving prevents enemies from simply walking through quickly. Cleric-exclusive. The radiant damage option is relevant against undead with vulnerability to radiant.

@@ -22,4 +22,4 @@ available_to:
 description: "Level 4. 10 min. Convert raw materials into finished goods (requires tool proficiency for complex items)."
 ---
 
-Fabricate is a crafting-utility spell — it converts raw materials into finished products, enabling siege equipment from lumber, armor from ore, or lockpicks from metal. The 10-minute casting time limits combat utility. In Barovia, where supply access is scarce, Fabricate can produce needed equipment from available materials in the environment. Requires appropriate tool proficiency for complex items.
+Fabricate is a crafting-utility spell — it converts raw materials into finished products, enabling siege equipment from lumber, armor from ore, or lockpicks from metal. The 10-minute casting time limits combat utility. Where supply access is scarce, Fabricate can produce needed equipment from available materials in the environment. Requires appropriate tool proficiency for complex items.

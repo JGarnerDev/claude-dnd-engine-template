@@ -24,4 +24,4 @@ available_to:
 description: "Level 5. Concentration, 1 min. Force hand: bonus action controls. Four modes: punch, push, grapple/restrain, interpose. Scales with higher slots."
 ---
 
-Bigby's Hand is a Swiss-army spell — grappling enemy spellcasters (restrained + can't move for casting), punching for 4d8 force, pushing enemies off ledges, or interposing as persistent AC bonus. Bonus action control means it doesn't cost actions each turn. In Castle Ravenloft, pushing enemies off balconies or restraining Strahd while the party focuses damage creates decisive tactical moments.
+Bigby's Hand is a Swiss-army spell — grappling enemy spellcasters (restrained + can't move for casting), punching for 4d8 force, pushing enemies off ledges, or interposing as persistent AC bonus. Bonus action control means it doesn't cost actions each turn. In a vertical dungeon, pushing enemies off balconies or restraining a boss while the party focuses damage creates decisive tactical moments.

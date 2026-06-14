@@ -25,4 +25,4 @@ available_to:
 description: "Level 2. Concentration. Read surface thoughts of nearby creatures. Deeper probing requires Wisdom save."
 ---
 
-Detect Thoughts is a powerful investigation and interrogation tool — surface thoughts reveal immediate concerns without a save, while deeper probing attempts require a Wisdom save. In Curse of Strahd, this is invaluable for reading suspicious NPCs, detecting spies, and uncovering hidden loyalties. Using it on Strahd himself would be inadvisable.
+Detect Thoughts is a powerful investigation and interrogation tool — surface thoughts reveal immediate concerns without a save, while deeper probing attempts require a Wisdom save. In investigation-heavy campaigns, this is invaluable for reading suspicious NPCs, detecting spies, and uncovering hidden loyalties. Using it on a powerful, perceptive villain would be inadvisable.

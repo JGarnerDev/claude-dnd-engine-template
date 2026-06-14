@@ -23,4 +23,4 @@ available_to:
 description: "Level 1 ritual. Speak with beasts for 10 minutes. Limited by the beast's intelligence."
 ---
 
-Speak with Animals is a ritual investigation and scouting tool — ravens, rats, and wolves in Barovia have seen things the party hasn't. Ravens are particularly significant in the Ravenloft setting as the familiars of the Keepers of the Feather. Ritual castable means it's always available without slot cost.
+Speak with Animals is a ritual investigation and scouting tool — ravens, rats, and wolves have seen things the party hasn't. Ravens are often significant as the familiars of secretive factions. Ritual castable means it's always available without slot cost.

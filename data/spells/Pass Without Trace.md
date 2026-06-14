@@ -24,4 +24,4 @@ available_to:
 description: "Level 2. Concentration, 1 hour. All chosen allies within 30 ft gain +10 Stealth and leave no tracks."
 ---
 
-Pass Without Trace is one of the strongest group stealth spells — +10 to Stealth for all allies essentially guarantees success for most characters and turns even heavily armored non-stealthy party members into capable infiltrators. Invaluable for entering Strahd's domain undetected, bypassing patrols, and setting up ambushes.
+Pass Without Trace is one of the strongest group stealth spells — +10 to Stealth for all allies essentially guarantees success for most characters and turns even heavily armored non-stealthy party members into capable infiltrators. Invaluable for entering hostile territory undetected, bypassing patrols, and setting up ambushes.

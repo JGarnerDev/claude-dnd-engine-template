@@ -23,4 +23,4 @@ available_to:
 description: "Level 2. Concentration, 1 min. 300 ft. Strength save or flying speed becomes 0; airborne creatures descend safely."
 ---
 
-Earthbind is a hard counter to flying enemies — the 300-foot range is exceptional. Doesn't affect movement speed otherwise, purely anti-fly. Safe descent prevents the damage-on-fall trick. In Barovia, useful against Strahd himself (who can fly) or bat swarms, wyverns, or other aerial threats.
+Earthbind is a hard counter to flying enemies — the 300-foot range is exceptional. Doesn't affect movement speed otherwise, purely anti-fly. Safe descent prevents the damage-on-fall trick. Useful against flying bosses, bat swarms, wyverns, or other aerial threats.

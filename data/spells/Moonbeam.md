@@ -23,4 +23,4 @@ available_to:
 description: "Level 2. Concentration. Radiant cylinder: 2d10 radiant (Con save) per turn. Shapechangers revert on fail. Movable."
 ---
 
-Moonbeam is extremely powerful against lycanthropes — they have disadvantage on the save and revert to true form on a fail, removing their shifted abilities. In Barovia, where werewolves are a significant threat, Moonbeam is a targeted counter. It also deals radiant damage, which is rarely resisted among undead, making it broadly useful.
+Moonbeam is extremely powerful against lycanthropes — they have disadvantage on the save and revert to true form on a fail, removing their shifted abilities. Where werewolves are a significant threat, Moonbeam is a targeted counter. It also deals radiant damage, which is rarely resisted among undead, making it broadly useful.

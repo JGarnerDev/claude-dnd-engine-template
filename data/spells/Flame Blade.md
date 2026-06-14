@@ -23,4 +23,4 @@ available_to:
 description: "Level 2. Concentration, 10 min. Bonus action summon: melee weapon dealing 3d6 fire damage. Sheds light."
 ---
 
-Flame Blade gives Druids a reliable melee weapon that scales modestly with upcast. The 10-minute concentration window covers most combat scenarios, and the light source is a useful side effect. Fire damage limitations apply against fire-resistant undead — a relevant concern in Barovia.
+Flame Blade gives Druids a reliable melee weapon that scales modestly with upcast. The 10-minute concentration window covers most combat scenarios, and the light source is a useful side effect. Fire damage limitations apply against fire-resistant undead — a relevant concern in undead-heavy campaigns.

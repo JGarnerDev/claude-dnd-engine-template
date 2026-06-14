@@ -27,4 +27,4 @@ available_to:
 description: "Level 4. Concentration, 1 min. One creature: Charisma save or banished. Non-native creatures permanently banished if concentration held 1 min."
 ---
 
-Banishment removes the single most dangerous target from a fight — the action economy impact of a creature spending 10 rounds doing nothing is equivalent to killing it. Against extraplanar creatures (devils, demons, elementals), sustained concentration permanently removes them. In Barovia, useful against Strahd's fiendish servants; against Strahd himself (native to Barovia), it provides only temporary removal.
+Banishment removes the single most dangerous target from a fight — the action economy impact of a creature spending 10 rounds doing nothing is equivalent to killing it. Against extraplanar creatures (devils, demons, elementals), sustained concentration permanently removes them. Useful against an enemy's extraplanar servants; against a creature native to the current plane, it provides only temporary removal.

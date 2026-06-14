@@ -22,4 +22,4 @@ available_to:
 description: "Level 5. Concentration, 1 min. 60-ft cube: roots restrain (Str save), rocks trip for 3d8 (Dex save), trees slash for 4d6 (Dex save)."
 ---
 
-Wrath of Nature creates a massive natural hazard zone — the 60-foot cube generates three simultaneous effects (restraint, knockdown damage, slash damage) requiring different saves, overwhelming enemies who fail multiple checks per turn. Best in wooded or natural environments rather than dungeons. In Barovia's Svalich Wood, this transforms the natural environment into an active combatant, which thematically fits a druid's connection to the blighted land.
+Wrath of Nature creates a massive natural hazard zone — the 60-foot cube generates three simultaneous effects (restraint, knockdown damage, slash damage) requiring different saves, overwhelming enemies who fail multiple checks per turn. Best in wooded or natural environments rather than dungeons. In dense woods, this transforms the natural environment into an active combatant, which thematically fits a druid's connection to blighted land.

@@ -25,4 +25,4 @@ available_to:
 description: "Level 5. 300 gp materials consumed. Learn legends about a legendary person, place, or object. More famous = more complete information."
 ---
 
-Legend Lore is the deep research spell — for Strahd, Castle Ravenloft, the Sunsword, the Holy Symbol of Ravenkind, or other legendary subjects, it surfaces in-world lore that no other spell provides. The 300gp material cost is significant. In Barovia, every major artifact and the vampire count himself are legendary subjects; this spell can unlock background knowledge that guides strategy and unlocks plot information.
+Legend Lore is the deep research spell — for a legendary villain, fortress, artifact weapon, or holy relic, it surfaces in-world lore that no other spell provides. The 300gp material cost is significant. Major artifacts and legendary antagonists are all valid subjects; this spell can unlock background knowledge that guides strategy and reveals plot information.

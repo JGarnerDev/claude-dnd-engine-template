@@ -27,4 +27,4 @@ available_to:
 description: "Level 1. Concentration, 10 min. Touch ally: aberrations/fiends/undead attack at disadvantage; immune to charm/fright/possession."
 ---
 
-Protection from Evil and Good is extremely strong in Barovia — undead (vampires, zombie, specters) attack the protected creature at disadvantage, and the target is immune to charm and fright effects used by those creature types. Strahd himself counts as both an undead and a fiend-connected entity. Mandatory preparation before major encounters.
+Protection from Evil and Good is extremely strong against undead and fiends — undead (vampires, zombies, specters) attack the protected creature at disadvantage, and the target is immune to charm and fright effects used by those creature types. A vampire lord counts as both an undead and a fiend-connected entity. Mandatory preparation before major encounters.

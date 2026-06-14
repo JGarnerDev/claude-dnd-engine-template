@@ -23,4 +23,4 @@ available_to:
 description: "Level 5. 8 hours, no concentration. Disguise any number of willing creatures' appearances simultaneously."
 ---
 
-Seeming applies Disguise Self to the entire party simultaneously for 8 hours — no concentration, no slot efficiency loss from casting individual disguises. Infiltrating a village, passing through a guard checkpoint, or impersonating a group of guards all become single-action operations. In Barovia, traveling disguised as peasants, Vistani, or even Strahd's servants changes how NPCs and guards respond to the party.
+Seeming applies Disguise Self to the entire party simultaneously for 8 hours — no concentration, no slot efficiency loss from casting individual disguises. Infiltrating a village, passing through a guard checkpoint, or impersonating a group of guards all become single-action operations. Traveling disguised as peasants, travelers, or even a villain's servants changes how NPCs and guards respond to the party.

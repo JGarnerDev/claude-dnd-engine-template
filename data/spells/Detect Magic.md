@@ -27,4 +27,4 @@ available_to:
 description: "Level 1 ritual. Concentration, 10 min. Sense magic within 30 ft; see auras and identify schools."
 ---
 
-Detect Magic is one of the most broadly useful investigation tools in D&D — ritual castable, identifies magic items on sight, reveals hidden magical effects, and highlights enchanted individuals. Essential for a module like Curse of Strahd where hidden magical traps, cursed items, and enchanted NPCs are common.
+Detect Magic is one of the most broadly useful investigation tools in D&D — ritual castable, identifies magic items on sight, reveals hidden magical effects, and highlights enchanted individuals. Essential for modules where hidden magical traps, cursed items, and enchanted NPCs are common.

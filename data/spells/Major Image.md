@@ -26,4 +26,4 @@ available_to:
 description: "Level 3. Concentration, 10 min. Full-sense 20-ft cube illusion. Permanent (no concentration) at 6th level."
 ---
 
-Major Image is the definitive illusion spell — full sensory deception (sight, sound, smell, temperature) in a large area. Useful for deception, distraction, blocking vision, or creating false terrain. The 6th-level upcast to make it permanent-no-concentration is one of the most efficient slot investments in the game. In Barovia, illusions of Strahd, dead relatives, or false exits can manipulate both enemies and NPCs.
+Major Image is the definitive illusion spell — full sensory deception (sight, sound, smell, temperature) in a large area. Useful for deception, distraction, blocking vision, or creating false terrain. The 6th-level upcast to make it permanent-no-concentration is one of the most efficient slot investments in the game. Illusions of a feared villain, dead relatives, or false exits can manipulate both enemies and NPCs.

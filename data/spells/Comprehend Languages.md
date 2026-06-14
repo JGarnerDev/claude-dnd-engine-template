@@ -26,4 +26,4 @@ available_to:
 description: "Level 1 ritual. Understand any spoken or written language for 1 hour. Does not grant ability to speak."
 ---
 
-Comprehend Languages is primarily a ritual utility spell — castable without expending a slot. Invaluable for deciphering ancient texts, understanding enemy conversations, and translating inscriptions in dungeons. Essential for investigation-heavy campaigns like Curse of Strahd.
+Comprehend Languages is primarily a ritual utility spell — castable without expending a slot. Invaluable for deciphering ancient texts, understanding enemy conversations, and translating inscriptions in dungeons. Essential for investigation-heavy campaigns.

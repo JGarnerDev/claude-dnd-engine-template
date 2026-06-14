@@ -24,4 +24,4 @@ available_to:
 description: "Level 5. 50 gp consumed. Create a 1-round portal to any known permanent teleportation circle on the same plane."
 ---
 
-Teleportation Circle enables rapid transit between established waypoints — but requires knowledge of a destination circle's sigil sequence. In Barovia, the domain's sealed nature means no external circles are accessible; however, circles within Barovia (created over years of casting) could theoretically link key locations. The primary value is establishing safe extraction routes: create a permanent circle at a safe house, then teleport the party out of danger on any future visit.
+Teleportation Circle enables rapid transit between established waypoints — but requires knowledge of a destination circle's sigil sequence. In a sealed domain, no external circles are accessible; however, circles created within it over years of casting could theoretically link key locations. The primary value is establishing safe extraction routes: create a permanent circle at a safe house, then teleport the party out of danger on any future visit.

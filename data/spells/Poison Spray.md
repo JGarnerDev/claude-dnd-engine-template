@@ -24,4 +24,4 @@ available_to:
 description: "Cantrip. 1d12 poison damage on Constitution save fail. Melee range only (10 feet)."
 ---
 
-Poison Spray deals the highest damage of any damage cantrip (1d12 on save vs. 1d10 attack roll for Fire Bolt) but requires melee range and targets Constitution — a strong save for most monsters. Poison immunity is also common, making it situationally weak in undead-heavy settings like Barovia.
+Poison Spray deals the highest damage of any damage cantrip (1d12 on save vs. 1d10 attack roll for Fire Bolt) but requires melee range and targets Constitution — a strong save for most monsters. Poison immunity is also common, making it situationally weak in undead-heavy settings.

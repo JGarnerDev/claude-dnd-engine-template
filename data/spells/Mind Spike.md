@@ -22,4 +22,4 @@ available_to:
 description: "Level 2. Concentration, 1 hour. 3d8 psychic (Wis save) + track location anywhere for 1 hour on fail."
 ---
 
-Mind Spike combines damage with 1-hour location tracking — the information rider is what makes it exceptional. A failed save means you know where the target is no matter what they do, even across planar boundaries. Somatic-only component means it can be cast while bound (no verbal). Psychic damage is rarely resisted. In Barovia, tracking fleeing enemies through fog or darkness is extremely valuable.
+Mind Spike combines damage with 1-hour location tracking — the information rider is what makes it exceptional. A failed save means you know where the target is no matter what they do, even across planar boundaries. Somatic-only component means it can be cast while bound (no verbal). Psychic damage is rarely resisted. Tracking fleeing enemies through fog or darkness is extremely valuable.

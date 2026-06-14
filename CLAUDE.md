@@ -10,7 +10,7 @@ This file provides operational guidance to Claude Code (claude.ai/code) for work
 
 This engine generates D&D sessions by synthesizing creative material, campaign history, design principles, and session planning into coherent, playable content.
 
-**Roles:** Kellan is the DM. Jeff and the other players contribute creative material as seeds for him. Generation rules for this split live in `meta/worldbuilding-approach.md`.
+**Roles:** One member of the table is the DM. The other players contribute creative material as seeds for them. Generation rules for this split live in `meta/worldbuilding-approach.md`.
 
 ## Folder Roles
 
@@ -51,17 +51,17 @@ Entity protocol (free entity rule, data transparency, contribution balance) docu
 
 ## Campaign Separation
 
-This repo spans two campaigns: `strahd` (Curse of Strahd, sessions 1–present) and a future homebrew new world (name TBD). The transition will be a narrative device — a deliberate story beat, not a soft drift.
+This repo can span multiple campaigns (for example, an initial campaign and a later one set in a different world). A transition between them is a narrative device — a deliberate story beat, not a soft drift.
 
-**`campaign` field** — historian and scheduler entities carry `campaign: strahd` or `campaign: <new-world-name>`. Data entities are campaign-agnostic by default (no tag) unless they are explicitly tied to one world.
+**`campaign` field** — historian and scheduler entities carry a `campaign: <name>` tag identifying which campaign they belong to. Data entities are campaign-agnostic by default (no tag) unless they are explicitly tied to one world.
 
 **Session planning rules:**
 - Identify the active campaign from `scheduler/campaign/` — the campaign file with `state: active`
-- Do not pull `campaign: strahd` entities into new-world sessions unless the DM explicitly requests a crossover
-- Strahd-tagged entities are still visible and searchable — they just don't surface automatically in new-world content
+- Do not pull entities tagged for a different campaign into the active campaign's sessions unless the DM explicitly requests a crossover
+- Off-campaign entities are still visible and searchable — they just don't surface automatically in the active campaign's content
 - Crossover is always allowed when the DM asks for it (throwbacks, callbacks, deliberate bleed)
 
-**New entities** created during or after the world transition should carry the new-world campaign tag. Entities created now, during seeding, are untagged (agnostic) unless clearly Strahd-specific.
+**New entities** created during or after a world transition should carry the new campaign's tag. Entities created during seeding are untagged (agnostic) unless clearly tied to one campaign.
 
 ## Command Audits
 
@@ -146,11 +146,11 @@ Read `.claude/commands/pc-backstory.md` for the full ingestion flow, gap analysi
 ## Campaign Transition Detection
 
 **Trigger:** Any message containing language that suggests the party is leaving the current campaign context. Watch for:
-- Leaving/ending the current campaign: "leaving Strahd", "done with Strahd", "finished with Barovia", "we're out of Barovia", "end of the Strahd arc"
-- Starting fresh: "new world", "new campaign", "clean slate", "starting the homebrew", "transition"
+- Leaving/ending the current campaign: "leaving this campaign", "done with the current campaign", "finished with this arc", "we're out of here", "end of the current arc"
+- Starting fresh: "new world", "new campaign", "clean slate", "starting the next campaign", "transition"
 - Narrative clean-slate signals: "the portal closes", "we're through", "no going back"
 
-These phrases may appear casually — do not trigger on obvious metaphor or out-of-game chatter. When in doubt, ask once: *"Is the campaign transitioning to the new world? I can walk you through the handoff if so."*
+These phrases may appear casually — do not trigger on obvious metaphor or out-of-game chatter. When in doubt, ask once: *"Is the campaign transitioning to a new world? I can walk you through the handoff if so."*
 
 If confirmed, read `.claude/commands/transition.md` and follow the full transition flow. Do not make any changes until the DM confirms each step.
 

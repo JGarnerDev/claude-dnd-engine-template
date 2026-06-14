@@ -28,4 +28,4 @@ available_to:
 description: "Level 2. Concentration, 10 min. Sense direction to a named object within 1000 feet. Blocked by lead."
 ---
 
-Locate Object is a valuable investigation spell for tracking down key items — critical in Curse of Strahd where the relics (Sunsword, Holy Symbol of Ravenkind, Icon of Ravenloft) must be found. Lead shielding is a meaningful counter, and aware enemies may line boxes or rooms with lead to hide important objects.
+Locate Object is a valuable investigation spell for tracking down key items — critical in campaigns where key relics must be found. Lead shielding is a meaningful counter, and aware enemies may line boxes or rooms with lead to hide important objects.

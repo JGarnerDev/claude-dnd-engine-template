@@ -18,7 +18,7 @@ habitats:
   - "[[Plains]]"
   - "[[Ruins]]"
   - "[[City]]"
-description: Mob of aggressive ravens that can occupy another creature's space. Resistant to most damage; immune to several conditions. In Barovia, ravens are associated with the Keepers of the Feather and may not be what they seem.
+description: Mob of aggressive ravens that can occupy another creature's space. Resistant to most damage; immune to several conditions. In some settings, ravens serve as spies or familiars and may not be what they seem.
 weaknesses: []
 resistances:
   - "bludgeoning"
@@ -38,5 +38,5 @@ movement:
   - "fly 50"
 ---
 
-Mob of aggressive ravens that can occupy another creature's space. Resistant to most damage; immune to several conditions. In Barovia, ravens are associated with the Keepers of the Feather and may not be what they seem.
+Mob of aggressive ravens that can occupy another creature's space. Resistant to most damage; immune to several conditions. In some settings, ravens serve as spies or familiars and may not be what they seem.
 **Habitats:** [[Forest]] | [[Plains]] | [[Ruins]] | [[City]]

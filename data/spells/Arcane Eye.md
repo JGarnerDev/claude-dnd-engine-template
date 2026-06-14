@@ -25,4 +25,4 @@ available_to:
 description: "Level 4. Concentration, 1 hour. Invisible floating eye: 30-ft darkvision, moves 30 ft/action, squeezes through 1-inch gaps."
 ---
 
-Arcane Eye is the premier dungeon scouting spell — the eye can fly up shafts, under doors, through keyholes, and into rooms before the party enters. 1-hour duration allows extensive reconnaissance. The 30-foot movement per action is slow but persistent. In Castle Ravenloft, scouting traps, enemy positions, and room layouts before entry is enormously valuable. The eye is invisible to non-magical detection.
+Arcane Eye is the premier dungeon scouting spell — the eye can fly up shafts, under doors, through keyholes, and into rooms before the party enters. 1-hour duration allows extensive reconnaissance. The 30-foot movement per action is slow but persistent. In any dungeon, scouting traps, enemy positions, and room layouts before entry is enormously valuable. The eye is invisible to non-magical detection.

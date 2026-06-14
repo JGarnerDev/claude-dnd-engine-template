@@ -23,4 +23,4 @@ available_to:
 description: "Cantrip. 1d8 necrotic (Wisdom save); 1d12 if target is already hurt. Strong against wounded enemies."
 ---
 
-Toll the Dead scales dramatically against damaged targets — 1d12 necrotic (Wisdom save) is competitive with or better than most attack-roll cantrips, and Wisdom is often a weaker save for martial enemies. Thematically resonant in Barovia's death-haunted atmosphere.
+Toll the Dead scales dramatically against damaged targets — 1d12 necrotic (Wisdom save) is competitive with or better than most attack-roll cantrips, and Wisdom is often a weaker save for martial enemies. Thematically resonant in death-haunted atmospheres.

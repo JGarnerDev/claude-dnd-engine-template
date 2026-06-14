@@ -25,4 +25,4 @@ available_to:
 description: "Level 3. Concentration, 1 min. 20-ft sphere: heavily obscured, Con save or incapacitated each turn."
 ---
 
-Stinking Cloud is a persistent area control option — heavily obscured (blocks vision) combined with incapacitation-per-turn creates a zone enemies can't effectively operate in. The Con save means fighters and high-Constitution creatures often resist, but spellcasters and low-Con enemies are devastated. Wind dispersal is rare in indoor environments like dungeons, making it reliable inside Castle Ravenloft.
+Stinking Cloud is a persistent area control option — heavily obscured (blocks vision) combined with incapacitation-per-turn creates a zone enemies can't effectively operate in. The Con save means fighters and high-Constitution creatures often resist, but spellcasters and low-Con enemies are devastated. Wind dispersal is rare in indoor environments like dungeons, making it reliable inside dungeons.

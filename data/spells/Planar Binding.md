@@ -26,4 +26,4 @@ available_to:
 description: "Level 5. 1,000 gp consumed. Bind a summoned extraplanar creature to serve for 24 hours (longer at higher slots)."
 ---
 
-Planar Binding converts a summoned extraplanar creature into a permanent servant — typically used after Conjure Elemental or similar spells to prevent the "goes hostile on concentration loss" problem. The 1,000gp cost is the binding price for reliable extraplanar service. In Barovia, binding a devil or fey for intelligence or as a combat asset represents a significant power investment. Creatures who fail the save still look for loopholes in overly vague instructions.
+Planar Binding converts a summoned extraplanar creature into a permanent servant — typically used after Conjure Elemental or similar spells to prevent the "goes hostile on concentration loss" problem. The 1,000gp cost is the binding price for reliable extraplanar service. Binding a devil or fey for intelligence or as a combat asset represents a significant power investment. Creatures who fail the save still look for loopholes in overly vague instructions.

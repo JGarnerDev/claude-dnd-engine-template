@@ -25,4 +25,4 @@ available_to:
 description: "Level 5. Create any nonliving material object (5-ft cube). Duration varies: cloth 1 day, metal 1 hour, adamantine 1 min."
 ---
 
-Creation manufactures equipment on demand — ropes, ladders, bridges, tools, disguises, lockpicks, or containers. The temporary nature means it can't replace permanent resources, but in the moment it fills critical gaps. Adamantine/mithril items last only 1 minute, making them usable in very specific time-critical windows. In Barovia, creating a rope bridge across a chasm or a wooden barricade in seconds can be decisive.
+Creation manufactures equipment on demand — ropes, ladders, bridges, tools, disguises, lockpicks, or containers. The temporary nature means it can't replace permanent resources, but in the moment it fills critical gaps. Adamantine/mithril items last only 1 minute, making them usable in very specific time-critical windows. Creating a rope bridge across a chasm or a wooden barricade in seconds can be decisive.

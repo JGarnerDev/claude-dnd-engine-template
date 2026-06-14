@@ -24,4 +24,4 @@ available_to:
 description: "Level 5. 60-ft cone: 8d8 cold (Con save). Killed creatures become frozen statues. No concentration."
 ---
 
-Cone of Cold covers a massive 60-foot cone with 8d8 cold damage — the area is larger than Fireball's sphere (though Constitution saves are generally stronger than Dexterity saves). No concentration. Killed creatures freeze solid, which can create tactical obstacles or satisfy plot conditions. In Barovia, useful against fire-immune creatures or as a cold-themed thematic attack in the frozen mountain passes.
+Cone of Cold covers a massive 60-foot cone with 8d8 cold damage — the area is larger than Fireball's sphere (though Constitution saves are generally stronger than Dexterity saves). No concentration. Killed creatures freeze solid, which can create tactical obstacles or satisfy plot conditions. Useful against fire-immune creatures or as a cold-themed attack in frozen mountain passes.

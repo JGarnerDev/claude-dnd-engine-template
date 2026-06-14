@@ -26,4 +26,4 @@ available_to:
 description: "Level 3. Concentration, 1 hour. Grant resistance to one energy type (acid/cold/fire/lightning/thunder) to one creature."
 ---
 
-Protection from Energy is a targeted resistance buff — valuable against enemies with reliable typed damage (dragons, storm giants, fire elementals). Concentration cost is the main limitation. In Barovia, cold resistance is broadly useful against Strahd's environment; lightning resistance matters against certain undead and storm-based threats. Best prepared in advance when the party knows what they're facing.
+Protection from Energy is a targeted resistance buff — valuable against enemies with reliable typed damage (dragons, storm giants, fire elementals). Concentration cost is the main limitation. Cold resistance is broadly useful in frozen environments; lightning resistance matters against certain undead and storm-based threats. Best prepared in advance when the party knows what they're facing.

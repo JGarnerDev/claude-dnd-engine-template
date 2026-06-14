@@ -24,4 +24,4 @@ available_to:
 description: "Level 5. 30 days. One creature: Wis save or magically compelled to follow a command. 5d10 psychic damage per day it disobeys."
 ---
 
-Geas is long-duration compulsion for diplomatic and strategic control — 30 days of behavioral enforcement with 5d10 psychic per day for violations. Used to extract service, prevent betrayal, or compel information delivery. In Barovia, Geas is one of the few ways to create binding agreements with untrustworthy NPCs. At 7th or 9th level, it becomes year-long or permanent for truly critical situations.
+Geas is long-duration compulsion for diplomatic and strategic control — 30 days of behavioral enforcement with 5d10 psychic per day for violations. Used to extract service, prevent betrayal, or compel information delivery. Geas is one of the few ways to create binding agreements with untrustworthy NPCs. At 7th or 9th level, it becomes year-long or permanent for truly critical situations.

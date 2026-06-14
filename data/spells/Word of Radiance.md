@@ -22,4 +22,4 @@ available_to:
 description: "Cantrip. All chosen enemies within 5 feet take 1d6 radiant (Con save). Multi-target melee AoE."
 ---
 
-Word of Radiance hits all chosen targets within melee range — a rare multi-target cantrip. Valuable for Clerics who wade into melee and find themselves surrounded. Radiant damage is thematically and mechanically strong against Barovia's undead.
+Word of Radiance hits all chosen targets within melee range — a rare multi-target cantrip. Valuable for Clerics who wade into melee and find themselves surrounded. Radiant damage is thematically and mechanically strong against undead.

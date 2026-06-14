@@ -25,4 +25,4 @@ available_to:
 description: "Level 5. Enter target's dreams: deliver message, or torment (no rest benefit + 3d6 psychic). 8 hours."
 ---
 
-Dream enables cross-plane messaging and psychological warfare — tormented enemies gain no benefit from long rests, making this a war-of-attrition spell against important targets who need rest-dependent abilities. As a message delivery mechanism, it bypasses Barovia's Mist barriers since the target just needs to be asleep on the same plane. In Barovia, using Dream offensively against Strahd (who doesn't sleep) is ineffective; against his humanoid lieutenants and Barovian NPCs, it is potent.
+Dream enables cross-plane messaging and psychological warfare — tormented enemies gain no benefit from long rests, making this a war-of-attrition spell against important targets who need rest-dependent abilities. As a message delivery mechanism, it bypasses many barriers since the target just needs to be asleep on the same plane. Using Dream offensively against a creature that doesn't sleep is ineffective; against humanoid lieutenants and NPCs, it is potent.

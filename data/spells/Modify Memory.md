@@ -22,4 +22,4 @@ available_to:
 description: "Level 5. Concentration, 1 min. Wis save or you alter one creature's memory of an event in the last 24 hours."
 ---
 
-Modify Memory is the ultimate social manipulation spell — erasing or rewriting a witness's memory eliminates evidence, creates false alibis, or covers mistakes. The 24-hour limit and believability requirement constrain its use but make it powerful when conditions are met. In Barovia, erasing an NPC's memory of the party's actions can prevent Strahd from learning about them through his informant network. At higher slots, the time window becomes dramatically longer.
+Modify Memory is the ultimate social manipulation spell — erasing or rewriting a witness's memory eliminates evidence, creates false alibis, or covers mistakes. The 24-hour limit and believability requirement constrain its use but make it powerful when conditions are met. Erasing an NPC's memory of the party's actions can prevent a villain from learning about them through an informant network. At higher slots, the time window becomes dramatically longer.

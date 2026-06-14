@@ -25,4 +25,4 @@ available_to:
 description: "Level 2 ritual. Preserve a corpse for 10 days — pauses decay and the timer on resurrection spells."
 ---
 
-Gentle Repose is critical for resurrection scenarios — if a party member dies and the party can't immediately cast Revivify or Raise Dead, this spell preserves the body and pauses the revival countdown. Ritual castable makes it always available. Thematically significant in Barovia, where death and undeath are constant themes.
+Gentle Repose is critical for resurrection scenarios — if a party member dies and the party can't immediately cast Revivify or Raise Dead, this spell preserves the body and pauses the revival countdown. Ritual castable makes it always available. Thematically significant in campaigns where death and undeath are constant themes.

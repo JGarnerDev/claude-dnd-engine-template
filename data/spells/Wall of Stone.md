@@ -25,4 +25,4 @@ available_to:
 description: "Level 5. Concentration, 10 min (permanent if sustained). Create up to 100 sq ft of stone wall. Can bridge gaps, divide areas."
 ---
 
-Wall of Stone becomes permanent infrastructure if sustained for 10 minutes — the only concentration spell that creates lasting physical changes to the environment. In dungeon exploration, this means plugging passages, sealing corridors, creating bridges, or building fortifications that persist after the spell. In Castle Ravenloft, permanently sealing a corridor prevents future incursions. In combat, it divides battlefields and forces enemies into desired positions.
+Wall of Stone becomes permanent infrastructure if sustained for 10 minutes — the only concentration spell that creates lasting physical changes to the environment. In dungeon exploration, this means plugging passages, sealing corridors, creating bridges, or building fortifications that persist after the spell. In a dungeon, permanently sealing a corridor prevents future incursions. In combat, it divides battlefields and forces enemies into desired positions.

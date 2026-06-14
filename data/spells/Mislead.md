@@ -21,4 +21,4 @@ available_to:
 description: "Level 5. Concentration, 1 hour. Become invisible + create mobile illusory double. See/hear through the double."
 ---
 
-Mislead is simultaneous invisibility and a mobile decoy — enemies attack the double while you're invisible nearby, and you can see everything through the double's perspective. The double can perform complex actions, hold conversations, and draw fire while you set up attacks or escape. In Barovia, using Mislead to have the double negotiate with Strahd while the real caster repositions is a signature high-play tactic.
+Mislead is simultaneous invisibility and a mobile decoy — enemies attack the double while you're invisible nearby, and you can see everything through the double's perspective. The double can perform complex actions, hold conversations, and draw fire while you set up attacks or escape. Using Mislead to have the double negotiate with a dangerous foe while the real caster repositions is a signature high-play tactic.

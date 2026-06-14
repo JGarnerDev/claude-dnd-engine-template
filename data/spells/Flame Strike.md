@@ -24,4 +24,4 @@ available_to:
 description: "Level 5. 10-ft cylinder: 4d6 fire + 4d6 radiant (Dex save). No concentration."
 ---
 
-Flame Strike delivers split fire/radiant damage — the radiant component bypasses fire resistance, making this stronger than a pure-fire spell against fire-resistant enemies. Against undead, both damage types are typically unresisted (and radiant is often a vulnerability). Cleric exclusive access to radiant damage makes this their primary offensive 5th-level option. In Barovia, the divine-fire column visually striking from above has strong narrative weight in the god-forsaken domain.
+Flame Strike delivers split fire/radiant damage — the radiant component bypasses fire resistance, making this stronger than a pure-fire spell against fire-resistant enemies. Against undead, both damage types are typically unresisted (and radiant is often a vulnerability). Cleric exclusive access to radiant damage makes this their primary offensive 5th-level option. The divine-fire column striking from above carries strong narrative weight in god-forsaken settings.

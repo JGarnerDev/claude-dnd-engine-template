@@ -22,4 +22,4 @@ available_to:
 description: "Level 4. 8 hours. Creature survives one instance of being reduced to 0 HP (drops to 1 HP instead). Negates instant-kill effects."
 ---
 
-Death Ward is a 8-hour non-concentration life insurance policy — the first kill-shot misses completely, and it negates even instant-death effects (not just damage reduction). In Barovia where every boss fight carries genuine lethal threat, Death Ward on the party's most vulnerable members before major encounters is a strong investment. Stack with Healing Word or Revivify for a deeper safety net.
+Death Ward is a 8-hour non-concentration life insurance policy — the first kill-shot misses completely, and it negates even instant-death effects (not just damage reduction). In deadly campaigns where every boss fight carries genuine lethal threat, Death Ward on the party's most vulnerable members before major encounters is a strong investment. Stack with Healing Word or Revivify for a deeper safety net.

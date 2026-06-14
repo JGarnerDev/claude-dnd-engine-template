@@ -23,4 +23,4 @@ available_to:
 description: "Level 3. Create 45 lbs food + 30 gallons water; sustains 15 humanoids for 24 hours. No concentration."
 ---
 
-Create Food and Water is a survival utility that eliminates hunger and thirst as attrition factors in extended dungeon delves or wilderness travel. At 3rd level it's expensive for pure logistics, but in campaigns like Curse of Strahd where food scarcity is a real concern, it removes the resource drain entirely. Spoils in 24 hours, so it can't be stockpiled.
+Create Food and Water is a survival utility that eliminates hunger and thirst as attrition factors in extended dungeon delves or wilderness travel. At 3rd level it's expensive for pure logistics, but in campaigns where food scarcity is a real concern, it removes the resource drain entirely. Spoils in 24 hours, so it can't be stockpiled.

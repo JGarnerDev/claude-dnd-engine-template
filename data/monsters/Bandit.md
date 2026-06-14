@@ -17,7 +17,7 @@ habitats:
   - "[[Plains]]"
   - "[[Forest]]"
   - "[[Ruins]]"
-description: Common criminal or highway robber. Scimitar and crossbow. Versatile stat block — also used for Vistani raiders, gang members, and desperate villagers turned outlaw.
+description: Common criminal or highway robber. Scimitar and crossbow. Versatile stat block — also used for raiders, gang members, and desperate villagers turned outlaw.
 weaknesses: []
 resistances: []
 immunities: []
@@ -25,7 +25,7 @@ legendary: false
 movement: []
 ---
 
-Common criminal or highway robber. Scimitar and crossbow. Versatile stat block — also used for Vistani raiders, gang members, and desperate villagers turned outlaw.
+Common criminal or highway robber. Scimitar and crossbow. Versatile stat block — also used for raiders, gang members, and desperate villagers turned outlaw.
 **Habitats:** [[Plains]] | [[Forest]] | [[Ruins]]
 
 Most bandits wear the same face: hollow cheeks, eyes that move before the head does, hands calloused from something other than honest work. Their gear is a patchwork of violence's residue — a dead soldier's buckle, a merchant's good cloak gone threadbare, a blade nicked from killing something that didn't deserve it. They smell of wet wool and old fire. Up close, they look younger than they should.

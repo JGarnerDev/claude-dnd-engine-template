@@ -24,4 +24,4 @@ available_to:
 description: "Level 3. Remove all curses from creature or object. Breaks attunement to cursed magic items."
 ---
 
-Remove Curse is essential maintenance in Barovia — the campaign has numerous cursed items, Bestow Curse attacks, and afflictions from Strahd. Removing attunement from cursed items is particularly important; without this spell, characters are locked into cursed items they equipped. The Tome of Strahd and dark gifts from the Amber Temple create curse situations this spell can address.
+Remove Curse is essential maintenance in curse-heavy campaigns — numerous cursed items, Bestow Curse attacks, and magical afflictions. Removing attunement from cursed items is particularly important; without this spell, characters are locked into cursed items they equipped. Cursed tomes and dark magical gifts create situations this spell can address.

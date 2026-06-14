@@ -20,4 +20,4 @@ available_to:
 description: "Level 5. 30-ft radius: 5d6 thunder + 5d6 radiant/necrotic (Con save) + prone on fail. Paladin-only. No concentration."
 ---
 
-Destructive Wave is a paladin's signature AoE — 10d6 damage (mixed types) plus prone on a fail across a 30-foot radius, with no concentration and verbal-only components. Paladin-exclusive. The choice of radiant or necrotic (depending on paladin oath) makes it effective against different enemy types. In Barovia, radiant damage choice devastates undead; the prone effect provides advantage for allies' subsequent attacks against downed enemies.
+Destructive Wave is a paladin's signature AoE — 10d6 damage (mixed types) plus prone on a fail across a 30-foot radius, with no concentration and verbal-only components. Paladin-exclusive. The choice of radiant or necrotic (depending on paladin oath) makes it effective against different enemy types. Against undead, the radiant damage choice devastates; the prone effect provides advantage for allies' subsequent attacks against downed enemies.

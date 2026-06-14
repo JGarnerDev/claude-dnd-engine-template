@@ -22,4 +22,4 @@ available_to:
 description: "Level 5. Concentration, 1 min. Teleport between same-species trees within 500 ft once per turn."
 ---
 
-Tree Stride is a forest-combat mobility spell — 500 feet of tree-to-tree teleportation per turn creates extraordinary positional mobility. In Barovia's forests (the Svalich Wood surrounding the domain), this allows rapid repositioning or escape across battlefield-scale distances. Druid/Ranger exclusive. Requires living Large trees, limiting use inside Castle Ravenloft but making it powerful in any outdoor woodland encounter. Concentration dependency is the primary cost.
+Tree Stride is a forest-combat mobility spell — 500 feet of tree-to-tree teleportation per turn creates extraordinary positional mobility. In dense forests, this allows rapid repositioning or escape across battlefield-scale distances. Druid/Ranger exclusive. Requires living Large trees, limiting use inside dungeons but making it powerful in any outdoor woodland encounter. Concentration dependency is the primary cost.

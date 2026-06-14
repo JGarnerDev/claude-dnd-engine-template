@@ -24,4 +24,4 @@ available_to:
 description: "Level 5. Concentration, 1 min. Three effects: break charms/possession, send extraplanar creatures home, or protection aura against supernatural entities."
 ---
 
-Dispel Evil and Good is a direct counter to Strahd's Charm and possession abilities — the Break Enchantment action can free charmed party members as a bonus during combat. The protective aura prevents future charms on the caster. Against Strahd specifically, his vampire charm/hypnotic gaze is negated while this spell is active. In Barovia's supernatural threat environment, this spell is exceptionally targeted and valuable.
+Dispel Evil and Good is a direct counter to vampire Charm and possession abilities — the Break Enchantment action can free charmed party members as a bonus during combat. The protective aura prevents future charms on the caster. Against a vampire specifically, its charm/hypnotic gaze is negated while this spell is active. In supernatural-heavy environments, this spell is exceptionally targeted and valuable.

@@ -27,4 +27,4 @@ available_to:
 description: "Level 3. Concentration, 10 min. Remote sight or hearing sensor at a location up to 1 mile away."
 ---
 
-Clairvoyance is the premier remote reconnaissance spell — check on a known location without risking party members. The 10-minute casting time limits tactical use; better for preparation and intelligence-gathering. In Barovia, useful for scouting Castle Ravenloft rooms, monitoring known danger areas, or verifying NPC claims about locations. The 100gp focus is a one-time investment.
+Clairvoyance is the premier remote reconnaissance spell — check on a known location without risking party members. The 10-minute casting time limits tactical use; better for preparation and intelligence-gathering. Useful for scouting dungeon rooms, monitoring known danger areas, or verifying NPC claims about locations. The 100gp focus is a one-time investment.

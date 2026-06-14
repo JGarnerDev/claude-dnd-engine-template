@@ -4,10 +4,10 @@ A structured, version-controlled system for generating and tracking D&D campaign
 
 ## What This Is
 
-This engine generates sessions for the **Curse of Strahd** campaign by synthesizing three layers:
+This engine generates sessions for your D&D campaign by synthesizing three layers:
 
 1. **Creative pool** (`./data/`) — Free entities (NPCs, locations, factions, items, rumors) available for play
-2. **Campaign history** (`./historian/`) — Authoritative record of what actually happened (10 sessions completed)
+2. **Campaign history** (`./historian/`) — Authoritative record of what actually happened
 3. **Design principles** (`./meta/`) — Table preferences, difficulty tiers, rewards calibration, worldbuilding approach
 
 When you plan a session, the engine reads the campaign state and asks "what's the story trying to do next?" — then surfaces hooks from unresolved threads, the free entity pool, and thematic preferences.

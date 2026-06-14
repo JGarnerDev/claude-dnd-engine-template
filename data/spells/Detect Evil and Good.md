@@ -22,4 +22,4 @@ available_to:
 description: "Concentration, 10 min. Sense aberrations, celestials, elementals, fey, fiends, or undead within 30 feet."
 ---
 
-Detect Evil and Good is extremely relevant in Barovia — a domain saturated with undead, fiends (Strahd's demon pact), and potentially fey. A Paladin or Cleric running this spell during exploration will rarely come up empty-handed. Also detects consecrated and desecrated locations, useful for tracking holy sites.
+Detect Evil and Good is extremely relevant in settings saturated with undead, fiends, and fey. A Paladin or Cleric running this spell during exploration will rarely come up empty-handed. Also detects consecrated and desecrated locations, useful for tracking holy sites.

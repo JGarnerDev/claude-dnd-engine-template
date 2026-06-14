@@ -24,4 +24,4 @@ available_to:
 description: "Level 5. Concentration, 1 min. 30-ft radius bright light: 4d10 radiant/turn (Con save; undead/oozes at disadvantage). Half speed on success."
 ---
 
-Dawn is one of the most powerful anti-undead spells — 4d10 radiant per turn against undead with disadvantage on the save is devastating. The 30-foot radius cylinder covers a large area, and even successful saves halve the target's speed. Combined with Spirit Guardians or other area effects, it creates a kill zone. In Barovia, Dawn has obvious thematic power; it also functions as actual bright light, which the perpetually dim domain sorely lacks.
+Dawn is one of the most powerful anti-undead spells — 4d10 radiant per turn against undead with disadvantage on the save is devastating. The 30-foot radius cylinder covers a large area, and even successful saves halve the target's speed. Combined with Spirit Guardians or other area effects, it creates a kill zone. In undead-heavy or perpetually dim settings, Dawn has obvious thematic power; it also functions as actual bright light.

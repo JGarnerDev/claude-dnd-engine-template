@@ -26,4 +26,4 @@ available_to:
 description: "Level 3. 1 hour. Touch: creature understands all spoken languages and is understood by all speakers."
 ---
 
-Tongues is the definitive social encounter language solution — unlike Comprehend Languages (self-only, written/spoken), Tongues lets the target speak and be understood universally. Essential for negotiating with isolated populations in Barovia, including non-common-speaking NPCs, Vistani, or ancient entities. Non-concentration means it can run alongside combat spells.
+Tongues is the definitive social encounter language solution — unlike Comprehend Languages (self-only, written/spoken), Tongues lets the target speak and be understood universally. Essential for negotiating with isolated populations, including non-common-speaking NPCs, nomads, or ancient entities. Non-concentration means it can run alongside combat spells.

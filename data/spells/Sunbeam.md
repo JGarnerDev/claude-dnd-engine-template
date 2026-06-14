@@ -26,6 +26,6 @@ available_to:
 description: "Concentration. 60-ft line of sunlight: 6d8 radiant (Con save), blinded on fail. Undead/oozes disadvantage."
 ---
 
-Sunbeam fires a line of actual sunlight — one of the most thematically and mechanically powerful spells in a Barovian context. Undead have disadvantage on the Constitution save, and the light counts as direct sunlight, potentially destroying vampire spawn outright and weakening Strahd himself.
+Sunbeam fires a line of actual sunlight — one of the most thematically and mechanically powerful spells against vampires. Undead have disadvantage on the Constitution save, and the light counts as direct sunlight, potentially destroying vampire spawn outright and weakening a vampire lord.
 
-Each turn of the concentration, the caster can re-fire the beam as an action — making it a sustained anti-undead weapon for the right caster, and one of the few reliable sources of sunlight in Strahd's eternal darkness.
+Each turn of the concentration, the caster can re-fire the beam as an action — making it a sustained anti-undead weapon for the right caster, and one of the few reliable sources of sunlight in a darkness-shrouded setting.

@@ -2,7 +2,7 @@
 # consumers: CLAUDE.md -- update these if usage, flags, or output format change.
 # Hop 0: direct location/region/relates_to match
 # Hops 1-N: BFS via all frontmatter entity-name references
-# Usage: .\scripts\location-entities.ps1 -Location "Barovia Village" [-Depth 3]
+# Usage: .\scripts\location-entities.ps1 -Location "<location name>" [-Depth 3]
 
 param(
     [Parameter(Mandatory)]
@@ -91,7 +91,7 @@ while ($queue.Count -gt 0) {
 
 if ($visited.Count -eq 0) {
     Write-Host "No historian entities found referencing '$Location'." -ForegroundColor Yellow
-    Write-Host "Try a partial name (e.g. 'Barovia' instead of 'Barovia Village')." -ForegroundColor DarkGray
+    Write-Host "Try a partial name (e.g. 'River' instead of 'River Town')." -ForegroundColor DarkGray
     exit
 }
 

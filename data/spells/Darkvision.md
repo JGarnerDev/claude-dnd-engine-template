@@ -26,4 +26,4 @@ available_to:
 description: "Level 2. Touch creature: darkvision 60 ft for 8 hours. No concentration."
 ---
 
-Darkvision grants 8 hours of darkvision — essential for humans and other races that lack it in darkness-heavy environments. In Barovia, where natural light is rare and undead thrive in darkness, this spell is broadly useful. Covers the adventuring day with one morning cast.
+Darkvision grants 8 hours of darkvision — essential for humans and other races that lack it in darkness-heavy environments. In darkness-heavy environments where undead thrive, this spell is broadly useful. Covers the adventuring day with one morning cast.

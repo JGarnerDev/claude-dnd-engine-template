@@ -23,4 +23,4 @@ available_to:
 description: "Level 1 ritual. Purify all food and drink in 5-ft radius — remove all poison and disease."
 ---
 
-Purify Food and Drink is a survival and safety ritual with no combat application. In Barovia, where Strahd's servants may poison food or water supplies, this spell provides a simple counter. Ritual castable means it costs no spell slots when time permits.
+Purify Food and Drink is a survival and safety ritual with no combat application. Where enemies may poison food or water supplies, this spell provides a simple counter. Ritual castable means it costs no spell slots when time permits.

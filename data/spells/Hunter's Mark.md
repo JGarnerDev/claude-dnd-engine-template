@@ -22,4 +22,4 @@ description: "Concentration. +1d6 weapon damage vs marked target, advantage on t
 
 Hunter's Mark is the defining Ranger concentration spell — a bonus action mark that adds 1d6 damage to every weapon hit against a single target and makes that target easier to track. When the marked target falls, the mark transfers to a new target as a bonus action.
 
-Concentration-heavy but reliable sustained damage enhancement. Particularly potent in prolonged chases or multi-encounter hunts through Barovia's wilderness and dungeons.
+Concentration-heavy but reliable sustained damage enhancement. Particularly potent in prolonged chases or multi-encounter hunts through wilderness and dungeons.

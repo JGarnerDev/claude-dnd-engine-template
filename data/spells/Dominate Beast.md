@@ -23,4 +23,4 @@ available_to:
 description: "Level 4. Concentration, 1 min. Control a beast (Wisdom save). Telepathic commands, no action required. New save on damage."
 ---
 
-Dominate Beast is Charm Monster with direct control — you issue telepathic commands rather than just being considered a friendly acquaintance. In Barovia, the wolf, bear, and dire wolf populations present opportunities for conscripted animal allies. The "new save on damage" clause means using dominated beasts as shock troops against tough enemies is risky; better as scouts or flankers.
+Dominate Beast is Charm Monster with direct control — you issue telepathic commands rather than just being considered a friendly acquaintance. Wolf, bear, and dire wolf populations present opportunities for conscripted animal allies. The "new save on damage" clause means using dominated beasts as shock troops against tough enemies is risky; better as scouts or flankers.

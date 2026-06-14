@@ -17,7 +17,7 @@ habitats:
   - "[[Ruins]]"
   - "[[Tomb]]"
   - "[[City]]"
-description: True vampire with legendary actions, shapechanger (bat/mist/humanoid), regeneration, and Charm. Children of the Night summons swarms of bats/rats or wolves. Destroyed only in its resting place; lair-dependent. Strahd uses a unique variant — this is the generic template.
+description: True vampire with legendary actions, shapechanger (bat/mist/humanoid), regeneration, and Charm. Children of the Night summons swarms of bats/rats or wolves. Destroyed only in its resting place; lair-dependent. Major vampire NPCs often use unique variants — this is the generic template.
 weaknesses: []
 resistances:
   - "necrotic"
@@ -30,5 +30,5 @@ movement:
   - "climb 30"
 ---
 
-True vampire with legendary actions, shapechanger (bat/mist/humanoid), regeneration, and Charm. Children of the Night summons swarms of bats/rats or wolves. Destroyed only in its resting place; lair-dependent. Strahd uses a unique variant — this is the generic template.
+True vampire with legendary actions, shapechanger (bat/mist/humanoid), regeneration, and Charm. Children of the Night summons swarms of bats/rats or wolves. Destroyed only in its resting place; lair-dependent. Major vampire NPCs often use unique variants — this is the generic template.
 **Habitats:** [[Ruins]] | [[Tomb]] | [[City]]

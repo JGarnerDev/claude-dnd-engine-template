@@ -28,4 +28,4 @@ available_to:
 description: "Level 5. Concentration, 10 min. 1,000 gp focus. Remote surveillance on any creature on the same plane (Wis save)."
 ---
 
-Scrying is the party's equivalent of Strahd's own surveillance ability — with a body part or possession, the target fails automatically, making it reliable for intelligence on captured enemies or known NPCs. In Barovia, this spell mirrors what Strahd does to the party constantly. Using Scrying to learn Strahd's current location, activities, and plans before major confrontations is as decisive as any combat spell. The 1,000gp focus is a one-time cost.
+Scrying is the party's equivalent of a villain's own surveillance ability — with a body part or possession, the target fails automatically, making it reliable for intelligence on captured enemies or known NPCs. This spell mirrors what a scrying villain does to the party. Using Scrying to learn an enemy's current location, activities, and plans before major confrontations is as decisive as any combat spell. The 1,000gp focus is a one-time cost.

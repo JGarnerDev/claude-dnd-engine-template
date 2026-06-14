@@ -74,7 +74,7 @@ All entity files use Obsidian-compatible YAML frontmatter:
 - `relates_to`, `resources`, `known_by`, `owner`, and any other link fields must use `[[wiki-link]]` syntax so edges appear in Obsidian's graph view. Relationship annotations after the link are allowed.
 - **Every `[[wiki-link]]` in frontmatter must also appear somewhere in the markdown body.** Obsidian parses frontmatter links; Foam (VS Code) parses body links only. Dual placement is required for graph coverage in both tools.
 - `tags` must come from `meta/tags.md`. Never invent a tag — check the registry first.
-- **Entity → Entity relationships use `[[wiki-link]]` in the body, never tags.** If a relationship can be expressed as a direct link between two entity files (e.g. a character's race, class, background, faction, or location), use a `[[wiki-link]]` in the markdown body. Do not create a tag as a proxy for that relationship. Tags are only for properties that have no entity counterpart (e.g. `player/jeff`, `state/alive`, `pantheon/faerûnian`).
+- **Entity → Entity relationships use `[[wiki-link]]` in the body, never tags.** If a relationship can be expressed as a direct link between two entity files (e.g. a character's race, class, background, faction, or location), use a `[[wiki-link]]` in the markdown body. Do not create a tag as a proxy for that relationship. Tags are only for properties that have no entity counterpart (e.g. `player/<name>`, `state/alive`, `pantheon/faerûnian`).
 - `type` and `subtype` must come from `meta/types.md`. Never invent a combination.
 - `aliases` enables Obsidian to resolve alternate names to the same node.
 

@@ -2,7 +2,7 @@
 from PIL import Image
 import os
 
-base_dir = r"C:\Users\Jeff\Desktop\claude-dnd-engine\maps\world"
+base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "maps", "world")
 out      = os.path.join(base_dir, "tiles")
 cw, ch   = 512, 472
 

@@ -30,4 +30,4 @@ description: "Concentration. Paralyze 1 humanoid (Wisdom save). Attacks have adv
 
 Hold Person is a high-ceiling control spell. Paralyzed humanoids fail Strength and Dexterity saves, attacks against them have advantage, and melee hits automatically crit — enabling massive burst damage if the initial Wisdom save fails.
 
-Limitation: only affects humanoids. Against Barovia's undead, fiends, and beasts, it has no effect — but it remains powerful against cultists, enemy spellcasters, and werewolves in humanoid form.
+Limitation: only affects humanoids. Against undead, fiends, and beasts, it has no effect — but it remains powerful against cultists, enemy spellcasters, and werewolves in humanoid form.

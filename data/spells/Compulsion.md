@@ -21,4 +21,4 @@ available_to:
 description: "Level 4. Concentration, 1 min. Bonus action each turn: force affected creatures to move in a chosen direction (Wis save each turn). Bard-only."
 ---
 
-Compulsion is a unique movement-control spell — unlike Fear (which forces fleeing), it lets the caster precisely direct enemies toward hazards, off ledges, into waiting allies, or away from objectives. Bard-exclusive. The bonus action cost means it doesn't compete with action economy. Particularly powerful in environments with cliffs, pit traps, or chokepoints — which Castle Ravenloft provides abundantly.
+Compulsion is a unique movement-control spell — unlike Fear (which forces fleeing), it lets the caster precisely direct enemies toward hazards, off ledges, into waiting allies, or away from objectives. Bard-exclusive. The bonus action cost means it doesn't compete with action economy. Particularly powerful in environments with cliffs, pit traps, or chokepoints.

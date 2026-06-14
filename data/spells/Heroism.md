@@ -22,4 +22,4 @@ available_to:
 description: "Level 1. Concentration. Touch ally: frightened immunity + temp HP per turn equal to spellcasting mod."
 ---
 
-Heroism provides both crowd-control immunity (frightened is common from Strahd and undead) and a continuous temp HP buffer. The temp HP stack is particularly strong for a melee frontliner facing constant hits. Concentration cost is the main drawback. Scales to multiple allies at higher levels.
+Heroism provides both crowd-control immunity (frightened is common from undead and fear-based enemies) and a continuous temp HP buffer. The temp HP stack is particularly strong for a melee frontliner facing constant hits. Concentration cost is the main drawback. Scales to multiple allies at higher levels.

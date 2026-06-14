@@ -25,4 +25,4 @@ available_to:
 description: "Level 3. 1 hour. 60-ft bright light sphere; overrides magical darkness ≤3rd level. Sunlight Sensitivity applies."
 ---
 
-Daylight is not actual sunlight — vampires and undead with Sunlight Sensitivity suffer disadvantage but do not take the burning/destroying effects of true sunlight. In Barovia this distinction matters critically: it does not destroy Strahd or vampire spawn, but it does impose significant combat penalties. The 1-hour non-concentration duration means the party can use it as a persistent exploration buff without cost.
+Daylight is not actual sunlight — vampires and undead with Sunlight Sensitivity suffer disadvantage but do not take the burning/destroying effects of true sunlight. This distinction matters critically against vampires: it does not destroy them, but it does impose significant combat penalties. The 1-hour non-concentration duration means the party can use it as a persistent exploration buff without cost.

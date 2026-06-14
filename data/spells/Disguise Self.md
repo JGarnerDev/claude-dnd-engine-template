@@ -23,4 +23,4 @@ available_to:
 description: "Level 1. Change your appearance for 1 hour. Illusory — physical touch reveals the disguise."
 ---
 
-Disguise Self is a reliable infiltration and social deception spell — 1-hour duration, no concentration, covers appearance of clothing and equipment. The key limitation is that the illusion is purely visual: physical contact reveals the disguise. Useful in Barovia for infiltrating enemy groups or hiding from Strahd's servants.
+Disguise Self is a reliable infiltration and social deception spell — 1-hour duration, no concentration, covers appearance of clothing and equipment. The key limitation is that the illusion is purely visual: physical contact reveals the disguise. Useful for infiltrating enemy groups or hiding from a villain's servants.

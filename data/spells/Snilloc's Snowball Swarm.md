@@ -24,4 +24,4 @@ available_to:
 description: "Level 2. 5-ft sphere, 90 ft: 3d6 cold (Dex save). No concentration."
 ---
 
-Snilloc's Snowball Swarm is a small-radius cold damage burst — the 5-foot sphere is very tight (only hits a single Medium creature reliably), making it strictly worse than Shatter for area coverage. Cold damage is useful in Barovia against fire-vulnerable undead. Best in corridors where targets are clustered, or as a no-concentration damage option when concentration slots are occupied.
+Snilloc's Snowball Swarm is a small-radius cold damage burst — the 5-foot sphere is very tight (only hits a single Medium creature reliably), making it strictly worse than Shatter for area coverage. Cold damage is useful against fire-vulnerable undead. Best in corridors where targets are clustered, or as a no-concentration damage option when concentration slots are occupied.

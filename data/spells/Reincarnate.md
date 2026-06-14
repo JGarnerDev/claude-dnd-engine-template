@@ -23,4 +23,4 @@ available_to:
 description: "Level 5. Druid-only. Return a dead humanoid in a random new body (random race from table). 1,000 gp consumed. 10-day limit."
 ---
 
-Reincarnate is the Druid alternative to Raise Dead — same 10-day and cost roughly equivalent, but returns the creature in a randomly determined new race. The racial change creates narrative consequences (abilities, appearance, social reception all shift). In Barovia, returning in an unexpected race can create social complications with the superstitious Barovian population. No recovery penalty unlike Raise Dead; the trade-off is the random body.
+Reincarnate is the Druid alternative to Raise Dead — same 10-day and cost roughly equivalent, but returns the creature in a randomly determined new race. The racial change creates narrative consequences (abilities, appearance, social reception all shift). Returning in an unexpected race can create social complications with superstitious populations. No recovery penalty unlike Raise Dead; the trade-off is the random body.

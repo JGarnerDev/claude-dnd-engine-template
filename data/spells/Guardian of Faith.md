@@ -20,4 +20,4 @@ available_to:
 description: "Level 4. No concentration, 8 hours. Spectral guardian: 20 radiant (Dex save) to any hostile entering 10 ft. Vanishes after 60 total damage."
 ---
 
-Guardian of Faith is exceptional value — 60 radiant damage distributed as needed across multiple targets over 8 hours with no concentration. The guardian punishes approach, making it an area-denial tool for doorways and corridors. Verbal-only component means it can be cast quickly. In Barovia, radiant damage is particularly effective against undead. Best placed in chokepoints where all enemies must pass through its threat radius.
+Guardian of Faith is exceptional value — 60 radiant damage distributed as needed across multiple targets over 8 hours with no concentration. The guardian punishes approach, making it an area-denial tool for doorways and corridors. Verbal-only component means it can be cast quickly. Radiant damage is particularly effective against undead. Best placed in chokepoints where all enemies must pass through its threat radius.

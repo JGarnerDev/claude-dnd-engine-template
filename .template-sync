@@ -7,7 +7,7 @@
 #   meta/campaign-design-preferences.md — this group's wishlist; create fresh per campaign
 #   meta/party-relationships.md      — this party's bonds; create fresh per campaign
 #   data/factions/*, data/locations/*, data/routes/*, data/lore/*, data/characters/*
-#   data/items/magic/*               — contains Strahd-specific items
+#   data/items/magic/*               — may contain campaign-specific items
 #   data/world-events-pool.md        — campaign event pool
 #   historian/*, scheduler/*, maps/* (except maps/CLAUDE.md and the structural scaffolds below:
 #     maps/map-request-template.md, maps/world/index-template.md, maps/world/city-registry-template.md)
@@ -74,6 +74,9 @@ tests/rubrics/principles.md
 tests/commands/session/spec.md
 
 # Data — standard D&D reference catalogs
+# NOTE: spell/monster bodies are copied wholesale. Keep their commentary campaign-neutral
+# in the source repo before syncing — do not let campaign proper nouns (NPC names, place
+# names, module names) leak into these reference files, or they ship into the template.
 data/backgrounds/*.md
 data/classes/*.md
 data/deities/*.md
@@ -88,7 +91,7 @@ data/spells/*.md
 # These are homebrew or world-economy entries that belong to this campaign, not the engine.
 # A new campaign should create its own world resources from scratch.
 # Add a line here whenever a new world-specific resource lands in data/resources/.
-!data/resources/Fargrsh.md         # Ben's contributed resource
+#!data/resources/Example.md        # example: a player-contributed, world-specific resource to exclude
 
 # Scripts — all engine scripts and shared library
 scripts/lib/common.ps1

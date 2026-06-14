@@ -22,4 +22,4 @@ available_to:
 description: "Level 5. Concentration, 10 min. Telekinetically move 1,000-lb objects or restrain/move creatures (Str check contest) up to 30 ft each turn."
 ---
 
-Telekinesis is sustained battlefield control — holding a creature aloft (restrained) while the party attacks from below, throwing heavy objects for improvised damage, clearing obstacles, or pulling items from enemies. The Strength check contest means weaker enemies are easier to hold. In Castle Ravenloft, throwing enemies off balconies or restraining Strahd over a 50-foot drop while the party focuses fire creates decisive moments. 10-minute duration allows extended control.
+Telekinesis is sustained battlefield control — holding a creature aloft (restrained) while the party attacks from below, throwing heavy objects for improvised damage, clearing obstacles, or pulling items from enemies. The Strength check contest means weaker enemies are easier to hold. In vertical dungeons, throwing enemies off balconies or restraining a boss over a 50-foot drop while the party focuses fire creates decisive moments. 10-minute duration allows extended control.

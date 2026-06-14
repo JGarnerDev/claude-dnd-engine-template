@@ -21,4 +21,4 @@ available_to:
 description: "Level 2. Summon a loyal spirit steed (warhorse, elk, etc.) that persists until dismissed or killed."
 ---
 
-Find Steed provides a Paladin with a reliable, intelligent mount that persists between encounters and can benefit from spells the Paladin casts on themselves. In Barovia, a loyal steed significantly speeds travel across the domain's dangerous roads and wilderness.
+Find Steed provides a Paladin with a reliable, intelligent mount that persists between encounters and can benefit from spells the Paladin casts on themselves. A loyal steed significantly speeds travel across dangerous roads and wilderness.

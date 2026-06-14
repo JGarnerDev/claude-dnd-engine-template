@@ -16,7 +16,7 @@ source: Monster Manual p.349
 habitats:
   - "[[Forest]]"
   - "[[Mountains]]"
-description: Trained wilderness tracker. Keen Hearing and Sight; Skirmisher lets it disengage as a bonus action. Used for hunters, rangers, and Vistani outriders. Hard to pin down in open terrain.
+description: Trained wilderness tracker. Keen Hearing and Sight; Skirmisher lets it disengage as a bonus action. Used for hunters, rangers, and outriders. Hard to pin down in open terrain.
 weaknesses: []
 resistances: []
 immunities: []
@@ -24,5 +24,5 @@ legendary: false
 movement: []
 ---
 
-Trained wilderness tracker. Keen Hearing and Sight; Skirmisher lets it disengage as a bonus action. Used for hunters, rangers, and Vistani outriders. Hard to pin down in open terrain.
+Trained wilderness tracker. Keen Hearing and Sight; Skirmisher lets it disengage as a bonus action. Used for hunters, rangers, and outriders. Hard to pin down in open terrain.
 **Habitats:** [[Forest]] | [[Mountains]]

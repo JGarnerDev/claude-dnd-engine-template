@@ -21,4 +21,4 @@ available_to:
 description: "Level 1. Concentration, 1 min. Bonus action. Weapon attacks deal +1d4 radiant damage."
 ---
 
-Divine Favor is a Paladin staple for low-level sustained radiant damage — bonus action cast, no upcast scaling but consistent value. Competes with concentration resources. Radiant damage is relevant against undead in Barovia, making this situationally strong across the entire module.
+Divine Favor is a Paladin staple for low-level sustained radiant damage — bonus action cast, no upcast scaling but consistent value. Competes with concentration resources. Radiant damage is relevant against undead, making this situationally strong in undead-heavy campaigns.

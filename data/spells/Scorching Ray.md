@@ -22,4 +22,4 @@ available_to:
 description: "Level 2. 3 ranged spell attack rays, each dealing 2d6 fire. Can split across targets. +1 ray per level above 2nd."
 ---
 
-Scorching Ray is flexible single or multi-target fire damage — the 3 rays can be distributed across multiple enemies or concentrated on one for high burst. Natural crits on individual rays amplify damage. Fire resistance common among undead limits it in Barovia, but the 6d6 base damage is strong against non-fire-resistant enemies.
+Scorching Ray is flexible single or multi-target fire damage — the 3 rays can be distributed across multiple enemies or concentrated on one for high burst. Natural crits on individual rays amplify damage. Fire resistance common among undead limits it in undead-heavy settings, but the 6d6 base damage is strong against non-fire-resistant enemies.

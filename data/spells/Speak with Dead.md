@@ -24,4 +24,4 @@ available_to:
 description: "Level 3. Ask a corpse up to 5 questions over 10 min. Answers reflect what it knew in life; no compulsion to be helpful."
 ---
 
-Speak with Dead is the premier post-combat intelligence spell — every slain NPC becomes a potential information source. The creature isn't magically compelled to be helpful, so charisma and good question-phrasing matter. In Barovia, this spell has enormous narrative value: the dead have centuries of history with Strahd, and speaking with the right corpses can reveal secrets, locations, and history that no living NPC would know.
+Speak with Dead is the premier post-combat intelligence spell — every slain NPC becomes a potential information source. The creature isn't magically compelled to be helpful, so charisma and good question-phrasing matter. This spell has enormous narrative value: the dead may hold centuries of history, and speaking with the right corpses can reveal secrets, locations, and history that no living NPC would know.

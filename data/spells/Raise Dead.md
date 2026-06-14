@@ -26,4 +26,4 @@ available_to:
 description: "Level 5. 500 gp diamond consumed. Resurrect a creature dead ≤10 days (1 HP, -4 to all rolls until 4 long rests pass)."
 ---
 
-Raise Dead is the primary out-of-combat resurrection in Barovia — the 10-day window and 500gp cost are substantial investments. The recovery penalty (-4 to everything for 4 long rests) means the resurrected character is diminished for several sessions. Per Curse of Strahd rules, resurrection in Barovia is specifically complicated by the Dark Powers; DMs may require the party to first secure Strahd's permission or fulfill conditions for resurrection to work.
+Raise Dead is the primary out-of-combat resurrection — the 10-day window and 500gp cost are substantial investments. The recovery penalty (-4 to everything for 4 long rests) means the resurrected character is diminished for several sessions. Some settings specifically complicate resurrection; DMs may require the party to fulfill conditions for resurrection to work.

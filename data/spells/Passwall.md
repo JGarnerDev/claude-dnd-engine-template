@@ -23,4 +23,4 @@ available_to:
 description: "Level 5. No concentration, 1 hour. Create a 5x8x20-ft passage through stone, wood, or plaster. Disappears after 1 hour."
 ---
 
-Passwall is a guaranteed dungeon bypass — create a corridor through any stone wall up to 20 feet thick. No concentration means it stacks with other spells. The 1-hour duration allows passage in both directions. In Castle Ravenloft, Passwall enables bypass of any locked door, walled chamber, or prison by going through the wall directly. Wizard-exclusive and extremely powerful in a dungeon-crawl context.
+Passwall is a guaranteed dungeon bypass — create a corridor through any stone wall up to 20 feet thick. No concentration means it stacks with other spells. The 1-hour duration allows passage in both directions. Passwall enables bypass of any locked door, walled chamber, or prison by going through the wall directly. Wizard-exclusive and extremely powerful in a dungeon-crawl context.

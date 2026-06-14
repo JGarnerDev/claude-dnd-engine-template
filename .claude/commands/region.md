@@ -191,7 +191,7 @@ Treat results with score > 0.35 as additional anchoring candidates. Then also sc
 
 Combine both sources — semantic results for thematic fit, free-entities output for explicit type filtering.
 
-Prioritize player-contributed entities. Flag if one player's material dominates the anchoring candidates — include the contribution balance output. Flag if Miguel or Ben have no pool at all and note that their entities can't be balanced here.
+Prioritize player-contributed entities. Flag if one player's material dominates the anchoring candidates — include the contribution balance output. Flag if any player has no pool at all and note that their entities can't be balanced here.
 
 Attach suggestions inline in the draft as a new section per location:
 

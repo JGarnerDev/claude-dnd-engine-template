@@ -25,4 +25,4 @@ available_to:
 description: "Level 2. Ritual. Send a Tiny beast with a 25-word message to a described recipient. Travels up to 24 hours."
 ---
 
-Animal Messenger is a reliable long-distance communication option — ritual casting means no spell slot cost. The 25-word limit requires concise phrasing, and the beast can't fight its way to recipients in dangerous territory. In Barovia, birds are often Strahd's eyes, so this spell carries implicit surveillance risk.
+Animal Messenger is a reliable long-distance communication option — ritual casting means no spell slot cost. The 25-word limit requires concise phrasing, and the beast can't fight its way to recipients in dangerous territory. In settings where the antagonist commands avian spies, this spell carries implicit surveillance risk.

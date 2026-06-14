@@ -22,4 +22,4 @@ available_to:
 description: "Level 3. Teleport 90 ft + 3d10 thunder damage in 10-ft burst at origin. Can bring one ally. No concentration."
 ---
 
-Thunder Step combines escape with damage — it's a Misty Step that deals 3d10 thunder damage to everything you just left behind. The action cost versus Misty Step's bonus action is the trade-off. Valuable when surrounded: teleport out while blasting clustered melee attackers. Can extract an ally simultaneously. Verbal-only component means it can be cast while restrained. In Barovia's tight corridors, the escape capability is premium.
+Thunder Step combines escape with damage — it's a Misty Step that deals 3d10 thunder damage to everything you just left behind. The action cost versus Misty Step's bonus action is the trade-off. Valuable when surrounded: teleport out while blasting clustered melee attackers. Can extract an ally simultaneously. Verbal-only component means it can be cast while restrained. In tight corridors, the escape capability is premium.
