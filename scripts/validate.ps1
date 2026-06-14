@@ -37,6 +37,13 @@ function Is-Entity($f) {
 # Reference-catalog types are campaign-agnostic stat libraries; their schemas omit `exists`.
 $refTypes = @('monster', 'spell', 'deity', 'feat', 'race', 'class', 'background', 'skill')
 
+# Spotlight ledger fields (meta/character-focus.md) are intentionally plain-string, NOT wikilinks:
+#   spotlight_hooks (list of {hook,status}), spotlight (normal|low) on PCs;
+#   beats ("classification: weight") and pcs_present (PC names) on sessions.
+# PC names inside `beats:` are ledger tokens, not graph edges -- keep them bracket-free so they
+# don't register as dangling [[links]] here. This validator has no field whitelist, so these
+# fields pass without special handling; do not convert them to [[wiki-links]].
+
 function Parse-File($path) {
     $raw = Get-Content $path -Raw -Encoding UTF8
     if ($raw.Length -and $raw[0] -eq [char]0xFEFF) { $raw = $raw.Substring(1) }   # strip UTF-8 BOM

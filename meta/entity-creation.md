@@ -62,6 +62,13 @@ Populate when there is a narrative reason: the NPC's livelihood is trade-focused
 
 When linking `sells` or `supply` to resource entities, prefer wiki-links to existing `data/resources/` files. If no matching resource entity exists, use plain text rather than creating a new resource just to satisfy the link.
 
+## Spotlight Fields (PC, Optional)
+
+**Do not populate a PC's `spotlight` / `spotlight_hooks` fields by hand at creation** — hooks
+are derived from backstory by `.claude/commands/pc-backstory.md`, and `spotlight` defaults to
+`normal`. Field shapes in `meta/schemas/character-pc.md`; semantics in
+`meta/character-focus.md`.
+
 ## Gameplay Mechanics
 
 Gameplay mechanics (mini-games, structured encounter types) live in `meta/mechanics/`. Use `meta/mechanics/_template.md` as the starting point for new mechanic files. These are GM design tools — they have no `type`, `exists`, or `state` fields and follow no entity protocol. The `/session` command checks `meta/mechanics/` for applicable mini-games when building non-standard encounters (chase, puzzle, trade, performance, etc.).

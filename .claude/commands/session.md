@@ -21,7 +21,7 @@ Do not generate any content yet.
 .\scripts\session-brief.ps1
 ```
 
-It reports: next session number (with a milestone flag every 5th session — worth marking at the table), campaign/act/mission names and states, last session summary + cliffhanger + played date, Rest Clock state, Current State stamp staleness, the party roster with afflictions, and the design-preference drought counter (undeployed/seeded wishlist items). Do not manually re-read anything it already covers.
+It reports: next session number (with a milestone flag every 5th session — worth marking at the table), campaign/act/mission names and states, last session summary + cliffhanger + played date, Rest Clock state, Current State stamp staleness, the party roster with afflictions, the design-preference drought counter (undeployed/seeded wishlist items), and the spotlight readout (lifetime balance, recent trend, overdue PC, missing-hooks flags — from `spotlight-balance.ps1`; says "insufficient history" before 3 sessions). Do not manually re-read anything it already covers.
 
 **Step 2 — Index staleness check.** Read `vector-index/.index-built` (line 1: ISO timestamp, line 2: commit SHA), then run `git log --oneline <sha>..HEAD -- data/ historian/ scheduler/`. If any commits appear, flag: *"Semantic index stale since `<sha[:7]>` — run `py -3.10 scripts\index-entities.py`."* If the file is missing, prompt to build. Never rebuild automatically — the searches in this command degrade silently on a stale index, so the DM should decide.
 
@@ -60,6 +60,7 @@ Conditional:
 - What active mission(s) exist (or "no active mission")
 - What the last session ended on (cliffhanger or final recap note)
 - What the next session number will be
+- Spotlight state (from the brief, once ≥3 sessions): lifetime balance and recent trend (whether the campaign owes spotlight or agnostic material this week), the overdue PC if any, and any PC flagged as missing hooks. State it as a lean, never a mandate — it biases hook selection in Phase 3, it doesn't dictate it
 
 **Step 6 — Callback search** on the cliffhanger or active mission hook, to surface historian entities the story may be ready to revisit:
 
@@ -91,6 +92,7 @@ Keep the following in scope:
 - Last session cliffhanger
 - Key NPCs and locations already established in the mission or recent sessions
 - Any unresolved `new_entities` from the last session (things invented at the table that should be revisited)
+- **Spotlight opportunities** (once ≥3 sessions): if the brief named an overdue PC and the trend owes spotlight, thread one of that PC's open/seeded `spotlight_hooks:` into the mission — a 1–2 line opportunity, never a forced detour (same shaping as Phase 3B; lean agnostic instead if the trend says so)
 
 ---
 
@@ -134,6 +136,8 @@ Use `meta/worldbuilding.md` (already read in Phase 1). Player files in `meta/pla
 Also check `meta/campaign-design-preferences.md` (conditional-tier file — TRANSITION is its trigger): identify items with `Deployed: —` that haven't fired yet. If any are aging (many sessions have passed without use), flag the most relevant one as a candidate for Option C. Do not force a preference into a hook — only suggest it if the current story state creates a plausible opening.
 
 Also check `meta/literary-devices.md`: if the story state creates a natural opening for one device or twist, name it as a light suggestion alongside the hooks (e.g. *"this hook would support a cold open"* or *"the patron thread is ripe for The patron's true face"*). At most one suggestion; skip silently when nothing fits. Twist suggestions must pass the file's safety check (no contradiction with historian canon, no accidental answer to a `meta/mysteries.md` unknown). Avoid devices whose `Last used:` points at the immediately previous session.
+
+**Spotlight hooks (once ≥3 sessions):** if the brief flagged an overdue, present, normal-appetite PC and the trend owes spotlight material, read that PC's open/seeded `spotlight_hooks:` and shape **Option C** around one that fits the story state. Surface 1–2 candidates, not a mandate. No hooks → surface *"[Name] has no spotlight hooks — needs a backstory pass"* instead. If the trend says lean agnostic, bias all three hooks toward `party-centric`/`world` and skip the spotlight push this session.
 
 Respect the `Scale:` tags when picking:
 
@@ -309,5 +313,6 @@ If yes:
 3. Populate all mandatory frontmatter fields from the plan above
 4. Write the full body (Orientation, Scenes, NPC Quick-Reference, Contingencies, Closing) into the main file
 5. Leave historian-only fields commented out (they are filled after play)
+6. **Spotlight commitment:** if the plan builds a scene on a PC's `spotlight_hooks:` entry, advance that entry's `status` from `open → seeded` on the PC file (it becomes `paid` later, at `/recap`, when the beat lands). Only seed hooks the plan actually commits to — surfacing one as an option in Phase 3 is not a commitment.
 
 If no: leave the plan in chat for the DM to use or adapt manually.

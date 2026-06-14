@@ -1,5 +1,6 @@
 ﻿# session-brief.ps1 -- pre-session planning dashboard
 # consumers: CLAUDE.md, .claude/commands/recap.md, .claude/commands/session.md, meta/difficulty.md, tests/commands/session/spec.md -- update these if usage, flags, or output format change.
+# uses: scripts/spotlight-balance.ps1 (-Section) for the spotlight readout.
 # Replaces ~8 manual Read calls at the start of every /session invocation
 # Usage: .\scripts\session-brief.ps1
 
@@ -205,5 +206,8 @@ if (Test-Path $prefFile) {
         Write-Host "  $($total - $deployed) of $total group wishlist items not yet deployed; $seeded seeded ($latestPlayed sessions played)" -ForegroundColor White
     }
 }
+
+# -- Spotlight balance (character-focus ledger; see meta/character-focus.md) ----
+& "$PSScriptRoot\spotlight-balance.ps1" -Section
 
 Write-Host "`n========================================`n" -ForegroundColor DarkGray

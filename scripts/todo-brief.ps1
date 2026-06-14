@@ -1,5 +1,6 @@
 # todo-brief.ps1 -- DM action-item dashboard. Backbone of the /todo command.
 # consumers: CLAUDE.md, .claude/commands/todo.md -- update these if usage, flags, or output format change.
+# uses: scripts/spotlight-balance.ps1 (-Section) for the spotlight ledger flags.
 # Collects every mechanical "needs attention" signal in one call:
 #   uncanonized sessions, recap inbox, index staleness, unchecked topic-todo items,
 #   world buildout gaps (empty entity types, scheduler structure),
@@ -138,6 +139,23 @@ if ($activeCampaign) {
     }
 }
 if (-not $partyFlags) { Write-Host "  (clean)" -ForegroundColor DarkGray }
+
+# -- 1b3. Spotlight (character-focus ledger) ------------------------------------
+# *>&1 captures the script's Write-Host output; filter for the action-item lines only.
+Write-Host "`n--- SPOTLIGHT ---" -ForegroundColor DarkGray
+$spotOut = & "$PSScriptRoot\spotlight-balance.ps1" -Section *>&1
+$spotFlags = 0
+foreach ($line in $spotOut) {
+    $t = ("$line").Trim()
+    if ($t -match 'Overdue:') {
+        Write-Host "  $t" -ForegroundColor Yellow; $spotFlags++
+    } elseif ($t -match 'no spotlight hooks') {
+        Write-Host "  $t" -ForegroundColor Yellow; $spotFlags++
+    } elseif ($t -match 'insufficient history') {
+        Write-Host "  $t" -ForegroundColor DarkGray; $spotFlags++
+    }
+}
+if (-not $spotFlags) { Write-Host "  (clean)" -ForegroundColor DarkGray }
 
 # -- 1c. Graph health ------------------------------------------------------------
 Write-Host "`n--- GRAPH HEALTH ---" -ForegroundColor DarkGray

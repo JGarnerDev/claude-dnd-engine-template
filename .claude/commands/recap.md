@@ -34,6 +34,32 @@ Wait for the DM's response before continuing.
 
 ---
 
+## Phase 2.5 — Spotlight Tagging Pass
+
+Tag the session for the character-focus ledger (`meta/character-focus.md`). Work from the
+Phase 2 recap; this is a quick per-scene pass (~4–8 taps across a session), not one global
+question. **Skip entirely if fewer than 3 sessions including this one are played** — the
+ledger is inert before cold-start clears; note that and move on.
+
+1. **Classify + weight every beat.** Walk the recap scene by scene and tag each beat in the
+   `classification: weight` form defined in `meta/schemas/session.md` → Spotlight Beats
+   (`spotlight`/`shared`/`party-centric`/`world` × `touch`/`beat`/`arc`). Tag touches too —
+   dropping them biases the ratio. PC names must match each PC's `name:` exactly.
+2. **Shared cap.** If a beat focuses 3+ PCs individually, it isn't spotlight — flag it and
+   reclassify as `party-centric` with the DM rather than writing a 3-PC `shared`.
+3. **Two-PC-party tiebreak.** In a two-PC party, decide `shared` vs `party-centric` by intent:
+   two individual arcs advancing = `shared`; one collective stake = `party-centric`.
+4. **Attendance.** Note which PCs appear in the recap. **Never silently assume absence** — for
+   any PC who doesn't appear, ask the DM "absent this session, or just quiet?" before
+   excluding them from rotation. Present-but-quiet still counts as present.
+5. **Hook payoff.** For any `spotlight_hooks:` entry on a PC file currently at `status: seeded`
+   (set by `/session` when it planned this session around the hook), check whether its beat
+   actually landed. If yes, mark it to advance `seeded → paid` in Phase 5.
+
+Hold the tagged beat list, the attendance note, and the hooks-to-advance list for Phases 4–5.
+
+---
+
 ## Phase 3 — Entity Audit
 
 For each entity listed in `locations` and `key_npcs` in the session plan:
@@ -82,7 +108,17 @@ entities_canonized:
 new_entities:
   - "{description}"     # one per thing invented at the table, not yet filed
 table_notes: "{what landed, what didn't — from Phase 2 question 7. Omit field if no feedback given.}"
+beats:                  # from Phase 2.5 tagging pass; omit if cold-start not yet cleared
+  - "spotlight(PC Name): beat"
+  - "party-centric: touch"
+pcs_present:            # PCs at the table this session — from the Phase 2.5 attendance check
+  - "PC Name"
 ```
+
+Write `beats:` as one quoted line per tagged beat in the `classification: weight` form (see
+`meta/schemas/session.md` → Spotlight Beats). Write `pcs_present:` as the DM-confirmed list of
+PCs who were at the table (the Phase 2.5 attendance check). Omit both fields when the Phase 2.5
+pass was skipped for cold-start.
 
 Then move the file from `scheduler/sessions/` to `historian/sessions/`.
 
@@ -105,6 +141,8 @@ For each entity flagged for canonization in Phase 3:
 - Update the relevant field (`state`, `location`, `last_updated`, etc.) in its `historian/` file
 
 **Level restamp (every recap, even with no level-up):** for each active PC in `historian/characters/pcs/`, set `level_confirmed: {session_number}` — updating `level` first if the DM reported a change in Phase 2. The stamp records "level verified as of session N"; skipping it is what makes levels go silently stale.
+
+**Spotlight hook advance (from Phase 2.5):** for each hook flagged as landed, edit that PC's `spotlight_hooks:` entry from `status: seeded` to `status: paid`. Only advance hooks whose beat actually paid off this session — a seeded hook that didn't land stays `seeded` and carries forward. Do not invent or add hooks here; new hooks come only from `.claude/commands/pc-backstory.md`.
 
 **If an entity is missing (no file anywhere):**
 

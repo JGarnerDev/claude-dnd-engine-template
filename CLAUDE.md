@@ -96,6 +96,7 @@ PowerShell scripts in `./scripts/` replace repetitive multi-file reads. **Run th
 | `inventory-brief.ps1` | Start of every `/inventory` — free entity pool grouped by type, with gaps | `.\scripts\inventory-brief.ps1 [-Type <type>]` |
 | `threads-brief.ps1` | Start of every `/threads` Phase 2 — unresolved states, hostiles, pending seeds | `.\scripts\threads-brief.ps1` |
 | `party-status.ps1` | PC stats + afflictions | `.\scripts\party-status.ps1` |
+| `spotlight-balance.ps1` | Character-focus ledger — spotlight/agnostic balance, rotation, overdue PC, missing hooks (see `meta/character-focus.md`) | `.\scripts\spotlight-balance.ps1 [-Section]` |
 | `free-entities.ps1` | Find available entities by type or player | `.\scripts\free-entities.ps1 [-Type <type>] [-Player <name>]` |
 | `contribution-balance.ps1` | Player contribution counts (pool vs. canonized) | `.\scripts\contribution-balance.ps1` |
 | `entity-graph.ps1` | 1-hop relations for any entity | `.\scripts\entity-graph.ps1 -Name "<name>"` |

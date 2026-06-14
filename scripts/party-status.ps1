@@ -43,6 +43,18 @@ if (-not $pcFiles) {
     exit 1
 }
 
+# Spotlight rotation tally (windowed) -- shared logic in common.ps1.
+$rotWindow = 4
+$focusDoc = Join-Path $root "meta\character-focus.md"
+if (Test-Path $focusDoc) {
+    $ffm = Get-Frontmatter $focusDoc
+    if ($ffm['rotation_window_sessions']) { $rotWindow = [int]$ffm['rotation_window_sessions'] }
+}
+$activeNames = @($pcFiles | ForEach-Object { (Get-Frontmatter $_.FullName)['name'] })
+$spotSessions = Get-PlayedSpotlightSessions $root
+$rotation = Get-SpotlightRotation $spotSessions $rotWindow $activeNames
+$rotShown = $spotSessions.Count -ge $rotWindow   # only meaningful once the window can fill
+
 Write-Host "`n=== PARTY STATUS ===" -ForegroundColor Cyan
 
 foreach ($file in $pcFiles) {
@@ -83,6 +95,17 @@ foreach ($file in $pcFiles) {
     }
     if ($affliction -and $affliction -notmatch '^Alive$') {
         Write-Host "    Status: $affliction" -ForegroundColor DarkYellow
+    }
+
+    # Spotlight: appetite + windowed rotation turns (meta/character-focus.md)
+    $appetite = if ($fm['spotlight']) { $fm['spotlight'].Trim() } else { 'normal' }
+    if ($appetite -eq 'low') {
+        Write-Host "    Spotlight: low appetite (excluded from rotation)" -ForegroundColor DarkGray
+    } elseif ($rotShown) {
+        $t = if ($rotation.Turns.ContainsKey($name)) { $rotation.Turns[$name] } else { 0.0 }
+        $seen = $rotation.Present.ContainsKey($name)
+        $note = if (-not $seen) { " (absent this window)" } else { "" }
+        Write-Host ("    Spotlight: {0} rotation turns over last {1} sessions{2}" -f $t, $rotWindow, $note) -ForegroundColor DarkCyan
     }
 
     if ($desc) { Write-Host "    $desc" -ForegroundColor DarkGray }

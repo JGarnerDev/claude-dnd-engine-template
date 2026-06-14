@@ -98,8 +98,57 @@ description: ""
 # new_entities:          # net-new entities created during play
 #   - [[Entity Name]]
 # cliffhanger: ""        # what the party is left with going into next session
+# beats:                 # spotlight ledger — one line per beat (see Spotlight Beats below)
+#   - "spotlight(PC Name): beat"
+#   - "shared(PC One,PC Two): arc"
+#   - "party-centric: touch"
+#   - "world: touch"
+# pcs_present:           # PCs at the table this session — drives present-only rotation
+#   - "PC Name"
 ---
 ```
+
+### Spotlight Beats
+
+`beats:` is the data source for the character-focus ledger (`meta/character-focus.md`).
+Written at `/recap` from the per-scene tagging pass; absent on the pre-play plan. Every beat
+of the session is tagged — touches included — so the balance ratio isn't biased.
+
+Each beat is **one quoted list entry** in the compact form `classification: weight` (a flat
+string, not a nested YAML map — the script parsers in `scripts/lib/common.ps1` read lists,
+not maps):
+
+```text
+"<classification>: <weight>"
+```
+
+- **classification** — one of:
+  - `spotlight(<PC>)` — solo individual focus on one PC.
+  - `shared(<PC>,<PC>)` — a two-hander advancing two PCs' arcs at once (max two).
+  - `party-centric` — the party as a group is the focus (agnostic).
+  - `world` — plot indifferent to the party (agnostic).
+- **weight** — `touch` (1) | `beat` (3) | `arc` (9). Narrative magnitude; applies to agnostic
+  beats too.
+- **`<PC>`** names must match the PC's `name:` field exactly (no wikilink brackets — these are
+  ledger tokens, not graph edges) so rotation can attribute turns to the right character.
+
+Example:
+
+```yaml
+beats:
+  - "spotlight(Mara Vell): arc"
+  - "shared(Mara Vell,Kuro): beat"
+  - "party-centric: touch"
+  - "world: touch"
+```
+
+A beat naming 3+ PCs violates the shared cap — `/recap` flags it rather than writing it.
+
+`pcs_present:` lists the PCs who were at the table this session (names matching their `name:`
+field). Written alongside `beats:` at `/recap` from the Phase 2.5 attendance check. Rotation
+counts a PC only in sessions where they appear here, so an absent PC is never scored as
+"starved." When the field is missing on an older record, the ledger falls back to treating
+all active PCs as present and says so.
 
 ### Body Structure (pre-play)
 

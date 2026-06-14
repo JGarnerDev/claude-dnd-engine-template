@@ -95,8 +95,26 @@ family:
 enemies:
   - [[Character or Faction Name]] (nature of conflict)
 character_sheet: ""    # path to sheet file or external link
+
+# --- OPTIONAL (spotlight — see meta/character-focus.md) ---
+spotlight: normal          # normal | low. low = tactics-first player, never flagged "overdue"
+spotlight_hooks:           # queryable backstory/values/goal material /session surfaces
+  - hook: ""               # one-line story hook (a fear, wound, goal, unresolved thread)
+    status: open           # open | seeded | paid
 ---
 ```
+
+### Spotlight Fields
+
+Drive the character-focus ledger — `meta/character-focus.md` defines the full semantics
+(lifecycle, rotation, appetite). Both optional; omitting them = a normal-appetite PC with no
+hooks yet.
+
+- **`spotlight`** — `normal` (default, rotation tracks the PC) or `low` (tactics-first player,
+  excluded from rotation/overdue).
+- **`spotlight_hooks`** — list of `{ hook, status: open | seeded | paid }`, the addressable
+  form of the backstory material `/session` surfaces. Populated by
+  `.claude/commands/pc-backstory.md`, not by hand.
 
 ### Body Template
 
@@ -121,5 +139,6 @@ Omit any line for values that are unknown — do not create dead placeholder lin
 | Where from | `homeland` |
 | Why adventuring | `motivation` |
 | What you want | `goals` |
-| Secret or burden | `secrets` |
+| Secret or burden | `secrets`, `spotlight_hooks` (derives hooks) |
+| Why adventuring / What you want | `motivation`, `goals`, `spotlight_hooks` (derives hooks) |
 | Who matters to you | `allies`, `family`, `enemies` |

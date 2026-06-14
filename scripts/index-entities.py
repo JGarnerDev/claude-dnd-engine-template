@@ -35,13 +35,20 @@ def parse_frontmatter(text):
         val = re.sub(r'\[\[([^\]]+)\]\]', r'\1', val)
         if val:
             fm[key] = val
+    # Spotlight hooks (PC files) live as `- hook: "..."` list entries, which the scalar
+    # loop above skips. Pull their phrases so /session can semantically match a PC's arc
+    # material to a session's themes (meta/character-focus.md).
+    hooks = re.findall(r'(?m)^\s*-\s*hook:\s*["\']?(.+?)["\']?\s*$', fm_text)
+    hooks = [h.strip() for h in hooks if h.strip()]
+    if hooks:
+        fm['spotlight_hooks'] = '; '.join(hooks)
     return fm, body
 
 
 def build_text_chunk(fm, body):
     parts = []
     for key in ['name', 'type', 'subtype', 'personality', 'livelihood', 'description',
-                'disposition', 'importance', 'location']:
+                'disposition', 'importance', 'location', 'spotlight_hooks']:
         if key in fm and fm[key] not in ('true', 'false', '[]', '{}'):
             parts.append(f"{key}: {fm[key]}")
     clean_body = re.sub(r'\[\[([^\]|]+)(?:\|[^\]]+)?\]\]', r'\1', body)

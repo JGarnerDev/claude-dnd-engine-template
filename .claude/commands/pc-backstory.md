@@ -10,7 +10,8 @@
    - Appearance, Personality, Backstory, Abilities (Noted in Play)
    - Do not overwrite session history or affliction data — append only
    - Flag anything contradicting existing canonized facts with a `> **Reliability:**` note
-4. Show DM a proposed diff: which sections change, what gets added, what conflicts exist
+3.5. Extract **spotlight hooks** to frontmatter (see **Spotlight Hooks** below).
+4. Show DM a proposed diff: which sections change, what gets added, what conflicts exist — include the proposed `spotlight_hooks:` list
 5. Identify gaps (see **Gap Analysis** below) and offer a follow-up questionnaire if warranted
 6. Write only after explicit DM confirmation
 
@@ -41,6 +42,26 @@ Surface gaps after the proposed diff, grouped by severity:
 - **Optional** — nice to have. Mention briefly; do not generate a questionnaire unless DM asks.
 
 **Follow-up questionnaire:** Generate only when there are Blocking or Useful gaps. Output is player-facing plain language — no schema field names, no jargon. Ask only about the specific gaps identified; never send a generic full-character form. Present the questionnaire to the DM to review and forward to the player at their discretion.
+
+## Spotlight Hooks
+
+The same fear/wound/regret and unresolved-thread material the Gap Analysis already hunts for
+is what the character-focus ledger needs as queryable hooks (`meta/character-focus.md`). When
+that material is present in the backstory, turn it into `spotlight_hooks:` frontmatter so
+`/session` can surface PC-specific opportunities later.
+
+- Each distinct fear, wound, regret, goal, or unresolved thread becomes one hook: a single
+  one-line phrase a DM could build a scene around (e.g. *"confront the mentor who exiled
+  her"*, *"find out who burned the village"*). Keep them concrete and scene-able — not vague
+  traits ("is brave").
+- Every new hook gets `status: open`. Never write `seeded`/`paid` at ingestion — those
+  statuses are advanced by `/session` (`open → seeded`) and `/recap` (`seeded → paid`).
+- Set `spotlight: normal` unless the DM says the player is tactics-first / arc-light, in
+  which case set `spotlight: low`.
+- Include the proposed hook list in the diff (step 4) and write only on DM confirmation, same
+  as everything else. If the backstory yields no scene-able hook material, leave
+  `spotlight_hooks:` empty — `/session` will flag the PC as needing a backstory pass, which
+  is the correct signal, not a defect to paper over.
 
 ## Backstory-Sourced Entities
 
