@@ -1,4 +1,10 @@
 {
+  "files.associations": {
+    ".template-sync": "ignore",
+    ".template-sync.local": "ignore",
+    ".markdownlint.json": "jsonc"
+  },
+
   "foam.links.sync.enable": true,
 
   "foam.graph.style": {

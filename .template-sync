@@ -18,6 +18,10 @@
 CLAUDE.md
 README.md
 .template-sync
+.markdownlint.json
+
+# Git hooks — pre-commit Markdown auto-format (paired with scripts/setup-hooks.ps1)
+.githooks/pre-commit
 
 # Commands — all slash commands
 .claude/commands/check.md
@@ -117,6 +121,7 @@ scripts/semantic-search.ps1
 scripts/semantic-search.py
 scripts/session-brief.ps1
 scripts/session-state.ps1
+scripts/setup-hooks.ps1
 scripts/threads-brief.ps1
 scripts/todo-brief.ps1
 scripts/validate-refs.ps1
