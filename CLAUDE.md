@@ -201,3 +201,4 @@ No DM brief card needed. No other formats unless explicitly requested.
 - `/check <claim>` — `.claude/commands/check.md` — contradiction check against historian before canonizing
 - `/transition` — `.claude/commands/transition.md` — guided campaign transition flow; also auto-triggered by language cues
 - `/todo` — `.claude/commands/todo.md` — plain-language DM dashboard of everything needing attention or action
+- `/idea [rough idea] [--build]` — `.claude/commands/idea.md` — develop a rough engine idea into a grounded, executable change via the staged idea-process flow; read-only until `--build`
