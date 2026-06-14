@@ -10,6 +10,7 @@ Extends: `entity.md`
 Covers a **biome** — a terrain/climate type that defines the ecological character of the land: desert, tundra, temperate forest, rainforest, grassland, wetland, alpine, coast, and so on. A biome describes the flora, fauna, hazards, resources, and travel logistics that follow from a kind of terrain, independent of any single named place.
 
 Distinct from the neighboring location subtypes:
+
 - A `location-region` is a *named territory* (e.g. the Greenwood, the Ashreaches). A biome is the *terrain type* that one or more regions are made of (temperate forest, volcanic highland).
 - A `location-wilderness` is a *named zone you adventure in*. A biome is the *category* that zone belongs to.
 - A `location-terrain-feature` is a single *named geographic element* (a river, a pass). A biome is the surrounding *matrix* those features sit in.
@@ -47,9 +48,11 @@ One biome can span many regions; one region can contain several biomes. Biomes f
 ## Schema
 
 ### Canonical Path
+
 `data/locations/biomes/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `thriving` | Full, healthy ecosystem; abundant flora and fauna |
@@ -104,6 +107,7 @@ hook: ""
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

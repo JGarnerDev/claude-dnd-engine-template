@@ -20,4 +20,3 @@ accessibility: hidden
 Arcane Crystal is found in underground, leylines. Crystals grown along magical leylines that store and amplify arcane energy.
 
 Leyline crystals attract those with the gift - and things that feed on magic.
-

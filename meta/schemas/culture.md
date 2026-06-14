@@ -38,9 +38,11 @@ Covers the shared customs, values, taboos, and aesthetic sensibilities of a peop
 ## Schema
 
 ### Canonical Path
+
 `data/cultures/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `thriving` | Vibrant, widely practiced, culturally confident |
@@ -93,6 +95,7 @@ hook: ""
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

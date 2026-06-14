@@ -49,6 +49,7 @@ Entire folder moves to `historian/sessions/Session {NN} {Name}/` after play.
 The main file always uses the same `Session {NN} {Name}` naming convention regardless of scope.
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `draft` | Being planned, not finalized |
@@ -107,6 +108,7 @@ The body is the DM-facing runnable document. Sections in order:
 **Orientation** — party state paragraph (location, afflictions, resources, tone coming out of last session); bullet list of unresolved `new_entities` from the last session.
 
 **Scenes** — one `#### Scene N — [Title]` block per beat. Count scales to length (Short: 3–4, Standard: 4–6, Long: 6–8). Each block:
+
 - **Trigger** — what starts the scene
 - **Location** — `[[wiki-link]]`; one-line description
 - **NPCs present** — name, goal for this scene, voice note
@@ -122,6 +124,7 @@ The body is the DM-facing runnable document. Sections in order:
 **Closing** — how to land the closing hook; what to leave unresolved.
 
 ### Notes
+
 - The plan and the recap live in the same file — the body holds the planned content, and `recap` captures what actually happened after play.
 - `entities_canonized` tracks which `data/` entities were used and should now have matching `historian/` files created with `exists: true`.
 - `new_entities` tracks anything invented at the table that needs to be backfilled into `historian/` as canon.

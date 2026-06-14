@@ -1,6 +1,7 @@
 Find campaign entities by semantic similarity. Pure RAG query — no generation, no file writes.
 
 **Arguments:**
+
 - `<query>` — search text (required)
 - `--type <type>` — filter by entity type (character, location, faction, etc.)
 - `--subtype <subtype>` — filter by subtype (npc, antagonist, pc, etc.)
@@ -29,6 +30,7 @@ Group results by source:
 For each result present: name, type/subtype, state, score, and a one-line relevance note — *why* this entity matched (not just what it is).
 
 Flag anything notable:
+
 - Cross-type hits — entity type differs from what the query implied
 - High-scoring pool entities (score > 0.45) — strong candidates for current story
 - State anomalies (`missing`, `imprisoned`, `transformed`) — unresolved threads

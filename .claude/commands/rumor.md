@@ -1,6 +1,7 @@
 Surface a rumor — a quick session-opener or tavern-talk beat pulled from the rumor pool. Read-only flavor tool; no entity creation, no file writes.
 
 **Arguments (all optional):**
+
 - `[count]` — number of rumors to surface (default: 1)
 - `[theme]` — if text is provided, bias selection toward that theme (e.g. `/rumor the church`, `/rumor 2 strange lights`)
 

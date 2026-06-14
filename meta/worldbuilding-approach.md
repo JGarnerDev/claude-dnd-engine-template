@@ -28,18 +28,18 @@ One member of the table is the DM. The other players contribute material as crea
 ### Culture
 
 - Culture needs to address five forces:
-    - environment
-    - exchange
-    - power
-    - legacy
-    - belief
+  - environment
+  - exchange
+  - power
+  - legacy
+  - belief
 - Culture is derived from six layers that build on top of each other:
-    - Survival strategies and material culture
-    - Social Organization
-    - Value Systems
-    - Worldview and Temporal Culture
-    - Expressions and Symbolic Culture
-    - Cultural Expressions  
+  - Survival strategies and material culture
+  - Social Organization
+  - Value Systems
+  - Worldview and Temporal Culture
+  - Expressions and Symbolic Culture
+  - Cultural Expressions  
 
 ## Creative Goals
 

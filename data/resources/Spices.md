@@ -20,4 +20,3 @@ accessibility: restricted
 Spices is found in jungle, tropical. Pepper, cardamom, saffron - flavoring and preservatives from hot, distant climates.
 
 Spice routes define empires. Disrupting one can trigger wars.
-

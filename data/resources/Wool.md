@@ -26,4 +26,3 @@ Wool is found in plains, hills. Shorn from sheep and goats raised on open grassl
 Wool guilds can be surprisingly powerful political actors in pastoral regions.
 
 Consumed downstream by [[Common Clothing]], [[Rope and Cord]], and [[Traveling Gear]].
-

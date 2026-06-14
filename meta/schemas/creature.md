@@ -36,9 +36,11 @@ Covers **named creatures** — individuals with personality, recurring presence,
 ## Schema
 
 ### Canonical Path
+
 `data/creatures/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `alive` | Active in the world |
@@ -93,6 +95,7 @@ stat_block: ""      # path to external stat block, or "inline" if appended to bo
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

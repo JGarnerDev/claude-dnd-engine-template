@@ -24,4 +24,3 @@ Gold Ore is found in mountains, rivers. The universal currency material. River p
 A new gold strike reshapes regional power within a season.
 
 Consumed downstream by [[Jewelry and Adornments]].
-

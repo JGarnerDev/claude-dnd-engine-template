@@ -1,6 +1,7 @@
 Check a proposed fact, recap summary, or entity detail against historian canon for contradictions.
 
 **Arguments:**
+
 - `<claim>` — text to check (required); sentence, paragraph, or bullet list
 - `--source historian|data|both` — scope of the check (default: historian)
 - `-k <n>` — number of candidates to surface (default: 6)
@@ -40,7 +41,7 @@ Ignore results below 0.35.
 
 **If POSSIBLE or CONFLICT results exist:**
 
-```
+```text
 CHECK: "<claim summary>"
 
 [CONFLICT / POSSIBLE]:

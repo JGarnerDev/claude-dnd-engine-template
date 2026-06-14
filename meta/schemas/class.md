@@ -26,9 +26,11 @@ Covers playable character classes. Each file represents the class as available i
 ## Schema
 
 ### Canonical Path
+
 `data/classes/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `available` | Open to players without restriction |
@@ -70,6 +72,7 @@ description: ""
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

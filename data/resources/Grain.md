@@ -24,4 +24,3 @@ consumers:
 Grain is found in plains, farmland. Wheat, maize, barley - the caloric base of every civilization. Surplus means stability.
 
 A failed harvest or burned granary can make a faction desperate enough for anything. Disruption travels downstream quickly — into [[Ale]] production, bread prices, and everything that depends on both.
-

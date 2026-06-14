@@ -3,6 +3,7 @@
 The world map lives at `maps/world/world-names.png` (8192×6144px). The Read tool downsamples it — labels are unreadable at full scale.
 
 **Two separate map files — ground vs. sky:**
+
 - `maps/world/world-names.png` — all surface features: continents, mountains, rivers, plains, seas, cities, etc.
 - `maps/world/world-sky.png` — all air-situated features: Islifts, Slices, and anything else floating above the surface. These are **not** in `world-names.png` and are updated separately. When labeling sky features (e.g. Islift names), the user must edit `world-sky.png` manually. Scripts and crops that pull from `world-names.png` will not show sky features.
 
@@ -11,6 +12,7 @@ The world map lives at `maps/world/world-names.png` (8192×6144px). The Read too
 **City markers layer:** `maps/world/city-markers.png` is a transparent PNG (same 8192×6144px as `world-names.png`) with red dots marking cities that exist in the world but are unnamed and undetailed. Dots carry no labels — they mean "work needed here." Tiles of this layer live in `maps/world/tiles/markers-{nw,n,...}.png` (regenerate with `gen-tiles.py`). Read a markers tile alongside the base tile to see which cities in an area are undetailed. Use `map-crop.ps1 -Markers` to crop both layers for a specific region at once.
 
 **City graduation — when a city is named and detailed:**
+
 1. Add its label to `world-names.png` (the authority for all named, canonical features)
 2. Remove its dot from `city-markers.png`
 3. Run `python scripts\gen-tiles.py` to regenerate both tile sets
@@ -22,6 +24,7 @@ After graduation the city appears in base tile reads and no longer appears in ma
 **Index maintenance:** `maps/world/index.md` → Known Region Positions is the lookup table for `map-crop.ps1 -Feature`. Add an entry whenever you identify a named feature's col/row from a tile or crop — bays, forests, plains, mountain ranges, rivers, sub-continents. One line per feature; col/row can be approximate. If a feature lacks a draft, use `—`. Update this proactively rather than waiting until a feature is formally worked.
 
 **Four hard rules:**
+
 1. **Read a tile before describing any feature's position.** Never infer position from geography alone — always read the label from the map.
 2. **Letter assignments come from the map, never invented.** If a section of the questionnaire needs letters (Plains A, River B, etc.), crop the relevant tile and count what's actually labeled before writing entries.
 3. **When a tile isn't precise enough**, use `.\scripts\map-crop.ps1 -Feature "<name>" -Temp` for a targeted crop. Read it, then delete `maps/world/temp-crop.png`. Pixel formula is in the **Grid Scale** section below if you need to crop manually via PIL.

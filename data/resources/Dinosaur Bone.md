@@ -20,4 +20,3 @@ accessibility: restricted
 Dinosaur Bone is found in jungle, primeval wilderness. Exceptionally dense and durable. Used for structural beams, weapons, and ritual objects.
 
 Harvesting dinosaur bone in claimed territory is a fast way to start a territorial war.
-

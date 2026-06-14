@@ -1,6 +1,7 @@
 Generate world events — political, social, economic, or military shifts that could reshape the campaign world. Draws from the pool in `data/world-events-pool.md`, AI generation, or both.
 
 **Arguments:**
+
 - `[count]` — number of events to generate (default: 3; ignored if description provided)
 - `[description]` — if text (not a number), develop that specific event rather than random selection
 - `--scale local|regional|global` — filter or target scale (default: mixed)
@@ -31,6 +32,7 @@ Three modes:
 Always read `data/world-events-pool.md`.
 
 If AI generation is needed (pool empty or sparse, `--ai` flag, or specific description provided):
+
 - Run `.\scripts\pitch-brief.ps1` for campaign tone and themes
 - Note any player-contributed material relevant to the event's scale or type
 
@@ -39,10 +41,13 @@ If AI generation is needed (pool empty or sparse, `--ai` flag, or specific descr
 ## Phase 3 — Select or Generate
 
 **From pool:**
+
 - **Specific description mode** (text description provided): run semantic search on that description to surface the most relevant pool entries before deciding on generation vs. pool use:
+
   ```powershell
   .\scripts\semantic-search.ps1 -Query "<event description>" -K 5
   ```
+
   Prefer pool matches with score > 0.40 over AI generation — the pool exists to be used. If no strong matches, proceed to AI generation.
 - **Random mode** (no description): randomly select entries. If `--scale` is set, filter first. For mixed-scale requests without a flag, ensure variety — aim for at least one local, one regional, one global when count ≥ 3.
 
@@ -56,7 +61,7 @@ If AI generation is needed (pool empty or sparse, `--ai` flag, or specific descr
 
 For each event:
 
-```
+```markdown
 ### [N]. [Event Name] — [Scale]
 *[pool | AI-generated | AI-generated, sourced from [player]'s material]*
 

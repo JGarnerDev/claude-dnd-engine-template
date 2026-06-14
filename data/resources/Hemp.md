@@ -25,4 +25,3 @@ Hemp is found in plains, farmland. Spun into rope, sailcloth, and sacking. Every
 Rope shortages during a naval campaign are logistical catastrophes.
 
 Consumed downstream by [[Rope and Cord]] and [[Traveling Gear]].
-

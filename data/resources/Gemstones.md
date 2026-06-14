@@ -24,4 +24,3 @@ Gemstones is found in mountains, underground. Rubies, sapphires, emeralds - raw 
 Uncut gems sometimes carry dormant enchantment from the vein they formed in.
 
 Consumed downstream by [[Jewelry and Adornments]].
-

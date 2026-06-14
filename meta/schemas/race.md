@@ -32,9 +32,11 @@ Covers playable and non-playable races. Each file represents the race as it exis
 ## Schema
 
 ### Canonical Path
+
 `data/races/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `widespread` | Common across many regions |
@@ -84,6 +86,7 @@ key_traits: []         # brief list of notable racial traits; full detail goes i
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

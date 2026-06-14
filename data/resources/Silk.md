@@ -24,4 +24,3 @@ Silk is found in forests, jungle. Produced by silk moths or giant spiders in war
 Silk trade routes are spy corridors. Information travels with the cloth.
 
 Consumed downstream by [[Fine Clothing]].
-

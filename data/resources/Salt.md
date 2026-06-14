@@ -24,4 +24,3 @@ Salt is found in coastal, desert. Essential preservative and seasoning. Coastal 
 Salt taxes have toppled governments. Control of a salt route is control of food security.
 
 Consumed downstream by [[Preserved Food]].
-

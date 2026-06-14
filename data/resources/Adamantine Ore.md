@@ -20,4 +20,3 @@ accessibility: monopolized
 Adamantine Ore is found in underground, volcanic. The hardest natural metal. Nearly impossible to smelt without magical heat. Breaks weapons that strike it.
 
 Adamantine tools can breach doors, walls, and vaults that nothing else can open.
-

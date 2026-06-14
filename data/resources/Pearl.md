@@ -24,4 +24,3 @@ Pearl is found in coastal, ocean. Harvested from oysters in warm coastal shallow
 Pearl diving is dangerous work; pearl beds are closely guarded by those who profit.
 
 Consumed downstream by [[Jewelry and Adornments]].
-

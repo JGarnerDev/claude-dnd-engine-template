@@ -26,4 +26,3 @@ Copper Ore is found in mountains, hills. Softer than iron, cheaper to smelt. Use
 Debased copper coinage can destabilize local economies.
 
 Consumed downstream by [[Jewelry and Adornments]], [[Cookware]], and [[Artisan Tools]].
-

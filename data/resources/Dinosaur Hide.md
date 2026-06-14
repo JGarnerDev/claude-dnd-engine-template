@@ -20,4 +20,3 @@ accessibility: restricted
 Dinosaur Hide is found in jungle, primeval wilderness. Thick enough to stop most arrows; processed into premium armor and luxury goods.
 
 Dinosaur hunters are their own subculture - with their own codes, rivalries, and debts.
-

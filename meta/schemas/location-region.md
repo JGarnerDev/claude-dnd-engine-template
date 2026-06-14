@@ -36,9 +36,11 @@ Covers broad geographic or political areas: nations, provinces, territories, isl
 ## Schema
 
 ### Canonical Path
+
 `data/locations/regions/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `stable` | Functioning under established control |
@@ -90,6 +92,7 @@ wilderness_areas:
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

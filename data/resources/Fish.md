@@ -21,4 +21,3 @@ accessibility: open
 Fish is found in coastal, rivers, lakes. Reliable protein from sea and freshwater. Dried and salted fish travel far inland.
 
 Overfishing disputes or a blight on a fishing ground can starve a coastal town.
-

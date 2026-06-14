@@ -3,6 +3,7 @@ Generate a player-facing questionnaire for designing any world entity. Output is
 Also handles **ingestion**: when a filled questionnaire is returned (by file, paste, or conversational message), run balance review before creating any entity. If a message or file contains a `<!-- CLAUDE-INGEST -->` block, treat it as a pending ingestion automatically — no explicit flag needed.
 
 **Arguments:**
+
 - `--type <type>` — entity type to create: `resource`, `npc`, `faction`, `location`, `deity`, `monster`, `magic-item`, `event`, `culture`, `race`, or any type listed in `meta/entity-creation.md` *(required unless `--ingest` is used)*
 - `--name <text>` — working or placeholder name
 - `--concept <text>` — one-sentence description of what it is
@@ -18,6 +19,7 @@ Also handles **ingestion**: when a filled questionnaire is returned (by file, pa
 ### Phase 1 — Gather Parameters
 
 If required parameters are missing, ask only what's needed:
+
 1. **What type of entity?** (if `--type` missing)
 2. **What is it?** One sentence. (if `--concept` missing)
 3. **Who's filling it out?** (optional)
@@ -49,6 +51,7 @@ Flag any result with score > 0.40 as a potential overlap regardless of type. Sur
 Use the **Player Form** from the schema as the base. Translate all fields into plain, jargon-free English. Then add 2–4 concept-specific bonus questions tailored to `--concept` that the base form doesn't cover.
 
 Group questions loosely:
+
 - **Identity** — what it is, what it looks like, what it does
 - **Origin** — where it comes from, how it enters the world
 - **Economy / Power** — who controls it, what it's worth, who wants it (skip if not applicable to type)
@@ -70,7 +73,7 @@ Write labels and explanations in a tone that feels like a collaborative creative
 
 ### Phase 4 — Format & Output
 
-```
+```text
 <!-- CLAUDE-INGEST
 type: entity-questionnaire
 entity_type: {type}
@@ -98,6 +101,7 @@ filled: false
 Always write the questionnaire to `questionnaires/`. Name the file using kebab-case (lowercase, spaces → hyphens): `{player-kebab}-{name-kebab}.md` if both are known, `{player-kebab}-{type}.md` if no name, or `{name-kebab}.md` if no player. Report the path when done. The `--output` flag is now a no-op (output is always written).
 
 **Player type rules (cameo and patron — merged questionnaire):**
+
 - Filename suffix: `cameo` when invoked as cameo, `patron` when invoked as patron, `player` if role unspecified — e.g. `jonah-carson-cameo.md`
 - INGEST block: use `entity_type: player`; role is determined from the filled "How do you want to participate?" answer
 - INGEST action: `Filled questionnaire — run ingestion. Write to meta/players/{Full Name}.md.`
@@ -107,16 +111,18 @@ Always write the questionnaire to `questionnaires/`. Name the file using kebab-c
 
 **Answer areas (all questionnaire types):**
 After every question, add a blank blockquote line for the player to fill in:
-```
+
+```markdown
 **Question text** *(label)*:
 
 > 
 ```
+
 For the archetype list, add a `*My picks:*` label followed by a blank blockquote line after the list block.
 
 If an overlap was found in Phase 2, append after the player-facing content:
 
-```
+```markdown
 ---
 ## ⚠ Note for DM
 
@@ -133,7 +139,7 @@ Triggered by `--ingest <file>`, `--ingest paste`, or automatically whenever a me
 
 Parse the filled questionnaire. Extract what was answered and note blanks. Read `entity_type` from the CLAUDE-INGEST block to know which schema applies.
 
-If the file lives in `questionnaires/` and has real answers, set `filled: true` in its `CLAUDE-INGEST` block now (add the line if the file predates the marker). `/session` cameo detection and other scans rely on this marker — template `> ` blockquote heuristics false-positive, and `questionnaires/` is gitignored so ripgrep-based tools can't see it (use POSIX grep via Bash).
+If the file lives in `questionnaires/` and has real answers, set `filled: true` in its `CLAUDE-INGEST` block now (add the line if the file predates the marker). `/session` cameo detection and other scans rely on this marker — template `>` blockquote heuristics false-positive, and `questionnaires/` is gitignored so ripgrep-based tools can't see it (use POSIX grep via Bash).
 
 ---
 
@@ -161,7 +167,7 @@ Silently assess — use findings only to inform DM questions:
 
 ### Ingest Phase 3 — DM Questions
 
-```
+```markdown
 ## Entity Ingestion Review: {Name} ({type})
 
 **What the player gave us:**

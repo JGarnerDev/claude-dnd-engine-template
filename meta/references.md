@@ -32,7 +32,7 @@ Fetch the root `/api/2014/` to get the full list of available endpoints.
 
 The HTML wiki blocks bots — always use the API. Useful query patterns:
 
-```
+```text
 # Get page content (wikitext)
 /api.php?action=parse&page={Page_Title}&prop=wikitext&format=json
 

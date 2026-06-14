@@ -34,9 +34,11 @@ Covers named historical events that shaped the present: battles, disasters, trea
 ## Schema
 
 ### Canonical Path
+
 `data/events/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `recent` | Within living memory |
@@ -85,6 +87,7 @@ awareness: widely-known | regional | secret | forgotten | disputed
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

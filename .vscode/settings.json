@@ -8,7 +8,6 @@
     "node.placeholder": "#993333",
     "node.feature": "#ffffff"
   },
-
   "foam.graph.views": [
     {
       "name": "Default",
@@ -90,5 +89,9 @@
         { "id": "meta",   "label": "Meta",              "match": { "property": "path", "value": "meta" },      "color": "#90a4ae", "enabled": true }
       ]
     }
-  ]
+  ],
+  "[markdown]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
 }

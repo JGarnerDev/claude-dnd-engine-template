@@ -26,9 +26,11 @@ Covers character backgrounds. Each file represents a background as available in 
 ## Schema
 
 ### Canonical Path
+
 `data/backgrounds/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `available` | Open to players without restriction |
@@ -66,6 +68,7 @@ description: ""
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

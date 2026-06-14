@@ -1,6 +1,7 @@
 Build a voice brief for an NPC — grounds new dialogue and characterization in established canon.
 
 **Arguments:**
+
 - `<npc name>` — name of the NPC (required); fuzzy match against historian and data
 
 ---
@@ -26,6 +27,7 @@ Confirm match with DM if ambiguous.
 ## Phase 2 — Read Entity File
 
 Read the NPC's full file. Extract:
+
 - `personality`, `disposition`, `livelihood`
 - Any dialogue or speech examples in the body
 - Relationship notes from `relates_to`
@@ -59,7 +61,7 @@ Use as texture only. Do not copy voice patterns wholesale.
 
 ## Phase 5 — Synthesize Voice Brief
 
-```
+```markdown
 ## Voice Brief: [Name]
 
 **Speaks like:** [cadence, vocabulary, register — 1–2 sentences]

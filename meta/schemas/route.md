@@ -16,6 +16,7 @@ Covers any established path, road, lane, or corridor used for regular movement o
 **\* Name:** What is this route called?
 
 **\* Type:** What kind of route is this?
+
 - Trade — commercial goods and merchants
 - Pilgrimage — religious or spiritual travel
 - Military — troop movement and logistics
@@ -23,6 +24,7 @@ Covers any established path, road, lane, or corridor used for regular movement o
 - Trail — informal or wilderness path
 
 **\* Medium:** How is it traveled?
+
 - Land (road, path, mountain pass)
 - Sea (ocean lane, coastal route)
 - Air (skyship lane, flying mount corridor)
@@ -45,9 +47,11 @@ Covers any established path, road, lane, or corridor used for regular movement o
 ## Schema
 
 ### Canonical Path
+
 `data/routes/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `active` | Operating normally |
@@ -101,6 +105,7 @@ travel_time: ""
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

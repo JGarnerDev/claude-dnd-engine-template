@@ -27,4 +27,3 @@ Hides is found in wilderness, plains. Tanned into leather for armor, boots, sadd
 Hunting grounds disputes or livestock disease can spike the price of leather suddenly.
 
 Depends on [[Livestock]] as source animals. Consumed downstream by [[Leather Armor]] and [[Traveling Gear]].
-

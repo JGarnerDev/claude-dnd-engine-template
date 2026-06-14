@@ -19,4 +19,3 @@ accessibility: restricted
 Obsidian is found in volcanic. Volcanic glass that holds a sharper edge than steel and carries mild heat resonance.
 
 Obsidian blades were sacred to older cultures - finding worked obsidian suggests lost ruins.
-

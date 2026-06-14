@@ -6,6 +6,7 @@ tags: [guideline]
 # Reward Guidelines
 
 ## Calibration Baseline
+
 - **Party level:**
 - **Sessions per level:** <!-- how quickly do you want them to level? -->
 
@@ -19,6 +20,7 @@ tags: [guideline]
 | Exceptional reward (rare, climactic) | |
 
 ## Magic Items
+
 - **Philosophy:** <!-- generous or scarce? Does magic feel common or wondrous? -->
 - **Rarity frequency:** <!-- how often do items of each rarity appear? -->
 - **Attunement stance:** <!-- strict limit, relaxed, tracked? -->
@@ -29,5 +31,6 @@ tags: [guideline]
 <!-- e.g. titles, faction favors, safe houses, contacts, secrets, political leverage -->
 
 ## Experience & Leveling
+
 - **System:** <!-- XP, milestone, or hybrid? -->
 - **Pacing notes:** <!-- anything about when/how levels feel earned -->

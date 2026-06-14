@@ -71,6 +71,7 @@ Each schema file also contains a **Player Form** section — a set of plain-lang
 ## Obsidian Frontmatter Rules
 
 All entity files use Obsidian-compatible YAML frontmatter:
+
 - `relates_to`, `resources`, `known_by`, `owner`, and any other link fields must use `[[wiki-link]]` syntax so edges appear in Obsidian's graph view. Relationship annotations after the link are allowed.
 - **Every `[[wiki-link]]` in frontmatter must also appear somewhere in the markdown body.** Obsidian parses frontmatter links; Foam (VS Code) parses body links only. Dual placement is required for graph coverage in both tools.
 - `tags` must come from `meta/tags.md`. Never invent a tag — check the registry first.

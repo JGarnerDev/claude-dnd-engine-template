@@ -24,4 +24,3 @@ Stormglass is found in high altitude, mountain peaks. Glass formed when lightnin
 Stormglass is harvested during storms by those brave or foolish enough to try.
 
 Depends on [[Sand]] as the silica base fused by lightning.
-

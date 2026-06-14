@@ -20,4 +20,3 @@ accessibility: restricted
 Sulfur is found in volcanic, desert. Yellow mineral critical to alchemist's fire, black powder analogues, and certain rituals.
 
 Sulfur deposits near settlements cause illness - locals may not know why.
-

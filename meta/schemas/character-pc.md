@@ -36,9 +36,11 @@ Covers player characters. Unlike NPCs, PCs are owned by a player and link to tha
 ## Schema
 
 ### Canonical Path
+
 `data/characters/pcs/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `active` | Currently playing |
@@ -109,6 +111,7 @@ Race: [[Races]] | Class: [[Class Name]] | Background: [[Background Name]]
 Omit any line for values that are unknown — do not create dead placeholder links.
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Character name | `name`, filename |

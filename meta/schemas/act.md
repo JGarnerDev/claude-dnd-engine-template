@@ -32,10 +32,12 @@ An act is a story arc — a collection of thematically connected missions that b
 ## Schema
 
 ### Canonical Path
+
 `scheduler/acts/{name}.md`
 Moves to `historian/acts/{name}.md` when completed.
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `draft` | Being written, not ready to run |
@@ -82,5 +84,6 @@ description: ""
 ```
 
 ### Notes
+
 - Each act should feel meaningfully different from the last — the party's situation, the stakes, or the nature of the conflict should shift.
 - When an act completes, add `outcome` and `sessions_played` before moving to `historian/`.

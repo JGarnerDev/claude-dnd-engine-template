@@ -1,6 +1,7 @@
 <!-- Template, not an entity — no frontmatter. Copy per request to questionnaires/map-<slug>.md, fill the DM sections, send to the world-builder. -->
 
 # Map Work Request — {working name}
+
 *For the world-builder — a map the campaign needs. Fill in questions at the bottom, leave blanks where you'd rather improvise.*
 
 ## ✅ Spoiler check *(DM fills before sending — required)*
@@ -29,19 +30,19 @@
 
 **Style — match the world map's look, or something different for this one?**
 
-> 
+>
 
 **Format you'll deliver (dimensions, file type — PNG preferred):**
 
-> 
+>
 
 **Anything unclear or missing from the brief above? Questions back to the DM:**
 
-> 
+>
 
 **Creative liberties you want to take (new minor features, decoration, flavor — DM approves before they become canon):**
 
-> 
+>
 
 ---
 

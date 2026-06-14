@@ -36,10 +36,12 @@ A mission is a self-contained objective — the atomic unit of story. It has a c
 ## Schema
 
 ### Canonical Path
+
 `scheduler/missions/{name}.md`
 Moves to `historian/missions/{name}.md` when resolved.
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `draft` | Being written, not ready to run |
@@ -93,5 +95,6 @@ description: ""
 ```
 
 ### Notes
+
 - Both `success_consequences` and `failure_consequences` should be filled in before a mission goes `active` — failure should matter, not just be a dead end.
 - When resolved, move to `historian/missions/` and fill in the historian fields before archiving.

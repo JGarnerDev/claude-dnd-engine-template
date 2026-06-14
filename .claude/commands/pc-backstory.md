@@ -21,11 +21,13 @@
 After parsing, check for missing or underdeveloped material across two categories:
 
 **Mechanical gaps** — fields the PC schema requires but the backstory doesn't answer:
+
 - Race, class, background (if unconfirmed)
 - Level at campaign start
 - Signature abilities or spells not mentioned
 
 **Narrative gaps** — content the DM needs for session use but is absent or too vague:
+
 - Appearance (none given)
 - At least one named relationship (ally, rival, mentor, family)
 - A concrete personal motivation beyond "wants adventure"

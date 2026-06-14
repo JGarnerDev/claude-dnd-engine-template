@@ -25,4 +25,3 @@ Stone is found in mountains, hills, quarries. Quarried for roads, walls, and fou
 Whoever controls a quarry near a growing city controls the city's pace of expansion.
 
 Consumed downstream by [[Ammunition]].
-

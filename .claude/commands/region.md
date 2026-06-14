@@ -17,6 +17,7 @@ When in doubt: look at the map again.
 ---
 
 **Arguments:**
+
 - `--region <name>` — region name used for file naming (kebab-case); prompted if missing
 - `--draft <file>` — skip Phases 1–3; run `.\scripts\region-brief.ps1 -Region <file>` to restore context, then resume at Phase 4 or later
 - `--city <n>` — jump directly to Phase 7 for a single numbered city questionnaire
@@ -28,14 +29,18 @@ When in doubt: look at the map again.
 Check `maps/world/` for the world map image before asking the DM to share one — it may already be on disk (`world-sky.jpg` is the primary reference). Check `maps/regions/{region-slug}/` for an existing region map.
 
 **If no region map is on disk, attempt an automatic crop before asking the DM:**
-```
+
+```powershell
 .\scripts\map-crop.ps1 -Feature "<region-name>" -Markers
 ```
+
 - If the feature is in the index, this saves a permanent crop to `maps/locations/<slug>-map.png` (base) and `maps/locations/<slug>-markers.png` (city markers). Use both as the region reference.
 - If the feature is not in the index, fall back to a relevant world tile (see `maps/world/index.md`). Also read the corresponding `tiles/markers-{name}.png` for dot coverage. If the tile lacks sufficient detail, run a temp crop by col/row bounds:
-  ```
+
+  ```powershell
   .\scripts\map-crop.ps1 -ColMin <n> -ColMax <n> -RowMin <n> -RowMax <n> -Markers -Temp
   ```
+
   Then read `maps/world/temp-crop.png` and `maps/world/temp-markers.png`, then delete both.
 - Only ask the DM to share an image if all automated options fail to produce a readable crop.
 
@@ -49,13 +54,16 @@ Once map references are resolved:
 Identify where the region sits. Ask the DM to point it out (grid column/row, or a landmark) if not obvious. Note position relative to mountain ranges, ocean coasts, and major landmasses.
 
 **Step 1b — Run world context script.**
-```
+
+```powershell
 .\scripts\region-world-context.ps1 -Col <n> -Row <n>
 ```
+
 This outputs climate band, wind/moisture rules, coast type expectations, a water body checklist, and any known world entities near that position.
 
 **Step 1c — Resolve the water body checklist.**
 Before proceeding, confirm all four items from the script output:
+
 - Is the main water body landlocked or ocean-connected?
 - If ocean-connected — which direction is the sea passage from this region?
 - What major rivers feed into or drain from the region?
@@ -75,9 +83,11 @@ Ask the DM: **"What needs defining in this region?"**
 They may want: city locations, trade routes, wilderness areas, political borders, all of the above, or something else.
 
 **If the markers crop revealed red dots**, get an exact count:
-```
+
+```powershell
 .\scripts\count-markers.ps1 -ColMin <n> -ColMax <n> -RowMin <n> -RowMax <n>
 ```
+
 Then look up each dot's position in `maps/world/city-registry.md` by matching approximate col/row — surface the registry IDs alongside the count. These IDs are the stable references players use to claim and cross-reference cities before any names exist.
 
 Surface it: *"The city-markers layer shows N undetailed cities in this region with registry IDs [list]. Do you want to work all of them, or focus on a subset? I can assign IDs to players now so they can cross-reference each other's cities."* Dots from the markers layer serve as the base location set — the DM only needs to add numbered markers to the map image if they want locations that are **not** already marked.
@@ -85,6 +95,7 @@ Surface it: *"The city-markers layer shows N undetailed cities in this region wi
 If no markers layer is available and the region map has no clear markers, suggest: *"Add red numbered markers to the map image for each [city/location/point of interest] you want detailed — that gives us a shared reference for everything that follows."*
 
 Once scope and markers are confirmed, **establish scale:**
+
 - Estimate how many world-map grid squares the region covers by comparing the region image to the world map grid. A rough fraction (0.25, 0.5, 1.0) is enough.
 - Run: `.\scripts\region-scale.ps1 -SpanGrids <n> -WaterBody <sea|river|both|none> -Locations <marker count>`
 - State the result: *"This region is roughly [X]km across. Nearest-neighbor cities are approximately [Y] days apart on foot / [Z] days by ship."* This informs questionnaire questions and diplomatic feasibility.
@@ -98,6 +109,7 @@ If `--region` name was not provided, ask now.
 ## Phase 3 — Geography Analysis
 
 Analyze the region map. For each numbered marker, identify:
+
 - **Working label** — a 2–3 word descriptive label that travels with the marker through the draft (e.g. "River Crossing (1)", "Mountain Post (2)", "Delta Port (5)"). Not a proper noun — just enough to navigate without referring to the map every time.
 - Terrain at and around the site (river, coast, cliff, forest, plains, mountain base, sea shore, etc.)
 - Primary geographic role (river crossing, river fork, estuary, coastal cliff, interior forest, open ground, mountain pass, sea port, etc.)
@@ -112,6 +124,7 @@ After analysis, state the working labels and marker count with a brief summary o
 ## Phase 4 — Draft Document
 
 Before writing, run:
+
 - `.\scripts\free-entities.ps1 -Type resource` — note player-contributed resources; attach to cities whose terrain plausibly produces them
 - `.\scripts\free-entities.ps1 -Type faction` — note player-contributed factions; attach to cities whose role or terrain fits their interest
 - `.\scripts\free-entities.ps1 -Type location` — note player-contributed regions or wilderness areas that overlap geographically
@@ -153,6 +166,7 @@ Report the file path when done, then pause for DM review.
 Prompt:
 
 > Review `data/locations/regions/{region}.md`. Use this checklist:
+>
 > - Terrain reads correct for each location?
 > - Zone groupings make sense?
 > - Water body type and connection confirmed?
@@ -169,7 +183,8 @@ Apply all corrections before moving on. Do not proceed to Phase 6 until the DM c
 ## Phase 6 — Entity Anchoring
 
 Run:
-```
+
+```powershell
 .\scripts\free-entities.ps1 -Type character
 .\scripts\free-entities.ps1 -Type faction
 .\scripts\free-entities.ps1 -Type event
@@ -185,6 +200,7 @@ For each location in the draft, run semantic search on the location's geographic
 ```
 
 Treat results with score > 0.35 as additional anchoring candidates. Then also scan the free-entities output directly for:
+
 - NPCs whose background fits the location's role or terrain
 - Factions headquartered there or with obvious strategic interest
 - Events that could be seeded at this location
@@ -195,7 +211,7 @@ Prioritize player-contributed entities. Flag if one player's material dominates 
 
 Attach suggestions inline in the draft as a new section per location:
 
-```
+```markdown
 **Candidate entities:**
 - [[EntityName]] (type, player) — one-line fit rationale. [missing: gaps relevant to this use]
 ```
@@ -203,6 +219,7 @@ Attach suggestions inline in the draft as a new section per location:
 If no entities fit a location, note: *"Unanchored — no free NPCs, factions, or events fit this location."*
 
 **Anchoring Summary** at the end of the draft — list each location with:
+
 - Location number and working label
 - Anchored entities (name, type, player) with one-line fit description
 - Or: "Unanchored"
@@ -216,6 +233,7 @@ Report anchored count, unanchored count, and contribution balance. Pause for DM 
 Generate one questionnaire per location. Each questionnaire is written specifically for that location's geopolitical identity — not a generic city form.
 
 For each location:
+
 1. Read the location's draft entry, transportation/scale context, racial composition, and any anchored entities
 2. Identify 3–4 questions that only *this* location's geography and role can answer (e.g. for a toll-city on a river fork: "Who decides which ships get waved through?"; for an isolated cliff fortress: "What does this city produce that makes siege worth it?"; for a sea port with cosmopolitan composition: "Which quarter do newcomers end up in, and why?")
 3. Add 1–2 questions about racial composition and cultural flavor
@@ -225,9 +243,11 @@ For each location:
 Format: plain markdown, no YAML, no schema jargon. Suitable to paste into Discord.
 
 **Include the registry ID at the top of each questionnaire** — look it up in `maps/world/city-registry.md` by the city's col/row position. Add it as a one-liner before the first question:
-```
+
+```text
 **Registry ID:** C##-##x — this is your city's stable reference until it has a name.
 ```
+
 Players use this ID to cross-reference each other's cities before either has a name. When ingested, the ID travels into the entity's `aliases:` field.
 
 Write to `questionnaires/{region}-city-{n}.md`. Report all paths when done.

@@ -32,4 +32,3 @@ Timber is found in forests, hills. Foundational construction and fuel material h
 Deforestation disputes, logging rights, or enchanted groves resisting the axe.
 
 Consumed downstream by [[Bows]], [[Crossbows]], [[Pole Arms]], [[Artisan Tools]], [[Farming Tools]], [[Traveling Gear]], [[Candles and Torches]], [[Books and Scrolls]], and [[Ammunition]].
-

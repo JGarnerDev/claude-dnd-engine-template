@@ -34,9 +34,11 @@ Covers NPCs who are actively hostile to the party. When a neutral or friendly NP
 ## Schema
 
 ### Canonical Path
+
 `data/characters/antagonists/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `alive` | Living and active |
@@ -110,6 +112,7 @@ Omit any line for values that are unknown — do not create dead placeholder lin
 Fill `human_detail` for all antagonists regardless of importance — even minor ones. One comprehensible reason, mundane habit, or thing they protect separates them from obstacle NPCs and makes encounters land harder.
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

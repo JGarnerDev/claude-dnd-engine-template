@@ -20,4 +20,3 @@ accessibility: monopolized
 Mithral Ore is found in deep mountains, underground. Silver-white ore smelted into metal lighter than steel and nearly as strong. High magical affinity.
 
 A mithral seam changes the fate of whoever controls it. Wars have started for less.
-

@@ -5,6 +5,7 @@ Sync shareable engine files to the template repo.
 ## Step 1 — Read config
 
 Read two files from the project root:
+
 - `.template-sync` — include and exclude patterns for shareable files (committed, no path here)
 - `.template-sync.local` — contains `template=<absolute path>` to the template repo (gitignored, machine-specific)
 
@@ -19,6 +20,7 @@ Extract the `template=` value → absolute path to the template repo. Verify tha
 ## Step 2 — Diff main vs template
 
 For each file in the final candidate list, check this repo against the template repo:
+
 - Check if the corresponding file exists in the template repo at the same relative path
 - If it exists, compare content (read both files)
 - Classify as: **new** (only in main), **changed** (differs), or **identical** (skip)
@@ -28,13 +30,16 @@ For each file in the final candidate list, check this repo against the template 
 ## Step 3 — Preview and confirm
 
 Report:
+
 - Files that will be copied: [new or changed, with classification]
 - Files in the template repo matching shareable patterns that no longer exist here: [stale — flag but don't delete automatically]
 
 **Stale file handling:** for each stale file, append a cleanup entry to `{template_repo}/TODO.md` under a `## Cleanup — Stale Files to Remove` section (create the section if absent). Format:
-```
+
+```text
 - [ ] `{path}` — {reason: "removed from sync" or "excluded via !-pattern"}
 ```
+
 Do this as part of Step 4 (after the DM confirms), before the commit. This ensures stale files are never silently forgotten.
 
 Ask: *"Sync N file(s) to the template repo?"*
@@ -46,6 +51,7 @@ Wait for confirmation before writing anything.
 ## Step 4 — Copy files
 
 For each new or changed file:
+
 1. Create parent directories in the template repo if they don't exist
 2. Copy the file from `{main_repo}/{file}` to `{template_repo}/{file}`
 
@@ -54,6 +60,7 @@ For each new or changed file:
 ## Step 5 — Commit and push in template repo
 
 In the template repo directory:
+
 1. `git add` all copied files
 2. Commit — message should summarize what changed (e.g. "sync: update session command and entity-creation protocol")
 3. `git push origin`

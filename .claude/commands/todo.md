@@ -31,6 +31,7 @@ Three groups, in this order. One line per item: plain-language what + why it mat
 Format per line: `N. <emoji> **<Person>** — <what + why>`
 
 **Tag every item with who can act**, so the DM sees at a glance what to delegate to Claude vs. chase in person:
+
 - 🤖 — Claude can do it now; name the command or script ("say *do 2* and I'll rebuild the search index")
 - 🙋 — needs a human: a player filling something in, the DM making a creative call (name them — e.g. "the DM decides"), or manual work outside the engine (image edits)
 - 🤝 — joint: Claude drafts or runs the mechanics, but the DM must decide or approve (session plans, canonization, ingesting questionnaires)
@@ -41,6 +42,7 @@ Judge honestly: anything requiring taste, approval, or table knowledge is 🤝 a
 **Map work is delegable:** when a 🙋 item is manual map or image work (world map labels, region/city maps, derivatives), remind the DM that the table's designated world-builder (often a player) can take it — *unless* the map is a secret players should only see when discovered in play. Phrase it as an option, not an assignment: "hand it off if it's not a spoiler — say the word and I'll draft a request sheet from `maps/map-request-template.md`."
 
 **🔴 Do soon** — things that block or degrade the next session:
+
 - No plan drafted for the next game night (the single most urgent line when it appears)
 - Sessions played but never written up (memory fades — historian drifts from the table)
 - Notes sitting in the recap inbox
@@ -48,11 +50,13 @@ Judge honestly: anything requiring taste, approval, or table knowledge is 🤝 a
 - Stale party state (LEVEL STALE / REST CLOCK flags) — encounter difficulty is computed from these, so a stale value means the next plan may be balanced for the wrong party (🤝 — two quick questions at the next /session or /recap settles it)
 
 **🟡 Waiting on people** — things the DM should chase, with names:
+
 - Questionnaires waiting on specific players (name the player, say what the questionnaire designs)
 - Filled questionnaires ready to be made official
 - Blank preference/difficulty files (say what improves once filled — e.g. "encounters are generic D&D math until difficulty.md is filled")
 
 **⚪ Backlog** — worth knowing, nothing urgent:
+
 - Open story threads (name the characters in plain terms — "the night hag is still out there with the child"; suggest /threads if the list is long)
 - Broken cross-references beyond the expected placeholders
 - Draft world docs pending questionnaire answers

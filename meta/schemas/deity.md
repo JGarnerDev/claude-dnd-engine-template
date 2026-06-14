@@ -36,9 +36,11 @@ Covers gods, demigods, dead gods, primordials, and other divine or cosmic entiti
 ## Schema
 
 ### Canonical Path
+
 `data/deities/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `active` | Present and responsive to worship |
@@ -92,6 +94,7 @@ divine_conflicts:
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

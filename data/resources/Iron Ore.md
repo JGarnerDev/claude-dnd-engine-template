@@ -33,4 +33,3 @@ Iron Ore is found in mountains, hills. The backbone of weapons, tools, and armor
 Control of iron veins decides who arms an army. Blockades and smuggling are common.
 
 Consumed downstream by [[Bladed Weapons]], [[Blunt Weapons]], [[Pole Arms]], [[Chain Mail]], [[Plate Armor]], [[Crossbows]], [[Artisan Tools]], [[Farming Tools]], [[Cookware]], and [[Ammunition]].
-

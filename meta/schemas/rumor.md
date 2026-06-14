@@ -32,9 +32,11 @@ Covers information circulating in the world — true, false, or somewhere in bet
 ## Schema
 
 ### Canonical Path
+
 `data/rumors/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `spreading` | Actively circulating |
@@ -80,6 +82,7 @@ truth_detail: ""  # the real story, if different from the rumor — DM eyes only
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | The rumor | `content` |
@@ -90,6 +93,7 @@ truth_detail: ""  # the real story, if different from the rumor — DM eyes only
 | Who would know it | `known_by` |
 
 ### Notes
+
 - `name` is a slug for the file, not the rumor text — use `content` for the actual rumor.
 - `description` is a DM-facing one-liner summary; `content` is the in-world text.
 - `truth_detail` can hold the real story without revealing it in `content` — useful when the rumor is partially true.

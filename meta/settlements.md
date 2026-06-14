@@ -7,12 +7,14 @@ Domain rules for creating and managing settlements (cities, towns, villages, ham
 The world map's scale governs everything here: **1 grid cell = 1000km × 1000km**, and foot pace is ~30km/day (see `scripts/region-scale.ps1`). Map dots and registry IDs mark *major* cities only. At this scale a realistic world has a hamlet or waystation roughly every day's walk along any maintained road — thousands of settlements the map cannot and should not show. **Map silence is not world absence** (same principle as `/region`), and the inverse holds too: world presence does not demand an entity file.
 
 **Settlement tiers** — no new schema or subtype. Towns, villages, and hamlets all use `location-city` (`subtype: city`), distinguished by convention:
+
 - Town / large village → `importance: minor`, `population` free-text (e.g. `"~800, market town"`)
 - Hamlet / waystation / crossroads inn cluster → `importance: background`
 - Minor settlements have **no registry ID** — they sit below map resolution. Skip City Registry Graduation entirely (per its "no registry entry matches" clause).
 - **Composition by inheritance:** a minor settlement defaults to the composition of its surrounding region or nearest major city — leave `composition` empty unless the place *deviates* (a dwarven mining hamlet near the range, a tortle fishing village). Unstated composition means standard-D&D human-majority mix per `meta/worldbuilding.md`'s base-setting principle. Never require the field at `background` importance.
 
 **Road promotion ladder** — a minor road earns representation in steps, never all at once:
+
 1. **Narration only** — the default. A road the party merely travels is scene description, not an entity.
 2. **`waypoints:` entry** — if the road feeds an existing route, add the settlement or junction to that route's `waypoints:` list. One line, no new file.
 3. **Own route entity** (`subtype: trail` or `highway`, `importance: minor`) — only once the road carries play weight: revisited, contested, named in an open thread, or load-bearing for a mission. The existing wilderness-vs-route split still applies (playable stretch → `location-wilderness`; trade edge → `route`).

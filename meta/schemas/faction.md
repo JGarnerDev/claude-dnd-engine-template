@@ -20,6 +20,7 @@ Covers any organized group: nations, guilds, cults, gangs, political movements, 
 **\* Why they exist:** What is their founding purpose — commerce, political power, military force, religion, crime, something else?
 
 **\* How they exist:**
+
 - What do they actually want right now (motives)?
 - What pressures or conflicts threaten them internally or externally (tensions)?
 - How are they organized — flat, hierarchical, cell-based (composition & hierarchy)?
@@ -33,9 +34,11 @@ Covers any organized group: nations, guilds, cults, gangs, political movements, 
 ## Schema
 
 ### Canonical Path
+
 `data/factions/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `active` | Operating normally |
@@ -89,6 +92,7 @@ opposition:
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

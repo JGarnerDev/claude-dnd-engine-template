@@ -36,9 +36,11 @@ Covers magic items with narrative weight: weapons, armor, wondrous items, artifa
 ## Schema
 
 ### Canonical Path
+
 `data/items/magic/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `unidentified` | Exists but properties unknown |
@@ -91,6 +93,7 @@ history: []    # significant past owners or events involving this item
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

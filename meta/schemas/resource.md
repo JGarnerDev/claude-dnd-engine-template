@@ -34,9 +34,11 @@ Covers named natural or economic resources: ore deposits, timber stands, fishing
 ## Schema
 
 ### Canonical Path
+
 `data/resources/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `abundant` | Plentiful; easily accessed; low scarcity pressure |
@@ -90,6 +92,7 @@ hook: ""
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

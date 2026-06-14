@@ -20,4 +20,3 @@ accessibility: restricted
 Platinum Ore is found in mountains, underground. Rarer than gold and more stable. Used in high-end coinage, arcane foci, and divine instruments.
 
 Platinum reserves are state secrets in any kingdom that holds them.
-

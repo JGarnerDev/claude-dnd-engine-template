@@ -12,6 +12,7 @@ Difficulty is a two-axis spectrum. **Attrition** and **lethality** are independe
 **Both axes describe combat, and combat is optional.** A session shaped roleplay-only is a valid plan, not a degenerate case of these axes — never invent encounters to fill a budget. For such a session the axes sit inert (the picks carry forward unused, the Rest Clock accrues zero rounds and still gets restamped at recap), and the operative difficulty dial is **Non-Combat Stakes** below.
 
 ## Party Profile
+
 - **Level & size:** derived live, never hard-coded here. Source of truth is the `level` field in each PC's frontmatter (`historian/characters/pcs/`), surfaced by `party-status.ps1`. During `/session` orientation, state the derived level and party size and ask the DM to confirm. Each PC also carries `level_confirmed: <session number>` — restamped by every `/recap` — and `party-status.ps1` prints a LEVEL STALE warning when the stamp lags the latest played session, catching level-ups that missed canonization.
 - **General power level:** <!-- are they optimized, casual, somewhere in between? -->
 

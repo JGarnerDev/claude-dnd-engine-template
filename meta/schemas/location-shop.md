@@ -24,6 +24,7 @@ Covers any commercial or service establishment: inns, general stores, magic shop
 **\* Why it exists:** What is the shop's driving purpose — pure commerce, a political front, tied to a faction, a family legacy, something else?
 
 **\* How it exists:**
+
 - Who are its typical customers?
 - What does it stock or offer — where does that supply come from?
 
@@ -34,9 +35,11 @@ Covers any commercial or service establishment: inns, general stores, magic shop
 ## Schema
 
 ### Canonical Path
+
 `data/locations/shops/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `open` | Operating normally |
@@ -88,6 +91,7 @@ specialty: ""          # one-liner for what this shop is known for, e.g. "cold-f
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

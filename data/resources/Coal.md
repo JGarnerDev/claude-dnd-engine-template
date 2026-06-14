@@ -32,4 +32,3 @@ Coal is found in mountains, underground. Dense fuel for forges and furnaces. Mor
 Coal smoke marks industrial ambition - its presence signals someone is producing at scale.
 
 Consumed in forge smelting across all metal goods: [[Bladed Weapons]], [[Blunt Weapons]], [[Pole Arms]], [[Chain Mail]], [[Plate Armor]], [[Crossbows]], [[Artisan Tools]], [[Farming Tools]], and [[Cookware]].
-

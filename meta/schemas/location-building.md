@@ -32,9 +32,11 @@ Covers non-commercial structures within a settlement: residences, manors, civic 
 ## Schema
 
 ### Canonical Path
+
 `data/locations/buildings/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `occupied` | Inhabited and functional |
@@ -90,6 +92,7 @@ City: [[City Name]] | Campaign: [[Campaign Name]]
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

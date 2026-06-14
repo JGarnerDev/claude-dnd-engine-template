@@ -158,9 +158,11 @@ Use this exact structure when generating a player questionnaire. No schema jargo
 ## Schema
 
 ### Canonical Path
+
 `meta/players/{name}.md`
 
 ### Valid Role Values
+
 | Role | Meaning |
 |---|---|
 | `core` | Attends most sessions; central to the campaign |
@@ -168,6 +170,7 @@ Use this exact structure when generating a player questionnaire. No schema jargo
 | `patron` | Offscreen power-broker; controls a faction, nation, or organization and makes decisions asynchronously with the DM — no session attendance required or expected |
 
 ### Valid Status Values
+
 | Status | Meaning |
 |---|---|
 | `active` | Currently playing |
@@ -175,6 +178,7 @@ Use this exact structure when generating a player questionnaire. No schema jargo
 | `retired` | No longer playing in this campaign |
 
 ### Valid Preferred Alignment Values
+
 | Value | Meaning |
 |---|---|
 | `heroic` | Prefers playing characters who help or protect |
@@ -228,6 +232,7 @@ description: ""           # one-line summary for hover previews
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name / handle | `name`, filename |

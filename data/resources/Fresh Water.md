@@ -26,4 +26,3 @@ Fresh Water is found in rivers, lakes. Taken for granted in temperate regions, f
 Controlling a water source in arid or isolated regions is controlling life itself.
 
 Consumed downstream by [[Ale]], [[Ale and Beer]], and [[Wine]].
-

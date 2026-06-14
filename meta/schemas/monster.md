@@ -32,6 +32,7 @@ These files never move to `historian/` — monsters are perpetually free templat
 ## Schema
 
 ### Canonical Path
+
 `data/monsters/{name}.md`
 
 ### Frontmatter Template
@@ -66,6 +67,7 @@ movement: []            # special movement with speed (e.g. "fly 60", "swim 40",
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

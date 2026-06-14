@@ -40,9 +40,11 @@ Covers canonical 5e spells and any world-specific magic. Spell files are referen
 ## Schema
 
 ### Canonical Path
+
 `data/spells/{name}.md`
 
 ### Valid State Values
+
 | State | Meaning |
 |---|---|
 | `known` | Exists and accessible in this world |
@@ -83,6 +85,7 @@ aliases: []
 ```
 
 ### Form → Frontmatter Mapping
+
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |

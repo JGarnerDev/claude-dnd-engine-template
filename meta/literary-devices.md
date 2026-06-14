@@ -14,6 +14,7 @@ DM-craft palette for session planning. Not player-sourced desires (that's [[camp
 - `arc` / `campaign` — suggested only at act transitions or campaign planning; needs seeds placed sessions or acts apart, so the decision to commit must come early
 
 **Two lifecycles:**
+
 - **Devices** are reusable. Track *Last used:* with a session wikilink so planning avoids repeating the same trick in back-to-back sessions. `—` means never used.
 - **Twists** burn on use. Track *Deployed:* like [[campaign-design-preferences]] items, and *Seeded:* for breadcrumbs placed before the reveal. A deployed twist is retired — variants need to feel genuinely different, not reskinned.
 

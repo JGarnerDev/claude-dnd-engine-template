@@ -56,6 +56,7 @@ This repo can span multiple campaigns (for example, an initial campaign and a la
 **`campaign` field** — historian and scheduler entities carry a `campaign: <name>` tag identifying which campaign they belong to. Data entities are campaign-agnostic by default (no tag) unless they are explicitly tied to one world.
 
 **Session planning rules:**
+
 - Identify the active campaign from `scheduler/campaign/` — the campaign file with `state: active`
 - Do not pull entities tagged for a different campaign into the active campaign's sessions unless the DM explicitly requests a crossover
 - Off-campaign entities are still visible and searchable — they just don't surface automatically in the active campaign's content
@@ -138,6 +139,7 @@ Recurring engine idiom for drift-prone state: stamp the state with the marker it
 ## PC Backstory Ingestion
 
 **Trigger:** Any of the following activate this flow:
+
 - A file is placed in `historian/characters/pcs/` that lacks proper PC frontmatter (`exists: true`, `type: character`, `subtype: pc`)
 - A message or pasted content contains raw backstory text that names a known PC
 
@@ -146,6 +148,7 @@ Read `.claude/commands/pc-backstory.md` for the full ingestion flow, gap analysi
 ## Campaign Transition Detection
 
 **Trigger:** Any message containing language that suggests the party is leaving the current campaign context. Watch for:
+
 - Leaving/ending the current campaign: "leaving this campaign", "done with the current campaign", "finished with this arc", "we're out of here", "end of the current arc"
 - Starting fresh: "new world", "new campaign", "clean slate", "starting the next campaign", "transition"
 - Narrative clean-slate signals: "the portal closes", "we're through", "no going back"

@@ -23,4 +23,3 @@ Silver Ore is found in mountains. Refined into coinage, jewelry, and anti-undead
 Silver mines attract undead, thieves, and rival factions in equal measure.
 
 Consumed downstream by [[Jewelry and Adornments]].
-

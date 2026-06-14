@@ -26,4 +26,3 @@ Alchemical Herbs is found in forests, wilderness. Nightshade, mandrake, and kin 
 Overharvesting collapses a local supply; knowing where untouched stands grow is leverage.
 
 Consumed downstream by [[Perfume and Incense]].
-
