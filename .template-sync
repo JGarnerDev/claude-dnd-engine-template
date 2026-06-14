@@ -30,6 +30,7 @@ README.md
 .claude/commands/entity-questionnaire.md
 .claude/commands/event.md
 .claude/commands/find.md
+.claude/commands/idea.md
 .claude/commands/inventory.md
 .claude/commands/pc-backstory.md
 .claude/commands/pitch.md
@@ -45,6 +46,7 @@ README.md
 
 # Meta — engine protocol and structural guidelines
 meta/schemas/*.md
+meta/character-focus.md
 meta/entity-creation.md
 meta/graph-settings.md
 meta/types.md
@@ -122,6 +124,7 @@ scripts/semantic-search.py
 scripts/session-brief.ps1
 scripts/session-state.ps1
 scripts/setup-hooks.ps1
+scripts/spotlight-balance.ps1
 scripts/threads-brief.ps1
 scripts/todo-brief.ps1
 scripts/validate-refs.ps1
