@@ -2,6 +2,8 @@
 
 Progress tracker for getting this project ready to generate sessions and run campaigns. Ordered to match the recommended flow in `meta/new-campaign-setup.md`. Work top to bottom; `/session` assumes the meta files and a campaign doc already exist.
 
+**How the world gets filled — the party seeds it.** This engine is built so the players, not just the DM, shape the world. The core loop is `/entity-questionnaire` (Section 3): the DM hands each player a questionnaire to design a region, faction, NPC, deity, etc.; players fill it as raw creative seeds; the DM ingests each one with a balance review. Run `.\scripts\contribution-balance.ps1` to keep contributions roughly even across the table. The more of the pool that comes from players, the more the first `/session` reflects *their* world. Solo DM-authoring works too — but the questionnaire flow is what makes this repo more than a notes folder.
+
 ---
 
 ## 1. Meta Configuration
@@ -30,23 +32,25 @@ Progress tracker for getting this project ready to generate sessions and run cam
 
 ---
 
-## 3. Data — Free Entity Pool
-*Campaign-specific world-building that needs creative input. These populate the free entity pool (`exists: false`) that `/session` draws hooks and NPCs from. More volume = richer suggestions, but `/session` runs on a thin pool — build out as you go.*
+## 3. Data — Free Entity Pool (party-seeded)
+*Campaign-specific world-building. These populate the free entity pool (`exists: false`) that `/session` draws hooks and NPCs from. **Prefer to seed each with `/entity-questionnaire`** so the content comes from the players — hand out questionnaires, ingest filled ones with a balance review, repeat. DM solo-authoring is fine for connective tissue. More volume = richer suggestions, but `/session` runs on a thin pool — build out as you go.*
 
 ### World Structure
-- [ ] Create **Regions** — the area where the campaign takes place
-- [ ] Create a **starting city** — the home base or first major location
-- [ ] Create **factions** — powers that shape local politics and conflict
-- [ ] Create key **wilderness areas** — roads, forests, or landmarks near the starting city
-- [ ] Create **dungeons** — available adventure sites within reach
+- [ ] **Regions** — the area where the campaign takes place (`/entity-questionnaire --type location`)
+- [ ] A **starting city** — home base or first major location
+- [ ] **Factions** — powers that shape local politics and conflict (`/entity-questionnaire --type faction`)
+- [ ] Key **wilderness areas** — roads, forests, or landmarks near the starting city
+- [ ] **Dungeons** — available adventure sites within reach
 
 ### Characters & Hooks
-- [ ] Create **key NPC files** — at minimum: quest-giver, innkeeper, local authority, recurring contact
-- [ ] Create **historical events** that shaped the current world state
-- [ ] Create a handful of **rumors** — in-world hooks players can discover
+- [ ] **Key NPCs** — at minimum: quest-giver, innkeeper, local authority, recurring contact (`/entity-questionnaire --type npc`)
+- [ ] **Historical events** that shaped the current world state (`/entity-questionnaire --type event`)
+- [ ] A handful of **rumors** — in-world hooks players can discover
 
 ### Shops & Services
 - [ ] Populate the starting city with at minimum an inn, a mundane shop, and a magic shop (each chains to an NPC proprietor)
+
+> **Balance check:** run `.\scripts\contribution-balance.ps1` periodically — every player should have seeds in the pool, not just the loudest one or the DM.
 
 ---
 
@@ -78,3 +82,15 @@ Progress tracker for getting this project ready to generate sessions and run cam
 - [ ] Build the semantic index once entities exist: `py -3.10 scripts\index-entities.py` — `/session` callback and free-entity searches degrade silently without it; rebuild after bulk entity additions
 - [ ] Run `.\scripts\validate.ps1` before first generation — clears dangling `[[links]]` and missing frontmatter (placeholder world names under construction are expected errors)
 - [ ] Run `/session` to plan the opening session
+
+---
+
+## After Setup — The Play Loop
+*Once the boxes above are checked and the first `/session` runs, the repo earns its keep through a repeating loop:*
+
+- **`/session`** → plan the next game from campaign state, threads, and the seeded pool
+- *play it at the table*
+- **`/recap`** → canonize what happened; updates the historian, Rest Clock, and PC levels (drop rough notes in `recaps/inbox/` and it offers to ingest them)
+- **between games** → keep seeding with `/entity-questionnaire`, surface loose ends with `/threads`, check for forgotten content with `/find`, and run `/todo` to see what needs attention
+
+Run `/commands` any time for the full list. The world keeps growing from play — every canonized session feeds the next.
