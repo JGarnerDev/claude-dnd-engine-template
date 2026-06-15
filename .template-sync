@@ -19,6 +19,7 @@ CLAUDE.md
 README.md
 .template-sync
 .markdownlint.json
+.gitignore
 
 # Git hooks — pre-commit Markdown auto-format (paired with scripts/setup-hooks.ps1)
 .githooks/pre-commit
@@ -109,6 +110,7 @@ scripts/gen-tiles.py
 scripts/index-entities.py
 scripts/inventory-brief.ps1
 scripts/location-entities.ps1
+scripts/map-common.ps1
 scripts/map-crop.ps1
 scripts/monster-lookup.ps1
 scripts/naming-status.ps1

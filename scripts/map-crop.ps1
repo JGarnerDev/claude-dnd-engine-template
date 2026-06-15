@@ -1,17 +1,23 @@
 ﻿# map-crop.ps1
 # consumers: CLAUDE.md, .claude/commands/region.md, maps/CLAUDE.md -- update these if usage, flags, or output format change.
-# Crop a region from world-names.png by feature name (looked up in index) or by explicit col/row.
+# Crop a region from the world-names master by feature name (looked up in index) or by explicit col/row.
+# Master can be any image format (webp/png/jpg/...); resolved by stem from masters/.
+# Cell pixel size is derived from the master image's actual resolution at crop time.
 # Saves permanent crops to maps/locations/<slug>-map.png.
 # Saves temp crops to maps/world/temp-crop.png (caller must delete).
-# -Markers: also crop city-markers.png to same bounds -> <slug>-markers.png or temp-markers.png
+# -Markers: also crop the city-markers master to same bounds -> <slug>-markers.png or temp-markers.png
+#
+# WARNING: keep -Output inside maps/. .gitignore covers maps/**/*.{png,webp,...} but NOT
+# arbitrary paths elsewhere. A crop written outside maps/ can be committed by accident --
+# never commit generated images.
 #
 # Usage:
-#   .\scripts\map-crop.ps1 -Feature "Erevast"
-#   .\scripts\map-crop.ps1 -Feature "Erevast" -Markers
-#   .\scripts\map-crop.ps1 -Feature "Erevast" -Margin 500
+#   .\scripts\map-crop.ps1 -Feature "<feature>"
+#   .\scripts\map-crop.ps1 -Feature "<feature>" -Markers
+#   .\scripts\map-crop.ps1 -Feature "<feature>" -Margin 500
 #   .\scripts\map-crop.ps1 -ColMin 5 -ColMax 10 -RowMin 2 -RowMax 6
 #   .\scripts\map-crop.ps1 -ColMin 5 -ColMax 10 -RowMin 2 -RowMax 6 -Markers
-#   .\scripts\map-crop.ps1 -ColMin 5 -ColMax 10 -RowMin 2 -RowMax 6 -Output ".\maps\locations\erevast-map.png"
+#   .\scripts\map-crop.ps1 -ColMin 5 -ColMax 10 -RowMin 2 -RowMax 6 -Output ".\maps\locations\<slug>-map.png"
 
 param(
     [string]$Feature  = "",
@@ -19,18 +25,20 @@ param(
     [int]$ColMax      = 0,
     [int]$RowMin      = 0,
     [int]$RowMax      = 0,
-    [int]$Margin      = 300,
+    [int]$Margin      = 112,
     [string]$Output   = "",
     [switch]$Temp,              # Save as temp-crop.png instead of maps/locations/
     [switch]$Markers            # Also crop city-markers.png to same bounds
 )
 
+. "$PSScriptRoot\map-common.ps1"
+
 $indexFile   = ".\maps\world\index.md"
-$sourceImage = ".\maps\world\world-names.png"
-$cellW = 512
-$cellH = 472
-$imgW  = 8192
-$imgH  = 6144
+$sourceImage = Resolve-Master "world-names"   # any image format in masters/
+# Grid is 16 cols x 13 rows (structural). Cell pixel size is derived from the
+# master image's actual resolution at crop time -- no hardcoded pixel constants.
+$NCols = 16
+$NRows = 13
 
 # Resolve col/row from feature name if provided
 if ($Feature -ne "") {
@@ -58,11 +66,7 @@ if ($ColMin -eq 0 -and $ColMax -eq 0) {
     exit 1
 }
 
-# Convert grid coords to pixel box with margin
-$left   = [Math]::Max(0,     ($ColMin - 1) * $cellW - $Margin)
-$top    = [Math]::Max(0,     ($RowMin - 1) * $cellH - $Margin)
-$right  = [Math]::Min($imgW,  $ColMax      * $cellW + $Margin)
-$bottom = [Math]::Min($imgH,  $RowMax      * $cellH + $Margin)
+# Pixel box is derived in Python from the master's actual resolution (below).
 
 # Resolve output path
 if ($Output -eq "") {
@@ -87,9 +91,15 @@ $absOutput = $Output  # keep relative for display; Python handles it
 python -c @"
 from PIL import Image
 img = Image.open(r'$absSource')
-crop = img.crop(($left, $top, $right, $bottom))
+W, H = img.size
+cw, ch = W / $NCols, H / $NRows
+left   = max(0, round(($ColMin - 1) * cw) - $Margin)
+top    = max(0, round(($RowMin - 1) * ch) - $Margin)
+right  = min(W, round($ColMax * cw) + $Margin)
+bottom = min(H, round($RowMax * ch) + $Margin)
+crop = img.crop((left, top, right, bottom))
 crop.save(r'$absOutput')
-print(f'Saved {crop.size[0]}x{crop.size[1]}px -> $absOutput')
+print(f'Saved {crop.size[0]}x{crop.size[1]}px from {W}x{H} master -> $absOutput')
 "@
 
 if ($Temp) { Write-Warning "Temp file -- delete after reading: $Output" }
@@ -97,11 +107,7 @@ if ($Temp) { Write-Warning "Temp file -- delete after reading: $Output" }
 # Optionally crop city-markers.png to same bounds
 if (-not $Markers) { exit 0 }
 
-$markersSource = ".\maps\world\city-markers.png"
-if (-not (Test-Path $markersSource)) {
-    Write-Warning "city-markers.png not found - skipping markers crop"
-    exit 0
-}
+$markersSource = Resolve-Master "city-markers"   # any image format in masters/
 
 if ($Temp -or $Feature -eq "") {
     $markersOutput = ".\maps\world\temp-markers.png"
@@ -116,7 +122,13 @@ $absMarkersSource = Resolve-Path $markersSource
 python -c @"
 from PIL import Image
 img = Image.open(r'$absMarkersSource')
-crop = img.crop(($left, $top, $right, $bottom))
+W, H = img.size
+cw, ch = W / $NCols, H / $NRows
+left   = max(0, round(($ColMin - 1) * cw) - $Margin)
+top    = max(0, round(($RowMin - 1) * ch) - $Margin)
+right  = min(W, round($ColMax * cw) + $Margin)
+bottom = min(H, round($RowMax * ch) + $Margin)
+crop = img.crop((left, top, right, bottom))
 crop.save(r'$markersOutput')
-print(f'Markers: {crop.size[0]}x{crop.size[1]}px -> $markersOutput')
+print(f'Markers: {crop.size[0]}x{crop.size[1]}px from {W}x{H} master -> $markersOutput')
 "@

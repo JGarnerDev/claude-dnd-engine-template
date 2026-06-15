@@ -32,7 +32,9 @@ $sources = $sources | Where-Object { $_ } | Sort-Object FullName -Unique
 
 # Path-like refs: known top-level dir, then a relative path ending in a tracked extension.
 # Char class excludes <>{}$* so placeholder/example paths never match.
-$refPattern = '(?:\.\\|\./)?(?:\.claude[/\\]commands|meta|scripts|data|historian|scheduler|maps|tests|recaps|questionnaires)[a-zA-Z0-9._/\\-]*\.(?:md|ps1|py)'
+# The (?<![\w-]) lookbehind stops a dir token from matching mid-word -- e.g. the `maps`
+# inside `fetch-maps.ps1` must not be picked up as a bare `maps.ps1` reference.
+$refPattern = '(?<![\w-])(?:\.\\|\./)?(?:\.claude[/\\]commands|meta|scripts|data|historian|scheduler|maps|tests|recaps|questionnaires)[a-zA-Z0-9._/\\-]*\.(?:md|ps1|py)'
 
 # Paths that are intentionally referenced but absent (planned files, doc examples).
 $ignore = @()

@@ -129,7 +129,7 @@ if ($openQs.Count) {
 $slug    = [IO.Path]::GetFileNameWithoutExtension($draftFile)
 $mapsDir = Join-Path $root "maps\regions\$slug"
 if (Test-Path $mapsDir) {
-    $mapImages = Get-ChildItem $mapsDir -Include '*.jpg','*.png','*.jpeg' -ErrorAction SilentlyContinue
+    $mapImages = Get-ChildItem $mapsDir -Include '*.jpg','*.png','*.jpeg','*.webp' -ErrorAction SilentlyContinue
     Write-Host "-- Maps ($($mapsDir -replace [regex]::Escape($root.Path+'\'), '')) ------------" -ForegroundColor DarkGray
     if ($mapImages.Count) {
         foreach ($img in $mapImages) { Write-Host "  $($img.Name)" -ForegroundColor Gray }
