@@ -136,4 +136,5 @@ scripts/validate.ps1
 
 # IDE / graph config
 .vscode/settings.json
+.vscode/extensions.json
 .obsidian/graph.json
