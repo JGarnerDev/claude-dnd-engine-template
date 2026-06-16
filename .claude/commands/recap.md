@@ -101,6 +101,7 @@ Update the session file with the following historian fields (do not remove any e
 exists: true
 state: completed
 played_date: "{date from Phase 2}"
+in_world_end_date: "{in-world date the party ends on, from Phase 2 question 5, as flat "YYYY[-MM[-DD]]" — year required, month/day to whatever precision is known. Omit field if the session has no datable in-world anchor. Plots this session as a /timeline party-history milestone.}"
 recap: "{synthesized from DM's notes — concise, past tense, third person}"
 cliffhanger: "{from Phase 2}"
 entities_canonized:
