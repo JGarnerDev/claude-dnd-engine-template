@@ -2,7 +2,7 @@
 # consumers: scripts/entity-graph.ps1, scripts/free-entities.ps1, scripts/location-entities.ps1,
 #   scripts/party-status.ps1, scripts/route-cities.ps1, scripts/session-brief.ps1,
 #   scripts/session-state.ps1, scripts/todo-brief.ps1, scripts/inventory-brief.ps1,
-#   scripts/threads-brief.ps1, scripts/spotlight-balance.ps1
+#   scripts/threads-brief.ps1, scripts/spotlight-balance.ps1, scripts/timeline-gantt.ps1
 # -- update those scripts if a function signature or output shape changes here.
 
 # Parse YAML-ish frontmatter into a hashtable.
@@ -109,4 +109,91 @@ function Get-SpotlightRotation($sessions, $window, $activeNames) {
         }
     }
     return @{ Turns = $turns; Present = $present; Fallback = $fallback }
+}
+
+# -- Calendar + timeline helpers (meta/calendar.md) ---------------------------
+# Used by timeline-gantt.ps1. True scale is NOT a goal -- these support rough
+# orientation: ordering + display + a plottable date for mermaid. timeline_date
+# is a flat string "YYYY[-MM[-DD]]" (the flat parser can't read nested maps).
+
+# Read the campaign calendar (falls back to the synced template if no campaign file).
+function Get-Calendar($root) {
+    $path = Join-Path $root 'meta\calendar.md'
+    if (-not (Test-Path $path)) { $path = Join-Path $root 'meta\calendar-template.md' }
+    $fm = Get-Frontmatter $path
+    $months = @()
+    if ($fm['_list_months']) {
+        foreach ($m in $fm['_list_months']) {
+            $parts = $m -split ':', 2
+            $months += [PSCustomObject]@{ Name = $parts[0].Trim(); Days = [int]($parts[1].Trim()) }
+        }
+    }
+    $epoch = 0; if ($fm['epoch_year'] -match '^-?\d+$') { $epoch = [int]$fm['epoch_year'] }
+    $yearDays = if ($months) { ($months | Measure-Object Days -Sum).Sum } else { 365 }
+    [PSCustomObject]@{
+        Months     = $months
+        EpochYear  = $epoch
+        YearSuffix = $fm['year_suffix']
+        YearDays   = $yearDays
+    }
+}
+
+# Precision of a timeline_date string: 'year' | 'month' | 'day' | $null.
+function Get-DatePrecision($s) {
+    if (-not $s) { return $null }
+    switch (($s -split '-').Count) { 1 { 'year' } 2 { 'month' } 3 { 'day' } default { $null } }
+}
+
+# Split a timeline_date into clamped y/m/d ints (clamped so custom calendars with
+# >12 months / long months still produce a valid [datetime] for mermaid).
+function Get-DateParts($s) {
+    $p = $s -split '-'
+    $y = [int]$p[0]
+    $m = if ($p.Count -ge 2) { [math]::Min(12, [math]::Max(1, [int]$p[1])) } else { 1 }
+    $d = if ($p.Count -ge 3) { [math]::Min(28, [math]::Max(1, [int]$p[2])) } else { 1 }
+    [PSCustomObject]@{ Year = $y; Month = $m; Day = $d }
+}
+
+# A [datetime] mermaid can plot. Rough by design (custom calendars approximate to Gregorian).
+function Get-PlotDate($s) {
+    $d = Get-DateParts $s
+    [datetime]::new($d.Year, $d.Month, $d.Day)
+}
+
+# Numeric sort key honoring graded precision (missing month/day sort to start).
+function Get-DateSortKey($s) {
+    $d = Get-DateParts $s
+    $d.Year * 10000 + $d.Month * 100 + $d.Day
+}
+
+# Bar duration string by precision: year -> whole year, month -> that month, day -> milestone (0d).
+function Get-PrecisionDuration($s, $cal) {
+    switch (Get-DatePrecision $s) {
+        'year'  { "$($cal.YearDays)d" }
+        'month' {
+            $mi = (Get-DateParts $s).Month
+            $days = if ($cal.Months.Count -ge $mi) { $cal.Months[$mi - 1].Days } else { 30 }
+            "${days}d"
+        }
+        default { '0d' }
+    }
+}
+
+# Tick-count axis resolver: target ~10 ticks, snap interval to a mermaid-safe value.
+# Returns { TickInterval; AxisFormat }. Uses month-multiples ('year' unit support varies).
+function Get-AxisConfig($minDate, $maxDate) {
+    $spanDays = [math]::Max(1, ($maxDate - $minDate).TotalDays)
+    $raw = $spanDays / 10
+    $allowed = @(
+        @{ d = 7;     t = '1week'   }, @{ d = 14;    t = '2week'    },
+        @{ d = 30;    t = '1month'  }, @{ d = 91;    t = '3month'   },
+        @{ d = 182;   t = '6month'  }, @{ d = 365;   t = '12month'  },
+        @{ d = 730;   t = '24month' }, @{ d = 1825;  t = '60month'  },
+        @{ d = 3650;  t = '120month'}, @{ d = 18250; t = '600month' },
+        @{ d = 36500; t = '1200month' }
+    )
+    $pick = $allowed | Where-Object { $_.d -ge $raw } | Select-Object -First 1
+    if (-not $pick) { $pick = $allowed[-1] }
+    $fmt = if ($pick.d -lt 30) { '%d %b' } elseif ($pick.d -lt 365) { '%b %Y' } else { '%Y' }
+    [PSCustomObject]@{ TickInterval = $pick.t; AxisFormat = $fmt; Days = $pick.d }
 }
