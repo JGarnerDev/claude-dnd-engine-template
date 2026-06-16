@@ -91,7 +91,10 @@ active: true
 description: ""
 
 # --- HISTORIAN ONLY (mandatory when moved) ---
-# played_date: ""
+# played_date: ""        # real-world date the session was played
+# in_world_end_date: ""  # flat "YYYY[-MM[-DD]]" — in-world date the session ended.
+#                        # Plots the session as a milestone on the /timeline party-history
+#                        # gantt. Same shape as event timeline_date (meta/calendar-template.md).
 # recap: ""              # what actually happened — may differ from the plan
 # entities_canonized:    # data/ entities that became real this session
 #   - [[Entity Name]]

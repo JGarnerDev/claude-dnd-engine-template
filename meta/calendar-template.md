@@ -34,36 +34,36 @@ The months, epoch, and labels live in frontmatter so `scripts/lib/common.ps1` ca
 
 ## Timeline date
 
-A structured in-world date used by date-aware features (currently the `/timeline` gantt). Shape:
+A structured in-world date used by date-aware features (currently the `/timeline` gantt). Shape is a **flat string** `"YYYY[-MM[-DD]]"` — hyphen-separated, trailing parts optional:
 
 ```yaml
-timeline_date:
-  year: 1342      # required
-  month: 5        # optional — 1-based index into `months`
-  day: 18         # optional — 1-based day within the month
+timeline_date: "1342-05-18"   # year-month-day (day precision)
+timeline_date: "1342-05"      # year-month   (month precision)
+timeline_date: "1342"         # year-only    (year precision)
 ```
 
-- **`year` is mandatory.** `month` and `day` are optional, and graded precision is the point — an event known only to a year is *more honestly* recorded as a year than a guessed day.
-- `month` is the **1-based index** into the frontmatter `months` list, not a name — so renaming months never breaks stored dates.
+- **The year segment is mandatory.** Month and day are optional, and graded precision is the point — an event known only to a year is *more honestly* recorded as `"1342"` than a guessed day.
+- `month` is the **1-based index** into the frontmatter `months` list, not a name — so renaming months never breaks stored dates. `"1342-05"` means the 5th month, whatever it's called.
+- A flat string (not a nested YAML map) because the frontmatter parser in `scripts/lib/common.ps1` reads scalars and lists, not nested maps. The helpers split on `-` (`Get-DatePrecision`, `Get-DateParts`).
 - The free-text `date:` prose field on events (e.g. "300 years ago", "before the Sundering") stays as the human label. `timeline_date` is the machine coordinate; they coexist.
 
-## Absolute day index
+## Ordering
 
-The single sort key and axis coordinate. Days elapsed from the epoch to the timeline date.
+Timeline entries sort by a numeric key derived from the date, honoring graded precision.
 
-- **Epoch** = day 1 of month 1 of `epoch_year`. Years before the epoch are negative.
+- **Sort key** = `year*10000 + month*100 + day` (`Get-DateSortKey` in `scripts/lib/common.ps1`). Stable ordering across mixed-precision dates.
 - **Partial-date resolution:** a missing `month` resolves to the start of the year (month 1, day 1); a missing `day` resolves to the start of the month (day 1). So a year-only date anchors at that year's first day.
-- A year's length = sum of all `months` day-counts (default 365). No leap rule by default — add one in the helper only if a world needs it.
+- The sort key composites the calendar-relative year directly — `epoch_year` and `year_suffix` are display-only (applied by `Get-Calendar` when labelling), not folded into ordering.
 
-`scripts/lib/common.ps1` implements the conversion (`ConvertTo-DayIndex`). Nothing else recomputes it — callers reference the helper.
+`scripts/lib/common.ps1` owns the date helpers (`Get-DatePrecision`, `Get-DateParts`, `Get-DateSortKey`, `Get-PlotDate`). Nothing else recomputes them — callers reference the helpers.
 
 ## Precision
 
-How complete a timeline date is: `year` | `month` | `day`. The gantt renders precision as **bar width** — a year-only date spans the whole year, a month-precise date spans the month, a full date is a one-day milestone. Uncertainty shows as width; the chart never fakes precision it lacks.
+How complete a timeline date is: `year` | `month` | `day` (`Get-DatePrecision` = segment count). The gantt renders precision as **bar width** — a year-only date spans the whole year, a month-precise date spans the month, a full date is a one-day milestone. Uncertainty shows as width; the chart never fakes precision it lacks.
 
 ## Proxy date (rendering only)
 
-Mermaid's `gantt` uses a Gregorian date engine. The render helper offsets the absolute day index onto a real-date epoch to produce a proxy `YYYY-MM-DD` that mermaid plots **proportionally correct**; the real in-world date rides on the task label. Custom-calendar correctness lives in the conversion here, never in the mermaid block. Proxy dates are an internal rendering detail — never written back to entity files.
+Mermaid's `gantt` uses a Gregorian date engine. `Get-PlotDate` maps a timeline date onto a real `[datetime]` (clamped to ≤12 months / ≤28 days so any custom calendar still yields a valid Gregorian date) that mermaid plots **roughly proportional** — orientation, not true scale. The real in-world date rides on the task label. For spans too large to tick, `/timeline` switches to compressed-sequence mode: synthetic evenly-spaced proxy dates, blank axis, real date in the label. Proxy dates are an internal rendering detail — never written back to entity files.
 
 ## Renaming for your world
 

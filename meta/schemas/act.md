@@ -80,6 +80,10 @@ description: ""
 # --- HISTORIAN ONLY (mandatory when moved) ---
 # outcome: ""            # what actually happened; win, loss, or something in between
 # sessions_played:       # actual number of sessions
+# timeline_start: ""     # flat "YYYY[-MM[-DD]]" — in-world date the act opened
+# timeline_end: ""       # flat "YYYY[-MM[-DD]]" — in-world date the act closed.
+#                        # Plots the act as a span bar on the /timeline party-history
+#                        # gantt. Same shape as event timeline_date (meta/calendar-template.md).
 ---
 ```
 
