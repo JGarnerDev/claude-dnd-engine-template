@@ -1,6 +1,6 @@
 # New Campaign Setup
 
-Before generating any content for a new campaign, create the four campaign-specific meta files below and populate `meta/worldbuilding.md` from player input. These files are intentionally excluded from `.template-sync` — they carry this group's specific content, not engine structure.
+Before generating any content for a new campaign, create the five campaign-specific meta files below and populate `meta/worldbuilding.md` from player input. These files are intentionally excluded from `.template-sync` — they carry this group's specific content, not engine structure.
 
 ---
 
@@ -16,7 +16,7 @@ Ask players:
 
 ---
 
-## Step 2 — Create these four files before any entity or session work
+## Step 2 — Create these five files before any entity or session work
 
 ### `meta/worldbuilding.md`
 
@@ -33,6 +33,10 @@ Load-bearing unknowns the DM is protecting. Required sections: Active Mysteries 
 ### `meta/party-relationships.md`
 
 DM's read on bonds, tensions, and shared history between PCs. Not canon history (that's `historian/`) — the relational texture of the group. Start sparse; fill in as play develops. No fixed schema required; free-form sections per relationship pair or group dynamic.
+
+### `meta/calendar.md`
+
+The campaign calendar — months, epoch, and year suffix that date-aware features read (currently the `/timeline` gantt). Copy `meta/calendar-template.md` → `meta/calendar.md`, then edit the **frontmatter only** for your world: rename `months` (`"Name:days"` strings, any count/lengths), set `epoch_year` (the year your reckoning counts from), and `year_suffix` (e.g. `DR`, `AE`, or blank). The template ships Gregorian-shaped, so the engine works out of the box if you skip this — but a fantasy world wants its own months. The contract lives in `calendar-template.md`; don't duplicate it into `calendar.md`. No code changes — helpers read whatever `calendar.md` holds (falling back to the template if absent).
 
 ---
 
