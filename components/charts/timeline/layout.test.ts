@@ -41,7 +41,7 @@ describe('computeLayout', () => {
   });
 
   it('labels ticks with the calendar epoch when present', () => {
-    const cal = { epochLabel: 'AE', months: Array.from({ length: 12 }, () => ({ days: 30 })) };
+    const cal = { epochLabel: 'AE', months: Array.from({ length: 12 }, () => ({ name: '', days: 30 })) };
     const out = computeLayout([{ date: '5-01-01', label: 'x' }], cal);
     expect(out.ticks[0].label).toBe('5 AE');
   });

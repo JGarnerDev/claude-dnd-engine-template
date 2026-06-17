@@ -8,14 +8,17 @@
 // a clean, monotonic fallback that's good enough for ordering and placement.
 // Supply a config for real fantasy month systems (custom names / lengths).
 
-export const DEFAULT_CALENDAR = {
+import type { Calendar, DateParts } from './types.js';
+
+export const DEFAULT_CALENDAR: Calendar = {
   epochLabel: '',
   months: Array.from({ length: 12 }, (_, i) => ({ name: `Month ${i + 1}`, days: 30 })),
 };
 
 // Parse "YYYY[-MM[-DD]]" -> { year, month, day }. Missing parts default to 1.
 // Negative (pre-epoch) years allowed: "-300-02-01".
-export function parseDate(str) {
+export function parseDate(str: string): DateParts {
+  // Runtime guard: dates arrive from external JSON, not only typed callers.
   if (typeof str !== 'string') {
     throw new TypeError(`date must be a string, got ${typeof str}`);
   }
@@ -28,13 +31,13 @@ export function parseDate(str) {
   };
 }
 
-function daysPerYear(cal) {
+function daysPerYear(cal: Calendar): number {
   return cal.months.reduce((sum, mo) => sum + mo.days, 0);
 }
 
 // Absolute day index from year 0, month 1, day 1. Monotonic across the calendar,
 // so it doubles as a sort key and as the domain value for createScale.
-export function dayIndex(date, cal = DEFAULT_CALENDAR) {
+export function dayIndex(date: DateParts, cal: Calendar = DEFAULT_CALENDAR): number {
   const { year, month, day } = date;
   if (month < 1 || month > cal.months.length) {
     throw new RangeError(`month ${month} out of range 1..${cal.months.length}`);
@@ -46,7 +49,7 @@ export function dayIndex(date, cal = DEFAULT_CALENDAR) {
 
 // Linear scale: day index -> x in [0, width]. min maps to 0, max maps to width.
 // Degenerate domain (min === max) maps everything to 0.
-export function createScale(minIndex, maxIndex, width) {
+export function createScale(minIndex: number, maxIndex: number, width: number): (index: number) => number {
   const span = maxIndex - minIndex;
-  return (index) => (span === 0 ? 0 : ((index - minIndex) / span) * width);
+  return (index: number) => (span === 0 ? 0 : ((index - minIndex) / span) * width);
 }

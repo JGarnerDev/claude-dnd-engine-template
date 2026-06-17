@@ -1,9 +1,11 @@
 // Interaction wiring for the timeline. Kept apart from render.js so DOM
 // assembly stays one concern and pointer/scroll behavior is another. DOM-bound.
 
+import type { PanViewport, ZoomKind } from './types.js';
+
 // Drag-to-pan: press and drag horizontally to scroll the viewport along the
 // time axis. Native overflow scroll (wheel/trackpad) still works alongside it.
-export function enablePan(viewport) {
+export function enablePan(viewport: PanViewport): void {
   let dragging = false;
   let startX = 0;
   let startScroll = 0;
@@ -24,7 +26,7 @@ export function enablePan(viewport) {
     viewport.scrollLeft = startScroll - (e.clientX - startX);
   });
 
-  const end = (e) => {
+  const end = (e: PointerEvent) => {
     if (!dragging) return;
     dragging = false;
     viewport.classList.remove('tl-grabbing');
@@ -38,7 +40,7 @@ export function enablePan(viewport) {
 // Mouse-wheel zoom. Wheel up zooms in, down zooms out; cursor x is passed so
 // the caller can anchor the zoom under the pointer. preventDefault stops the
 // page/viewport from also scrolling on the same gesture.
-export function enableWheelZoom(viewport, onZoom) {
+export function enableWheelZoom(viewport: HTMLElement, onZoom: (kind: ZoomKind, clientX?: number) => void): void {
   viewport.addEventListener(
     'wheel',
     (e) => {
@@ -53,13 +55,14 @@ export function enableWheelZoom(viewport, onZoom) {
 // persists across redraws) rather than per-marker, so they survive every zoom/
 // filter rebuild. Markers carry data-label/date/track/source. onOpen(source) is
 // called on a click that wasn't a pan (see enablePan's _tlDragged flag).
-export function enableMarkerInteraction(viewport, onOpen) {
+export function enableMarkerInteraction(viewport: PanViewport, onOpen: (source: string) => void): void {
   const tip = document.createElement('div');
   tip.className = 'tl-tooltip';
   tip.hidden = true;
   document.body.appendChild(tip);
 
-  const markerAt = (e) => e.target.closest?.('.tl-marker');
+  const markerAt = (e: Event): HTMLElement | null =>
+    (e.target as Element | null)?.closest<HTMLElement>('.tl-marker') ?? null;
 
   viewport.addEventListener('mouseover', (e) => {
     const m = markerAt(e);
@@ -68,7 +71,7 @@ export function enableMarkerInteraction(viewport, onOpen) {
     tip.textContent = '';
     const title = document.createElement('div');
     title.className = 'tl-tooltip-title';
-    title.textContent = label;
+    title.textContent = label ?? '';
     const meta = document.createElement('div');
     meta.className = 'tl-tooltip-meta';
     meta.textContent = source ? `${date} · ${track} · click to open` : `${date} · ${track}`;
@@ -88,7 +91,7 @@ export function enableMarkerInteraction(viewport, onOpen) {
 
   viewport.addEventListener('click', (e) => {
     if (viewport._tlDragged) return; // it was a pan, not a tap
-    const m = markerAt(e);
-    if (m?.dataset.source) onOpen(m.dataset.source);
+    const source = markerAt(e)?.dataset.source;
+    if (source) onOpen(source);
   });
 }

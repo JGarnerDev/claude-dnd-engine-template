@@ -5,8 +5,9 @@
 import { parseDate, dayIndex, createScale, DEFAULT_CALENDAR } from './calendar.js';
 import { assignLanes, placement } from './lanes.js';
 import { PX_PER_YEAR, MARGIN, AXIS_GAP, TIER_H, MIN_CANVAS_HEIGHT, EDGE_PAD } from './constants.js';
+import type { Calendar, Layout, Tick, TimelineEvent, Weight } from './types.js';
 
-function weightOf(e) {
+function weightOf(e: Pick<TimelineEvent, 'major' | 'minor'>): Weight {
   return e.major ? 'is-major' : e.minor ? 'is-minor' : 'is-normal';
 }
 
@@ -18,7 +19,11 @@ function weightOf(e) {
 // Returns { isEmpty, contentWidth, canvasHeight, items, ticks, laneCount, spanYears }.
 // item: { ...event, x, side, offset, weight, track, text }
 // tick: { label, x }
-export function computeLayout(rawEvents, cal = DEFAULT_CALENDAR, pxPerYear = PX_PER_YEAR) {
+export function computeLayout(
+  rawEvents: TimelineEvent[],
+  cal: Calendar = DEFAULT_CALENDAR,
+  pxPerYear: number = PX_PER_YEAR,
+): Layout {
   const daysPerYear = cal.months.reduce((s, m) => s + m.days, 0);
 
   const events = rawEvents
@@ -43,7 +48,7 @@ export function computeLayout(rawEvents, cal = DEFAULT_CALENDAR, pxPerYear = PX_
   const spanYears = Math.max(1, (domMax - domMin) / daysPerYear);
   const contentWidth = Math.ceil(spanYears * pxPerYear) + MARGIN * 2;
   const scale = createScale(domMin, domMax, contentWidth - MARGIN * 2);
-  const xOf = (idx) => MARGIN + scale(idx);
+  const xOf = (idx: number) => MARGIN + scale(idx);
 
   const lanes = assignLanes(events.map((e) => xOf(e._idx)));
   const maxLane = lanes.reduce((m, l) => Math.max(m, l), 0);
@@ -65,7 +70,7 @@ export function computeLayout(rawEvents, cal = DEFAULT_CALENDAR, pxPerYear = PX_
 
   const firstYear = Math.floor(minIdx / daysPerYear);
   const lastYear = Math.floor(maxIdx / daysPerYear);
-  const ticks = [];
+  const ticks: Tick[] = [];
   for (let y = firstYear; y <= lastYear; y++) {
     ticks.push({ label: cal.epochLabel ? `${y} ${cal.epochLabel}` : `${y}`, x: xOf(y * daysPerYear) });
   }

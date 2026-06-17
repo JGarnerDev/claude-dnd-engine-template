@@ -6,7 +6,11 @@
 import './style.css';
 import { renderTimeline } from './render.js';
 import { sampleData } from './sample-data.js';
+import type { TimelineData } from './types.js';
 
 const injected = window.__TL_DATA__;
-const hasData = injected && Array.isArray(injected.events) && injected.events.length > 0;
-renderTimeline(document.getElementById('timeline'), hasData ? injected : sampleData);
+const data: TimelineData =
+  injected && Array.isArray(injected.events) && injected.events.length > 0 ? injected : sampleData;
+
+const root = document.getElementById('timeline');
+if (root) renderTimeline(root, data);

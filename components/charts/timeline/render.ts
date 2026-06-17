@@ -9,8 +9,16 @@ import { ZOOM_FACTOR, ZOOM_MAX, MARGIN } from './constants.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from './controls.js';
 import { matchesFilters } from './filters.js';
 import { buildFilterBar } from './filterbar.js';
+import type { Layout, LayoutItem, Tick, TimelineData, ZoomKind } from './types.js';
 
-function buildMarker(item) {
+// Mutable handle returned to the caller; tests read these counts.
+interface TimelineApi {
+  eventCount: number;
+  contentWidth: number;
+  laneCount: number;
+}
+
+function buildMarker(item: LayoutItem): HTMLDivElement {
   const marker = document.createElement('div');
   marker.className = `tl-marker ${item.weight} ${item.side}`;
   marker.style.left = `${item.x}px`;
@@ -35,7 +43,7 @@ function buildMarker(item) {
   return marker;
 }
 
-function buildTick(tick) {
+function buildTick(tick: Tick): [HTMLDivElement, HTMLDivElement] {
   const line = document.createElement('div');
   line.className = 'tl-tick';
   line.style.left = `${tick.x}px`;
@@ -48,7 +56,11 @@ function buildTick(tick) {
 
 // isVisible(item) decides which markers show. The layout is always the full set
 // (so x/y never shift on filter); unmatched markers are just hidden in place.
-function buildCanvas(layout, height = layout.canvasHeight, isVisible = () => true) {
+function buildCanvas(
+  layout: Layout,
+  height: number = layout.canvasHeight,
+  isVisible: (item: LayoutItem) => boolean = () => true,
+): HTMLDivElement {
   const canvas = document.createElement('div');
   canvas.className = 'tl-canvas';
   canvas.style.width = `${layout.contentWidth}px`;
@@ -67,10 +79,10 @@ function buildCanvas(layout, height = layout.canvasHeight, isVisible = () => tru
   return canvas;
 }
 
-function buildToolbar(onZoom) {
+function buildToolbar(onZoom: (kind: ZoomKind) => void): HTMLDivElement {
   const bar = document.createElement('div');
   bar.className = 'tl-toolbar';
-  const mk = (label, title, kind) => {
+  const mk = (label: string, title: string, kind: ZoomKind): HTMLButtonElement => {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'tl-zoom-btn';
@@ -87,14 +99,14 @@ function buildToolbar(onZoom) {
   return bar;
 }
 
-function buildEmpty(text) {
+function buildEmpty(text: string): HTMLDivElement {
   const empty = document.createElement('div');
   empty.className = 'tl-empty';
   empty.textContent = text;
   return empty;
 }
 
-export function renderTimeline(container, data) {
+export function renderTimeline(container: HTMLElement, data: TimelineData): TimelineApi {
   const cal = data.calendar || DEFAULT_CALENDAR;
   const viewportWidth = container.clientWidth || 800;
 
@@ -112,7 +124,7 @@ export function renderTimeline(container, data) {
   // so every step changes the layout and reset always returns to full view.
   const fitDensity = Math.max(1, (viewportWidth - MARGIN * 2) / probe.spanYears);
   let zoomLevel = 1;
-  const api = { eventCount: 0, contentWidth: 0, laneCount: 0 };
+  const api: TimelineApi = { eventCount: 0, contentWidth: 0, laneCount: 0 };
 
   // Lock canvas height to the fit-zoom layout. Lanes only ever decrease as we
   // zoom in (events spread, fewer collisions), so fit is the tallest — pinning
@@ -130,9 +142,9 @@ export function renderTimeline(container, data) {
   // filtered — only marker visibility changes. anchor (or null) is the point to
   // hold fixed: { frac } = position along the timeline (0..1), { x } = px from
   // the viewport left to keep it under — so zooming feels anchored on the cursor.
-  function draw(anchor) {
+  function draw(anchor?: { frac: number; x: number }) {
     const layout = computeLayout(data.events, cal, fitDensity * zoomLevel);
-    const visible = (item) => matchesFilters(item, filterState);
+    const visible = (item: LayoutItem) => matchesFilters(item, filterState);
     // Always render the chart (axis, ticks, scale) regardless of how many beats
     // match — filtering only toggles marker visibility, never blanks the view.
     viewport.innerHTML = '';
@@ -143,7 +155,7 @@ export function renderTimeline(container, data) {
     if (anchor) viewport.scrollLeft = anchor.frac * layout.contentWidth - anchor.x;
   }
 
-  function zoom(kind, clientX) {
+  function zoom(kind: ZoomKind, clientX?: number) {
     const vw = viewport.clientWidth || viewportWidth;
     const left = viewport.getBoundingClientRect?.().left || 0;
     const x = clientX != null ? clientX - left : vw / 2;

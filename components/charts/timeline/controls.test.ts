@@ -1,15 +1,16 @@
 // @vitest-environment happy-dom
 import { describe, it, expect, beforeEach } from 'vitest';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from './controls.js';
+import type { PanViewport } from './types.js';
 
 // Dispatch a pointer-type event with a clientX (MouseEvent carries clientX;
 // the listener only cares about the type + clientX, not the constructor).
-function pointer(type, clientX) {
+function pointer(type: string, clientX: number) {
   return new MouseEvent(type, { clientX, bubbles: true });
 }
 
 describe('enablePan', () => {
-  let viewport;
+  let viewport: HTMLDivElement;
   beforeEach(() => {
     viewport = document.createElement('div');
     document.body.appendChild(viewport);
@@ -46,10 +47,10 @@ describe('enablePan', () => {
 describe('enableWheelZoom', () => {
   it('maps wheel up to zoom-in and down to zoom-out, passing cursor x', () => {
     const el = document.createElement('div');
-    const calls = [];
+    const calls: [string, number | undefined][] = [];
     enableWheelZoom(el, (kind, x) => calls.push([kind, x]));
     // happy-dom's WheelEvent ctor drops deltaY/clientX, so set them on the instance.
-    const wheel = (deltaY, clientX) => {
+    const wheel = (deltaY: number, clientX: number) => {
       const e = new Event('wheel', { cancelable: true });
       Object.assign(e, { deltaY, clientX });
       el.dispatchEvent(e);
@@ -61,9 +62,9 @@ describe('enableWheelZoom', () => {
 });
 
 describe('enableMarkerInteraction', () => {
-  let viewport;
-  let marker;
-  let opened;
+  let viewport: PanViewport;
+  let marker: HTMLDivElement;
+  let opened: string[];
 
   beforeEach(() => {
     document.body.innerHTML = '';
@@ -82,21 +83,23 @@ describe('enableMarkerInteraction', () => {
     enableMarkerInteraction(viewport, (src) => opened.push(src));
   });
 
-  const fire = (type, target = marker) =>
+  const fire = (type: string, target: Element = marker) =>
     target.dispatchEvent(new MouseEvent(type, { bubbles: true, clientX: 50, clientY: 60 }));
+
+  const tooltip = () => document.querySelector<HTMLElement>('.tl-tooltip')!;
 
   it('shows a tooltip with the full label and meta on hover', () => {
     fire('mouseover');
-    const tip = document.querySelector('.tl-tooltip');
+    const tip = tooltip();
     expect(tip.hidden).toBe(false);
-    expect(tip.querySelector('.tl-tooltip-title').textContent).toBe('Redfen burns');
-    expect(tip.querySelector('.tl-tooltip-meta').textContent).toContain('click to open');
+    expect(tip.querySelector('.tl-tooltip-title')!.textContent).toBe('Redfen burns');
+    expect(tip.querySelector('.tl-tooltip-meta')!.textContent).toContain('click to open');
   });
 
   it('hides the tooltip on mouseout', () => {
     fire('mouseover');
     fire('mouseout');
-    expect(document.querySelector('.tl-tooltip').hidden).toBe(true);
+    expect(tooltip().hidden).toBe(true);
   });
 
   it('opens the source on a plain click', () => {

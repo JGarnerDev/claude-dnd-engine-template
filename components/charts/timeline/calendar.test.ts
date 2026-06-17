@@ -20,6 +20,7 @@ describe('parseDate', () => {
   });
 
   it('throws on non-strings', () => {
+    // @ts-expect-error — deliberately passing a non-string to test the runtime guard
     expect(() => parseDate(1342)).toThrow(TypeError);
   });
 

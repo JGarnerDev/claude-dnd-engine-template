@@ -3,7 +3,9 @@
 // `source` is the path the click-to-open handler navigates to; M2 fills it from
 // the originating .md. Left off some beats here to exercise the no-source path.
 
-export const sampleData = {
+import type { TimelineData } from './types.js';
+
+export const sampleData: TimelineData = {
   calendar: null, // -> DEFAULT_CALENDAR (twelve 30-day months)
   events: [
     { date: '1340-02-15', label: 'The Long Winter begins', track: 'world', major: true, source: 'historian/events/long-winter.md' },
