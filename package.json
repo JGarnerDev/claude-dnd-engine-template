@@ -6,12 +6,14 @@
   "description": "Dev-only tooling for engine UI components (timeline chart). Output is self-contained HTML; these deps never ship.",
   "scripts": {
     "dev": "vite components/charts/timeline --open",
+    "build:timeline": "vite build",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "devDependencies": {
     "happy-dom": "^20.10.5",
     "vite": "^5.0.0",
+    "vite-plugin-singlefile": "^2.3.3",
     "vitest": "^1.6.0"
   }
 }

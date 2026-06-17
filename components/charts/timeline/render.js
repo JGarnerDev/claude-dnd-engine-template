@@ -6,7 +6,9 @@
 import { DEFAULT_CALENDAR } from './calendar.js';
 import { computeLayout } from './layout.js';
 import { ZOOM_FACTOR, ZOOM_MAX, MARGIN } from './constants.js';
-import { enablePan, enableWheelZoom } from './controls.js';
+import { enablePan, enableWheelZoom, enableMarkerInteraction } from './controls.js';
+import { matchesFilters } from './filters.js';
+import { buildFilterBar } from './filterbar.js';
 
 function buildMarker(item) {
   const marker = document.createElement('div');
@@ -14,6 +16,12 @@ function buildMarker(item) {
   marker.style.left = `${item.x}px`;
   marker.style.setProperty('--tl-offset', `${item.offset}px`);
   marker.dataset.track = item.track;
+  marker.dataset.label = item.label; // full, unclamped — hover shows it all
+  marker.dataset.date = item.date;
+  if (item.source) {
+    marker.dataset.source = item.source;
+    marker.classList.add('has-source');
+  }
 
   const dot = document.createElement('div');
   dot.className = 'tl-dot';
@@ -38,7 +46,9 @@ function buildTick(tick) {
   return [line, label];
 }
 
-function buildCanvas(layout, height = layout.canvasHeight) {
+// isVisible(item) decides which markers show. The layout is always the full set
+// (so x/y never shift on filter); unmatched markers are just hidden in place.
+function buildCanvas(layout, height = layout.canvasHeight, isVisible = () => true) {
   const canvas = document.createElement('div');
   canvas.className = 'tl-canvas';
   canvas.style.width = `${layout.contentWidth}px`;
@@ -49,7 +59,11 @@ function buildCanvas(layout, height = layout.canvasHeight) {
   canvas.appendChild(axis);
 
   for (const tick of layout.ticks) canvas.append(...buildTick(tick));
-  for (const item of layout.items) canvas.appendChild(buildMarker(item));
+  for (const item of layout.items) {
+    const marker = buildMarker(item);
+    if (!isVisible(item)) marker.classList.add('tl-hidden');
+    canvas.appendChild(marker);
+  }
   return canvas;
 }
 
@@ -73,6 +87,13 @@ function buildToolbar(onZoom) {
   return bar;
 }
 
+function buildEmpty(text) {
+  const empty = document.createElement('div');
+  empty.className = 'tl-empty';
+  empty.textContent = text;
+  return empty;
+}
+
 export function renderTimeline(container, data) {
   const cal = data.calendar || DEFAULT_CALENDAR;
   const viewportWidth = container.clientWidth || 800;
@@ -82,10 +103,7 @@ export function renderTimeline(container, data) {
 
   const probe = computeLayout(data.events, cal);
   if (probe.isEmpty) {
-    const empty = document.createElement('div');
-    empty.className = 'tl-empty';
-    empty.textContent = 'No events to show.';
-    container.appendChild(empty);
+    container.appendChild(buildEmpty('No events to show.'));
     return { eventCount: 0, contentWidth: 0, laneCount: 0 };
   }
 
@@ -104,14 +122,22 @@ export function renderTimeline(container, data) {
   const viewport = document.createElement('div');
   viewport.className = 'tl-viewport';
 
-  // Redraw at the current zoom. anchor (or null) is the point to hold fixed:
-  // { frac } = position along the timeline (0..1), { x } = px from the viewport
-  // left to keep it under — so zooming feels anchored on the cursor/center.
+  // Filter bar owns the mutable filter state; draw() reads it on every redraw.
+  const { bar: filterBar, state: filterState } = buildFilterBar(data.events, () => draw());
+
+  // Redraw at the current zoom + filter. The layout is computed from the *full*
+  // event set, so the time axis and lane stacking stay put no matter what's
+  // filtered — only marker visibility changes. anchor (or null) is the point to
+  // hold fixed: { frac } = position along the timeline (0..1), { x } = px from
+  // the viewport left to keep it under — so zooming feels anchored on the cursor.
   function draw(anchor) {
     const layout = computeLayout(data.events, cal, fitDensity * zoomLevel);
+    const visible = (item) => matchesFilters(item, filterState);
+    // Always render the chart (axis, ticks, scale) regardless of how many beats
+    // match — filtering only toggles marker visibility, never blanks the view.
     viewport.innerHTML = '';
-    viewport.appendChild(buildCanvas(layout, canvasHeight));
-    api.eventCount = layout.items.length;
+    viewport.appendChild(buildCanvas(layout, canvasHeight, visible));
+    api.eventCount = layout.items.filter(visible).length;
     api.contentWidth = layout.contentWidth;
     api.laneCount = layout.laneCount;
     if (anchor) viewport.scrollLeft = anchor.frac * layout.contentWidth - anchor.x;
@@ -128,10 +154,11 @@ export function renderTimeline(container, data) {
     draw({ frac, x });
   }
 
-  container.append(buildToolbar(zoom), viewport);
+  container.append(buildToolbar(zoom), filterBar, viewport);
   draw();
   enablePan(viewport);
   enableWheelZoom(viewport, zoom);
+  enableMarkerInteraction(viewport, (source) => window.open(source, '_blank'));
 
   return api;
 }

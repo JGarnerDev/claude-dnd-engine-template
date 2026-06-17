@@ -12,12 +12,15 @@ export function enablePan(viewport) {
     dragging = true;
     startX = e.clientX;
     startScroll = viewport.scrollLeft;
+    // Reset the drag flag the click handler reads to tell a pan from a tap.
+    viewport._tlDragged = false;
     viewport.classList.add('tl-grabbing');
     viewport.setPointerCapture?.(e.pointerId);
   });
 
   viewport.addEventListener('pointermove', (e) => {
     if (!dragging) return;
+    if (Math.abs(e.clientX - startX) > 3) viewport._tlDragged = true;
     viewport.scrollLeft = startScroll - (e.clientX - startX);
   });
 
@@ -44,4 +47,48 @@ export function enableWheelZoom(viewport, onZoom) {
     },
     { passive: false },
   );
+}
+
+// Hover detail + click-to-open. Listeners are delegated on the viewport (which
+// persists across redraws) rather than per-marker, so they survive every zoom/
+// filter rebuild. Markers carry data-label/date/track/source. onOpen(source) is
+// called on a click that wasn't a pan (see enablePan's _tlDragged flag).
+export function enableMarkerInteraction(viewport, onOpen) {
+  const tip = document.createElement('div');
+  tip.className = 'tl-tooltip';
+  tip.hidden = true;
+  document.body.appendChild(tip);
+
+  const markerAt = (e) => e.target.closest?.('.tl-marker');
+
+  viewport.addEventListener('mouseover', (e) => {
+    const m = markerAt(e);
+    if (!m) return;
+    const { label, date, track, source } = m.dataset;
+    tip.textContent = '';
+    const title = document.createElement('div');
+    title.className = 'tl-tooltip-title';
+    title.textContent = label;
+    const meta = document.createElement('div');
+    meta.className = 'tl-tooltip-meta';
+    meta.textContent = source ? `${date} · ${track} · click to open` : `${date} · ${track}`;
+    tip.append(title, meta);
+    tip.hidden = false;
+  });
+
+  viewport.addEventListener('mousemove', (e) => {
+    if (tip.hidden) return;
+    tip.style.left = `${e.clientX + 14}px`;
+    tip.style.top = `${e.clientY + 14}px`;
+  });
+
+  viewport.addEventListener('mouseout', (e) => {
+    if (markerAt(e)) tip.hidden = true;
+  });
+
+  viewport.addEventListener('click', (e) => {
+    if (viewport._tlDragged) return; // it was a pan, not a tap
+    const m = markerAt(e);
+    if (m?.dataset.source) onOpen(m.dataset.source);
+  });
 }

@@ -53,6 +53,86 @@
 }
 .tl-zoom-btn:hover { border-color: var(--tl-muted); }
 
+/* Filter bar: search box + track toggle chips */
+.tl-filterbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 8px;
+}
+
+.tl-search {
+  flex: 0 1 220px;
+  padding: 5px 10px;
+  font-size: 13px;
+  color: var(--tl-text);
+  background: var(--tl-surface);
+  border: 1px solid var(--tl-axis);
+  border-radius: 4px;
+}
+.tl-search::placeholder { color: var(--tl-muted); }
+.tl-search:focus { outline: none; border-color: var(--tl-muted); }
+
+.tl-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* A chip's accent is its track color; "off" chips dim to muted. */
+.tl-chip {
+  padding: 3px 10px;
+  font-size: 12px;
+  text-transform: capitalize;
+  color: var(--tl-text);
+  background: var(--tl-surface);
+  border: 1px solid var(--tl-axis);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.tl-chip::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  vertical-align: middle;
+  background: var(--tl-muted);
+}
+.tl-chip[data-track='world']::before { background: var(--track-world); }
+.tl-chip[data-track='party']::before { background: var(--track-party); }
+.tl-chip[data-track='character']::before { background: var(--track-character); }
+.tl-chip[data-track='faction']::before { background: var(--track-faction); }
+.tl-chip[data-track='continent']::before { background: var(--track-continent); }
+.tl-chip:not(.is-on) {
+  color: var(--tl-muted);
+  opacity: 0.55;
+}
+.tl-chip:not(.is-on)::before { background: var(--tl-muted); }
+
+/* Hover detail tooltip — fixed, follows the pointer (positioned by controls.js) */
+.tl-tooltip {
+  position: fixed;
+  z-index: 10;
+  max-width: 260px;
+  padding: 6px 9px;
+  font-size: 12px;
+  color: var(--tl-text);
+  background: var(--tl-surface);
+  border: 1px solid var(--tl-axis);
+  border-radius: 4px;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+.tl-tooltip-title { font-weight: 600; }
+.tl-tooltip-meta {
+  margin-top: 2px;
+  color: var(--tl-muted);
+  text-transform: capitalize;
+}
+
 .tl-viewport {
   overflow-x: auto;
   overflow-y: hidden;
@@ -110,6 +190,12 @@
   top: 50%;
   --tl-offset: 16px;
 }
+/* Beats backed by a source .md invite a click */
+.tl-marker.has-source .tl-dot,
+.tl-marker.has-source .tl-label { cursor: pointer; }
+/* Filtered-out beats hide in place — layout is unchanged, so the axis and the
+   surviving markers keep their x/y; these just drop out (and out of hover/click). */
+.tl-marker.tl-hidden { display: none; }
 
 .tl-dot {
   position: absolute;
