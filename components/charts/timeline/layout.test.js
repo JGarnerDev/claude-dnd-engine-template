@@ -52,8 +52,38 @@ describe('computeLayout', () => {
     expect(out.items).toHaveLength(0);
   });
 
-  it('widens content to at least the viewport width', () => {
-    const out = computeLayout(events, undefined, 2000);
-    expect(out.contentWidth).toBeGreaterThanOrEqual(2000);
+  it('drives content width purely from density (no viewport floor)', () => {
+    const narrow = computeLayout(events, undefined, 80);
+    const wide = computeLayout(events, undefined, 320);
+    expect(wide.contentWidth).toBeGreaterThan(narrow.contentWidth);
+    // span ~2.35yr: at low density content is well under any sane viewport,
+    // proving the old max(viewport, …) clamp is gone.
+    expect(narrow.contentWidth).toBeLessThan(400);
+  });
+
+  it('keeps item x positions proportional to density', () => {
+    const lo = computeLayout(events, undefined, 80).items.map((i) => i.x);
+    const hi = computeLayout(events, undefined, 320).items.map((i) => i.x);
+    expect(hi[2] - hi[0]).toBeGreaterThan(lo[2] - lo[0]);
+  });
+
+  it('reports span in years', () => {
+    expect(computeLayout(events).spanYears).toBeGreaterThan(2);
+  });
+
+  it('insets the first and last beats ~5% from the canvas edges', () => {
+    const out = computeLayout(events, undefined, 200);
+    const xs = out.items.map((i) => i.x);
+    const firstGap = xs[0];
+    const lastGap = out.contentWidth - xs[xs.length - 1];
+    // First/last sit well off the edges, near symmetric (allow the fixed margin).
+    expect(firstGap).toBeGreaterThan(out.contentWidth * 0.04);
+    expect(lastGap).toBeGreaterThan(out.contentWidth * 0.04);
+    expect(Math.abs(firstGap - lastGap)).toBeLessThan(2);
+  });
+
+  it('centers a single beat', () => {
+    const out = computeLayout([{ date: '1340-06-01', label: 'lone' }], undefined, 200);
+    expect(out.items[0].x).toBeCloseTo(out.contentWidth / 2, 0);
   });
 });

@@ -20,6 +20,13 @@
   color: var(--tl-text);
   font-family: system-ui, sans-serif;
   padding: 8px 0;
+  width: 100%;
+  box-sizing: border-box;
+  /* Fill the host's height so the timeline can sit centered in the viewport.
+     Falls back gracefully when the host has no fixed height (shrinks to fit). */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .tl-empty {
@@ -27,16 +34,46 @@
   color: var(--tl-muted);
 }
 
+/* Zoom toolbar */
+.tl-toolbar {
+  display: flex;
+  gap: 6px;
+  padding: 0 8px 8px;
+}
+
+.tl-zoom-btn {
+  min-width: 32px;
+  padding: 4px 10px;
+  font-size: 13px;
+  color: var(--tl-text);
+  background: var(--tl-surface);
+  border: 1px solid var(--tl-axis);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.tl-zoom-btn:hover { border-color: var(--tl-muted); }
+
 .tl-viewport {
   overflow-x: auto;
   overflow-y: hidden;
   width: 100%;
+  cursor: grab;
+  /* Take the leftover height under the toolbar and center the canvas in it. */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  /* Hide the scrollbar chrome — navigation is drag-to-pan + wheel-zoom. */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge/IE */
 }
+.tl-viewport::-webkit-scrollbar { display: none; } /* Chromium/WebKit */
+.tl-viewport.tl-grabbing { cursor: grabbing; }
 
 .tl-canvas {
   position: relative;
   height: 320px;
   min-width: 100%;
+  flex-shrink: 0; /* keep its computed width in the flex viewport so pan scrolls */
 }
 
 /* Center axis line */

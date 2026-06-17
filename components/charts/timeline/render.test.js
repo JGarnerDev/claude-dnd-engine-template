@@ -64,4 +64,38 @@ describe('renderTimeline', () => {
     expect(result.eventCount).toBe(0);
     expect(container.querySelector('.tl-empty')).toBeTruthy();
   });
+
+  it('renders a zoom toolbar with in/out/reset controls', () => {
+    renderTimeline(container, data);
+    expect(container.querySelectorAll('.tl-zoom-btn')).toHaveLength(3);
+  });
+
+  it('widens the canvas when zooming in', () => {
+    const result = renderTimeline(container, data);
+    const before = result.contentWidth;
+    const zoomIn = [...container.querySelectorAll('.tl-zoom-btn')].find((b) => b.title === 'Zoom in');
+    zoomIn.click(); // sample span is narrow; step past the viewport-width floor
+    zoomIn.click();
+    expect(result.contentWidth).toBeGreaterThan(before);
+    expect(container.querySelectorAll('.tl-marker')).toHaveLength(3);
+  });
+
+  it('restores the default width after reset', () => {
+    const result = renderTimeline(container, data);
+    const base = result.contentWidth;
+    const byTitle = (t) => [...container.querySelectorAll('.tl-zoom-btn')].find((b) => b.title === t);
+    byTitle('Zoom in').click();
+    byTitle('Reset zoom').click();
+    expect(result.contentWidth).toBe(base);
+  });
+
+  it('holds canvas height steady across zoom', () => {
+    renderTimeline(container, data);
+    const canvas = () => container.querySelector('.tl-canvas').style.height;
+    const before = canvas();
+    const zoomIn = [...container.querySelectorAll('.tl-zoom-btn')].find((b) => b.title === 'Zoom in');
+    zoomIn.click();
+    zoomIn.click();
+    expect(canvas()).toBe(before);
+  });
 });

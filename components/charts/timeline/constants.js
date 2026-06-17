@@ -1,8 +1,14 @@
 // Layout constants for the timeline chart. Kept here so the pure layout math
 // (layout.js, lanes.js) and the DOM/CSS stay in agreement from one source.
 
-export const PX_PER_YEAR = 160; // axis density; later driven by the zoom control
+export const PX_PER_YEAR = 160; // layout's default density (non-render callers/tests)
+// Zoom is relative: render starts at a "fit" density that fills the viewport
+// (zoom level 1), then multiplies it. Level 1 = whole timeline visible; higher
+// = stretched. Can't zoom out past 1 (nothing to show beyond full view).
+export const ZOOM_FACTOR = 1.5; // multiply/divide per zoom-in/out step
+export const ZOOM_MAX = 8; // deepest zoom = 8× the fit density
 export const MARGIN = 48; // left/right gutter inside the canvas, in px
+export const EDGE_PAD = 0.05; // breathing room before first / after last beat, as a fraction of span
 
 // Label box geometry (mirrors .tl-label in style.css). Labels occupy a fixed
 // slot so lane assignment needs no DOM measurement (works under happy-dom too).
