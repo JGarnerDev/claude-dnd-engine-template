@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Timeline — dev harness</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      body { margin: 0; background: #0f172a; }
+      .tl-dev-header { color: #e5e7eb; font-family: system-ui, sans-serif; padding: 12px 16px; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="tl-dev-header">Timeline dev harness — sample data</div>
+    <div id="timeline"></div>
+    <script type="module">
+      import { renderTimeline } from './render.js';
+      import { sampleData } from './sample-data.js';
+      renderTimeline(document.getElementById('timeline'), sampleData);
+    </script>
+  </body>
+</html>
