@@ -1,0 +1,14 @@
+{
+  "name": "dnd-engine-components",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dev-only tooling for engine UI components (timeline chart). Output is self-contained HTML; these deps never ship.",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
+}
