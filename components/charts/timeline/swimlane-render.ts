@@ -88,24 +88,30 @@ function buildGutter(rows: SwimRow[], height: number, onToggle: (category: strin
   gutter.appendChild(head);
 
   for (const row of rows) {
-    const label = document.createElement('div');
-    label.className = `tl-swim-rowlabel depth-${row.depth}`;
+    // Toggleable rows are a full-width button so the whole label is the hit area,
+    // not just the arrow. Leaf rows stay plain divs.
+    const label = document.createElement(row.hasToggle ? 'button' : 'div');
+    label.className = `tl-swim-rowlabel depth-${row.depth}${row.hasToggle ? ' is-toggle' : ''}`;
     label.style.top = `${row.y}px`;
     label.style.height = `${row.height}px`;
 
-    if (row.hasToggle) {
-      const tw = document.createElement('button');
-      tw.type = 'button';
-      tw.className = 'tl-swim-toggle';
-      tw.textContent = row.collapsed ? '▸' : '▾';
-      tw.addEventListener('click', () => onToggle(row.category));
-      label.appendChild(tw);
-    }
+    // Name first (so every row's colour bar + text align at the same x),
+    // toggle arrow pushed to the right edge on toggleable rows.
     const text = document.createElement('span');
     text.className = 'tl-swim-rowname';
     text.textContent = row.label;
     text.style.setProperty('--row-color', `var(${row.colorVar})`);
     label.appendChild(text);
+
+    if (row.hasToggle) {
+      (label as HTMLButtonElement).type = 'button';
+      label.addEventListener('click', () => onToggle(row.category));
+      const tw = document.createElement('span');
+      tw.className = 'tl-swim-toggle';
+      tw.setAttribute('aria-hidden', 'true');
+      tw.textContent = row.collapsed ? '▸' : '▾';
+      label.appendChild(tw);
+    }
     gutter.appendChild(label);
   }
   return gutter;
@@ -146,7 +152,10 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
     return { eventCount: 0, rowCount: 0, contentWidth: 0 };
   }
 
-  const fitDensity = Math.max(1, (viewportWidth - GUTTER_W - MARGIN * 2) / probe.spanYears);
+  // Fit so the gutter + canvas exactly fill the viewport at zoom 1. The extra
+  // -2px slack absorbs contentWidth's Math.ceil rounding so gutter + canvas can't
+  // round a hair past the viewport and trigger a phantom horizontal scrollbar.
+  const fitDensity = Math.max(1, (viewportWidth - GUTTER_W - MARGIN * 2 - 2) / probe.spanYears);
   let zoomLevel = 1;
   const api: SwimApi = { eventCount: 0, rowCount: 0, contentWidth: 0 };
 

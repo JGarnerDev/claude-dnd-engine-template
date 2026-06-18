@@ -71,6 +71,25 @@ describe('renderSwimlane', () => {
     expect(names).toContain('Ashen Cult'); // child now visible
   });
 
+  it('toggles when the row name itself is clicked (whole label is the hit area)', () => {
+    renderSwimlane(container, data);
+    const factionRow = [...container.querySelectorAll<HTMLElement>('.tl-swim-rowlabel')].find(
+      (r) => r.querySelector('.tl-swim-rowname')!.textContent === 'Factions',
+    )!;
+    expect(factionRow.tagName).toBe('BUTTON'); // toggleable rows are buttons
+    factionRow.querySelector<HTMLElement>('.tl-swim-rowname')!.click(); // click the name, not the arrow
+    const names = [...container.querySelectorAll('.tl-swim-rowname')].map((n) => n.textContent);
+    expect(names).toContain('Ashen Cult'); // expanded
+  });
+
+  it('leaves leaf rows as plain non-button labels', () => {
+    renderSwimlane(container, data);
+    const worldRow = [...container.querySelectorAll<HTMLElement>('.tl-swim-rowlabel')].find(
+      (r) => r.querySelector('.tl-swim-rowname')!.textContent === 'World',
+    )!;
+    expect(worldRow.tagName).toBe('DIV'); // leaf category → not a button
+  });
+
   it('renders a zoom toolbar and a per-track filter bar', () => {
     renderSwimlane(container, data);
     expect(container.querySelectorAll('.tl-zoom-btn')).toHaveLength(3);
