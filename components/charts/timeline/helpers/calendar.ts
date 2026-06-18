@@ -8,7 +8,7 @@
 // a clean, monotonic fallback that's good enough for ordering and placement.
 // Supply a config for real fantasy month systems (custom names / lengths).
 
-import type { Calendar, DateParts } from './types.js';
+import type { Calendar, DateParts } from '../types.js';
 
 export const DEFAULT_CALENDAR: Calendar = {
   epochLabel: '',

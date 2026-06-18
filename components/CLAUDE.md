@@ -13,9 +13,16 @@ Keep modules small and single-purpose. When a file starts doing several jobs, sp
 - **One concern per file.** Separate pure logic from DOM. Math/data-shaping modules must not touch `document`; DOM modules import them and assemble elements.
 - **Soft cap ~100 lines.** Past that, look for a seam to extract. It's a smell, not a hard rule — don't split mid-concern just to hit a number.
 - **Shared constants live in one place** (e.g. `constants.ts`) so layout math and CSS stay in agreement.
-- **Adjacent tests.** Every source file `x.ts` has a sibling `x.test.ts`. Pure modules test under the default (node) env; DOM modules start with `// @vitest-environment happy-dom`.
+- **Adjacent tests.** Every source file `x.ts` has a sibling `x.spec.ts`. Pure modules test under the default (node) env; DOM modules start with `// @vitest-environment happy-dom`.
 
-Example split (timeline): `types.ts` + `constants.ts` (shared) → `calendar.ts`, `lanes.ts`, `layout.ts`, `filters.ts` (pure) → `render.ts`, `controls.ts`, `filterbar.ts` (DOM only). Pure files are directly unit-testable without a DOM.
+### Folder layout (per component)
+
+- `helpers/` — pure logic only (no DOM): the math/data-shaping modules + their specs.
+- root `*.ts` — the DOM components (rendering, element creation) + their specs.
+- root `constants.ts` (static data) and `types.ts` (shared types).
+- entry / fixtures (`build-entry.ts`, `*-data.ts`, `*.html`, `style.css`) stay at root.
+
+Example (timeline): `helpers/{calendar,lanes,layout,filters,axis,ticks,tracks,swimlane}.ts` (pure, unit-testable without a DOM) → root `render.ts`, `controls.ts`, `filterbar.ts`, `swimlane-render.ts`, `view.ts` (DOM) over the shared `constants.ts` + `types.ts`.
 
 ## Testing
 

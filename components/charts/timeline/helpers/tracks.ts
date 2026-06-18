@@ -7,7 +7,7 @@
 // appended after the configured ones. Presence is auto-derived — a category or
 // member row appears only once a beat references it.
 
-import type { CategoryConfig, ParsedTrack, TimelineEvent, TrackCategory } from './types.js';
+import type { CategoryConfig, ParsedTrack, TimelineEvent, TrackCategory } from '../types.js';
 
 // Shipped defaults. Order here is the render order of the parent lanes.
 export const DEFAULT_CATEGORIES: CategoryConfig[] = [

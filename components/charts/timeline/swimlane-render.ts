@@ -3,10 +3,10 @@
 // swimlane layout (swimlane.ts) and the same interaction wiring as the world
 // view (controls.ts) — dots are `.tl-marker`s so hover/click work unchanged.
 
-import { DEFAULT_CALENDAR } from './calendar.js';
-import { computeSwimlane } from './swimlane.js';
-import { buildTrackTree, DEFAULT_CATEGORIES } from './tracks.js';
-import { matchesFilters } from './filters.js';
+import { DEFAULT_CALENDAR } from './helpers/calendar.js';
+import { computeSwimlane } from './helpers/swimlane.js';
+import { buildTrackTree, DEFAULT_CATEGORIES } from './helpers/tracks.js';
+import { matchesFilters } from './helpers/filters.js';
 import { buildFilterBar } from './filterbar.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from './controls.js';
 import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, GUTTER_W, SWIM_TOP_PAD } from './constants.js';

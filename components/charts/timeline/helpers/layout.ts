@@ -6,8 +6,8 @@
 import { DEFAULT_CALENDAR } from './calendar.js';
 import { computeAxis } from './axis.js';
 import { assignLanes, placement } from './lanes.js';
-import { PX_PER_YEAR, AXIS_GAP, TIER_H, MIN_CANVAS_HEIGHT, LABEL_W, LABEL_GAP } from './constants.js';
-import type { Calendar, Layout, TimelineEvent, Weight } from './types.js';
+import { PX_PER_YEAR, AXIS_GAP, TIER_H, MIN_CANVAS_HEIGHT, LABEL_W, LABEL_GAP } from '../constants.js';
+import type { Calendar, Layout, TimelineEvent, Weight } from '../types.js';
 
 // Shared by the world-view items and the swimlane items (swimlane.ts).
 export function weightOf(e: Pick<TimelineEvent, 'major' | 'minor'>): Weight {

@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { computeLayout } from './layout.js';
+import type { TimelineEvent } from '../types.js';
 
-const events = [
+const events: TimelineEvent[] = [
   { date: '1340-02-15', label: 'Winter begins', track: 'world', major: true },
   { date: '1341-06-01', label: 'Trade pact', track: 'faction' },
   { date: '1342-06-20', label: 'Tax revolt', track: 'world', minor: true },
@@ -89,7 +90,7 @@ describe('computeLayout', () => {
 
   // Density gating: crowded beats drop their labels (bare on-axis dots) and only
   // reappear as the axis stretches. Keeps dense timelines readable.
-  const crowd = Array.from({ length: 40 }, (_, i) => ({
+  const crowd: TimelineEvent[] = Array.from({ length: 40 }, (_, i) => ({
     date: `1340-01-${String((i % 28) + 1).padStart(2, '0')}`,
     label: `beat ${i}`,
     track: 'world',

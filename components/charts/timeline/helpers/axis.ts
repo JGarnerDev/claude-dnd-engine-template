@@ -3,9 +3,9 @@
 // content width, and year ticks — this is the one source for all of it.
 
 import { parseDate, dayIndex, createScale, DEFAULT_CALENDAR } from './calendar.js';
-import { PX_PER_YEAR, MARGIN, EDGE_PAD } from './constants.js';
+import { PX_PER_YEAR, MARGIN, EDGE_PAD } from '../constants.js';
 import { buildTicks } from './ticks.js';
-import type { Calendar, Tick, TimelineEvent } from './types.js';
+import type { Calendar, Tick, TimelineEvent } from '../types.js';
 
 export interface IndexedEvent extends TimelineEvent {
   _idx: number;

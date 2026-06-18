@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { computeAxis } from './axis.js';
-import type { TimelineEvent } from './types.js';
+import type { TimelineEvent } from '../types.js';
 
 const events: TimelineEvent[] = [
   { date: '1340-01-01', label: 'a' },

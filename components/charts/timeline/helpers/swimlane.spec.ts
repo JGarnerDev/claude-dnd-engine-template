@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { computeSwimlane } from './swimlane.js';
-import type { TimelineEvent } from './types.js';
+import type { TimelineEvent } from '../types.js';
 
 const events: TimelineEvent[] = [
   { date: '1340', label: 'a', track: 'world' },

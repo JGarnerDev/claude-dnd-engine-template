@@ -2,7 +2,7 @@
 // that should render. No DOM — render.js applies this before computeLayout, and
 // it's directly unit-testable.
 
-import type { FilterState, TimelineEvent } from './types.js';
+import type { FilterState, TimelineEvent } from '../types.js';
 
 // Unique track names in source order (first appearance wins). Untagged events
 // fall back to 'world', matching computeLayout's default.

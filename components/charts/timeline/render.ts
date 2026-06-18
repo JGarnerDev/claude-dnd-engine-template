@@ -3,11 +3,11 @@
 // toolbar, and attaches pan. Depends on the DOM, so its test runs under
 // happy-dom.
 
-import { DEFAULT_CALENDAR } from './calendar.js';
-import { computeLayout } from './layout.js';
+import { DEFAULT_CALENDAR } from './helpers/calendar.js';
+import { computeLayout } from './helpers/layout.js';
 import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT } from './constants.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from './controls.js';
-import { matchesFilters } from './filters.js';
+import { matchesFilters } from './helpers/filters.js';
 import { buildFilterBar } from './filterbar.js';
 import type { Layout, LayoutItem, Tick, TimelineData, ZoomKind } from './types.js';
 

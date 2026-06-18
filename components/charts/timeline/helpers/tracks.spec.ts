@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { parseTrack, buildTrackTree, DEFAULT_CATEGORIES } from './tracks.js';
-import type { TimelineEvent } from './types.js';
+import type { TimelineEvent } from '../types.js';
 
 describe('parseTrack', () => {
   it('splits category:member on the first colon', () => {

@@ -17,9 +17,9 @@ import {
   SWIM_LABEL_PAD,
   SWIM_LABEL_MIN,
   SWIM_LABEL_MAX,
-} from './constants.js';
+} from '../constants.js';
 import { parseTrack } from './tracks.js';
-import type { Calendar, CategoryConfig, SwimItem, SwimLayout, SwimRow, TimelineEvent } from './types.js';
+import type { Calendar, CategoryConfig, SwimItem, SwimLayout, SwimRow, TimelineEvent } from '../types.js';
 
 // rows: build the ordered row list from the tree + collapse state, stacking each
 // ROW_H tall below the axis band.
