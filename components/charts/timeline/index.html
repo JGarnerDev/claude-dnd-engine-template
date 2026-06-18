@@ -15,9 +15,11 @@
   <body>
     <div class="tl-dev-header">Timeline dev harness — sample data</div>
     <div id="timeline"></div>
+    <!-- Explicit .ts here: Vite's dev html-proxy resolver doesn't apply the
+         .js->.ts fallback that module-to-module imports and the build use. -->
     <script type="module">
-      import { renderTimeline } from './render.js';
-      import { sampleData } from './sample-data.js';
+      import { renderTimeline } from './render.ts';
+      import { sampleData } from './sample-data.ts';
       renderTimeline(document.getElementById('timeline'), sampleData);
     </script>
   </body>
