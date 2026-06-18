@@ -18,9 +18,9 @@
     <!-- Explicit .ts here: Vite's dev html-proxy resolver doesn't apply the
          .js->.ts fallback that module-to-module imports and the build use. -->
     <script type="module">
-      import { renderTimeline } from './render.ts';
+      import { renderTimelineView } from './view.ts';
       import { sampleData } from './sample-data.ts';
-      renderTimeline(document.getElementById('timeline'), sampleData);
+      renderTimelineView(document.getElementById('timeline'), sampleData);
     </script>
   </body>
 </html>

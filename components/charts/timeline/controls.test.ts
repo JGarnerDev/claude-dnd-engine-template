@@ -42,6 +42,24 @@ describe('enablePan', () => {
     viewport.dispatchEvent(pointer('pointerup', 100));
     expect(viewport.classList.contains('tl-grabbing')).toBe(false);
   });
+
+  it('does not pan when the press lands on a button (so its click survives)', () => {
+    const btn = document.createElement('button');
+    viewport.appendChild(btn);
+    btn.dispatchEvent(pointer('pointerdown', 100)); // bubbles to viewport, target = btn
+    viewport.dispatchEvent(pointer('pointermove', 60));
+    expect(viewport.scrollLeft).toBe(200); // unchanged — no pan started
+    expect(viewport.classList.contains('tl-grabbing')).toBe(false);
+  });
+
+  it('does not pan when the press lands in the track gutter', () => {
+    const gutter = document.createElement('div');
+    gutter.className = 'tl-swim-gutter';
+    viewport.appendChild(gutter);
+    gutter.dispatchEvent(pointer('pointerdown', 100));
+    viewport.dispatchEvent(pointer('pointermove', 60));
+    expect(viewport.scrollLeft).toBe(200);
+  });
 });
 
 describe('enableWheelZoom', () => {

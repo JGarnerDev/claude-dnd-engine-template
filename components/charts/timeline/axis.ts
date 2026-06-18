@@ -4,6 +4,7 @@
 
 import { parseDate, dayIndex, createScale, DEFAULT_CALENDAR } from './calendar.js';
 import { PX_PER_YEAR, MARGIN, EDGE_PAD } from './constants.js';
+import { buildTicks } from './ticks.js';
 import type { Calendar, Tick, TimelineEvent } from './types.js';
 
 export interface IndexedEvent extends TimelineEvent {
@@ -55,12 +56,8 @@ export function computeAxis(
   const scale = createScale(domMin, domMax, contentWidth - MARGIN * 2);
   const xOf = (idx: number) => MARGIN + scale(idx);
 
-  const firstYear = Math.floor(minIdx / daysPerYear);
-  const lastYear = Math.floor(maxIdx / daysPerYear);
-  const ticks: Tick[] = [];
-  for (let y = firstYear; y <= lastYear; y++) {
-    ticks.push({ label: cal.epochLabel ? `${y} ${cal.epochLabel}` : `${y}`, x: xOf(y * daysPerYear) });
-  }
+  // Tick granularity adapts to the current density (months / years / multi-year).
+  const ticks: Tick[] = buildTicks(minIdx, maxIdx, cal, pxPerYear, xOf);
 
   return { isEmpty: false, events, daysPerYear, minIdx, maxIdx, contentWidth, spanYears, xOf, ticks };
 }

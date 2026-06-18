@@ -11,6 +11,11 @@ export function enablePan(viewport: PanViewport): void {
   let startScroll = 0;
 
   viewport.addEventListener('pointerdown', (e) => {
+    // Don't pan (or capture the pointer) when the press lands on an interactive
+    // control or the sticky track gutter. Capturing on the viewport would
+    // retarget the ensuing click to the viewport, swallowing the button's own
+    // click (e.g. the swimlane expand/collapse toggle).
+    if ((e.target as Element | null)?.closest('button, a, input, .tl-swim-gutter')) return;
     dragging = true;
     startX = e.clientX;
     startScroll = viewport.scrollLeft;

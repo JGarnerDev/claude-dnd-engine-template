@@ -143,6 +143,8 @@ export interface SwimItem extends TimelineEvent {
   colorVar: string;
   weight: Weight;
   track: string; // resolved
+  showLabel: boolean; // density-gated inline label (clears when its row crowds)
+  labelMaxWidth: number; // px to the next labelled dot in the row (responsive truncation)
 }
 
 export interface SwimLayout {

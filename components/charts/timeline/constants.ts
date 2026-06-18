@@ -19,9 +19,19 @@ export const TIER_H = 70; // vertical step per tier (exceeds clamped label heigh
 
 export const MIN_CANVAS_HEIGHT = 320;
 
+// Axis ticks: minimum pixel spacing between two tick labels. Drives the
+// responsive granularity — months when zoomed in, single years mid-zoom,
+// multi-year steps (2/5/10/25…) when zoomed out and years would crowd below this.
+export const MIN_TICK_PX = 60;
+
 // Swimlane view (M4). Track rows stack vertically; the time axis/ticks sit in a
 // reserved band at the top, and a fixed left gutter holds the track-tree labels.
 export const ROW_H = 34; // height of one track row, in px
+export const SWIM_LABEL_GAP = 90; // min px between two labelled dots in a row; below this the later label is dropped (density gate)
+export const SWIM_LABEL_LEFT = 9; // px from dot center to label start (mirrors .tl-swim-label left)
+export const SWIM_LABEL_PAD = 10; // breathing gap so a label stops short of the next dot
+export const SWIM_LABEL_MIN = 40; // floor for a label's responsive max-width, px
+export const SWIM_LABEL_MAX = 260; // cap so an isolated label doesn't stretch across empty space, px
 export const SWIM_TOP_PAD = 40; // band above the first row for axis ticks
 export const SWIM_BOTTOM_PAD = 12;
 export const GUTTER_W = 160; // left label-gutter width

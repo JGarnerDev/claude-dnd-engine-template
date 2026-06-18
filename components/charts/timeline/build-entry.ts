@@ -4,7 +4,7 @@
 // window.__TL_DATA__; absent that (e.g. the raw build output), it falls back to
 // sample-data so the artifact is never blank.
 import './style.css';
-import { renderTimeline } from './render.js';
+import { renderTimelineView } from './view.js';
 import { sampleData } from './sample-data.js';
 import type { TimelineData } from './types.js';
 
@@ -13,4 +13,4 @@ const data: TimelineData =
   injected && Array.isArray(injected.events) && injected.events.length > 0 ? injected : sampleData;
 
 const root = document.getElementById('timeline');
-if (root) renderTimeline(root, data);
+if (root) renderTimelineView(root, data);

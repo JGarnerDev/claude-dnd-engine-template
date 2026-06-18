@@ -7,7 +7,17 @@ import { DEFAULT_CALENDAR } from './calendar.js';
 import { computeAxis } from './axis.js';
 import { weightOf } from './layout.js';
 import { buildTrackTree } from './tracks.js';
-import { ROW_H, SWIM_TOP_PAD, SWIM_BOTTOM_PAD, PX_PER_YEAR } from './constants.js';
+import {
+  ROW_H,
+  SWIM_TOP_PAD,
+  SWIM_BOTTOM_PAD,
+  PX_PER_YEAR,
+  SWIM_LABEL_GAP,
+  SWIM_LABEL_LEFT,
+  SWIM_LABEL_PAD,
+  SWIM_LABEL_MIN,
+  SWIM_LABEL_MAX,
+} from './constants.js';
 import { parseTrack } from './tracks.js';
 import type { Calendar, CategoryConfig, SwimItem, SwimLayout, SwimRow, TimelineEvent } from './types.js';
 
@@ -84,8 +94,41 @@ export function computeSwimlane(
       colorVar: colorOf.get(key) ?? '--track-world',
       weight: weightOf(e),
       track: e.track || 'world',
+      showLabel: false,
+      labelMaxWidth: 0,
     };
   });
+
+  // Density-gated, responsive labels. Per row: walk dots left→right and label one
+  // only when it clears SWIM_LABEL_GAP from the last labelled dot (so crowded
+  // rows thin out and fill back in as you zoom — like the world view). Each
+  // surviving label then gets a max-width = room up to the *next labelled* dot
+  // (or the canvas edge), so a label with space shows in full and only a
+  // genuinely tight one truncates.
+  const byRow = new Map<string, SwimItem[]>();
+  for (const item of items) {
+    const row = byRow.get(item.rowKey);
+    if (row) row.push(item);
+    else byRow.set(item.rowKey, [item]);
+  }
+  for (const rowItems of byRow.values()) {
+    rowItems.sort((a, b) => a.x - b.x);
+    let lastX = -Infinity;
+    for (let i = 0; i < rowItems.length; i++) {
+      const here = rowItems[i];
+      if (here.x - lastX < SWIM_LABEL_GAP) continue; // too close to the last label → drop
+      // Room up to the *next dot* (labelled or not) bounds the label so it never
+      // runs over a neighbouring marker. If that room is below the readable floor,
+      // skip this dot entirely (bare dot + hover) rather than show a clipped
+      // sliver — the next dot, which may have room, can take the label instead.
+      const nextX = i + 1 < rowItems.length ? rowItems[i + 1].x : axis.contentWidth;
+      const room = nextX - here.x - SWIM_LABEL_LEFT - SWIM_LABEL_PAD;
+      if (room < SWIM_LABEL_MIN) continue;
+      here.showLabel = true;
+      lastX = here.x;
+      here.labelMaxWidth = Math.min(SWIM_LABEL_MAX, room);
+    }
+  }
 
   const totalHeight = (rows.length ? rows[rows.length - 1].y + ROW_H : SWIM_TOP_PAD) + SWIM_BOTTOM_PAD;
   return { isEmpty: false, contentWidth: axis.contentWidth, totalHeight, spanYears: axis.spanYears, ticks: axis.ticks, rows, items };
