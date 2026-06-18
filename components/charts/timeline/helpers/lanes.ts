@@ -1,7 +1,7 @@
 // Greedy label-lane assignment (D9). Pure — no DOM.
 
-import { LABEL_W, LABEL_GAP, AXIS_GAP, TIER_H } from '../constants.js';
-import type { Placement } from '../types.js';
+import { LABEL_W, LABEL_GAP, AXIS_GAP, TIER_H } from '../../_common/constants.js';
+import type { Placement } from '../../_common/types.js';
 
 // Greedy interval coloring. `centers` must be ascending (events are sorted by
 // time). Returns a lane index per center such that labels never horizontally

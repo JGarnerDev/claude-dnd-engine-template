@@ -6,7 +6,7 @@
 import './style.css';
 import { renderTimelineView } from './view.js';
 import { sampleData } from './sample-data.js';
-import type { TimelineData } from './types.js';
+import type { TimelineData } from '../../components/charts/_common/types.js';
 
 const injected = window.__TL_DATA__;
 const data: TimelineData =

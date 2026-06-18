@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { describe, it, expect, beforeEach } from 'vitest';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from './controls.js';
-import type { PanViewport } from './types.js';
+import type { PanViewport } from '../types.js';
 
 // Dispatch a pointer-type event with a clientX (MouseEvent carries clientX;
 // the listener only cares about the type + clientX, not the constructor).

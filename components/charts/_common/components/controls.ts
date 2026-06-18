@@ -1,7 +1,7 @@
 // Interaction wiring for the timeline. Kept apart from render.js so DOM
 // assembly stays one concern and pointer/scroll behavior is another. DOM-bound.
 
-import type { PanViewport, ZoomKind } from './types.js';
+import type { PanViewport, ZoomKind } from '../types.js';
 
 // Drag-to-pan: press and drag horizontally to scroll the viewport along the
 // time axis. Native overflow scroll (wheel/trackpad) still works alongside it.

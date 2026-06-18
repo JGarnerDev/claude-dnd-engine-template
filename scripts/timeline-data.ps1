@@ -206,7 +206,7 @@ $json = $data | ConvertTo-Json -Depth 8 -Compress
 if ($JsonOnly) { Write-Output $json; return }
 
 # -- inject into the prebuilt shell --------------------------------------------
-$shell = if ($Shell) { $Shell } else { Join-Path $Root 'components\charts\timeline\dist\timeline.html' }
+$shell = if ($Shell) { $Shell } else { Join-Path $Root 'pages\demo\dist\timeline.html' }
 if (-not (Test-Path $shell)) {
     Write-Error "Shell not built: $shell`nRun ``npm run build:timeline`` first."
     exit 1

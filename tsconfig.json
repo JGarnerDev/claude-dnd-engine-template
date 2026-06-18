@@ -14,5 +14,5 @@
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["components/charts/timeline", "globals.d.ts"]
+  "include": ["components/charts", "pages", "globals.d.ts"]
 }

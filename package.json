@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Dev-only tooling for engine UI components (timeline chart). Output is self-contained HTML; these deps never ship.",
   "scripts": {
-    "dev": "vite components/charts/timeline --open",
+    "dev": "vite pages/demo --open",
     "build:timeline": "vite build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

@@ -9,14 +9,16 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { viteSingleFile } from 'vite-plugin-singlefile';
 
-const timelineDir = resolve(__dirname, 'components/charts/timeline');
+// The demo/build page lives in pages/demo (repo root, sibling of components/) and
+// pulls the two charts (timeline, swimlane) + _common from components/charts.
+const demoDir = resolve(__dirname, 'pages/demo');
 
 export default defineConfig({
-  root: timelineDir,
+  root: demoDir,
   plugins: [viteSingleFile()],
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    rollupOptions: { input: resolve(timelineDir, 'timeline.html') },
+    rollupOptions: { input: resolve(demoDir, 'timeline.html') },
   },
 });

@@ -2,9 +2,9 @@
 // single-axis layout (render.ts); Tracks = the swimlane multi-track layout
 // (swimlane-render.ts). Thin host — each view fully owns its own content node.
 
-import { renderTimeline } from './render.js';
-import { renderSwimlane } from './swimlane-render.js';
-import type { TimelineData } from './types.js';
+import { renderTimeline } from '../../components/charts/timeline/timeline.js';
+import { renderSwimlane } from '../../components/charts/swimlane/swimlane.js';
+import type { TimelineData } from '../../components/charts/_common/types.js';
 
 export type View = 'world' | 'tracks';
 

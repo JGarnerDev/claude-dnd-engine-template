@@ -2,7 +2,7 @@
 // a large TimelineData spread across many tracks/categories — content is junk,
 // the point is volume. Deterministic (seeded LCG) so reloads are stable.
 
-import type { TimelineData, TimelineEvent, Span } from './types.js';
+import type { TimelineData, TimelineEvent, Span } from '../../components/charts/_common/types.js';
 
 // Tiny deterministic PRNG (mulberry32) — keeps reloads identical so layout bugs
 // are reproducible.

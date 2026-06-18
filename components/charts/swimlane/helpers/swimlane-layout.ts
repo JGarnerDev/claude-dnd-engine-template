@@ -3,9 +3,9 @@
 // (a set of category keys) decides whether a parent shows one roll-up row or
 // expands into a header row + one row per child. No DOM.
 
-import { DEFAULT_CALENDAR } from './calendar.js';
-import { computeAxis } from './axis.js';
-import { weightOf } from './layout.js';
+import { DEFAULT_CALENDAR } from '../../_common/helpers/calendar.js';
+import { computeAxis } from '../../_common/helpers/axis.js';
+import { weightOf } from '../../_common/helpers/weight.js';
 import { buildTrackTree } from './tracks.js';
 import {
   ROW_H,
@@ -17,9 +17,9 @@ import {
   SWIM_LABEL_PAD,
   SWIM_LABEL_MIN,
   SWIM_LABEL_MAX,
-} from '../constants.js';
+} from '../../_common/constants.js';
 import { parseTrack } from './tracks.js';
-import type { Calendar, CategoryConfig, SwimItem, SwimLayout, SwimRow, TimelineEvent } from '../types.js';
+import type { Calendar, CategoryConfig, SwimItem, SwimLayout, SwimRow, TimelineEvent } from '../../_common/types.js';
 
 // rows: build the ordered row list from the tree + collapse state, stacking each
 // ROW_H tall below the axis band.

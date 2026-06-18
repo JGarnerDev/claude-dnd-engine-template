@@ -2,8 +2,8 @@
 // filter state and fires onChange after every edit; render.js re-filters and
 // redraws from that state. DOM-bound — pairs with filters.js (pure matching).
 
-import { trackList } from './helpers/filters.js';
-import type { FilterState, TimelineEvent } from './types.js';
+import { trackList } from '../helpers/filters.js';
+import type { FilterState, TimelineEvent } from '../types.js';
 
 // Mutable state the bar owns; render reads it in place on each redraw.
 export interface FilterBarState {

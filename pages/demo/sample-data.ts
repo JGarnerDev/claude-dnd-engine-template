@@ -3,7 +3,7 @@
 // `source` is the path the click-to-open handler navigates to; M2 fills it from
 // the originating .md. Left off some beats here to exercise the no-source path.
 
-import type { TimelineData } from './types.js';
+import type { TimelineData } from '../../components/charts/_common/types.js';
 
 export const sampleData: TimelineData = {
   calendar: null, // -> DEFAULT_CALENDAR (twelve 30-day months)

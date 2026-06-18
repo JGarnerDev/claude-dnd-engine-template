@@ -15,14 +15,19 @@ Keep modules small and single-purpose. When a file starts doing several jobs, sp
 - **Shared constants live in one place** (e.g. `constants.ts`) so layout math and CSS stay in agreement.
 - **Adjacent tests.** Every source file `x.ts` has a sibling `x.spec.ts`. Pure modules test under the default (node) env; DOM modules start with `// @vitest-environment happy-dom`.
 
-### Folder layout (per component)
+### Folder layout (charts)
 
-- `helpers/` — pure logic only (no DOM): the math/data-shaping modules + their specs.
-- root `*.ts` — the DOM components (rendering, element creation) + their specs.
-- root `constants.ts` (static data) and `types.ts` (shared types).
-- entry / fixtures (`build-entry.ts`, `*-data.ts`, `*.html`, `style.css`) stay at root.
+Each chart is its own folder under `components/charts/`, named after the chart; its root file is named after the chart too (e.g. `timeline/timeline.ts`, `swimlane/swimlane.ts`) and is the renderer (DOM). No files named `render`. A chart owns a `helpers/` of pure logic only that chart uses. Anything shared by more than one chart drops to `components/charts/_common/`.
 
-Example (timeline): `helpers/{calendar,lanes,layout,filters,axis,ticks,tracks,swimlane}.ts` (pure, unit-testable without a DOM) → root `render.ts`, `controls.ts`, `filterbar.ts`, `swimlane-render.ts`, `view.ts` (DOM) over the shared `constants.ts` + `types.ts`.
+- `<chart>/<chart>.ts` (+ spec) — the renderer (DOM); `<chart>/helpers/` — pure math used only by that chart (+ specs).
+- `_common/helpers/` — pure logic shared by more than one chart (+ specs).
+- `_common/components/` — DOM widgets/behavior shared by more than one chart (+ specs).
+- `_common/constants.ts` (static data) and `_common/types.ts` (shared types).
+- `pages/demo/` (at the **repo root**, sibling of `components/` — not under `components/`) — the cross-chart switcher (`view.ts`), build entry (`build-entry.ts`), fixtures (`*-data.ts`), `*.html`, `style.css`, `dist/`. This is the Vite root (see `vite.config.js`) and what `npm run dev` opens; its `.ts` import the charts via `../../components/charts/…`.
+
+Pure helpers are unit-testable without a DOM (node env); DOM files use `// @vitest-environment happy-dom`. Don't let a chart's private helper be imported by another chart — if both need it, it belongs in `_common` (this is why `weightOf` lives in `_common/helpers/weight.ts`).
+
+Example: `timeline/` (World view) owns `helpers/{layout,lanes}`; `swimlane/` (Tracks view) owns `helpers/{swimlane-layout,tracks}`; both draw on `_common/helpers/{axis,calendar,ticks,filters,weight}` and `_common/components/{filterbar,controls}` over `_common/{constants,types}`; `pages/demo/view.ts` mounts either chart.
 
 ## Testing
 

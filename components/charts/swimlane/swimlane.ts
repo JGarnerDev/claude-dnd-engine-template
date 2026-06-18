@@ -3,14 +3,14 @@
 // swimlane layout (swimlane.ts) and the same interaction wiring as the world
 // view (controls.ts) — dots are `.tl-marker`s so hover/click work unchanged.
 
-import { DEFAULT_CALENDAR } from './helpers/calendar.js';
-import { computeSwimlane } from './helpers/swimlane.js';
+import { DEFAULT_CALENDAR } from '../_common/helpers/calendar.js';
+import { computeSwimlane } from './helpers/swimlane-layout.js';
 import { buildTrackTree, DEFAULT_CATEGORIES } from './helpers/tracks.js';
-import { matchesFilters } from './helpers/filters.js';
-import { buildFilterBar } from './filterbar.js';
-import { enablePan, enableWheelZoom, enableMarkerInteraction } from './controls.js';
-import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, GUTTER_W, SWIM_TOP_PAD } from './constants.js';
-import type { PanViewport, SwimItem, SwimLayout, SwimRow, TimelineData, ZoomKind } from './types.js';
+import { matchesFilters } from '../_common/helpers/filters.js';
+import { buildFilterBar } from '../_common/components/filterbar.js';
+import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
+import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, GUTTER_W, SWIM_TOP_PAD } from '../_common/constants.js';
+import type { PanViewport, SwimItem, SwimLayout, SwimRow, TimelineData, ZoomKind } from '../_common/types.js';
 
 interface SwimApi {
   eventCount: number;

@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { describe, it, expect, beforeEach } from 'vitest';
-import { renderTimeline } from './render.js';
-import type { TimelineData } from './types.js';
+import { renderTimeline } from './timeline.js';
+import type { TimelineData } from '../_common/types.js';
 
 describe('renderTimeline', () => {
   let container: HTMLDivElement;
