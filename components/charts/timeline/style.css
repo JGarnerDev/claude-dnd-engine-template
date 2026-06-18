@@ -197,6 +197,11 @@
    surviving markers keep their x/y; these just drop out (and out of hover/click). */
 .tl-marker.tl-hidden { display: none; }
 
+/* Density-gated bare dot: no label box / leader, just the dot on the axis. The
+   label element stays in the DOM (hover/data) — only visually suppressed. */
+.tl-marker.tl-bare .tl-label,
+.tl-marker.tl-bare .tl-leader { display: none; }
+
 .tl-dot {
   position: absolute;
   top: 0;

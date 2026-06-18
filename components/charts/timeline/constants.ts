@@ -6,8 +6,11 @@ export const PX_PER_YEAR = 160; // layout's default density (non-render callers/
 // (zoom level 1), then multiplies it. Level 1 = whole timeline visible; higher
 // = stretched. Can't zoom out past 1 (nothing to show beyond full view).
 export const ZOOM_FACTOR = 1.5; // multiply/divide per zoom-in/out step
-export const ZOOM_MAX = 8; // deepest zoom = 8× the fit density
-export const MARGIN = 48; // left/right gutter inside the canvas, in px
+export const ZOOM_MAX = 8; // floor for deepest zoom = 8× the fit density (sparse timelines)
+// For dense/long timelines, 8× of a tiny fit density still can't despace beats.
+// render.ts raises the cap so zoom can reach ~this many px between adjacent beats.
+export const TARGET_PX_PER_BEAT = 36;
+export const MARGIN = 80; // left/right gutter inside the canvas, in px. >= LABEL_W/2 so an edge beat's centered label never spills past the canvas bound
 export const EDGE_PAD = 0.05; // breathing room before first / after last beat, as a fraction of span
 
 // Label box geometry (mirrors .tl-label in style.css). Labels occupy a fixed

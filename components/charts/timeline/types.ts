@@ -61,6 +61,7 @@ export interface LayoutItem extends TimelineEvent {
   weight: Weight;
   track: string; // resolved (defaults to 'world')
   text: string;
+  showLabel: boolean; // density-gated: false => bare on-axis dot (hover still shows text)
 }
 
 export interface Tick {

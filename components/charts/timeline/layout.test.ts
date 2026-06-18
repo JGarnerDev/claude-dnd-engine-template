@@ -86,4 +86,48 @@ describe('computeLayout', () => {
     const out = computeLayout([{ date: '1340-06-01', label: 'lone' }], undefined, 200);
     expect(out.items[0].x).toBeCloseTo(out.contentWidth / 2, 0);
   });
+
+  // Density gating: crowded beats drop their labels (bare on-axis dots) and only
+  // reappear as the axis stretches. Keeps dense timelines readable.
+  const crowd = Array.from({ length: 40 }, (_, i) => ({
+    date: `1340-01-${String((i % 28) + 1).padStart(2, '0')}`,
+    label: `beat ${i}`,
+    track: 'world',
+  }));
+
+  it('gates labels off for crowded beats at low density', () => {
+    const out = computeLayout(crowd, undefined, 50);
+    const labelled = out.items.filter((i) => i.showLabel).length;
+    expect(labelled).toBeLessThan(out.items.length);
+    expect(labelled).toBeGreaterThan(0);
+  });
+
+  it('reveals more labels as density rises (zoom in)', () => {
+    const lo = computeLayout(crowd, undefined, 50).items.filter((i) => i.showLabel).length;
+    const hi = computeLayout(crowd, undefined, 2000).items.filter((i) => i.showLabel).length;
+    expect(hi).toBeGreaterThan(lo);
+  });
+
+  it('always labels major beats even when crowded', () => {
+    const withMajor = [...crowd];
+    withMajor[20] = { ...withMajor[20], major: true };
+    const out = computeLayout(withMajor, undefined, 50);
+    const major = out.items.find((i) => i.major)!;
+    expect(major.showLabel).toBe(true);
+  });
+
+  it('puts bare (unlabelled) beats on the axis with no offset', () => {
+    const out = computeLayout(crowd, undefined, 50);
+    for (const item of out.items.filter((i) => !i.showLabel)) {
+      expect(item.offset).toBe(0);
+    }
+  });
+
+  it('only labelled beats consume collision lanes', () => {
+    const sparse = computeLayout(events).laneCount; // 3 well-spaced beats
+    const dense = computeLayout(crowd, undefined, 50).laneCount;
+    // Gating keeps lane stacking bounded even with 40 beats crammed together.
+    expect(dense).toBeLessThan(crowd.length);
+    expect(sparse).toBeGreaterThan(0);
+  });
 });

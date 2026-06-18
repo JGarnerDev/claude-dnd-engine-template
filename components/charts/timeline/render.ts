@@ -5,7 +5,7 @@
 
 import { DEFAULT_CALENDAR } from './calendar.js';
 import { computeLayout } from './layout.js';
-import { ZOOM_FACTOR, ZOOM_MAX, MARGIN } from './constants.js';
+import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT } from './constants.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from './controls.js';
 import { matchesFilters } from './filters.js';
 import { buildFilterBar } from './filterbar.js';
@@ -26,6 +26,9 @@ function buildMarker(item: LayoutItem): HTMLDivElement {
   marker.dataset.track = item.track;
   marker.dataset.label = item.label; // full, unclamped — hover shows it all
   marker.dataset.date = item.date;
+  // Density-gated bare dot: keep it on the axis with no label/leader (CSS hides
+  // them). The label element still renders in the DOM so hover/data stays intact.
+  if (!item.showLabel) marker.classList.add('tl-bare');
   if (item.source) {
     marker.dataset.source = item.source;
     marker.classList.add('has-source');
@@ -123,6 +126,12 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   // Zoom level 1 == fit (whole timeline visible); zooming multiplies from here,
   // so every step changes the layout and reset always returns to full view.
   const fitDensity = Math.max(1, (viewportWidth - MARGIN * 2) / probe.spanYears);
+  // Deepest zoom adapts to beat density: dense/long timelines need a higher cap
+  // than 8× of a tiny fit density to spread beats to ~TARGET_PX_PER_BEAT apart.
+  // Sparse timelines keep the ZOOM_MAX floor.
+  const beatsPerYear = probe.items.length / probe.spanYears;
+  const targetDensity = beatsPerYear * TARGET_PX_PER_BEAT;
+  const maxZoom = Math.max(ZOOM_MAX, targetDensity / fitDensity);
   let zoomLevel = 1;
   const api: TimelineApi = { eventCount: 0, contentWidth: 0, laneCount: 0 };
 
@@ -160,7 +169,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
     const left = viewport.getBoundingClientRect?.().left || 0;
     const x = clientX != null ? clientX - left : vw / 2;
     const frac = api.contentWidth ? (viewport.scrollLeft + x) / api.contentWidth : 0.5;
-    if (kind === 'in') zoomLevel = Math.min(ZOOM_MAX, zoomLevel * ZOOM_FACTOR);
+    if (kind === 'in') zoomLevel = Math.min(maxZoom, zoomLevel * ZOOM_FACTOR);
     else if (kind === 'out') zoomLevel = Math.max(1, zoomLevel / ZOOM_FACTOR);
     else zoomLevel = 1;
     draw({ frac, x });
