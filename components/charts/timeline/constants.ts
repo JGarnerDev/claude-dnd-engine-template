@@ -18,3 +18,10 @@ export const AXIS_GAP = 16; // gap from axis to the nearest tier
 export const TIER_H = 70; // vertical step per tier (exceeds clamped label height)
 
 export const MIN_CANVAS_HEIGHT = 320;
+
+// Swimlane view (M4). Track rows stack vertically; the time axis/ticks sit in a
+// reserved band at the top, and a fixed left gutter holds the track-tree labels.
+export const ROW_H = 34; // height of one track row, in px
+export const SWIM_TOP_PAD = 40; // band above the first row for axis ticks
+export const SWIM_BOTTOM_PAD = 12;
+export const GUTTER_W = 160; // left label-gutter width

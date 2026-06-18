@@ -85,6 +85,76 @@ export interface FilterState {
 
 export type ZoomKind = 'in' | 'out' | 'reset';
 
+// --- Track tree (M4) --------------------------------------------------------
+// A beat's `track` string is "category" or "category:member". member empty =>
+// the beat sits directly on the parent category lane.
+export interface ParsedTrack {
+  category: string;
+  member: string | null;
+}
+
+// Config for one parent category (D5 — config-driven, defaults shipped).
+export interface CategoryConfig {
+  key: string;
+  label: string;
+  colorVar: string; // CSS custom property, e.g. '--track-world'
+  collapsed: boolean; // initial expand/collapse state
+}
+
+export interface TrackChild {
+  member: string;
+  label: string;
+}
+
+// A present parent category + the child members present under it. Only emitted
+// when it actually carries beats (auto-derived presence; D7 explicit membership).
+export interface TrackCategory {
+  key: string;
+  label: string;
+  colorVar: string;
+  collapsed: boolean;
+  members: TrackChild[];
+  hasParentBeats: boolean; // a beat tagged to the category with no member
+}
+
+// --- Swimlane layout (M4) ---------------------------------------------------
+// One rendered track row. key = category (parent / roll-up) or `category:member`
+// (child) — the same key a beat resolves to, so beats map straight onto rows.
+export interface SwimRow {
+  key: string;
+  category: string;
+  member: string | null; // null = parent / roll-up row
+  label: string;
+  depth: number; // 0 parent header, 1 child
+  colorVar: string;
+  isRollup: boolean; // collapsed parent aggregating its children's beats
+  collapsed: boolean;
+  hasToggle: boolean; // parent with children -> shows an expand/collapse control
+  y: number; // row top, px
+  centerY: number; // dot baseline, px
+  height: number;
+}
+
+// A beat placed in the swimlane grid: x from the time axis, y from its row.
+export interface SwimItem extends TimelineEvent {
+  x: number;
+  y: number;
+  rowKey: string;
+  colorVar: string;
+  weight: Weight;
+  track: string; // resolved
+}
+
+export interface SwimLayout {
+  isEmpty: boolean;
+  contentWidth: number;
+  totalHeight: number;
+  spanYears: number;
+  ticks: Tick[];
+  rows: SwimRow[];
+  items: SwimItem[];
+}
+
 // The viewport element carries a flag set by enablePan so the click handler can
 // tell a pan-drag from a tap.
 export type PanViewport = HTMLElement & { _tlDragged?: boolean };
