@@ -25,15 +25,30 @@
   flex-direction: column;
 }
 
-/* View toggle (World | Tracks) */
-.chart-viewtabs { display: flex; gap: 6px; padding: 8px 8px 0; }
-.chart-viewtab {
-  padding: 4px 12px;
-  font-size: 13px;
-  color: var(--chart-muted);
+/* View toggle (World | Campaign) — pill tabs pinned top-left */
+.chart-viewtabs {
+  display: flex;
+  gap: 4px;
+  padding: 10px 12px;
   background: var(--chart-surface);
-  border: 1px solid var(--chart-axis);
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 9px;
+  margin: 10px 0 0 12px;
+  align-self: flex-start;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
-.chart-viewtab.is-active { color: var(--chart-text); border-color: var(--chart-muted); }
+.chart-viewtab {
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--chart-muted);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 120ms ease, background 120ms ease;
+}
+.chart-viewtab:hover { color: var(--chart-text); }
+.chart-viewtab.is-active {
+  color: var(--chart-text);
+  background: var(--chart-axis);
+}

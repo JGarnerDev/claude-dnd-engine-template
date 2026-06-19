@@ -1,5 +1,5 @@
-// View switcher: a World | Tracks toggle over the same data. World = the
-// single-axis layout (render.ts); Tracks = the swimlane multi-track layout
+// View switcher: a World | Campaign toggle over the same data. World = the
+// single-axis layout (render.ts); Campaign = the swimlane multi-track layout
 // (swimlane-render.ts). Thin host — each view fully owns its own content node.
 
 import './view.css';
@@ -34,7 +34,7 @@ export function renderTimelineView(container: HTMLElement, data: TimelineData, i
     tabBtns.set(v, b);
     return b;
   };
-  tabs.append(mk('world', 'World'), mk('tracks', 'Tracks'));
+  tabs.append(mk('world', 'World'), mk('tracks', 'Campaign'));
   container.append(tabs, content);
   select(initial);
 }

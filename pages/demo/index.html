@@ -3,24 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Timeline — dev harness</title>
+    <title>Campaign</title>
     <style>
-      /* Page chrome only — chart styles load via the JS imports in view.ts. */
+      /* Page chrome only — chart + tab styles load via the JS imports in view.ts. */
       html, body { height: 100%; }
       body { margin: 0; background: #0f172a; display: flex; flex-direction: column; }
-      .demo-header { color: #e5e7eb; font-family: system-ui, sans-serif; padding: 12px 16px; font-size: 14px; }
-      #timeline { flex: 1; min-height: 0; }
+      #app { flex: 1; min-height: 0; }
     </style>
   </head>
   <body>
-    <div class="demo-header">Timeline dev harness — sample data</div>
-    <div id="timeline"></div>
+    <div id="app"></div>
     <!-- Explicit .ts here: Vite's dev html-proxy resolver doesn't apply the
          .js->.ts fallback that module-to-module imports and the build use. -->
     <script type="module">
       import { renderTimelineView } from './view.ts';
       import { sampleData } from './sample-data.ts';
-      renderTimelineView(document.getElementById('timeline'), sampleData);
+      renderTimelineView(document.getElementById('app'), sampleData);
     </script>
   </body>
 </html>

@@ -21,10 +21,10 @@ describe('renderTimelineView', () => {
   const tab = (label: string) =>
     [...container.querySelectorAll<HTMLElement>('.chart-viewtab')].find((b) => b.textContent === label)!;
 
-  it('renders a World and Tracks tab', () => {
+  it('renders a World and Campaign tab', () => {
     renderTimelineView(container, data);
     const labels = [...container.querySelectorAll('.chart-viewtab')].map((b) => b.textContent);
-    expect(labels).toEqual(['World', 'Tracks']);
+    expect(labels).toEqual(['World', 'Campaign']);
   });
 
   it('shows the world view by default (single-axis markers, no swimlanes)', () => {
@@ -37,15 +37,15 @@ describe('renderTimelineView', () => {
   it('honors an explicit initial view', () => {
     renderTimelineView(container, data, 'tracks');
     expect(container.querySelector('.chart-swim-canvas')).toBeTruthy();
-    expect(tab('Tracks').classList.contains('is-active')).toBe(true);
+    expect(tab('Campaign').classList.contains('is-active')).toBe(true);
   });
 
-  it('swaps to the swimlane view when Tracks is clicked', () => {
+  it('swaps to the swimlane view when Campaign is clicked', () => {
     renderTimelineView(container, data);
-    tab('Tracks').click();
+    tab('Campaign').click();
     expect(container.querySelector('.chart-swim-canvas')).toBeTruthy();
     expect(container.querySelector('.chart-canvas')).toBeFalsy();
-    expect(tab('Tracks').classList.contains('is-active')).toBe(true);
+    expect(tab('Campaign').classList.contains('is-active')).toBe(true);
     expect(tab('World').classList.contains('is-active')).toBe(false);
   });
 
