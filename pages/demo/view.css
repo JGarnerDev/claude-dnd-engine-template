@@ -1,8 +1,8 @@
-/* View switcher (view.ts): fixed tabs on top, the active chart fills the rest.
-   Relies on the theme tokens defined in components/charts/_common/common.css,
-   which the charts mounted below import. */
+/* View switcher (view.ts): a header bar on top (tabs left, actions right), the
+   active chart fills the rest. Relies on the theme tokens defined in
+   components/charts/_common/common.css, which the charts mounted below import. */
 
-/* View host: fixed tabs on top, the active view fills the rest. The flex chain
+/* View host: header bar on top, the active view fills the rest. The flex chain
    (host → content → .chart-root) keeps a definite height all the way down so each
    view's own scroll container (.chart-viewport / .chart-swim) bounds its overflow,
    instead of the page growing scrollbars. */
@@ -11,6 +11,24 @@
   flex-direction: column;
   height: 100%;
   box-sizing: border-box;
+}
+
+/* Header bar: tabs on the left edge, action buttons on the right edge. */
+.chart-headerbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+}
+/* Right-side action cluster (settings gear + future buttons). Positioning context
+   for the settings overlay (settingspanel.css) — the panel anchors to this
+   cluster's right edge so it lines up flush under the gear, expanding leftward.
+   The panel's own max-width (in vw) keeps it inside the page. */
+.chart-actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 /* The active view renders INTO this node — it also carries .chart-root (same
    element), so style it directly. flex:1 fills the host below the tabs; the
@@ -25,15 +43,13 @@
   flex-direction: column;
 }
 
-/* View toggle (World | Campaign) — pill tabs pinned top-left */
+/* View toggle (World | Campaign) — pill tab group at the header's left edge */
 .chart-viewtabs {
   display: flex;
   gap: 4px;
-  padding: 10px 12px;
+  padding: 4px;
   background: var(--chart-surface);
   border-radius: 9px;
-  margin: 10px 0 0 12px;
-  align-self: flex-start;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 .chart-viewtab {

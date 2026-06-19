@@ -13,13 +13,17 @@ import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT, MONTH_VIEW_FRAC, ZOO
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
 import { makeMatcher } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
+import type { SettingsSection } from '../_common/components/settingspanel.js';
 import type { DensityBar, Layout, LayoutItem, PanViewport, Tick, TimelineData, TimelineEvent, ZoomKind } from '../_common/types.js';
 
-// Mutable handle returned to the caller; tests read these counts.
+// Mutable handle returned to the caller; tests read these counts. `controls` are
+// the chrome nodes (zoom toolbar, filter bar) for the host to hoist into its
+// settings panel — empty when there's nothing to show.
 interface TimelineApi {
   eventCount: number;
   contentWidth: number;
   laneCount: number;
+  controls: SettingsSection[];
 }
 
 // Build one individual marker, fully positioned. The individual set changes with
@@ -100,26 +104,6 @@ function buildTick(tick: Tick): [HTMLDivElement, HTMLDivElement] {
 }
 
 
-function buildToolbar(onZoom: (kind: ZoomKind) => void): HTMLDivElement {
-  const bar = document.createElement('div');
-  bar.className = 'chart-toolbar';
-  const mk = (label: string, title: string, kind: ZoomKind): HTMLButtonElement => {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'chart-zoom-btn';
-    b.textContent = label;
-    b.title = title;
-    b.addEventListener('click', () => onZoom(kind));
-    return b;
-  };
-  bar.append(
-    mk('−', 'Zoom out', 'out'),
-    mk('Reset', 'Reset zoom', 'reset'),
-    mk('+', 'Zoom in', 'in'),
-  );
-  return bar;
-}
-
 function buildEmpty(text: string): HTMLDivElement {
   const empty = document.createElement('div');
   empty.className = 'chart-empty';
@@ -138,7 +122,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   const idx = indexEvents(data.events, cal);
   if (idx.events.length === 0) {
     container.appendChild(buildEmpty('No events to show.'));
-    return { eventCount: 0, contentWidth: 0, laneCount: 0 };
+    return { eventCount: 0, contentWidth: 0, laneCount: 0, controls: [] };
   }
 
   // span + beat density are density-invariant, so derive them from the indexed
@@ -160,7 +144,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   const monthDensity = MONTH_VIEW_FRAC * viewportWidth * monthsPerYear;
   const maxZoom = Math.max(ZOOM_MAX, targetDensity / fitDensity, monthDensity / fitDensity);
   let zoomLevel = 1;
-  const api: TimelineApi = { eventCount: 0, contentWidth: 0, laneCount: 0 };
+  const api: TimelineApi = { eventCount: 0, contentWidth: 0, laneCount: 0, controls: [] };
 
   // Memoize the layout per density. Filtering never changes geometry (see
   // applyVisibility), so a layout is computed at most once per distinct zoom
@@ -227,7 +211,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
 
   // Filter bar owns the mutable filter state; a filter edit just retoggles
   // visibility, no relayout.
-  const { bar: filterBar, state: filterState } = buildFilterBar(data.events, applyVisibility);
+  const { bar: filterBar, search, chips, state: filterState } = buildFilterBar(data.events, applyVisibility);
 
   // Rebuild the canvas for the current density. Only zoom (density change) calls
   // this. The individual-marker set changes with zoom (density buckets dissolve as
@@ -289,11 +273,10 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
 
   function applyZoom(kind: ZoomKind) {
     if (kind === 'in') zoomLevel = Math.min(maxZoom, zoomLevel * ZOOM_FACTOR);
-    else if (kind === 'out') zoomLevel = Math.max(1, zoomLevel / ZOOM_FACTOR);
-    else zoomLevel = 1;
+    else zoomLevel = Math.max(1, zoomLevel / ZOOM_FACTOR);
   }
 
-  // Toolbar: discrete clicks, draw immediately.
+  // Density-bar click: discrete zoom-in, draw immediately.
   function zoom(kind: ZoomKind, clientX?: number) {
     const anchor = anchorAt(clientX);
     applyZoom(kind);
@@ -329,7 +312,15 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
     zoom('in', left + (cx - viewport.scrollLeft));
   });
 
-  container.append(buildToolbar(zoom), filterBar, viewport);
+  // The filter controls are wired to this chart's state but handed to the host
+  // via api.controls, which hoists them into the header settings panel under
+  // their own labels — leaving the viewport to fill the full height. Zoom is
+  // wheel-only (+ density-bar click).
+  api.controls = [
+    { label: 'Search', node: search },
+    { label: 'Filter', node: chips },
+  ];
+  container.append(filterBar, viewport);
   draw();
   enablePan(viewport);
   enableWheelZoom(viewport, zoomWheel);

@@ -60,6 +60,17 @@ function Get-RelSource($fullPath, $root) {
     "../../$rel"
 }
 
+# Related-entity names for search: union of relates_to + participants (parsed by
+# Get-Frontmatter into _list_ arrays, already unwrapped from [[wikilinks]] and
+# alias/relationship-stripped). Lets a beat be found by a name not in its label.
+function Get-Keywords($fm) {
+    $names = @()
+    foreach ($k in '_list_relates_to', '_list_participants') {
+        if ($fm[$k]) { $names += $fm[$k] }
+    }
+    @($names | Where-Object { $_ } | Select-Object -Unique)
+}
+
 # importance -> render weight flags (major bolds + enlarges, minor dims).
 function Add-Weight($obj, $fm) {
     $imp = $fm['importance']
@@ -87,6 +98,8 @@ function Get-EventBeats {
                 source = Get-RelSource $f.FullName $Root
             }
             Add-Weight $beat $fm
+            $kw = Get-Keywords $fm
+            if ($kw.Count -gt 0) { $beat['keywords'] = @($kw) }
             $out += [PSCustomObject]@{ Beat = $beat; Sort = Get-BeatSort $beat.date }
         }
     }
@@ -116,6 +129,8 @@ function Get-SessionBeats {
             source = Get-RelSource $f.FullName $Root
         }
         Add-Weight $beat $fm
+        $kw = Get-Keywords $fm
+        if ($kw.Count -gt 0) { $beat['keywords'] = @($kw) }
         $out += [PSCustomObject]@{ Beat = $beat; Sort = Get-BeatSort $date }
     }
     $out

@@ -14,10 +14,13 @@ export interface FilterBarState {
 
 // Returns { bar, state }. state = { query, tracks:Set } is mutated in place as
 // the user edits, so the caller can read it directly inside its redraw.
+// Returns the wrapping `bar` (search + chips, for standalone use) plus the two
+// parts on their own (`search`, `chips`) so a host can place them under separate
+// labels — and the mutable `state`.
 export function buildFilterBar(
   events: TimelineEvent[],
   onChange: (state: FilterState) => void,
-): { bar: HTMLDivElement; state: FilterBarState } {
+): { bar: HTMLDivElement; search: HTMLInputElement; chips: HTMLDivElement; state: FilterBarState } {
   const bar = document.createElement('div');
   bar.className = 'chart-filterbar';
 
@@ -51,5 +54,5 @@ export function buildFilterBar(
   }
 
   bar.append(search, chips);
-  return { bar, state };
+  return { bar, search, chips, state };
 }

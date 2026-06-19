@@ -38,7 +38,7 @@ Classes are prefixed `chart-` (page-agnostic). Keep a rule with the element that
 
 Pure helpers are unit-testable without a DOM (node env); DOM files use `// @vitest-environment happy-dom`. Don't let a chart's private helper be imported by another chart — if both need it, it belongs in `_common` (this is why `weightOf` lives in `_common/helpers/weight.ts`).
 
-Example: `timeline/` (World view) owns `helpers/{layout,lanes}`; `swimlane/` (Tracks view) owns `helpers/{swimlane-layout,tracks}`; both draw on `_common/helpers/{axis,calendar,ticks,filters,weight}` and `_common/components/{filterbar,controls}` over `_common/{constants,types}`; `pages/demo/view.ts` mounts either chart.
+Example: `timeline/` (World view) owns `helpers/{layout,lanes}`; `swimlane/` (Tracks view) owns `helpers/{swimlane-layout,tracks}`; both draw on `_common/helpers/{axis,calendar,ticks,filters,weight}` and `_common/components/{filterbar,controls,settingspanel}` over `_common/{constants,types}`; `pages/demo/view.ts` mounts either chart.
 
 ## Testing
 

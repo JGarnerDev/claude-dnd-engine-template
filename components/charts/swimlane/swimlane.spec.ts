@@ -24,6 +24,14 @@ describe('renderSwimlane', () => {
 
   const chip = (track: string) =>
     [...container.querySelectorAll<HTMLElement>('.chart-chip')].find((c) => c.dataset.track === track)!;
+  // Wheel zoom is the only zoom UI now (+ density-bar click). It's rAF-batched,
+  // so dispatch then flush a frame. deltaY < 0 = zoom in.
+  const flush = () => new Promise<void>((r) => requestAnimationFrame(() => r()));
+  const wheel = async (deltaY: number) => {
+    const vp = container.querySelector<HTMLElement>('.chart-swim')!;
+    vp.dispatchEvent(new WheelEvent('wheel', { deltaY, clientX: 100, bubbles: true, cancelable: true }));
+    await flush();
+  };
 
   it('renders one swim marker per event', () => {
     const api = renderSwimlane(container, data);
@@ -90,9 +98,8 @@ describe('renderSwimlane', () => {
     expect(worldRow.tagName).toBe('DIV'); // leaf category → not a button
   });
 
-  it('renders a zoom toolbar and a per-track filter bar', () => {
+  it('renders a per-track filter bar', () => {
     renderSwimlane(container, data);
-    expect(container.querySelectorAll('.chart-zoom-btn')).toHaveLength(3);
     expect(container.querySelector('.chart-filterbar .chart-search')).toBeTruthy();
     expect(container.querySelectorAll('.chart-chip').length).toBeGreaterThan(0);
   });
@@ -106,12 +113,11 @@ describe('renderSwimlane', () => {
     expect(api.contentWidth).toBe(widthBefore);
   });
 
-  it('widens the canvas when zooming in', () => {
+  it('widens the canvas when zooming in with the wheel', async () => {
     const api = renderSwimlane(container, data);
     const before = api.contentWidth;
-    const zoomIn = [...container.querySelectorAll<HTMLElement>('.chart-zoom-btn')].find((b) => b.title === 'Zoom in')!;
-    zoomIn.click();
-    zoomIn.click();
+    await wheel(-120);
+    await wheel(-120);
     expect(api.contentWidth).toBeGreaterThan(before);
     expect(container.querySelectorAll('.chart-swim-marker')).toHaveLength(4);
   });

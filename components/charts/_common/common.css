@@ -36,25 +36,6 @@
   color: var(--chart-muted);
 }
 
-/* Zoom toolbar (both views) */
-.chart-toolbar {
-  display: flex;
-  gap: 6px;
-  padding: 0 8px 8px;
-}
-
-.chart-zoom-btn {
-  min-width: 32px;
-  padding: 4px 10px;
-  font-size: 13px;
-  color: var(--chart-text);
-  background: var(--chart-surface);
-  border: 1px solid var(--chart-axis);
-  border-radius: 4px;
-  cursor: pointer;
-}
-.chart-zoom-btn:hover { border-color: var(--chart-muted); }
-
 /* Marker dot (both views). Track color comes from a data-track override (world
    view) or an inline background (tracks view). --chart-item-scale (set on the
    world viewport) grows the dot — and its hit area — when few beats are on

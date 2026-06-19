@@ -8,6 +8,9 @@
   gap: 8px;
   padding: 0 8px 8px;
 }
+/* When a host hoists the search + chips out into its own panel, the leftover
+   wrapper is empty — collapse it so it leaves no strip above the chart. */
+.chart-filterbar:empty { display: none; }
 
 .chart-search {
   flex: 0 1 220px;

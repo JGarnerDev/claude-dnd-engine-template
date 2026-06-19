@@ -26,6 +26,14 @@ describe('renderTimeline', () => {
     search.value = value;
     search.dispatchEvent(new Event('input', { bubbles: true }));
   };
+  // Wheel zoom is the only zoom UI now (+ density-bar click). It's rAF-batched,
+  // so dispatch then flush a frame. deltaY < 0 = zoom in, > 0 = out.
+  const flush = () => new Promise<void>((r) => requestAnimationFrame(() => r()));
+  const wheel = async (deltaY: number) => {
+    const vp = container.querySelector<HTMLElement>('.chart-viewport')!;
+    vp.dispatchEvent(new WheelEvent('wheel', { deltaY, clientX: 100, bubbles: true, cancelable: true }));
+    await flush();
+  };
 
   it('renders one marker per event', () => {
     const result = renderTimeline(container, data);
@@ -74,38 +82,32 @@ describe('renderTimeline', () => {
     expect(container.querySelector('.chart-empty')).toBeTruthy();
   });
 
-  it('renders a zoom toolbar with in/out/reset controls', () => {
-    renderTimeline(container, data);
-    expect(container.querySelectorAll('.chart-zoom-btn')).toHaveLength(3);
-  });
-
-  it('widens the canvas when zooming in', () => {
+  it('widens the canvas when zooming in with the wheel', async () => {
     const result = renderTimeline(container, data);
     const before = result.contentWidth;
-    const zoomIn = [...container.querySelectorAll<HTMLElement>('.chart-zoom-btn')].find((b) => b.title === 'Zoom in')!;
-    zoomIn.click(); // sample span is narrow; step past the viewport-width floor
-    zoomIn.click();
+    await wheel(-120); // sample span is narrow; step past the viewport-width floor
+    await wheel(-120);
     expect(result.contentWidth).toBeGreaterThan(before);
     expect(container.querySelectorAll('.chart-marker')).toHaveLength(3);
   });
 
-  it('restores the default width after reset', () => {
+  it('narrows the canvas back when zooming out', async () => {
     const result = renderTimeline(container, data);
     const base = result.contentWidth;
-    const byTitle = (t: string) =>
-      [...container.querySelectorAll<HTMLElement>('.chart-zoom-btn')].find((b) => b.title === t)!;
-    byTitle('Zoom in').click();
-    byTitle('Reset zoom').click();
-    expect(result.contentWidth).toBe(base);
+    await wheel(-120);
+    await wheel(-120);
+    expect(result.contentWidth).toBeGreaterThan(base);
+    await wheel(120);
+    await wheel(120);
+    expect(result.contentWidth).toBe(base); // out is floored at fit (zoom level 1)
   });
 
-  it('holds canvas height steady across zoom', () => {
+  it('holds canvas height steady across zoom', async () => {
     renderTimeline(container, data);
     const canvas = () => container.querySelector<HTMLElement>('.chart-canvas')!.style.height;
     const before = canvas();
-    const zoomIn = [...container.querySelectorAll<HTMLElement>('.chart-zoom-btn')].find((b) => b.title === 'Zoom in')!;
-    zoomIn.click();
-    zoomIn.click();
+    await wheel(-120);
+    await wheel(-120);
     expect(canvas()).toBe(before);
   });
 

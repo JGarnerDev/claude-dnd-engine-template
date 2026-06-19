@@ -16,7 +16,7 @@ export const sampleData: TimelineData = {
     { date: '1342-06-10', label: 'Borin swears the oath', track: 'character:Borin', minor: true },
     { date: '1342-06-15', label: 'Cult of the Hollow surfaces', track: 'faction:Cult of the Hollow', source: 'historian/events/cult-surfaces.md' },
     { date: '1342-06-20', label: 'Tax revolt in the lowlands', track: 'world', minor: true },
-    { date: '1342-08-01', label: 'Redfen burns', track: 'world', major: true, source: 'historian/events/redfen-burns.md' },
+    { date: '1342-08-01', label: 'Redfen burns', track: 'world', major: true, source: 'historian/events/redfen-burns.md', keywords: ['Mara', 'Cult of the Hollow'] },
     { date: '1343-01-10', label: 'Continent split by the Sundering', track: 'continent:Aldmar', major: true, source: 'historian/events/the-sundering.md' },
     { date: '1343-04-22', label: 'New trade route to Highport opens', track: 'faction:Saltmarsh League' },
     { date: '1343-07-08', label: 'Borin loses his shield arm', track: 'character:Borin' },

@@ -20,6 +20,8 @@ export interface DateParts {
 
 // One plotted beat. track/major/minor/source are optional in the raw data;
 // computeLayout resolves track to a concrete string on its output items.
+// keywords are extra search terms (related-entity names from the source's
+// relates_to/participants) so a beat is findable by a name not in its label.
 export interface TimelineEvent {
   date: string;
   label: string;
@@ -27,6 +29,7 @@ export interface TimelineEvent {
   major?: boolean;
   minor?: boolean;
   source?: string;
+  keywords?: string[];
 }
 
 // Act/mission span bar. Extracted by the generator; render consumes it in M4.
@@ -96,7 +99,7 @@ export interface FilterState {
   tracks?: Set<string> | null;
 }
 
-export type ZoomKind = 'in' | 'out' | 'reset';
+export type ZoomKind = 'in' | 'out';
 
 // --- Track tree (M4) --------------------------------------------------------
 // A beat's `track` string is "category" or "category:member". member empty =>

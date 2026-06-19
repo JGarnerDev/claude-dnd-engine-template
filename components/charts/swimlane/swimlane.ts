@@ -11,6 +11,7 @@ import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
 import { buildTrackTree, DEFAULT_CATEGORIES } from './helpers/tracks.js';
 import { makeMatcher } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
+import type { SettingsSection } from '../_common/components/settingspanel.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
 import { barHeightFor } from '../_common/helpers/cluster.js';
 import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, GUTTER_W, SWIM_TOP_PAD, MONTH_VIEW_FRAC, SWIM_BAR_MAX, SWIM_BAR_MIN, SWIM_BAR_FULL_COUNT } from '../_common/constants.js';
@@ -23,6 +24,8 @@ interface SwimApi {
   eventCount: number;
   rowCount: number;
   contentWidth: number;
+  // Chrome nodes (zoom toolbar, filter bar) for the host's settings panel.
+  controls: SettingsSection[];
 }
 
 // A dot's persistent structure + its zoom-invariant data (top/colour/weight,
@@ -214,22 +217,6 @@ function buildGutter(rows: SwimRow[], height: number, onToggle: (category: strin
   return gutter;
 }
 
-function buildToolbar(onZoom: (kind: ZoomKind) => void): HTMLDivElement {
-  const bar = document.createElement('div');
-  bar.className = 'chart-toolbar';
-  const mk = (label: string, title: string, kind: ZoomKind) => {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'chart-zoom-btn';
-    b.textContent = label;
-    b.title = title;
-    b.addEventListener('click', () => onZoom(kind));
-    return b;
-  };
-  bar.append(mk('−', 'Zoom out', 'out'), mk('Reset', 'Reset zoom', 'reset'), mk('+', 'Zoom in', 'in'));
-  return bar;
-}
-
 export function renderSwimlane(container: HTMLElement, data: TimelineData): SwimApi {
   const cal = data.calendar || DEFAULT_CALENDAR;
   const viewportWidth = container.clientWidth || 800;
@@ -248,7 +235,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
     empty.className = 'chart-empty';
     empty.textContent = 'No events to show.';
     container.appendChild(empty);
-    return { eventCount: 0, rowCount: 0, contentWidth: 0 };
+    return { eventCount: 0, rowCount: 0, contentWidth: 0, controls: [] };
   }
 
   // Track tree depends only on events (+ config) — zoom- and collapse-invariant.
@@ -267,7 +254,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
   const monthsPerYear = cal.months.length || 12;
   const maxZoom = Math.max(ZOOM_MAX, (MONTH_VIEW_FRAC * canvasWidth * monthsPerYear) / fitDensity);
   let zoomLevel = 1;
-  const api: SwimApi = { eventCount: 0, rowCount: 0, contentWidth: 0 };
+  const api: SwimApi = { eventCount: 0, rowCount: 0, contentWidth: 0, controls: [] };
 
   const swim = document.createElement('div') as PanViewport;
   swim.className = 'chart-swim';
@@ -312,7 +299,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
     api.eventCount = count;
   }
 
-  const { bar: filterBar, state: filterState } = buildFilterBar(data.events, applyVisibility);
+  const { bar: filterBar, search, chips, state: filterState } = buildFilterBar(data.events, applyVisibility);
 
   // Rebuild the gutter + canvas for the current density/collapse state. Both zoom
   // and collapse change the layout (the individual/bar split shifts with zoom, rows
@@ -351,11 +338,10 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
 
   function applyZoom(kind: ZoomKind) {
     if (kind === 'in') zoomLevel = Math.min(maxZoom, zoomLevel * ZOOM_FACTOR);
-    else if (kind === 'out') zoomLevel = Math.max(1, zoomLevel / ZOOM_FACTOR);
-    else zoomLevel = 1;
+    else zoomLevel = Math.max(1, zoomLevel / ZOOM_FACTOR);
   }
 
-  // Toolbar: discrete clicks, draw immediately.
+  // Density-bar click: discrete zoom-in, draw immediately.
   function zoom(kind: ZoomKind, clientX?: number) {
     const anchor = anchorAt(clientX);
     applyZoom(kind);
@@ -388,7 +374,15 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
     zoom('in', left + (cx - swim.scrollLeft));
   });
 
-  container.append(buildToolbar(zoom), filterBar, swim);
+  // The filter controls are wired to this chart's state but handed to the host
+  // via api.controls, which hoists them into the header settings panel under
+  // their own labels — leaving the canvas to fill the full height. Zoom is
+  // wheel-only (+ density-bar click).
+  api.controls = [
+    { label: 'Search', node: search },
+    { label: 'Filter', node: chips },
+  ];
+  container.append(filterBar, swim);
   draw();
   enablePan(swim);
   enableWheelZoom(swim, zoomWheel);
