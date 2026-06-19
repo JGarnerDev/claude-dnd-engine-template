@@ -10,6 +10,9 @@ export const ZOOM_MAX = 8; // floor for deepest zoom = 8× the fit density (spar
 // For dense/long timelines, 8× of a tiny fit density still can't despace beats.
 // render.ts raises the cap so zoom can reach ~this many px between adjacent beats.
 export const TARGET_PX_PER_BEAT = 36;
+// Deepest zoom also guarantees you can get this close: one calendar month fills
+// at least this fraction of the viewport width at maximum zoom (both views).
+export const MONTH_VIEW_FRAC = 0.6;
 export const MARGIN = 80; // left/right gutter inside the canvas, in px. >= LABEL_W/2 so an edge beat's centered label never spills past the canvas bound
 export const EDGE_PAD = 0.05; // breathing room before first / after last beat, as a fraction of span
 
@@ -44,12 +47,12 @@ export const BAR_FULL_COUNT = 50;
 // (coincident-date beats just overlap). Below this, dense buckets roll into bars.
 export const CLUSTER_OFF_GAP = 14; // avg px/beat at or above which clustering turns off
 
-// Sparse-view upscale: when only a few beats are actually on screen (zoomed in
-// and/or filtered down), grow the markers so they're easy to see and click. The
-// scale ramps from 1× at UPSCALE_BELOW visible beats up to ITEM_SCALE_MAX as the
-// count approaches zero. Dense views (any density bar on screen) never upscale.
-export const UPSCALE_BELOW = 30; // visible-beat count at/above which scale stays 1×
-export const ITEM_SCALE_MAX = 2.2; // dot scale when ~nothing is on screen
+// Deep-zoom upscale: as zoom approaches its maximum, grow markers so they're easy
+// to see and click. The scale stays 1× until the zoom reaches the last stretch of
+// its range (ZOOM_UPSCALE_FROM as a fraction of [1, maxZoom]), then ramps to
+// ITEM_SCALE_MAX at full zoom.
+export const ZOOM_UPSCALE_FROM = 0.9; // start upscaling in the last 10% of the zoom range
+export const ITEM_SCALE_MAX = 1.6; // dot scale at maximum zoom
 
 // Axis ticks: minimum pixel spacing between two tick labels. Drives the
 // responsive granularity — months when zoomed in, single years mid-zoom,

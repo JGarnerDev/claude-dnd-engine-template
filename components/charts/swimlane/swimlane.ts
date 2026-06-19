@@ -10,7 +10,7 @@ import { buildTrackTree, DEFAULT_CATEGORIES } from './helpers/tracks.js';
 import { makeMatcher } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
-import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, GUTTER_W, SWIM_TOP_PAD } from '../_common/constants.js';
+import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, GUTTER_W, SWIM_TOP_PAD, MONTH_VIEW_FRAC } from '../_common/constants.js';
 import type { PanViewport, SwimItem, SwimLayout, SwimRow, Tick, TimelineData, ZoomKind } from '../_common/types.js';
 
 interface SwimApi {
@@ -215,6 +215,11 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
   // -2px slack absorbs contentWidth's Math.ceil rounding so gutter + canvas can't
   // round a hair past the viewport and trigger a phantom horizontal scrollbar.
   const fitDensity = Math.max(1, (viewportWidth - GUTTER_W - MARGIN * 2 - 2) / spanYears);
+  // Allow zooming until one month fills ~MONTH_VIEW_FRAC of the canvas area (the
+  // viewport minus the gutter), like the world view.
+  const canvasWidth = Math.max(1, viewportWidth - GUTTER_W);
+  const monthsPerYear = cal.months.length || 12;
+  const maxZoom = Math.max(ZOOM_MAX, (MONTH_VIEW_FRAC * canvasWidth * monthsPerYear) / fitDensity);
   let zoomLevel = 1;
   const api: SwimApi = { eventCount: 0, rowCount: 0, contentWidth: 0 };
 
@@ -324,7 +329,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
   }
 
   function applyZoom(kind: ZoomKind) {
-    if (kind === 'in') zoomLevel = Math.min(ZOOM_MAX, zoomLevel * ZOOM_FACTOR);
+    if (kind === 'in') zoomLevel = Math.min(maxZoom, zoomLevel * ZOOM_FACTOR);
     else if (kind === 'out') zoomLevel = Math.max(1, zoomLevel / ZOOM_FACTOR);
     else zoomLevel = 1;
   }

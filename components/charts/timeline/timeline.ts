@@ -7,7 +7,7 @@ import { DEFAULT_CALENDAR } from '../_common/helpers/calendar.js';
 import { computeLayoutFrom } from './helpers/layout.js';
 import { barHeightFor } from './helpers/cluster.js';
 import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
-import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT, UPSCALE_BELOW, ITEM_SCALE_MAX } from '../_common/constants.js';
+import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT, MONTH_VIEW_FRAC, ZOOM_UPSCALE_FROM, ITEM_SCALE_MAX } from '../_common/constants.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
 import { makeMatcher } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
@@ -151,7 +151,12 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   // Sparse timelines keep the ZOOM_MAX floor.
   const beatsPerYear = idx.events.length / spanYears;
   const targetDensity = beatsPerYear * TARGET_PX_PER_BEAT;
-  const maxZoom = Math.max(ZOOM_MAX, targetDensity / fitDensity);
+  // Also guarantee you can zoom until one month fills ~MONTH_VIEW_FRAC of the
+  // viewport: monthWidth = pxPerYear / monthsPerYear, so the density that puts a
+  // month at that fraction is MONTH_VIEW_FRAC·viewportWidth·monthsPerYear.
+  const monthsPerYear = cal.months.length || 12;
+  const monthDensity = MONTH_VIEW_FRAC * viewportWidth * monthsPerYear;
+  const maxZoom = Math.max(ZOOM_MAX, targetDensity / fitDensity, monthDensity / fitDensity);
   let zoomLevel = 1;
   const api: TimelineApi = { eventCount: 0, contentWidth: 0, laneCount: 0 };
 
@@ -202,27 +207,16 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
       if (barNodes[i]) count += styleBar(barNodes[i], bar, idx.events, match);
     });
     api.eventCount = count;
-    applyItemScale();
   }
 
-  // Grow markers when few beats are actually on screen (zoomed in and/or filtered)
-  // so they're easy to see and click; stay 1× when the view is dense. "On screen" =
-  // matching the filter AND within the current scroll window. A density bar in view
-  // means the region is crowded, so never upscale then.
+  // Grow markers as zoom approaches its maximum so they're easy to see and click.
+  // Stays 1× until the zoom reaches the last stretch of its range, then ramps to
+  // ITEM_SCALE_MAX at full zoom.
   function itemScale(): number {
-    if (!currentLayout) return 1;
-    const left = viewport.scrollLeft;
-    const right = left + (viewport.clientWidth || viewportWidth);
-    for (const bar of currentLayout.bars) {
-      if (bar.centerX >= left && bar.centerX <= right) return 1; // dense region
-    }
-    const match = makeMatcher(filterState);
-    let n = 0;
-    for (const it of currentLayout.items) {
-      if (it.x < left || it.x > right) continue;
-      if (match(it) && ++n >= UPSCALE_BELOW) return 1; // enough on screen → no upscale
-    }
-    return 1 + (1 - n / UPSCALE_BELOW) * (ITEM_SCALE_MAX - 1); // ramp up as n → 0
+    const p = maxZoom > 1 ? (zoomLevel - 1) / (maxZoom - 1) : 0; // zoom progress 0..1
+    if (p <= ZOOM_UPSCALE_FROM) return 1;
+    const t = (p - ZOOM_UPSCALE_FROM) / (1 - ZOOM_UPSCALE_FROM); // 0..1 over the last stretch
+    return 1 + t * (ITEM_SCALE_MAX - 1);
   }
 
   function applyItemScale() {
@@ -321,17 +315,6 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
       });
     }
   }
-
-  // Scrolling/panning changes which beats are on screen → re-evaluate the upscale.
-  // Coalesce to one update per frame.
-  let scaleRaf = 0;
-  viewport.addEventListener('scroll', () => {
-    if (scaleRaf) return;
-    scaleRaf = requestAnimationFrame(() => {
-      scaleRaf = 0;
-      applyItemScale();
-    });
-  });
 
   // Click a density bar → zoom in, anchored on the cluster (convert its content x
   // to a client x for the shared anchored zoom). Skipped after a pan-drag.
