@@ -68,3 +68,21 @@
   color: var(--chart-text);
   background: var(--chart-axis);
 }
+
+/* Empty state (renderEmpty in view.ts): instructive copy when the data carries
+   no dated beats yet. Hard-coded colors — this branch renders before any chart
+   mounts, so the common.css theme tokens aren't guaranteed in scope. */
+.chart-empty {
+  color: #cbd5e1;
+  font: 15px/1.6 system-ui, sans-serif;
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+.chart-empty h1 { color: #f1f5f9; font-weight: 600; }
+.chart-empty code {
+  background: #1e293b;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}

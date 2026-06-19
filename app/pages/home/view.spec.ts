@@ -55,4 +55,13 @@ describe('renderTimelineView', () => {
     expect(container.querySelector('.chart-canvas')).toBeTruthy();
     expect(container.querySelector('.chart-swim-canvas')).toBeFalsy();
   });
+
+  it('renders the empty state (no tabs/canvas) when there are no events', () => {
+    for (const empty of [null, { calendar: null, events: [] } as TimelineData]) {
+      renderTimelineView(container, empty);
+      expect(container.querySelector('.chart-empty')).toBeTruthy();
+      expect(container.querySelector('.chart-viewtab')).toBeFalsy();
+      expect(container.querySelector('.chart-canvas')).toBeFalsy();
+    }
+  });
 });

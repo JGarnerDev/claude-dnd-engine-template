@@ -14,8 +14,35 @@ import type { TimelineData } from '../../components/charts/_common/types.js';
 
 export type View = 'world' | 'tracks';
 
-export function renderTimelineView(container: HTMLElement, data: TimelineData, initial: View = 'world'): void {
+// Shared empty state: shown when the data carries no dated beats the timeline can
+// place. Used by pages/home against the live graph (a fresh template, not an
+// error). The fixture/artifact entries always pass dated sample data, so they
+// never hit this branch.
+function renderEmpty(container: HTMLElement): void {
+  container.innerHTML = `
+    <div class="chart-empty">
+      <h1>No timeline yet</h1>
+      <p>This view plots your campaign's dated beats. Nothing carries a date
+         the timeline can place yet.</p>
+      <p>Add any of these, then this page reloads on its own:</p>
+      <ul>
+        <li><code>timeline_date</code> on a <code>type: event</code> in
+            <code>data/events/</code> or <code>historian/events/</code></li>
+        <li><code>in_world_end_date</code> on a <code>type: session</code> in
+            <code>historian/sessions/</code> (written by <code>/recap</code>)</li>
+        <li>a <code>chronicle:</code> beat on any historian/scheduler entity</li>
+      </ul>
+    </div>`;
+}
+
+export function renderTimelineView(container: HTMLElement, data: TimelineData | null, initial: View = 'world'): void {
   container.innerHTML = '';
+
+  if (!data || !Array.isArray(data.events) || data.events.length === 0) {
+    renderEmpty(container);
+    return;
+  }
+
   container.classList.add('chart-viewhost');
 
   // Header: tabs on the left, action buttons (settings + future) on the right.
