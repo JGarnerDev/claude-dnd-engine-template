@@ -10,9 +10,18 @@ import './view.css';
 import { renderTimeline } from '../../components/charts/timeline/timeline.js';
 import { renderSwimlane } from '../../components/charts/swimlane/swimlane.js';
 import { mountSettingsPanel } from '../../components/charts/_common/components/settingspanel.js';
-import type { TimelineData } from '../../components/charts/_common/types.js';
+import type { SettingsSection } from '../../components/charts/_common/components/settingspanel.js';
+import { mountSavedViews } from '../../components/charts/_common/components/savedviews.js';
+import type { ChartState, TimelineData } from '../../components/charts/_common/types.js';
 
 export type View = 'world' | 'tracks';
+
+// The slice of each chart's api the host needs: its hoistable controls and a
+// snapshot of its full restorable state (both charts implement both).
+interface ChartApi {
+  controls: SettingsSection[];
+  getState(): ChartState;
+}
 
 // Shared empty state: shown when the data carries no dated beats the timeline can
 // place. Used by pages/home against the live graph (a fresh template, not an
@@ -57,16 +66,32 @@ export function renderTimelineView(container: HTMLElement, data: TimelineData | 
   const content = document.createElement('div');
   content.className = 'chart-viewcontent';
 
+  // Live refs the saved-views widget reads: which tab is showing and the active
+  // chart's api. Switching tabs rebuilds the chart from scratch (discarding its
+  // state), so a loaded view must be applied as initial state at render time —
+  // select() threads an optional ChartState into the renderer for exactly that.
+  let currentView: View = initial;
+  let activeApi: ChartApi | null = null;
+
+  const tabBtns = new Map<View, HTMLButtonElement>();
+  const select = (v: View, initialState?: ChartState) => {
+    currentView = v;
+    for (const [key, btn] of tabBtns) btn.classList.toggle('is-active', key === v);
+    activeApi = v === 'world' ? renderTimeline(content, data, initialState) : renderSwimlane(content, data, initialState);
+    settings.setSections(activeApi.controls);
+  };
+
+  // Save · Load sit left of the gear (mounted into `actions` first). Save reads
+  // the current tab + chart state; Load re-renders the target tab seeded with
+  // the saved state.
+  mountSavedViews(actions, {
+    getCurrent: () => ({ tab: currentView, state: activeApi!.getState() }),
+    apply: (view) => select(view.tab, view.state),
+  });
+
   // One persistent settings panel; the gear stays put across view switches and
   // its contents are swapped to the active chart's controls.
   const settings = mountSettingsPanel(actions);
-
-  const tabBtns = new Map<View, HTMLButtonElement>();
-  const select = (v: View) => {
-    for (const [key, btn] of tabBtns) btn.classList.toggle('is-active', key === v);
-    const api = v === 'world' ? renderTimeline(content, data) : renderSwimlane(content, data);
-    settings.setSections(api.controls);
-  };
 
   const mk = (v: View, label: string) => {
     const b = document.createElement('button');

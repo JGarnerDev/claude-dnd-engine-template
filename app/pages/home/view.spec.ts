@@ -6,6 +6,7 @@ import type { TimelineData } from '../../components/charts/_common/types.js';
 describe('renderTimelineView', () => {
   let container: HTMLDivElement;
   beforeEach(() => {
+    localStorage.clear();
     container = document.createElement('div');
     document.body.appendChild(container);
   });
@@ -54,6 +55,26 @@ describe('renderTimelineView', () => {
     tab('World').click();
     expect(container.querySelector('.chart-canvas')).toBeTruthy();
     expect(container.querySelector('.chart-swim-canvas')).toBeFalsy();
+  });
+
+  it('mounts Save · Load · Settings in the header actions, in that order', () => {
+    renderTimelineView(container, data);
+    const actions = container.querySelector('.chart-actions')!;
+    const btns = [...actions.querySelectorAll<HTMLButtonElement>('button[title]')].map((b) => b.title);
+    expect(btns).toEqual(['Save view', 'Load view', 'Settings']);
+  });
+
+  it('saves the current view and restores its tab via Load', () => {
+    renderTimelineView(container, data); // world tab active
+    container.querySelector<HTMLInputElement>('.chart-sv-name')!.value = 'home';
+    container.querySelector<HTMLButtonElement>('.chart-sv-confirm')!.click();
+    tab('Campaign').click(); // drift away
+    expect(container.querySelector('.chart-swim-canvas')).toBeTruthy();
+    container.querySelectorAll<HTMLButtonElement>('.chart-sv-btn')[1].click(); // open Load
+    container.querySelector<HTMLButtonElement>('.chart-sv-load')!.click(); // apply 'home'
+    expect(container.querySelector('.chart-canvas')).toBeTruthy();
+    expect(container.querySelector('.chart-swim-canvas')).toBeFalsy();
+    expect(tab('World').classList.contains('is-active')).toBe(true);
   });
 
   it('renders the empty state (no tabs/canvas) when there are no events', () => {

@@ -9,13 +9,14 @@ import { DEFAULT_CALENDAR } from '../_common/helpers/calendar.js';
 import { computeSwimlaneFrom } from './helpers/swimlane-layout.js';
 import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
 import { buildTrackTree, DEFAULT_CATEGORIES } from './helpers/tracks.js';
-import { makeMatcher } from '../_common/helpers/filters.js';
+import { makeMatcher, trackList } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
+import { clampZoom, resolveTracks, serializeState, DEFAULT_STATE } from '../_common/helpers/viewstate.js';
 import type { SettingsSection } from '../_common/components/settingspanel.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
 import { barHeightFor } from '../_common/helpers/cluster.js';
 import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, GUTTER_W, SWIM_TOP_PAD, MONTH_VIEW_FRAC, SWIM_BAR_MAX, SWIM_BAR_MIN, SWIM_BAR_FULL_COUNT } from '../_common/constants.js';
-import type { PanViewport, SwimBar, SwimItem, SwimLayout, SwimRow, TimelineEvent, Tick, TimelineData, ZoomKind } from '../_common/types.js';
+import type { ChartState, PanViewport, SwimBar, SwimItem, SwimLayout, SwimRow, TimelineEvent, Tick, TimelineData, ZoomKind } from '../_common/types.js';
 
 // Per-row bar height for a member count (swimlane sizing — fits inside a row).
 const swimBarHeight = (count: number): number => barHeightFor(count, SWIM_BAR_MAX, SWIM_BAR_MIN, SWIM_BAR_FULL_COUNT);
@@ -26,6 +27,8 @@ interface SwimApi {
   contentWidth: number;
   // Chrome nodes (zoom toolbar, filter bar) for the host's settings panel.
   controls: SettingsSection[];
+  // Snapshot the full restorable view (query/tracks/zoom/scroll) for saved views.
+  getState(): ChartState;
 }
 
 // A dot's persistent structure + its zoom-invariant data (top/colour/weight,
@@ -217,7 +220,7 @@ function buildGutter(rows: SwimRow[], height: number, onToggle: (category: strin
   return gutter;
 }
 
-export function renderSwimlane(container: HTMLElement, data: TimelineData): SwimApi {
+export function renderSwimlane(container: HTMLElement, data: TimelineData, initialState?: ChartState): SwimApi {
   const cal = data.calendar || DEFAULT_CALENDAR;
   const viewportWidth = container.clientWidth || 800;
   container.innerHTML = '';
@@ -235,7 +238,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
     empty.className = 'chart-empty';
     empty.textContent = 'No events to show.';
     container.appendChild(empty);
-    return { eventCount: 0, rowCount: 0, contentWidth: 0, controls: [] };
+    return { eventCount: 0, rowCount: 0, contentWidth: 0, controls: [], getState: () => ({ ...DEFAULT_STATE }) };
   }
 
   // Track tree depends only on events (+ config) — zoom- and collapse-invariant.
@@ -253,8 +256,17 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
   const canvasWidth = Math.max(1, viewportWidth - GUTTER_W);
   const monthsPerYear = cal.months.length || 12;
   const maxZoom = Math.max(ZOOM_MAX, (MONTH_VIEW_FRAC * canvasWidth * monthsPerYear) / fitDensity);
-  let zoomLevel = 1;
-  const api: SwimApi = { eventCount: 0, rowCount: 0, contentWidth: 0, controls: [] };
+  // A loaded view seeds the zoom (clamped to this data's range, decision H); else fit.
+  let zoomLevel = initialState ? clampZoom(initialState.zoomLevel, maxZoom) : 1;
+  const api: SwimApi = {
+    eventCount: 0,
+    rowCount: 0,
+    contentWidth: 0,
+    controls: [],
+    // filterState/swim are declared below but only read when getState runs
+    // (post-render), so the closure is safe.
+    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, swim.scrollLeft),
+  };
 
   const swim = document.createElement('div') as PanViewport;
   swim.className = 'chart-swim';
@@ -299,7 +311,11 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
     api.eventCount = count;
   }
 
-  const { bar: filterBar, search, chips, state: filterState } = buildFilterBar(data.events, applyVisibility);
+  // A loaded view seeds query + still-present tracks (decision H intersection).
+  const seed = initialState
+    ? { query: initialState.query, tracks: resolveTracks(initialState.tracks, trackList(data.events)) }
+    : undefined;
+  const { bar: filterBar, search, chips, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
 
   // Rebuild the gutter + canvas for the current density/collapse state. Both zoom
   // and collapse change the layout (the individual/bar split shifts with zoom, rows
@@ -387,6 +403,8 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
   ];
   container.append(filterBar, swim);
   draw();
+  // Restore a loaded view's pan after the seeded draw (browser clamps over-range).
+  if (initialState) swim.scrollLeft = initialState.scrollLeft;
   enablePan(swim);
   enableWheelZoom(swim, zoomWheel);
   enableMarkerInteraction(swim, (source) => window.open(source, '_blank'));

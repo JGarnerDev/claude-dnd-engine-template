@@ -101,6 +101,25 @@ export interface FilterState {
 
 export type ZoomKind = 'in' | 'out';
 
+// --- Saved views (named UI snapshots) ---------------------------------------
+// ChartState is the per-tab restorable bundle both charts emit (getState) and
+// accept (initialState). tracks is the live filter Set serialized to an array;
+// zoomLevel 1 = fit; scrollLeft is the viewport pan in px. SavedView wraps one
+// under a user name + which tab it belongs to. Storage shape lives in
+// viewstore.ts; the fail-soft apply rules live in viewstate.ts.
+export interface ChartState {
+  query: string;
+  tracks: string[];
+  zoomLevel: number;
+  scrollLeft: number;
+}
+
+export interface SavedView {
+  name: string;
+  tab: 'world' | 'tracks';
+  state: ChartState;
+}
+
 // --- Track tree (M4) --------------------------------------------------------
 // A beat's `track` string is "category" or "category:member". member empty =>
 // the beat sits directly on the parent category lane.

@@ -11,19 +11,22 @@ import { barHeightFor } from '../_common/helpers/cluster.js';
 import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
 import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT, MONTH_VIEW_FRAC, ZOOM_UPSCALE_FROM, ITEM_SCALE_MAX } from '../_common/constants.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
-import { makeMatcher } from '../_common/helpers/filters.js';
+import { makeMatcher, trackList } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
+import { clampZoom, resolveTracks, serializeState, DEFAULT_STATE } from '../_common/helpers/viewstate.js';
 import type { SettingsSection } from '../_common/components/settingspanel.js';
-import type { DensityBar, Layout, LayoutItem, PanViewport, Tick, TimelineData, TimelineEvent, ZoomKind } from '../_common/types.js';
+import type { ChartState, DensityBar, Layout, LayoutItem, PanViewport, Tick, TimelineData, TimelineEvent, ZoomKind } from '../_common/types.js';
 
 // Mutable handle returned to the caller; tests read these counts. `controls` are
 // the chrome nodes (zoom toolbar, filter bar) for the host to hoist into its
-// settings panel — empty when there's nothing to show.
+// settings panel — empty when there's nothing to show. getState snapshots the
+// full restorable view (query/tracks/zoom/scroll) for the saved-views widget.
 interface TimelineApi {
   eventCount: number;
   contentWidth: number;
   laneCount: number;
   controls: SettingsSection[];
+  getState(): ChartState;
 }
 
 // Build one individual marker, fully positioned. The individual set changes with
@@ -111,7 +114,7 @@ function buildEmpty(text: string): HTMLDivElement {
   return empty;
 }
 
-export function renderTimeline(container: HTMLElement, data: TimelineData): TimelineApi {
+export function renderTimeline(container: HTMLElement, data: TimelineData, initialState?: ChartState): TimelineApi {
   const cal = data.calendar || DEFAULT_CALENDAR;
   const viewportWidth = container.clientWidth || 800;
 
@@ -122,7 +125,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   const idx = indexEvents(data.events, cal);
   if (idx.events.length === 0) {
     container.appendChild(buildEmpty('No events to show.'));
-    return { eventCount: 0, contentWidth: 0, laneCount: 0, controls: [] };
+    return { eventCount: 0, contentWidth: 0, laneCount: 0, controls: [], getState: () => ({ ...DEFAULT_STATE }) };
   }
 
   // span + beat density are density-invariant, so derive them from the indexed
@@ -143,8 +146,17 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   const monthsPerYear = cal.months.length || 12;
   const monthDensity = MONTH_VIEW_FRAC * viewportWidth * monthsPerYear;
   const maxZoom = Math.max(ZOOM_MAX, targetDensity / fitDensity, monthDensity / fitDensity);
-  let zoomLevel = 1;
-  const api: TimelineApi = { eventCount: 0, contentWidth: 0, laneCount: 0, controls: [] };
+  // A loaded view seeds the zoom (clamped to this data's range, decision H); else fit.
+  let zoomLevel = initialState ? clampZoom(initialState.zoomLevel, maxZoom) : 1;
+  const api: TimelineApi = {
+    eventCount: 0,
+    contentWidth: 0,
+    laneCount: 0,
+    controls: [],
+    // Snapshot the live view. filterState/viewport are declared below but only
+    // read when getState is called (post-render), so the closure is safe.
+    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, viewport.scrollLeft),
+  };
 
   // Memoize the layout per density. Filtering never changes geometry (see
   // applyVisibility), so a layout is computed at most once per distinct zoom
@@ -210,8 +222,11 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   }
 
   // Filter bar owns the mutable filter state; a filter edit just retoggles
-  // visibility, no relayout.
-  const { bar: filterBar, search, chips, state: filterState } = buildFilterBar(data.events, applyVisibility);
+  // visibility, no relayout. A loaded view seeds query + still-present tracks.
+  const seed = initialState
+    ? { query: initialState.query, tracks: resolveTracks(initialState.tracks, trackList(data.events)) }
+    : undefined;
+  const { bar: filterBar, search, chips, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
 
   // Rebuild the canvas for the current density. Only zoom (density change) calls
   // this. The individual-marker set changes with zoom (density buckets dissolve as
@@ -325,6 +340,9 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   ];
   container.append(filterBar, viewport);
   draw();
+  // Restore a loaded view's pan after the seeded draw — the browser clamps an
+  // over-range value to the content width automatically (fail soft).
+  if (initialState) viewport.scrollLeft = initialState.scrollLeft;
   enablePan(viewport);
   enableWheelZoom(viewport, zoomWheel);
   enableMarkerInteraction(viewport, (source) => window.open(source, '_blank'));

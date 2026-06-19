@@ -167,4 +167,25 @@ describe('renderSwimlane', () => {
     expect(sumCounts()).toBeLessThan(before);
     expect(api.eventCount).toBeLessThan(40);
   });
+
+  it('getState() snapshots the live query and track selection', () => {
+    const api = renderSwimlane(container, data);
+    const search = container.querySelector<HTMLInputElement>('.chart-search')!;
+    search.value = 'aelith';
+    search.dispatchEvent(new Event('input'));
+    chip('world').click();
+    const state = api.getState();
+    expect(state.query).toBe('aelith');
+    expect(state.tracks).toEqual(['world']);
+    expect(state.zoomLevel).toBe(1);
+  });
+
+  it('seeds the filter UI from initialState and round-trips through getState()', () => {
+    const api = renderSwimlane(container, data, { query: 'war', tracks: ['world'], zoomLevel: 1, scrollLeft: 0 });
+    expect(container.querySelector<HTMLInputElement>('.chart-search')!.value).toBe('war');
+    expect(chip('world').classList.contains('is-on')).toBe(true);
+    const state = api.getState();
+    expect(state.query).toBe('war');
+    expect(state.tracks).toEqual(['world']);
+  });
 });

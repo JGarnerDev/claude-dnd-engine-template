@@ -212,4 +212,32 @@ describe('renderTimeline', () => {
     expect(container.querySelectorAll('.chart-bar:not(.chart-hidden)')).toHaveLength(0);
     expect(api.eventCount).toBe(0);
   });
+
+  it('getState() snapshots the live query and track selection', () => {
+    const api = renderTimeline(container, data);
+    fireInput('pact');
+    chip('faction').click();
+    const state = api.getState();
+    expect(state.query).toBe('pact');
+    expect(state.tracks).toEqual(['faction']);
+    expect(state.zoomLevel).toBe(1); // fit, unchanged
+  });
+
+  it('seeds the filter UI from initialState and round-trips through getState()', () => {
+    const api = renderTimeline(container, data, { query: 'pact', tracks: ['faction'], zoomLevel: 1, scrollLeft: 0 });
+    expect(container.querySelector<HTMLInputElement>('.chart-search')!.value).toBe('pact');
+    expect(chip('faction').classList.contains('is-on')).toBe(true);
+    const visible = [...container.querySelectorAll<HTMLElement>('.chart-marker:not(.chart-hidden)')];
+    expect(visible.map((m) => m.dataset.track)).toEqual(['faction']);
+    const state = api.getState();
+    expect(state.query).toBe('pact');
+    expect(state.tracks).toEqual(['faction']);
+  });
+
+  it('drops a seeded track that no longer exists in the data (fail soft)', () => {
+    const api = renderTimeline(container, data, { query: '', tracks: ['gone'], zoomLevel: 1, scrollLeft: 0 });
+    expect(api.getState().tracks).toEqual([]);
+    // no track filter -> all beats visible
+    expect(container.querySelectorAll('.chart-marker:not(.chart-hidden)')).toHaveLength(3);
+  });
 });

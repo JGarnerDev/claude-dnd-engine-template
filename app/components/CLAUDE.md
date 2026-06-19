@@ -40,6 +40,15 @@ Pure helpers are unit-testable without a DOM (node env); DOM files use `// @vite
 
 Example: `timeline/` (World view) owns `helpers/{layout,lanes}`; `swimlane/` (Tracks view) owns `helpers/{swimlane-layout,tracks}`; both draw on `_common/helpers/{axis,calendar,ticks,filters,weight}` and `_common/components/{filterbar,controls,settingspanel}` over `_common/{constants,types}`; `pages/home/view.ts` mounts either chart.
 
+### Saved-views state contract
+
+Both charts save/load named UI snapshots through one shared contract — don't re-derive it:
+
+- The shape is `ChartState` (`query`/`tracks`/`zoomLevel`/`scrollLeft`) and `SavedView` (`name`/`tab`/`state`) in `_common/types.ts`.
+- Each chart **emits** its state via `api.getState(): ChartState` and **accepts** it via an optional `initialState?: ChartState` arg on `renderTimeline`/`renderSwimlane`. Charts rebuild on tab switch, so a loaded view is applied as initial state at render — never mutated onto a live chart. `buildFilterBar`'s optional 3rd arg (`{ query, tracks }`) seeds the search box + chips.
+- Fail-soft apply rules (clamp zoom to the current `maxZoom`, intersect saved tracks with present ones) are pure helpers in `_common/helpers/viewstate.ts`. Persistence (`localStorage` key `campaign:saved-views:v1`, fail-soft CRUD) is in `_common/helpers/viewstore.ts`.
+- The Save/Load widget (`_common/components/savedviews.ts`) mounts into the header `actions` slot **before** the settings gear (order: Save · Load · Settings); `pages/home/view.ts` wires its `getCurrent`/`apply` callbacks to the active chart's `getState()` and a re-render.
+
 ## Testing
 
 - Vitest (runs `.ts` directly). `npm test` runs all; `npm run test:watch` for the loop. `npm run typecheck` is separate — run both.

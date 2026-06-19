@@ -20,6 +20,7 @@ export interface FilterBarState {
 export function buildFilterBar(
   events: TimelineEvent[],
   onChange: (state: FilterState) => void,
+  initial?: { query: string; tracks: string[] },
 ): { bar: HTMLDivElement; search: HTMLInputElement; chips: HTMLDivElement; state: FilterBarState } {
   const bar = document.createElement('div');
   bar.className = 'chart-filterbar';
@@ -28,12 +29,16 @@ export function buildFilterBar(
   // Start with NO tracks selected — an empty set means "filter nothing" (all
   // pass). Clicking a chip narrows to the selected track(s); this makes
   // filtering to one/a few a single click instead of deselecting the rest.
-  const state: FilterBarState = { query: '', tracks: new Set() };
+  // A loaded view seeds the selection (still-present tracks only — caller
+  // intersects against the live track list before passing them in).
+  const seedTracks = new Set(initial?.tracks ?? []);
+  const state: FilterBarState = { query: initial?.query ?? '', tracks: new Set() };
 
   const search = document.createElement('input');
   search.type = 'search';
   search.className = 'chart-search';
   search.placeholder = 'Search beats…';
+  search.value = state.query; // reflect a seeded query in the box
   search.addEventListener('input', () => {
     state.query = search.value;
     onChange(state);
@@ -47,6 +52,10 @@ export function buildFilterBar(
     chip.className = 'chart-chip'; // off by default; is-on added on selection
     chip.dataset.track = track;
     chip.textContent = track;
+    if (seedTracks.has(track)) {
+      chip.classList.add('is-on'); // restore a loaded view's chip state
+      state.tracks.add(track);
+    }
     chip.addEventListener('click', () => {
       const on = chip.classList.toggle('is-on');
       if (on) state.tracks.add(track);

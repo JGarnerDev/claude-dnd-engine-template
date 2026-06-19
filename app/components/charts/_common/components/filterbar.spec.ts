@@ -32,6 +32,22 @@ describe('buildFilterBar', () => {
     expect(calls).toEqual(['pact']);
   });
 
+  it('seeds the query box and chip state from an initial snapshot', () => {
+    const { bar, state } = buildFilterBar(events, () => {}, { query: 'pact', tracks: ['faction'] });
+    const search = bar.querySelector<HTMLInputElement>('.chart-search')!;
+    expect(search.value).toBe('pact');
+    expect(state.query).toBe('pact');
+    const chips = [...bar.querySelectorAll<HTMLElement>('.chart-chip')];
+    const on = chips.filter((c) => c.classList.contains('is-on')).map((c) => c.dataset.track);
+    expect(on).toEqual(['faction']);
+    expect([...state.tracks]).toEqual(['faction']);
+  });
+
+  it('ignores a seeded track that no longer exists in the data', () => {
+    const { state } = buildFilterBar(events, () => {}, { query: '', tracks: ['gone'] });
+    expect([...state.tracks]).toEqual([]);
+  });
+
   it('toggles a track on then off, firing onChange each time', () => {
     const { bar, state } = buildFilterBar(events, () => calls.push([...state.tracks]));
     const faction = [...bar.querySelectorAll<HTMLElement>('.chart-chip')].find(
