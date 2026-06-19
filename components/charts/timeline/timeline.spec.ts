@@ -161,4 +161,53 @@ describe('renderTimeline', () => {
     expect(sourced.dataset.source).toBe('historian/events/winter.md');
     expect(sourced.dataset.label).toBe('Winter begins');
   });
+
+  it('renders density bars for crowded beats instead of a marker each', () => {
+    // 50 beats packed into one month → at fit density they share pixel buckets and
+    // roll into below-axis density bars rather than 50 individual markers.
+    const dense: TimelineData = {
+      calendar: null,
+      events: Array.from({ length: 50 }, (_, i) => ({
+        date: `1340-01-${String((i % 28) + 1).padStart(2, '0')}`,
+        label: `beat ${i}`,
+        track: 'world',
+      })),
+    };
+    renderTimeline(container, dense);
+    const bars = container.querySelectorAll('.tl-bar');
+    expect(bars.length).toBeGreaterThan(0);
+    // far fewer individual markers than beats — the crowd is aggregated
+    expect(container.querySelectorAll('.tl-marker').length).toBeLessThan(50);
+    expect(Number(container.querySelector<HTMLElement>('.tl-bar')!.dataset.count)).toBeGreaterThan(1);
+  });
+
+  it('recounts/hides density bars to match the active filter', () => {
+    const dense: TimelineData = {
+      calendar: null,
+      events: Array.from({ length: 50 }, (_, i) => ({
+        date: `1340-01-${String((i % 28) + 1).padStart(2, '0')}`,
+        label: `beat ${i}`,
+        track: i % 2 === 0 ? 'world' : 'party', // half each track
+      })),
+    };
+    const sumBarCounts = () =>
+      [...container.querySelectorAll<HTMLElement>('.tl-bar:not(.tl-hidden)')].reduce(
+        (s, b) => s + Number(b.dataset.count),
+        0,
+      );
+
+    const api = renderTimeline(container, dense);
+    const totalBefore = api.eventCount; // individuals + bar members
+    const barSumBefore = sumBarCounts();
+    expect(barSumBefore).toBeGreaterThan(0);
+
+    chip('party').click(); // drop half the beats
+    // bars rescale down to only the matching (world) members
+    expect(api.eventCount).toBeLessThan(totalBefore);
+    expect(sumBarCounts()).toBeLessThan(barSumBefore);
+
+    fireInput('nothing matches this'); // now zero matches
+    expect(container.querySelectorAll('.tl-bar:not(.tl-hidden)')).toHaveLength(0);
+    expect(api.eventCount).toBe(0);
+  });
 });

@@ -90,35 +90,80 @@ describe('computeLayout', () => {
 
   // Density gating: crowded beats drop their labels (bare on-axis dots) and only
   // reappear as the axis stretches. Keeps dense timelines readable.
+  // `crowd` packs 40 beats into one month — at any sane density they all fall into
+  // the same few pixel buckets, so the LOD pass rolls them into density bars.
   const crowd: TimelineEvent[] = Array.from({ length: 40 }, (_, i) => ({
-    date: `1340-01-${String((i % 28) + 1).padStart(2, '0')}`,
+    // unique dates across two months, so at high density they actually spread out
+    date: `1340-${String(Math.floor(i / 28) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
     label: `beat ${i}`,
     track: 'world',
   }));
 
-  it('gates labels off for crowded beats at low density', () => {
-    const out = computeLayout(crowd, undefined, 50);
+  // `spaced` puts 12 beats one year apart: far enough to land in separate pixel
+  // buckets (so they stay individual markers, not bars) yet close enough that
+  // their 150px labels collide — exercising the per-individual label gate.
+  const spaced: TimelineEvent[] = Array.from({ length: 12 }, (_, i) => ({
+    date: `${1340 + i}-06-01`,
+    label: `year beat ${i}`,
+    track: 'world',
+  }));
+
+  it('gates labels off for crowded individuals at low density', () => {
+    const out = computeLayout(spaced, undefined, 50);
     const labelled = out.items.filter((i) => i.showLabel).length;
+    expect(out.bars).toHaveLength(0); // a year apart → still individual, no bars
     expect(labelled).toBeLessThan(out.items.length);
     expect(labelled).toBeGreaterThan(0);
   });
 
   it('reveals more labels as density rises (zoom in)', () => {
-    const lo = computeLayout(crowd, undefined, 50).items.filter((i) => i.showLabel).length;
-    const hi = computeLayout(crowd, undefined, 2000).items.filter((i) => i.showLabel).length;
+    const lo = computeLayout(spaced, undefined, 50).items.filter((i) => i.showLabel).length;
+    const hi = computeLayout(spaced, undefined, 2000).items.filter((i) => i.showLabel).length;
     expect(hi).toBeGreaterThan(lo);
   });
 
-  it('always labels major beats even when crowded', () => {
-    const withMajor = [...crowd];
-    withMajor[20] = { ...withMajor[20], major: true };
-    const out = computeLayout(withMajor, undefined, 50);
-    const major = out.items.find((i) => i.major)!;
-    expect(major.showLabel).toBe(true);
+  it('rolls crowded beats into density bars at low density', () => {
+    const out = computeLayout(crowd, undefined, 50);
+    expect(out.bars.length).toBeGreaterThan(0);
+    // most of the 40 beats are aggregated into bars, not individual markers
+    expect(out.items.length).toBeLessThan(crowd.length / 2);
   });
 
-  it('puts bare (unlabelled) beats on the axis with no offset', () => {
-    const out = computeLayout(crowd, undefined, 50);
+  it('dissolves bars back into individual markers as density rises', () => {
+    const lo = computeLayout(crowd, undefined, 50);
+    const hi = computeLayout(crowd, undefined, 8000); // beats now > a bucket apart
+    expect(hi.items.length).toBeGreaterThan(lo.items.length);
+    expect(hi.bars.length).toBeLessThan(lo.bars.length);
+  });
+
+  it('drops ALL bars once zoomed in enough to resolve beats (even coincident dates)', () => {
+    // crowd + a duplicate of one date → a coincident pair that shares an x at any
+    // zoom, so it would otherwise stay a bar forever.
+    const withDup: TimelineEvent[] = [...crowd, { date: crowd[0].date, label: 'dup', track: 'world' }];
+    const lo = computeLayout(withDup, undefined, 50); // crowded overview → bars
+    const hi = computeLayout(withDup, undefined, 100000); // zoomed in → gate off
+    expect(lo.bars.length).toBeGreaterThan(0);
+    expect(hi.bars).toHaveLength(0);
+    // the coincident pair now renders as two (overlapping) individual markers
+    expect(hi.items.length).toBe(withDup.length);
+  });
+
+  it('rolls a crowded major into a flagged bar, but labels an isolated major', () => {
+    const withMajor = [...crowd];
+    withMajor[20] = { ...withMajor[20], major: true };
+    const crowded = computeLayout(withMajor, undefined, 50);
+    // crowded: the major is inside a density bar (flagged), not an individual label
+    expect(crowded.bars.some((b) => b.hasMajor)).toBe(true);
+
+    // isolated: a major in the spaced set still claims its label
+    const sp = [...spaced];
+    sp[5] = { ...sp[5], major: true };
+    const out = computeLayout(sp, undefined, 50);
+    expect(out.items.find((i) => i.major)!.showLabel).toBe(true);
+  });
+
+  it('puts bare (unlabelled) individuals on the axis with no offset', () => {
+    const out = computeLayout(spaced, undefined, 50);
     for (const item of out.items.filter((i) => !i.showLabel)) {
       expect(item.offset).toBe(0);
     }
@@ -126,9 +171,9 @@ describe('computeLayout', () => {
 
   it('only labelled beats consume collision lanes', () => {
     const sparse = computeLayout(events).laneCount; // 3 well-spaced beats
-    const dense = computeLayout(crowd, undefined, 50).laneCount;
-    // Gating keeps lane stacking bounded even with 40 beats crammed together.
-    expect(dense).toBeLessThan(crowd.length);
+    const dense = computeLayout(spaced, undefined, 50).laneCount;
+    // Gating keeps lane stacking bounded even with crowded labels.
+    expect(dense).toBeLessThan(spaced.length);
     expect(sparse).toBeGreaterThan(0);
   });
 });

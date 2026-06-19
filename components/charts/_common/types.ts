@@ -69,11 +69,23 @@ export interface Tick {
   x: number;
 }
 
+// A below-axis density bar: one fixed-width pixel bucket aggregating the non-major
+// beats that crowd into it (LOD). height ∝ √count; members index back to events.
+export interface DensityBar {
+  x0: number; // bucket left edge, px
+  centerX: number; // bar center (mean member x)
+  count: number;
+  height: number; // scaled bar height, px
+  hasMajor: boolean; // bucket contains >= 1 major beat — badge it
+  members: number[]; // indices into the (sorted) event set, for tooltip
+}
+
 export interface Layout {
   isEmpty: boolean;
   contentWidth: number;
   canvasHeight: number;
-  items: LayoutItem[];
+  items: LayoutItem[]; // individual markers: majors + sparse beats (dense ones roll into bars)
+  bars: DensityBar[]; // density histogram for crowded buckets
   ticks: Tick[];
   laneCount: number;
   spanYears: number;

@@ -202,6 +202,35 @@
 .tl-marker.tl-bare .tl-label,
 .tl-marker.tl-bare .tl-leader { display: none; }
 
+/* Density bars (LOD): one per crowded bucket, centered on the axis. height is
+   set inline (∝ count); they read as a histogram of how much happened when, and
+   click to zoom into that cluster. */
+.tl-bar {
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  transform: translate(-50%, -50%); /* center the column on the axis */
+  background: var(--track-world);
+  opacity: 0.45;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.tl-bar:hover { opacity: 0.75; }
+.tl-bar.tl-hidden { display: none; } /* nothing in the bucket matches the filter */
+/* A bucket containing a major beat: keep it a bar (no wall) but flag it with a
+   star badge above the column so "something big happened here" still reads. */
+.tl-bar.has-major { opacity: 0.6; }
+.tl-bar.has-major::before {
+  content: '★';
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  line-height: 1;
+  color: #fbbf24;
+}
+
 .tl-dot {
   position: absolute;
   top: 0;
@@ -209,10 +238,13 @@
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
+  /* --tl-item-scale (set on the viewport) grows the dot — and its hit area — when
+     few beats are on screen; defaults to 1×. */
+  transform: translate(-50%, -50%) scale(var(--tl-item-scale, 1));
   background: var(--track-world);
   border: 2px solid var(--tl-bg);
   box-shadow: 0 0 0 1px var(--tl-axis);
+  transition: transform 120ms ease-out;
 }
 
 .tl-marker[data-track='party'] .tl-dot { background: var(--track-party); }
@@ -238,7 +270,9 @@
   left: 0;
   box-sizing: border-box;
   width: 140px;
-  font-size: 12px;
+  /* Grow the label text modestly alongside the dots (capped lower so it stays in
+     its slot). min() so it never shrinks below the 12px base. */
+  font-size: calc(12px * min(1.5, var(--tl-item-scale, 1)));
   line-height: 1.3;
   text-align: center;
   color: var(--tl-text);

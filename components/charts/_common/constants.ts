@@ -22,6 +22,35 @@ export const TIER_H = 70; // vertical step per tier (exceeds clamped label heigh
 
 export const MIN_CANVAS_HEIGHT = 320;
 
+// Density histogram (LOD). When beats crowd below one bar per BUCKET_PX, the
+// world view buckets the non-major beats into fixed-width pixel columns and draws
+// a below-axis density bar per bucket (height ∝ √count) instead of a wall of
+// dots/labels. Majors are never bucketed (always individual + labelled); a bucket
+// holding fewer than DENSITY_MIN beats stays individual too, so zooming in melts
+// the histogram back into per-beat markers.
+export const DENSITY_BUCKET_PX = 8; // bucket column width, px
+export const DENSITY_MIN = 2; // min beats in a bucket to render a bar (else individual)
+export const BAR_MIN_H = 6; // shortest density bar, px
+export const BAR_MAX_H = 120; // tallest density bar, px
+// Bar height maps count → px on an ABSOLUTE scale (not relative to the in-view
+// max), so a bar's height means the same thing at every zoom. A bucket of this
+// many beats (or more) hits BAR_MAX_H; smaller buckets scale down linearly — so a
+// 2-beat cluster you've zoomed into stays a short stub instead of inflating to a
+// full-height tower just because it's the densest thing on screen.
+export const BAR_FULL_COUNT = 50;
+// Clustering is an overview-only device. Once the timeline is zoomed in enough
+// that the average beat spacing reaches a dot's footprint, beats are individually
+// resolvable — so drop the bars entirely and render every beat as its own marker
+// (coincident-date beats just overlap). Below this, dense buckets roll into bars.
+export const CLUSTER_OFF_GAP = 14; // avg px/beat at or above which clustering turns off
+
+// Sparse-view upscale: when only a few beats are actually on screen (zoomed in
+// and/or filtered down), grow the markers so they're easy to see and click. The
+// scale ramps from 1× at UPSCALE_BELOW visible beats up to ITEM_SCALE_MAX as the
+// count approaches zero. Dense views (any density bar on screen) never upscale.
+export const UPSCALE_BELOW = 30; // visible-beat count at/above which scale stays 1×
+export const ITEM_SCALE_MAX = 2.2; // dot scale when ~nothing is on screen
+
 // Axis ticks: minimum pixel spacing between two tick labels. Drives the
 // responsive granularity — months when zoomed in, single years mid-zoom,
 // multi-year steps (2/5/10/25…) when zoomed out and years would crowd below this.

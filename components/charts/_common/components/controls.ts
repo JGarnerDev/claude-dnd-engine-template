@@ -5,16 +5,37 @@ import type { PanViewport, ZoomKind } from '../types.js';
 
 // Drag-to-pan: press and drag horizontally to scroll the viewport along the
 // time axis. Native overflow scroll (wheel/trackpad) still works alongside it.
+//
+// Deliberately does NOT use setPointerCapture: capturing the pointer on the
+// viewport retargets the ensuing `click` to the viewport, which swallows clicks
+// meant for markers (open source) and density bars (zoom in). Instead we listen
+// for pointermove/up on `window` while dragging — that still tracks a drag past
+// the viewport edge, but leaves the click event on its real target. The
+// `_tlDragged` flag (set once the pointer moves >3px) lets click handlers tell a
+// pan from a tap.
 export function enablePan(viewport: PanViewport): void {
   let dragging = false;
   let startX = 0;
   let startScroll = 0;
 
+  const onMove = (e: PointerEvent): void => {
+    if (!dragging) return;
+    if (Math.abs(e.clientX - startX) > 3) viewport._tlDragged = true;
+    viewport.scrollLeft = startScroll - (e.clientX - startX);
+  };
+
+  const end = (): void => {
+    if (!dragging) return;
+    dragging = false;
+    viewport.classList.remove('tl-grabbing');
+    window.removeEventListener('pointermove', onMove);
+    window.removeEventListener('pointerup', end);
+    window.removeEventListener('pointercancel', end);
+  };
+
   viewport.addEventListener('pointerdown', (e) => {
-    // Don't pan (or capture the pointer) when the press lands on an interactive
-    // control or the sticky track gutter. Capturing on the viewport would
-    // retarget the ensuing click to the viewport, swallowing the button's own
-    // click (e.g. the swimlane expand/collapse toggle).
+    // Don't pan when the press lands on an interactive control or the sticky
+    // track gutter — let those receive their own clicks.
     if ((e.target as Element | null)?.closest('button, a, input, .tl-swim-gutter')) return;
     dragging = true;
     startX = e.clientX;
@@ -22,24 +43,10 @@ export function enablePan(viewport: PanViewport): void {
     // Reset the drag flag the click handler reads to tell a pan from a tap.
     viewport._tlDragged = false;
     viewport.classList.add('tl-grabbing');
-    viewport.setPointerCapture?.(e.pointerId);
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', end);
+    window.addEventListener('pointercancel', end);
   });
-
-  viewport.addEventListener('pointermove', (e) => {
-    if (!dragging) return;
-    if (Math.abs(e.clientX - startX) > 3) viewport._tlDragged = true;
-    viewport.scrollLeft = startScroll - (e.clientX - startX);
-  });
-
-  const end = (e: PointerEvent) => {
-    if (!dragging) return;
-    dragging = false;
-    viewport.classList.remove('tl-grabbing');
-    viewport.releasePointerCapture?.(e.pointerId);
-  };
-  viewport.addEventListener('pointerup', end);
-  viewport.addEventListener('pointercancel', end);
-  viewport.addEventListener('pointerleave', end);
 }
 
 // Mouse-wheel zoom. Wheel up zooms in, down zooms out; cursor x is passed so

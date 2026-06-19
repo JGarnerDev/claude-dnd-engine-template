@@ -5,12 +5,13 @@
 
 import { DEFAULT_CALENDAR } from '../_common/helpers/calendar.js';
 import { computeLayoutFrom } from './helpers/layout.js';
+import { barHeightFor } from './helpers/cluster.js';
 import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
-import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT } from '../_common/constants.js';
+import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT, UPSCALE_BELOW, ITEM_SCALE_MAX } from '../_common/constants.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
 import { makeMatcher } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
-import type { Layout, LayoutItem, Tick, TimelineData, ZoomKind } from '../_common/types.js';
+import type { DensityBar, Layout, LayoutItem, PanViewport, Tick, TimelineData, TimelineEvent, ZoomKind } from '../_common/types.js';
 
 // Mutable handle returned to the caller; tests read these counts.
 interface TimelineApi {
@@ -19,13 +20,19 @@ interface TimelineApi {
   laneCount: number;
 }
 
-// Create a marker's persistent structure + its zoom-invariant data (track/label/
-// date/source, full text). Geometry that changes with zoom (x/offset/side/bare)
-// is applied separately by positionMarker, so the node can be reused across zoom
-// levels instead of torn down and rebuilt. The event set is fixed per render, so
-// these are built once and repositioned thereafter.
-function createMarker(item: LayoutItem): HTMLDivElement {
+// Build one individual marker, fully positioned. The individual set changes with
+// zoom (density buckets dissolve as you zoom in), so markers are rebuilt per draw
+// rather than repositioned — but the set is small (the crowd rolls into bars), so
+// this is cheap. tl-bare follows the density gate; visible drives .tl-hidden.
+function buildMarker(item: LayoutItem, visible: boolean): HTMLDivElement {
   const marker = document.createElement('div');
+  let cls = `tl-marker ${item.weight} ${item.side}`;
+  if (!item.showLabel) cls += ' tl-bare';
+  if (item.source) cls += ' has-source';
+  if (!visible) cls += ' tl-hidden';
+  marker.className = cls;
+  marker.style.left = `${item.x}px`;
+  marker.style.setProperty('--tl-offset', `${item.offset}px`);
   marker.dataset.track = item.track;
   marker.dataset.label = item.label; // full, unclamped — hover shows it all
   marker.dataset.date = item.date;
@@ -37,26 +44,46 @@ function createMarker(item: LayoutItem): HTMLDivElement {
   leader.className = 'tl-leader';
   const label = document.createElement('div');
   label.className = 'tl-label';
-  label.textContent = item.text; // density-independent in the world view
+  label.textContent = item.text;
 
   marker.append(dot, leader, label);
   return marker;
 }
 
-// Apply the per-zoom geometry to an existing marker node. Rewrites the class list
-// from scratch (side flips with lane repacking; tl-bare follows the density gate)
-// and the position vars. visible drives .tl-hidden so a zoom under an active
-// filter keeps hidden beats hidden. Cheap string + style writes, no node churn.
-function positionMarker(marker: HTMLElement, item: LayoutItem, visible: boolean): void {
-  // Density-gated bare dot: on the axis with no label/leader (CSS hides them);
-  // the label element stays in the DOM so hover/data is intact.
-  let cls = `tl-marker ${item.weight} ${item.side}`;
-  if (!item.showLabel) cls += ' tl-bare';
-  if (item.source) cls += ' has-source';
-  if (!visible) cls += ' tl-hidden';
-  marker.className = cls;
-  marker.style.left = `${item.x}px`;
-  marker.style.setProperty('--tl-offset', `${item.offset}px`);
+// A density bar (LOD), centered on the axis. Fixed geometry (left/center x); its
+// height/count are filter-dependent and set by styleBar.
+function buildBar(bar: DensityBar): HTMLDivElement {
+  const el = document.createElement('div');
+  el.className = 'tl-bar';
+  el.style.left = `${bar.centerX}px`;
+  el.dataset.centerx = String(bar.centerX);
+  return el;
+}
+
+// Size a bar to its filter-matching members: height ∝ matched count, badged when a
+// matched member is a major, hidden when nothing matches. Returns the matched count
+// so the caller can fold it into the total. Keeps bar geometry fixed (scale-stable)
+// — only height/badge/visibility change with the filter.
+function styleBar(el: HTMLElement, bar: DensityBar, events: readonly TimelineEvent[], match: (e: TimelineEvent) => boolean): number {
+  let count = 0;
+  let hasMajor = false;
+  for (const m of bar.members) {
+    const e = events[m];
+    if (match(e)) {
+      count++;
+      if (e.major) hasMajor = true;
+    }
+  }
+  if (count === 0) {
+    el.classList.add('tl-hidden');
+    return 0;
+  }
+  el.classList.remove('tl-hidden');
+  el.classList.toggle('has-major', hasMajor);
+  el.style.height = `${barHeightFor(count)}px`;
+  el.dataset.count = String(count);
+  el.title = `${count} beats${hasMajor ? ' (incl. a major)' : ''} · click to zoom in`;
+  return count;
 }
 
 function buildTick(tick: Tick): [HTMLDivElement, HTMLDivElement] {
@@ -147,22 +174,21 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   // it keeps the page from reflowing and the scrollbar from jumping on zoom.
   const canvasHeight = layoutAt(fitDensity).canvasHeight;
 
-  const viewport = document.createElement('div');
+  const viewport = document.createElement('div') as PanViewport;
   viewport.className = 'tl-viewport';
 
   let currentLayout: Layout | null = null;
-  // Persistent canvas + nodes, built once and reused across every zoom. The event
-  // set is fixed per render, so markers are created once (createMarker) and only
-  // repositioned (positionMarker) on a density change — no teardown/rebuild. Only
-  // the ticks (granularity changes with density) are swapped per zoom.
-  let canvasEl: HTMLDivElement | null = null;
+  // Nodes from the last draw, in layout order. A filter edit reuses them to retoggle
+  // visibility / rescale bars without a relayout; a zoom rebuilds them (the set
+  // changes as buckets dissolve).
   let markerNodes: HTMLElement[] = [];
-  let tickNodes: HTMLElement[] = [];
+  let barNodes: HTMLElement[] = [];
 
-  // Filtering only toggles marker visibility — the layout (axis, ticks, lane
-  // stacking) is identical for any filter, so this never recomputes or rebuilds
-  // the canvas. Zip the cached nodes against layout.items to retoggle .tl-hidden
-  // in place; the matcher normalizes the query once (not per item).
+  // Filtering keeps the layout (axis, ticks, bar positions, lanes) fixed — so this
+  // never relayouts. Individual markers toggle .tl-hidden in place; density bars
+  // re-count their matching members and rescale (height/badge/hide) so the
+  // histogram reflects the filtered/searched set, not the full one. eventCount is
+  // the total matching beats — individuals plus bar members.
   function applyVisibility() {
     if (!currentLayout) return;
     const match = makeMatcher(filterState);
@@ -172,64 +198,87 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
       markerNodes[i]?.classList.toggle('tl-hidden', !vis);
       if (vis) count++;
     });
+    currentLayout.bars.forEach((bar, i) => {
+      if (barNodes[i]) count += styleBar(barNodes[i], bar, idx.events, match);
+    });
     api.eventCount = count;
+    applyItemScale();
+  }
+
+  // Grow markers when few beats are actually on screen (zoomed in and/or filtered)
+  // so they're easy to see and click; stay 1× when the view is dense. "On screen" =
+  // matching the filter AND within the current scroll window. A density bar in view
+  // means the region is crowded, so never upscale then.
+  function itemScale(): number {
+    if (!currentLayout) return 1;
+    const left = viewport.scrollLeft;
+    const right = left + (viewport.clientWidth || viewportWidth);
+    for (const bar of currentLayout.bars) {
+      if (bar.centerX >= left && bar.centerX <= right) return 1; // dense region
+    }
+    const match = makeMatcher(filterState);
+    let n = 0;
+    for (const it of currentLayout.items) {
+      if (it.x < left || it.x > right) continue;
+      if (match(it) && ++n >= UPSCALE_BELOW) return 1; // enough on screen → no upscale
+    }
+    return 1 + (1 - n / UPSCALE_BELOW) * (ITEM_SCALE_MAX - 1); // ramp up as n → 0
+  }
+
+  function applyItemScale() {
+    viewport.style.setProperty('--tl-item-scale', itemScale().toFixed(3));
   }
 
   // Filter bar owns the mutable filter state; a filter edit just retoggles
   // visibility, no relayout.
   const { bar: filterBar, state: filterState } = buildFilterBar(data.events, applyVisibility);
 
-  // Geometry update — only zoom (density change) calls this. anchor (or null) is
-  // the point to hold fixed: { frac } = position along the timeline (0..1),
-  // { x } = px from the viewport left to keep it under — so zooming feels
-  // anchored on the cursor. First call builds the canvas + markers once; every
-  // later call reuses those nodes, swapping only ticks and repositioning markers.
+  // Rebuild the canvas for the current density. Only zoom (density change) calls
+  // this. The individual-marker set changes with zoom (density buckets dissolve as
+  // beats spread), so unlike a fixed set we recreate the canvas contents each draw
+  // — cheap, since the crowd rolls into a bounded number of bars. anchor (or null)
+  // is the point held fixed: { frac } along the timeline (0..1), { x } px from the
+  // viewport left — so zooming feels anchored on the cursor.
   function draw(anchor?: { frac: number; x: number }) {
     const layout = layoutAt(fitDensity * zoomLevel);
     currentLayout = layout;
     const match = makeMatcher(filterState);
 
-    if (!canvasEl) {
-      // One-time build: canvas shell + axis + the full (fixed) marker set.
-      canvasEl = document.createElement('div');
-      canvasEl.className = 'tl-canvas';
-      canvasEl.style.height = `${canvasHeight}px`;
-      const axis = document.createElement('div');
-      axis.className = 'tl-axis';
-      canvasEl.appendChild(axis);
-      markerNodes = layout.items.map((item) => {
-        const marker = createMarker(item);
-        canvasEl!.appendChild(marker);
-        return marker;
-      });
-      viewport.appendChild(canvasEl);
-    }
+    const canvas = document.createElement('div');
+    canvas.className = 'tl-canvas';
+    canvas.style.width = `${layout.contentWidth}px`;
+    canvas.style.height = `${canvasHeight}px`;
 
-    canvasEl.style.width = `${layout.contentWidth}px`;
+    const axis = document.createElement('div');
+    axis.className = 'tl-axis';
+    canvas.appendChild(axis);
 
-    // Ticks change granularity with density, so swap them. Re-add before the
-    // first marker to keep the tick grid painted behind the markers.
-    for (const n of tickNodes) n.remove();
-    tickNodes = [];
-    const before = markerNodes[0] ?? null;
-    for (const tick of layout.ticks) {
-      const [line, lab] = buildTick(tick);
-      canvasEl.insertBefore(line, before);
-      canvasEl.insertBefore(lab, before);
-      tickNodes.push(line, lab);
-    }
+    for (const tick of layout.ticks) canvas.append(...buildTick(tick));
 
-    // Reposition the persistent markers (x/offset/side/bare) + apply visibility.
+    barNodes = [];
     let count = 0;
-    layout.items.forEach((item, i) => {
+    for (const bar of layout.bars) {
+      const node = buildBar(bar);
+      barNodes.push(node);
+      canvas.appendChild(node);
+      count += styleBar(node, bar, idx.events, match); // sized to matching members
+    }
+
+    markerNodes = [];
+    for (const item of layout.items) {
       const vis = match(item);
-      positionMarker(markerNodes[i], item, vis);
+      const marker = buildMarker(item, vis);
+      markerNodes.push(marker);
+      canvas.appendChild(marker);
       if (vis) count++;
-    });
+    }
+
+    viewport.replaceChildren(canvas);
     api.eventCount = count;
     api.contentWidth = layout.contentWidth;
     api.laneCount = layout.laneCount;
     if (anchor) viewport.scrollLeft = anchor.frac * layout.contentWidth - anchor.x;
+    applyItemScale();
   }
 
   // The point to hold fixed under the cursor while the canvas rescales: frac =
@@ -272,6 +321,28 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
       });
     }
   }
+
+  // Scrolling/panning changes which beats are on screen → re-evaluate the upscale.
+  // Coalesce to one update per frame.
+  let scaleRaf = 0;
+  viewport.addEventListener('scroll', () => {
+    if (scaleRaf) return;
+    scaleRaf = requestAnimationFrame(() => {
+      scaleRaf = 0;
+      applyItemScale();
+    });
+  });
+
+  // Click a density bar → zoom in, anchored on the cluster (convert its content x
+  // to a client x for the shared anchored zoom). Skipped after a pan-drag.
+  viewport.addEventListener('click', (e) => {
+    if (viewport._tlDragged) return;
+    const bar = (e.target as Element | null)?.closest<HTMLElement>('.tl-bar');
+    if (!bar) return;
+    const cx = Number(bar.dataset.centerx);
+    const left = viewport.getBoundingClientRect?.().left || 0;
+    zoom('in', left + (cx - viewport.scrollLeft));
+  });
 
   container.append(buildToolbar(zoom), filterBar, viewport);
   draw();
