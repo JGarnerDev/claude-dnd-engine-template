@@ -4,7 +4,8 @@
 // expands into a header row + one row per child. No DOM.
 
 import { DEFAULT_CALENDAR } from '../../_common/helpers/calendar.js';
-import { computeAxis } from '../../_common/helpers/axis.js';
+import { computeAxisFrom, indexEvents } from '../../_common/helpers/axis.js';
+import type { IndexedEvents } from '../../_common/helpers/axis.js';
 import { weightOf } from '../../_common/helpers/weight.js';
 import { buildTrackTree } from './tracks.js';
 import {
@@ -19,16 +20,12 @@ import {
   SWIM_LABEL_MAX,
 } from '../../_common/constants.js';
 import { parseTrack } from './tracks.js';
-import type { Calendar, CategoryConfig, SwimItem, SwimLayout, SwimRow, TimelineEvent } from '../../_common/types.js';
+import type { Calendar, CategoryConfig, SwimItem, SwimLayout, SwimRow, TimelineEvent, TrackCategory } from '../../_common/types.js';
 
-// rows: build the ordered row list from the tree + collapse state, stacking each
-// ROW_H tall below the axis band.
-function buildRows(
-  rawEvents: TimelineEvent[],
-  collapsed: Set<string>,
-  config?: CategoryConfig[],
-): SwimRow[] {
-  const tree = buildTrackTree(rawEvents, config);
+// rows: build the ordered row list from the (prebuilt) tree + collapse state,
+// stacking each ROW_H tall below the axis band. The tree is zoom- and
+// collapse-invariant, so the renderer builds it once and passes it in.
+function buildRows(tree: TrackCategory[], collapsed: Set<string>): SwimRow[] {
   const rows: SwimRow[] = [];
   let y = SWIM_TOP_PAD;
   const push = (r: Omit<SwimRow, 'y' | 'centerY' | 'height'>) => {
@@ -74,12 +71,26 @@ export function computeSwimlane(
   pxPerYear: number = PX_PER_YEAR,
   config?: CategoryConfig[],
 ): SwimLayout {
-  const axis = computeAxis(rawEvents, cal, pxPerYear);
+  return computeSwimlaneFrom(indexEvents(rawEvents, cal), buildTrackTree(rawEvents, config), collapsed, cal, pxPerYear);
+}
+
+// Zoom/collapse step: takes the pre-indexed events and the prebuilt track tree
+// (both built once per render by the renderer), so a zoom or collapse re-runs
+// only the scale + row stacking — never the per-event sort or tree walk.
+// computeSwimlane is the convenience wrapper that indexes + builds the tree.
+export function computeSwimlaneFrom(
+  idx: IndexedEvents,
+  tree: TrackCategory[],
+  collapsed: Set<string> = new Set(),
+  cal: Calendar = DEFAULT_CALENDAR,
+  pxPerYear: number = PX_PER_YEAR,
+): SwimLayout {
+  const axis = computeAxisFrom(idx, cal, pxPerYear);
   if (axis.isEmpty) {
     return { isEmpty: true, contentWidth: 0, totalHeight: SWIM_TOP_PAD + SWIM_BOTTOM_PAD, spanYears: 0, ticks: [], rows: [], items: [] };
   }
 
-  const rows = buildRows(rawEvents, collapsed, config);
+  const rows = buildRows(tree, collapsed);
   const rowKeys = new Set(rows.map((r) => r.key));
   const centerOf = new Map(rows.map((r) => [r.key, r.centerY]));
   const colorOf = new Map(rows.map((r) => [r.key, r.colorVar]));

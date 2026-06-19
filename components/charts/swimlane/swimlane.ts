@@ -4,7 +4,8 @@
 // view (controls.ts) — dots are `.tl-marker`s so hover/click work unchanged.
 
 import { DEFAULT_CALENDAR } from '../_common/helpers/calendar.js';
-import { computeSwimlane } from './helpers/swimlane-layout.js';
+import { computeSwimlaneFrom } from './helpers/swimlane-layout.js';
+import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
 import { buildTrackTree, DEFAULT_CATEGORIES } from './helpers/tracks.js';
 import { matchesFilters } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
@@ -143,8 +144,10 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
   // that actually has children — see computeSwimlane).
   const collapsed = new Set(DEFAULT_CATEGORIES.filter((c) => c.collapsed).map((c) => c.key));
 
-  const probe = computeSwimlane(data.events, collapsed, cal);
-  if (probe.isEmpty) {
+  // Sort + day-index every event exactly once; every zoom/collapse layout reuses
+  // it (only the scale and row stacking change downstream).
+  const idx = indexEvents(data.events, cal);
+  if (idx.events.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'tl-empty';
     empty.textContent = 'No events to show.';
@@ -152,20 +155,59 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
     return { eventCount: 0, rowCount: 0, contentWidth: 0 };
   }
 
+  // Track tree depends only on events (+ config) — zoom- and collapse-invariant.
+  // Build it once and feed every layout; collapse just re-stacks the rows.
+  const tree = buildTrackTree(data.events);
+
+  // span is density-invariant — derive it from the indexed events, no probe layout.
+  const spanYears = spanYearsOf(idx);
   // Fit so the gutter + canvas exactly fill the viewport at zoom 1. The extra
   // -2px slack absorbs contentWidth's Math.ceil rounding so gutter + canvas can't
   // round a hair past the viewport and trigger a phantom horizontal scrollbar.
-  const fitDensity = Math.max(1, (viewportWidth - GUTTER_W - MARGIN * 2 - 2) / probe.spanYears);
+  const fitDensity = Math.max(1, (viewportWidth - GUTTER_W - MARGIN * 2 - 2) / spanYears);
   let zoomLevel = 1;
   const api: SwimApi = { eventCount: 0, rowCount: 0, contentWidth: 0 };
 
   const swim = document.createElement('div') as PanViewport;
   swim.className = 'tl-swim';
 
-  const { bar: filterBar, state: filterState } = buildFilterBar(data.events, () => draw());
+  // Memoize per (density, collapse state). The layout depends on zoom and which
+  // categories are collapsed, but never on the filter — so filtering reuses the
+  // current layout and only retoggles visibility.
+  const layoutCache = new Map<string, SwimLayout>();
+  const layoutAt = (pxPerYear: number): SwimLayout => {
+    const key = `${pxPerYear}|${[...collapsed].sort().join(',')}`;
+    let layout = layoutCache.get(key);
+    if (!layout) {
+      layout = computeSwimlaneFrom(idx, tree, collapsed, cal, pxPerYear);
+      layoutCache.set(key, layout);
+    }
+    return layout;
+  };
 
+  let currentLayout: SwimLayout | null = null;
+
+  // Filter-only change: dots render in layout.items order, so zip the live
+  // `.tl-marker` nodes against the items and retoggle .tl-hidden in place — no
+  // relayout, no canvas rebuild.
+  function applyVisibility() {
+    if (!currentLayout) return;
+    const markers = swim.querySelectorAll<HTMLElement>('.tl-marker');
+    let count = 0;
+    currentLayout.items.forEach((item, i) => {
+      const vis = matchesFilters(item, filterState);
+      markers[i]?.classList.toggle('tl-hidden', !vis);
+      if (vis) count++;
+    });
+    api.eventCount = count;
+  }
+
+  const { bar: filterBar, state: filterState } = buildFilterBar(data.events, applyVisibility);
+
+  // Full rebuild — zoom (density) and toggle (collapse) change geometry/rows.
   function draw(anchor?: { frac: number; x: number }) {
-    const layout = computeSwimlane(data.events, collapsed, cal, fitDensity * zoomLevel);
+    const layout = layoutAt(fitDensity * zoomLevel);
+    currentLayout = layout;
     const visible = (i: SwimItem) => matchesFilters(i, filterState);
     // Gutter (sticky left) + canvas as the two scroll children. Listeners live
     // on `swim`, so swapping its children leaves pan/zoom/hover intact.
@@ -182,21 +224,47 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
     draw();
   }
 
-  function zoom(kind: ZoomKind, clientX?: number) {
+  function anchorAt(clientX?: number) {
     const vw = swim.clientWidth || viewportWidth;
     const left = swim.getBoundingClientRect?.().left || 0;
     const x = clientX != null ? clientX - left : vw / 2;
     const frac = api.contentWidth ? (swim.scrollLeft + x) / api.contentWidth : 0.5;
+    return { frac, x };
+  }
+
+  function applyZoom(kind: ZoomKind) {
     if (kind === 'in') zoomLevel = Math.min(ZOOM_MAX, zoomLevel * ZOOM_FACTOR);
     else if (kind === 'out') zoomLevel = Math.max(1, zoomLevel / ZOOM_FACTOR);
     else zoomLevel = 1;
-    draw({ frac, x });
+  }
+
+  // Toolbar: discrete clicks, draw immediately.
+  function zoom(kind: ZoomKind, clientX?: number) {
+    const anchor = anchorAt(clientX);
+    applyZoom(kind);
+    draw(anchor);
+  }
+
+  // Wheel: coalesce a fling's many events into one draw per frame; anchor is
+  // captured from the pre-batch layout, steps accumulate into zoomLevel.
+  let zoomRaf = 0;
+  let wheelAnchor: { frac: number; x: number } | undefined;
+  function zoomWheel(kind: ZoomKind, clientX?: number) {
+    if (!zoomRaf) wheelAnchor = anchorAt(clientX);
+    applyZoom(kind);
+    if (!zoomRaf) {
+      zoomRaf = requestAnimationFrame(() => {
+        zoomRaf = 0;
+        draw(wheelAnchor);
+        wheelAnchor = undefined;
+      });
+    }
   }
 
   container.append(buildToolbar(zoom), filterBar, swim);
   draw();
   enablePan(swim);
-  enableWheelZoom(swim, zoom);
+  enableWheelZoom(swim, zoomWheel);
   enableMarkerInteraction(swim, (source) => window.open(source, '_blank'));
   return api;
 }

@@ -4,7 +4,8 @@
 // this file owns only the lane/collision packing and the centered-axis geometry.
 
 import { DEFAULT_CALENDAR } from '../../_common/helpers/calendar.js';
-import { computeAxis } from '../../_common/helpers/axis.js';
+import { computeAxisFrom, indexEvents } from '../../_common/helpers/axis.js';
+import type { IndexedEvents } from '../../_common/helpers/axis.js';
 import { assignLanes, placement } from './lanes.js';
 import { weightOf } from '../../_common/helpers/weight.js';
 import { PX_PER_YEAR, AXIS_GAP, TIER_H, MIN_CANVAS_HEIGHT, LABEL_W, LABEL_GAP } from '../../_common/constants.js';
@@ -18,7 +19,18 @@ export function computeLayout(
   cal: Calendar = DEFAULT_CALENDAR,
   pxPerYear: number = PX_PER_YEAR,
 ): Layout {
-  const axis = computeAxis(rawEvents, cal, pxPerYear);
+  return computeLayoutFrom(indexEvents(rawEvents, cal), cal, pxPerYear);
+}
+
+// Zoom step: lays out from pre-indexed events (sorted/day-indexed once by the
+// renderer) so a zoom level re-runs only the density-driven scaling + lane
+// packing, never the per-event sort. computeLayout is the convenience wrapper.
+export function computeLayoutFrom(
+  idx: IndexedEvents,
+  cal: Calendar = DEFAULT_CALENDAR,
+  pxPerYear: number = PX_PER_YEAR,
+): Layout {
+  const axis = computeAxisFrom(idx, cal, pxPerYear);
   if (axis.isEmpty) {
     return { isEmpty: true, contentWidth: 0, canvasHeight: MIN_CANVAS_HEIGHT, items: [], ticks: [], laneCount: 0, spanYears: 0 };
   }
