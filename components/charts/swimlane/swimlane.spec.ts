@@ -137,4 +137,28 @@ describe('renderSwimlane', () => {
     expect(api.eventCount).toBe(0);
     expect(container.querySelector('.tl-empty')).toBeTruthy();
   });
+
+  it('renders per-row density bars for crowded tracks and recounts them on filter', () => {
+    const dense: TimelineData = {
+      calendar: null,
+      events: Array.from({ length: 40 }, (_, i) => ({
+        date: `1340-01-${String((i % 28) + 1).padStart(2, '0')}`,
+        label: `b${i}`,
+        track: i % 2 === 0 ? 'world' : 'party',
+      })),
+    };
+    const api = renderSwimlane(container, dense);
+    expect(container.querySelectorAll('.tl-swim-bar').length).toBeGreaterThan(0);
+    expect(container.querySelectorAll('.tl-swim-marker').length).toBeLessThan(40); // crowd aggregated
+
+    const sumCounts = () =>
+      [...container.querySelectorAll<HTMLElement>('.tl-swim-bar:not(.tl-hidden)')].reduce(
+        (s, b) => s + Number(b.dataset.count),
+        0,
+      );
+    const before = sumCounts();
+    chip('party').click(); // drop half the beats
+    expect(sumCounts()).toBeLessThan(before);
+    expect(api.eventCount).toBeLessThan(40);
+  });
 });

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { clusterBeats } from './cluster.js';
-import { BAR_MAX_H, DENSITY_BUCKET_PX } from '../../_common/constants.js';
+import { BAR_MAX_H, DENSITY_BUCKET_PX } from '../constants.js';
 
 // Helper: a non-major beat at x.
 const b = (x: number) => ({ x, major: false });

@@ -466,6 +466,30 @@
 }
 .tl-swim-band.is-child { background: rgba(255, 255, 255, 0.02); }
 
+/* Per-row density bars (LOD): a short column centered on the row, height ∝ count
+   (set inline), colored by the row's track. Click to zoom into the cluster. */
+.tl-swim-bar {
+  position: absolute;
+  width: 5px;
+  transform: translate(-50%, -50%); /* center on (x, row centerY) */
+  border-radius: 2px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.tl-swim-bar:hover { opacity: 0.8; }
+.tl-swim-bar.tl-hidden { display: none; } /* nothing in the bucket matches the filter */
+.tl-swim-bar.has-major { opacity: 0.7; }
+.tl-swim-bar.has-major::before {
+  content: '★';
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  line-height: 1;
+  color: #fbbf24;
+}
+
 /* Swimlane markers position by explicit top (override the world view's top:50%) */
 .tl-swim-marker { top: 0; }
 

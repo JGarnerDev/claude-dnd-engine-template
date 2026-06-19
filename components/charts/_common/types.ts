@@ -160,6 +160,19 @@ export interface SwimItem extends TimelineEvent {
   labelMaxWidth: number; // px to the next labelled dot in the row (responsive truncation)
 }
 
+// A per-row density bar (LOD): one crowded pixel bucket within a track row,
+// centered on the row. height ∝ count; members index into the sorted event set.
+export interface SwimBar {
+  x: number; // center x (mean member x)
+  y: number; // row center y
+  height: number; // scaled bar height, px
+  count: number;
+  hasMajor: boolean;
+  colorVar: string; // the row's track color
+  rowKey: string;
+  members: number[]; // indices into the sorted event set, for filter recount
+}
+
 export interface SwimLayout {
   isEmpty: boolean;
   contentWidth: number;
@@ -167,7 +180,8 @@ export interface SwimLayout {
   spanYears: number;
   ticks: Tick[];
   rows: SwimRow[];
-  items: SwimItem[];
+  items: SwimItem[]; // individual dots (sparse buckets); dense ones roll into bars
+  bars: SwimBar[]; // per-row density histogram
 }
 
 // The viewport element carries a flag set by enablePan so the click handler can

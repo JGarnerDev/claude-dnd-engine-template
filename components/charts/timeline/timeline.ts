@@ -5,7 +5,7 @@
 
 import { DEFAULT_CALENDAR } from '../_common/helpers/calendar.js';
 import { computeLayoutFrom } from './helpers/layout.js';
-import { barHeightFor } from './helpers/cluster.js';
+import { barHeightFor } from '../_common/helpers/cluster.js';
 import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
 import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT, MONTH_VIEW_FRAC, ZOOM_UPSCALE_FROM, ITEM_SCALE_MAX } from '../_common/constants.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';

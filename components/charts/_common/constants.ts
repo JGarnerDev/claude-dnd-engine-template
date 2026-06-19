@@ -70,3 +70,9 @@ export const SWIM_LABEL_MAX = 260; // cap so an isolated label doesn't stretch a
 export const SWIM_TOP_PAD = 40; // band above the first row for axis ticks
 export const SWIM_BOTTOM_PAD = 12;
 export const GUTTER_W = 160; // left label-gutter width
+// Per-row density bar sizing (LOD). Bars are centered on a ROW_H-tall row, so the
+// height range is small — a short stub for a couple beats up to nearly the row
+// height for a packed bucket.
+export const SWIM_BAR_MAX = 24; // tallest per-row bar, px (< ROW_H so it stays in the row)
+export const SWIM_BAR_MIN = 4; // shortest per-row bar, px
+export const SWIM_BAR_FULL_COUNT = 30; // member count mapping to SWIM_BAR_MAX (rows are less dense than the world aggregate)

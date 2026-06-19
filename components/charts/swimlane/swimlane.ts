@@ -10,8 +10,12 @@ import { buildTrackTree, DEFAULT_CATEGORIES } from './helpers/tracks.js';
 import { makeMatcher } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
-import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, GUTTER_W, SWIM_TOP_PAD, MONTH_VIEW_FRAC } from '../_common/constants.js';
-import type { PanViewport, SwimItem, SwimLayout, SwimRow, Tick, TimelineData, ZoomKind } from '../_common/types.js';
+import { barHeightFor } from '../_common/helpers/cluster.js';
+import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, GUTTER_W, SWIM_TOP_PAD, MONTH_VIEW_FRAC, SWIM_BAR_MAX, SWIM_BAR_MIN, SWIM_BAR_FULL_COUNT } from '../_common/constants.js';
+import type { PanViewport, SwimBar, SwimItem, SwimLayout, SwimRow, TimelineEvent, Tick, TimelineData, ZoomKind } from '../_common/types.js';
+
+// Per-row bar height for a member count (swimlane sizing — fits inside a row).
+const swimBarHeight = (count: number): number => barHeightFor(count, SWIM_BAR_MAX, SWIM_BAR_MIN, SWIM_BAR_FULL_COUNT);
 
 interface SwimApi {
   eventCount: number;
@@ -82,28 +86,59 @@ function tickNodesFor(tick: Tick): [HTMLDivElement, HTMLDivElement] {
   return [line, label];
 }
 
-// Returns the canvas plus the dot nodes, their label cache, the tick nodes (so a
-// zoom can swap them without disturbing bands/dots) and the visible count. Built
-// fresh on first render and on collapse (rows change); a plain zoom reuses these.
+// A per-row density bar (LOD), centered on its row at (x, y). Fixed geometry; the
+// height/count are filter-dependent and set by styleSwimBar.
+function buildSwimBar(bar: SwimBar): HTMLDivElement {
+  const el = document.createElement('div');
+  el.className = 'tl-swim-bar';
+  el.style.left = `${bar.x}px`;
+  el.style.top = `${bar.y}px`;
+  el.style.background = `var(${bar.colorVar})`;
+  el.dataset.centerx = String(bar.x);
+  return el;
+}
+
+// Size a bar to its filter-matching members: height ∝ matched count, hidden when
+// none match, badged when a matched member is major. Geometry stays fixed
+// (scale-stable). Returns the matched count for the caller's total.
+function styleSwimBar(el: HTMLElement, bar: SwimBar, events: readonly TimelineEvent[], match: (e: TimelineEvent) => boolean): number {
+  let count = 0;
+  let hasMajor = false;
+  for (const m of bar.members) {
+    const e = events[m];
+    if (match(e)) {
+      count++;
+      if (e.major) hasMajor = true;
+    }
+  }
+  if (count === 0) {
+    el.classList.add('tl-hidden');
+    return 0;
+  }
+  el.classList.remove('tl-hidden');
+  el.classList.toggle('has-major', hasMajor);
+  el.style.height = `${swimBarHeight(count)}px`;
+  el.dataset.count = String(count);
+  el.title = `${count} beats${hasMajor ? ' (incl. a major)' : ''} · click to zoom in`;
+  return count;
+}
+
+// Builds the full canvas (ticks, bands, per-row density bars, dots) and returns the
+// dot nodes + bar nodes (layout order) and the visible count. The individual/bar
+// split changes with zoom (buckets dissolve), so the canvas is rebuilt each draw.
 interface BuiltSwimCanvas {
   canvas: HTMLDivElement;
   markers: HTMLElement[];
-  labels: (HTMLElement | null)[];
-  ticks: HTMLElement[];
+  bars: HTMLElement[];
   visibleCount: number;
 }
-function buildCanvas(layout: SwimLayout, match: (i: SwimItem) => boolean): BuiltSwimCanvas {
+function buildCanvas(layout: SwimLayout, events: readonly TimelineEvent[], match: (e: TimelineEvent) => boolean): BuiltSwimCanvas {
   const canvas = document.createElement('div');
   canvas.className = 'tl-swim-canvas';
   canvas.style.width = `${layout.contentWidth}px`;
   canvas.style.height = `${layout.totalHeight}px`;
 
-  const ticks: HTMLElement[] = [];
-  for (const tick of layout.ticks) {
-    const [line, label] = tickNodesFor(tick);
-    canvas.append(line, label);
-    ticks.push(line, label);
-  }
+  for (const tick of layout.ticks) canvas.append(...tickNodesFor(tick));
   // Faint row bands so dots read as sitting on a lane.
   for (const row of layout.rows) {
     const band = document.createElement('div');
@@ -112,9 +147,18 @@ function buildCanvas(layout: SwimLayout, match: (i: SwimItem) => boolean): Built
     band.style.height = `${row.height}px`;
     canvas.appendChild(band);
   }
+
+  let visibleCount = 0;
+  const bars: HTMLElement[] = [];
+  for (const bar of layout.bars) {
+    const el = buildSwimBar(bar);
+    bars.push(el);
+    canvas.appendChild(el);
+    visibleCount += styleSwimBar(el, bar, events, match);
+  }
+
   const markers: HTMLElement[] = [];
   const labels: (HTMLElement | null)[] = [];
-  let visibleCount = 0;
   layout.items.forEach((item, i) => {
     const marker = createDot(item);
     markers.push(marker);
@@ -124,7 +168,7 @@ function buildCanvas(layout: SwimLayout, match: (i: SwimItem) => boolean): Built
     positionDot(marker, item, labels, i, vis);
     if (vis) visibleCount++;
   });
-  return { canvas, markers, labels, ticks, visibleCount };
+  return { canvas, markers, bars, visibleCount };
 }
 
 function buildGutter(rows: SwimRow[], height: number, onToggle: (category: string) => void): HTMLDivElement {
@@ -241,18 +285,16 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
   };
 
   let currentLayout: SwimLayout | null = null;
-  // Persistent nodes. The gutter + bands depend only on the collapse state (not
-  // zoom), so a plain zoom keeps them and just reflows the dots + ticks; a collapse
-  // toggle does a full rebuild. markerNodes also lets a filter edit retoggle
-  // visibility without re-scanning the DOM.
-  let canvasEl: HTMLDivElement | null = null;
+  // Nodes from the last draw, in layout order. A filter edit reuses them to retoggle
+  // dot visibility / rescale bars without a relayout; a zoom rebuilds them (the
+  // individual/bar split changes as buckets dissolve).
   let markerNodes: HTMLElement[] = [];
-  let labelNodes: (HTMLElement | null)[] = [];
-  let tickNodes: HTMLElement[] = [];
+  let barNodes: HTMLElement[] = [];
 
-  // Filter-only change: zip the cached dot nodes against layout.items and
-  // retoggle .tl-hidden in place — no relayout, no canvas rebuild. The matcher
-  // normalizes the query once, not per item.
+  // Filtering keeps the layout fixed. Dots toggle .tl-hidden in place; per-row
+  // density bars re-count their matching members and rescale (height/badge/hide) so
+  // the histogram reflects the filtered set. eventCount = matching dots + matching
+  // bar members.
   function applyVisibility() {
     if (!currentLayout) return;
     const match = makeMatcher(filterState);
@@ -262,53 +304,30 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
       markerNodes[i]?.classList.toggle('tl-hidden', !vis);
       if (vis) count++;
     });
+    currentLayout.bars.forEach((bar, i) => {
+      if (barNodes[i]) count += styleSwimBar(barNodes[i], bar, idx.events, match);
+    });
     api.eventCount = count;
   }
 
   const { bar: filterBar, state: filterState } = buildFilterBar(data.events, applyVisibility);
 
-  // draw(anchor, full). full=true (first render + collapse toggle) rebuilds the
-  // gutter, bands and dots from scratch — rows changed. full=false (zoom) keeps
-  // the gutter + bands and only swaps ticks (granularity) + reflows the persistent
-  // dots (x/label/visibility), since rows and y are zoom-invariant.
-  function draw(anchor?: { frac: number; x: number }, full = false) {
+  // Rebuild the gutter + canvas for the current density/collapse state. Both zoom
+  // and collapse change the layout (the individual/bar split shifts with zoom, rows
+  // shift with collapse), so the canvas is rebuilt each draw — cheap, since the
+  // crowd rolls into a bounded number of bars. Listeners live on `swim`, so swapping
+  // its children leaves pan/zoom/hover intact.
+  function draw(anchor?: { frac: number; x: number }) {
     const layout = layoutAt(fitDensity * zoomLevel);
     currentLayout = layout;
     const match = makeMatcher(filterState);
 
-    if (full || !canvasEl) {
-      // Gutter (sticky left) + canvas as the two scroll children. Listeners live
-      // on `swim`, so swapping its children leaves pan/zoom/hover intact.
-      const built = buildCanvas(layout, match);
-      canvasEl = built.canvas;
-      markerNodes = built.markers;
-      labelNodes = built.labels;
-      tickNodes = built.ticks;
-      swim.replaceChildren(buildGutter(layout.rows, layout.totalHeight, toggle), built.canvas);
-      api.eventCount = built.visibleCount;
-    } else {
-      canvasEl.style.width = `${layout.contentWidth}px`;
-      // Swap ticks (density-dependent); re-insert before the first band so the
-      // grid stays painted behind bands + dots.
-      for (const n of tickNodes) n.remove();
-      tickNodes = [];
-      const before = canvasEl.firstChild;
-      for (const tick of layout.ticks) {
-        const [line, label] = tickNodesFor(tick);
-        canvasEl.insertBefore(line, before);
-        canvasEl.insertBefore(label, before);
-        tickNodes.push(line, label);
-      }
-      // Reflow the persistent dots in place.
-      let count = 0;
-      layout.items.forEach((item, i) => {
-        const vis = match(item);
-        positionDot(markerNodes[i], item, labelNodes, i, vis);
-        if (vis) count++;
-      });
-      api.eventCount = count;
-    }
+    const built = buildCanvas(layout, idx.events, match);
+    markerNodes = built.markers;
+    barNodes = built.bars;
+    swim.replaceChildren(buildGutter(layout.rows, layout.totalHeight, toggle), built.canvas);
 
+    api.eventCount = built.visibleCount;
     api.rowCount = layout.rows.length;
     api.contentWidth = layout.contentWidth;
     if (anchor) swim.scrollLeft = anchor.frac * layout.contentWidth - anchor.x;
@@ -317,7 +336,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
   function toggle(category: string) {
     if (collapsed.has(category)) collapsed.delete(category);
     else collapsed.add(category);
-    draw(undefined, true); // rows change → full rebuild
+    draw();
   }
 
   function anchorAt(clientX?: number) {
@@ -356,6 +375,16 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
       });
     }
   }
+
+  // Click a density bar → zoom in, anchored on the cluster. Skipped after a pan-drag.
+  swim.addEventListener('click', (e) => {
+    if (swim._tlDragged) return;
+    const bar = (e.target as Element | null)?.closest<HTMLElement>('.tl-swim-bar');
+    if (!bar) return;
+    const cx = Number(bar.dataset.centerx);
+    const left = swim.getBoundingClientRect?.().left || 0;
+    zoom('in', left + (cx - swim.scrollLeft));
+  });
 
   container.append(buildToolbar(zoom), filterBar, swim);
   draw();

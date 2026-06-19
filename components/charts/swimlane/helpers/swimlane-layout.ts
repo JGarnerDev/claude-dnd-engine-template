@@ -7,6 +7,7 @@ import { DEFAULT_CALENDAR } from '../../_common/helpers/calendar.js';
 import { computeAxisFrom, indexEvents } from '../../_common/helpers/axis.js';
 import type { IndexedEvents } from '../../_common/helpers/axis.js';
 import { weightOf } from '../../_common/helpers/weight.js';
+import { clusterBeats, barHeightFor } from '../../_common/helpers/cluster.js';
 import { buildTrackTree } from './tracks.js';
 import {
   ROW_H,
@@ -18,9 +19,14 @@ import {
   SWIM_LABEL_PAD,
   SWIM_LABEL_MIN,
   SWIM_LABEL_MAX,
+  DENSITY_BUCKET_PX,
+  CLUSTER_OFF_GAP,
+  SWIM_BAR_MAX,
+  SWIM_BAR_MIN,
+  SWIM_BAR_FULL_COUNT,
 } from '../../_common/constants.js';
 import { parseTrack } from './tracks.js';
-import type { Calendar, CategoryConfig, SwimItem, SwimLayout, SwimRow, TimelineEvent, TrackCategory } from '../../_common/types.js';
+import type { Calendar, CategoryConfig, SwimBar, SwimItem, SwimLayout, SwimRow, TimelineEvent, TrackCategory } from '../../_common/types.js';
 
 // rows: build the ordered row list from the (prebuilt) tree + collapse state,
 // stacking each ROW_H tall below the axis band. The tree is zoom- and
@@ -87,7 +93,7 @@ export function computeSwimlaneFrom(
 ): SwimLayout {
   const axis = computeAxisFrom(idx, cal, pxPerYear);
   if (axis.isEmpty) {
-    return { isEmpty: true, contentWidth: 0, totalHeight: SWIM_TOP_PAD + SWIM_BOTTOM_PAD, spanYears: 0, ticks: [], rows: [], items: [] };
+    return { isEmpty: true, contentWidth: 0, totalHeight: SWIM_TOP_PAD + SWIM_BOTTOM_PAD, spanYears: 0, ticks: [], rows: [], items: [], bars: [] };
   }
 
   const rows = buildRows(tree, collapsed);
@@ -95,11 +101,48 @@ export function computeSwimlaneFrom(
   const centerOf = new Map(rows.map((r) => [r.key, r.centerY]));
   const colorOf = new Map(rows.map((r) => [r.key, r.colorVar]));
 
-  const items: SwimItem[] = axis.events.map((e) => {
-    const key = rowKeyFor(e.track, rowKeys);
+  const events = axis.events; // sorted ascending by time
+  const xs = events.map((e) => axis.xOf(e._idx));
+  const keyOf = events.map((e) => rowKeyFor(e.track, rowKeys));
+
+  // LOD: per row, roll crowded buckets into density bars; like the world view it's
+  // an overview device, so once beats are individually resolvable (avg spacing >=
+  // a dot footprint) clustering switches off and every beat is a dot. Each row
+  // clusters independently — one track, one colour, no mixing.
+  const avgGap = events.length > 1 ? (xs[xs.length - 1] - xs[0]) / (events.length - 1) : Infinity;
+  const bars: SwimBar[] = [];
+  let individualIdx: number[]; // global event indices that render as dots
+
+  if (avgGap < CLUSTER_OFF_GAP) {
+    const swimBarHeight = (c: number) => barHeightFor(c, SWIM_BAR_MAX, SWIM_BAR_MIN, SWIM_BAR_FULL_COUNT);
+    const byRowIdx = new Map<string, number[]>(); // rowKey -> global event indices (x-sorted)
+    events.forEach((_, i) => {
+      const g = byRowIdx.get(keyOf[i]);
+      if (g) g.push(i);
+      else byRowIdx.set(keyOf[i], [i]);
+    });
+    individualIdx = [];
+    for (const [key, idxs] of byRowIdx) {
+      const input = idxs.map((i) => ({ x: xs[i], major: !!events[i].major }));
+      const { individuals, bars: rowBars } = clusterBeats(input, DENSITY_BUCKET_PX, swimBarHeight);
+      for (const li of individuals) individualIdx.push(idxs[li]);
+      const cy = centerOf.get(key) ?? SWIM_TOP_PAD;
+      const color = colorOf.get(key) ?? '--track-world';
+      for (const b of rowBars) {
+        bars.push({ x: b.centerX, y: cy, height: b.height, count: b.count, hasMajor: b.hasMajor, colorVar: color, rowKey: key, members: b.members.map((li) => idxs[li]) });
+      }
+    }
+    individualIdx.sort((a, b) => a - b);
+  } else {
+    individualIdx = events.map((_, i) => i);
+  }
+
+  const items: SwimItem[] = individualIdx.map((i) => {
+    const e = events[i];
+    const key = keyOf[i];
     return {
       ...e,
-      x: axis.xOf(e._idx),
+      x: xs[i],
       y: centerOf.get(key) ?? SWIM_TOP_PAD,
       rowKey: key,
       colorVar: colorOf.get(key) ?? '--track-world',
@@ -142,5 +185,5 @@ export function computeSwimlaneFrom(
   }
 
   const totalHeight = (rows.length ? rows[rows.length - 1].y + ROW_H : SWIM_TOP_PAD) + SWIM_BOTTOM_PAD;
-  return { isEmpty: false, contentWidth: axis.contentWidth, totalHeight, spanYears: axis.spanYears, ticks: axis.ticks, rows, items };
+  return { isEmpty: false, contentWidth: axis.contentWidth, totalHeight, spanYears: axis.spanYears, ticks: axis.ticks, rows, items, bars };
 }

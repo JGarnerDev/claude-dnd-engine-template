@@ -164,4 +164,34 @@ describe('computeSwimlane', () => {
     const out = computeSwimlane(events, new Set(), undefined, 400);
     expect(out.items.every((i) => i.showLabel)).toBe(true);
   });
+
+  // --- LOD: per-row density bars ---------------------------------------------
+  const crowdOn = (track: string, n = 40) =>
+    Array.from({ length: n }, (_, i) => ({
+      date: `1340-${String(Math.floor(i / 28) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+      label: `${track}-${i}`,
+      track,
+    }));
+
+  it('rolls a crowded row into per-row density bars', () => {
+    const out = computeSwimlane(crowdOn('world'), new Set(), undefined, 50);
+    expect(out.bars.length).toBeGreaterThan(0);
+    expect(out.bars.every((b) => b.rowKey === 'world')).toBe(true);
+    expect(out.items.length).toBeLessThan(40); // most beats aggregated
+  });
+
+  it('clusters each track row independently', () => {
+    const out = computeSwimlane([...crowdOn('world', 20), ...crowdOn('party', 20)], new Set(), undefined, 50);
+    const rowsWithBars = new Set(out.bars.map((b) => b.rowKey));
+    expect(rowsWithBars.has('world')).toBe(true);
+    expect(rowsWithBars.has('party')).toBe(true);
+  });
+
+  it('drops bars once zoomed in enough to resolve beats', () => {
+    const lo = computeSwimlane(crowdOn('world'), new Set(), undefined, 50);
+    const hi = computeSwimlane(crowdOn('world'), new Set(), undefined, 100000);
+    expect(lo.bars.length).toBeGreaterThan(0);
+    expect(hi.bars).toHaveLength(0);
+    expect(hi.items).toHaveLength(40); // every beat individual
+  });
 });

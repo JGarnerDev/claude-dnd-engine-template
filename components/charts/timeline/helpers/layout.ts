@@ -7,7 +7,7 @@ import { DEFAULT_CALENDAR } from '../../_common/helpers/calendar.js';
 import { computeAxisFrom, indexEvents } from '../../_common/helpers/axis.js';
 import type { IndexedEvents } from '../../_common/helpers/axis.js';
 import { assignLanes, placement } from './lanes.js';
-import { clusterBeats } from './cluster.js';
+import { clusterBeats } from '../../_common/helpers/cluster.js';
 import { gateLabels } from './labels.js';
 import { weightOf } from '../../_common/helpers/weight.js';
 import { PX_PER_YEAR, AXIS_GAP, TIER_H, MIN_CANVAS_HEIGHT, BAR_MAX_H, CLUSTER_OFF_GAP } from '../../_common/constants.js';
