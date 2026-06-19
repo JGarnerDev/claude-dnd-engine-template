@@ -14,13 +14,13 @@ describe('buildFilterBar', () => {
     calls = [];
   });
 
-  it('renders a search box and one chip per track, all on by default', () => {
+  it('renders a search box and one chip per track, all off by default', () => {
     const { bar, state } = buildFilterBar(events, () => {});
     expect(bar.querySelector('.chart-search')).toBeTruthy();
     const chips = [...bar.querySelectorAll<HTMLElement>('.chart-chip')];
     expect(chips.map((c) => c.dataset.track)).toEqual(['world', 'faction', 'party']);
-    expect(chips.every((c) => c.classList.contains('is-on'))).toBe(true);
-    expect([...state.tracks]).toEqual(['world', 'faction', 'party']);
+    expect(chips.some((c) => c.classList.contains('is-on'))).toBe(false);
+    expect([...state.tracks]).toEqual([]); // empty = no track filter
   });
 
   it('updates the query and fires onChange on input', () => {
@@ -32,16 +32,17 @@ describe('buildFilterBar', () => {
     expect(calls).toEqual(['pact']);
   });
 
-  it('toggles a track off then on, firing onChange each time', () => {
+  it('toggles a track on then off, firing onChange each time', () => {
     const { bar, state } = buildFilterBar(events, () => calls.push([...state.tracks]));
     const faction = [...bar.querySelectorAll<HTMLElement>('.chart-chip')].find(
       (c) => c.dataset.track === 'faction',
     )!;
     faction.click();
+    expect(faction.classList.contains('is-on')).toBe(true);
+    expect(state.tracks.has('faction')).toBe(true);
+    faction.click();
     expect(faction.classList.contains('is-on')).toBe(false);
     expect(state.tracks.has('faction')).toBe(false);
-    faction.click();
-    expect(state.tracks.has('faction')).toBe(true);
     expect(calls).toHaveLength(2);
   });
 });

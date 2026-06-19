@@ -35,6 +35,10 @@ describe('applyFilters', () => {
     expect(applyFilters(events, { query: '  pact ' })).toHaveLength(1);
   });
 
+  it('treats an empty track set as no filter (passes everything)', () => {
+    expect(applyFilters(events, { tracks: new Set() })).toHaveLength(4);
+  });
+
   it('keeps only whitelisted tracks, defaulting untagged to world', () => {
     const out = applyFilters(events, { tracks: new Set(['world']) });
     expect(out.map((e) => e.label)).toEqual(['The Long Winter begins', 'Winter thaws']);

@@ -24,8 +24,11 @@ export function buildFilterBar(
   const bar = document.createElement('div');
   bar.className = 'chart-filterbar';
 
-  const tracks = trackList(events); // computed once; seeds the state set and the chips
-  const state: FilterBarState = { query: '', tracks: new Set(tracks) };
+  const tracks = trackList(events); // computed once; seeds the chips
+  // Start with NO tracks selected — an empty set means "filter nothing" (all
+  // pass). Clicking a chip narrows to the selected track(s); this makes
+  // filtering to one/a few a single click instead of deselecting the rest.
+  const state: FilterBarState = { query: '', tracks: new Set() };
 
   const search = document.createElement('input');
   search.type = 'search';
@@ -41,7 +44,7 @@ export function buildFilterBar(
   for (const track of tracks) {
     const chip = document.createElement('button');
     chip.type = 'button';
-    chip.className = 'chart-chip is-on';
+    chip.className = 'chart-chip'; // off by default; is-on added on selection
     chip.dataset.track = track;
     chip.textContent = track;
     chip.addEventListener('click', () => {

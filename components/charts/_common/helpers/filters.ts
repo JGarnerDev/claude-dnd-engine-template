@@ -31,11 +31,12 @@ function searchText(e: TimelineEvent): string {
 // closure, instead of re-normalizing the same query string N times.
 //   - query   : case-insensitive substring match against the beat's search text
 //               (label + track member + keywords; blank = all)
-//   - tracks  : whitelist of track names; omit/null = every track passes
+//   - tracks  : whitelist of track names; omit/null/empty = every track passes
+//               (empty selection means "no track filter", not "hide all")
 export function makeMatcher({ query = '', tracks = null }: FilterState = {}): (e: TimelineEvent) => boolean {
   const q = query.trim().toLowerCase();
   return (e: TimelineEvent): boolean => {
-    if (tracks && !tracks.has(e.track || 'world')) return false;
+    if (tracks && tracks.size > 0 && !tracks.has(e.track || 'world')) return false;
     if (q && !searchText(e).includes(q)) return false;
     return true;
   };

@@ -128,11 +128,11 @@ describe('renderTimeline', () => {
     expect(visible[0].querySelector('.chart-label')!.textContent).toBe('Tax revolt');
   });
 
-  it('toggles a track off to hide its markers', () => {
+  it('selects a track to show only its markers', () => {
     renderTimeline(container, data);
-    chip('world').click(); // hide the two world beats
+    chip('world').click(); // whitelist world -> only the two world beats show
     const visible = [...container.querySelectorAll<HTMLElement>('.chart-marker:not(.chart-hidden)')];
-    expect(visible.map((m) => m.dataset.track)).toEqual(['faction']);
+    expect(visible.map((m) => m.dataset.track)).toEqual(['world', 'world']);
   });
 
   it('keeps the time axis fixed when filtering (x/y scale unchanged)', () => {
@@ -141,7 +141,7 @@ describe('renderTimeline', () => {
     const ticksBefore = container.querySelectorAll('.chart-tick-label').length;
     const xBefore = [...container.querySelectorAll<HTMLElement>('.chart-marker')].map((m) => m.style.left);
     fireInput('e'); // matches some but not all
-    chip('world').click(); // leaves at least the faction beat visible
+    chip('world').click(); // whitelist world -> visibility narrows, layout unchanged
     expect(result.contentWidth).toBe(widthBefore);
     expect(container.querySelectorAll('.chart-tick-label').length).toBe(ticksBefore);
     expect([...container.querySelectorAll<HTMLElement>('.chart-marker')].map((m) => m.style.left)).toEqual(xBefore);
