@@ -61,3 +61,19 @@
   opacity: 0.55;
 }
 .chart-chip:not(.is-on)::before { background: var(--chart-muted); }
+
+/* DM-only toggle: amber accent + a lock glyph so it reads as a secrecy gate, not
+   a track. When on, the border picks up the warning tint as a standing reminder
+   the chart is no longer player-safe. */
+.chart-chip-secret::before {
+  content: '🔒';
+  background: none;
+  width: auto;
+  height: auto;
+  font-size: 11px;
+  line-height: 1;
+}
+.chart-chip-secret.is-on {
+  color: #c2710c;
+  border-color: #c2710c;
+}

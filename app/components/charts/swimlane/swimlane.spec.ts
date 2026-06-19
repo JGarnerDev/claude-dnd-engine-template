@@ -181,7 +181,7 @@ describe('renderSwimlane', () => {
   });
 
   it('seeds the filter UI from initialState and round-trips through getState()', () => {
-    const api = renderSwimlane(container, data, { query: 'war', tracks: ['world'], zoomLevel: 1, scrollLeft: 0 });
+    const api = renderSwimlane(container, data, { query: 'war', tracks: ['world'], zoomLevel: 1, scrollLeft: 0, showSecret: false });
     expect(container.querySelector<HTMLInputElement>('.chart-search')!.value).toBe('war');
     expect(chip('world').classList.contains('is-on')).toBe(true);
     const state = api.getState();

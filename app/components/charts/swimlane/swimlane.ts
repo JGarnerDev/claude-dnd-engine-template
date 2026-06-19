@@ -265,7 +265,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
     controls: [],
     // filterState/swim are declared below but only read when getState runs
     // (post-render), so the closure is safe.
-    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, swim.scrollLeft),
+    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, swim.scrollLeft, filterState.showSecret),
   };
 
   const swim = document.createElement('div') as PanViewport;
@@ -313,9 +313,9 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
 
   // A loaded view seeds query + still-present tracks (decision H intersection).
   const seed = initialState
-    ? { query: initialState.query, tracks: resolveTracks(initialState.tracks, trackList(data.events)) }
+    ? { query: initialState.query, tracks: resolveTracks(initialState.tracks, trackList(data.events)), showSecret: initialState.showSecret }
     : undefined;
-  const { bar: filterBar, search, chips, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
+  const { bar: filterBar, search, chips, secret, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
 
   // Rebuild the gutter + canvas for the current density/collapse state. Both zoom
   // and collapse change the layout (the individual/bar split shifts with zoom, rows
@@ -400,6 +400,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
   api.controls = [
     { label: 'Search', node: search },
     { label: 'Filter', node: chips },
+    ...(secret ? [{ label: 'Visibility', node: secret }] : []),
   ];
   container.append(filterBar, swim);
   draw();

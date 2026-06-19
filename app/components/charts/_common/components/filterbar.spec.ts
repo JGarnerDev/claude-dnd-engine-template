@@ -61,4 +61,36 @@ describe('buildFilterBar', () => {
     expect(state.tracks.has('faction')).toBe(false);
     expect(calls).toHaveLength(2);
   });
+
+  describe('DM-only toggle', () => {
+    const withSecret = [...events, { date: '1343-01-01', label: 'Hidden pact', track: 'world', secret: true }];
+
+    it('is absent when no beat is secret', () => {
+      const { secret } = buildFilterBar(events, () => {});
+      expect(secret).toBeNull();
+    });
+
+    it('appears (off by default) when a beat is secret', () => {
+      const { secret, state } = buildFilterBar(withSecret, () => {});
+      expect(secret).toBeTruthy();
+      expect(secret!.classList.contains('is-on')).toBe(false);
+      expect(state.showSecret).toBe(false);
+    });
+
+    it('toggles showSecret and fires onChange', () => {
+      const { secret, state } = buildFilterBar(withSecret, (s) => calls.push(s.showSecret));
+      secret!.click();
+      expect(state.showSecret).toBe(true);
+      expect(secret!.classList.contains('is-on')).toBe(true);
+      secret!.click();
+      expect(state.showSecret).toBe(false);
+      expect(calls).toEqual([true, false]);
+    });
+
+    it('seeds showSecret from an initial snapshot', () => {
+      const { secret, state } = buildFilterBar(withSecret, () => {}, { query: '', tracks: [], showSecret: true });
+      expect(state.showSecret).toBe(true);
+      expect(secret!.classList.contains('is-on')).toBe(true);
+    });
+  });
 });

@@ -30,6 +30,7 @@ export interface TimelineEvent {
   minor?: boolean;
   source?: string;
   keywords?: string[];
+  secret?: boolean; // DM-only beat: hidden unless the DM-only filter is toggled on
 }
 
 // Act/mission span bar. Extracted by the generator; render consumes it in M4.
@@ -97,6 +98,7 @@ export interface Layout {
 export interface FilterState {
   query?: string;
   tracks?: Set<string> | null;
+  showSecret?: boolean; // when false (default), secret beats are filtered out
 }
 
 export type ZoomKind = 'in' | 'out';
@@ -112,6 +114,7 @@ export interface ChartState {
   tracks: string[];
   zoomLevel: number;
   scrollLeft: number;
+  showSecret: boolean; // DM-only filter state (default false = player-safe)
 }
 
 export interface SavedView {

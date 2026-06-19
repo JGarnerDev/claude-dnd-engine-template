@@ -224,7 +224,7 @@ describe('renderTimeline', () => {
   });
 
   it('seeds the filter UI from initialState and round-trips through getState()', () => {
-    const api = renderTimeline(container, data, { query: 'pact', tracks: ['faction'], zoomLevel: 1, scrollLeft: 0 });
+    const api = renderTimeline(container, data, { query: 'pact', tracks: ['faction'], zoomLevel: 1, scrollLeft: 0, showSecret: false });
     expect(container.querySelector<HTMLInputElement>('.chart-search')!.value).toBe('pact');
     expect(chip('faction').classList.contains('is-on')).toBe(true);
     const visible = [...container.querySelectorAll<HTMLElement>('.chart-marker:not(.chart-hidden)')];
@@ -235,9 +235,42 @@ describe('renderTimeline', () => {
   });
 
   it('drops a seeded track that no longer exists in the data (fail soft)', () => {
-    const api = renderTimeline(container, data, { query: '', tracks: ['gone'], zoomLevel: 1, scrollLeft: 0 });
+    const api = renderTimeline(container, data, { query: '', tracks: ['gone'], zoomLevel: 1, scrollLeft: 0, showSecret: false });
     expect(api.getState().tracks).toEqual([]);
     // no track filter -> all beats visible
     expect(container.querySelectorAll('.chart-marker:not(.chart-hidden)')).toHaveLength(3);
+  });
+
+  describe('DM-only (secret) beats', () => {
+    const withSecret: TimelineData = {
+      calendar: null,
+      events: [
+        ...data.events,
+        { date: '1343-01-01', label: 'The hidden pact', track: 'world', secret: true },
+      ],
+    };
+    const secretChip = () => container.querySelector<HTMLButtonElement>('.chart-chip-secret');
+
+    it('hides secret markers by default and exposes a DM-only toggle', () => {
+      const api = renderTimeline(container, withSecret);
+      expect(api.eventCount).toBe(3); // secret beat excluded from the count
+      const hidden = [...container.querySelectorAll<HTMLElement>('.chart-marker.chart-hidden')];
+      expect(hidden.map((m) => m.dataset.label)).toContain('The hidden pact');
+      expect(secretChip()).toBeTruthy();
+    });
+
+    it('reveals secret markers when the toggle is clicked', () => {
+      const api = renderTimeline(container, withSecret);
+      secretChip()!.click();
+      expect(api.eventCount).toBe(4);
+      const visible = [...container.querySelectorAll<HTMLElement>('.chart-marker:not(.chart-hidden)')];
+      expect(visible.map((m) => m.dataset.label)).toContain('The hidden pact');
+      expect(api.getState().showSecret).toBe(true);
+    });
+
+    it('shows no DM-only toggle when no beat is secret', () => {
+      renderTimeline(container, data);
+      expect(secretChip()).toBeNull();
+    });
   });
 });

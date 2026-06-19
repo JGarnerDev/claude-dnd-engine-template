@@ -155,7 +155,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData, initi
     controls: [],
     // Snapshot the live view. filterState/viewport are declared below but only
     // read when getState is called (post-render), so the closure is safe.
-    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, viewport.scrollLeft),
+    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, viewport.scrollLeft, filterState.showSecret),
   };
 
   // Memoize the layout per density. Filtering never changes geometry (see
@@ -224,9 +224,9 @@ export function renderTimeline(container: HTMLElement, data: TimelineData, initi
   // Filter bar owns the mutable filter state; a filter edit just retoggles
   // visibility, no relayout. A loaded view seeds query + still-present tracks.
   const seed = initialState
-    ? { query: initialState.query, tracks: resolveTracks(initialState.tracks, trackList(data.events)) }
+    ? { query: initialState.query, tracks: resolveTracks(initialState.tracks, trackList(data.events)), showSecret: initialState.showSecret }
     : undefined;
-  const { bar: filterBar, search, chips, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
+  const { bar: filterBar, search, chips, secret, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
 
   // Rebuild the canvas for the current density. Only zoom (density change) calls
   // this. The individual-marker set changes with zoom (density buckets dissolve as
@@ -337,6 +337,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData, initi
   api.controls = [
     { label: 'Search', node: search },
     { label: 'Filter', node: chips },
+    ...(secret ? [{ label: 'Visibility', node: secret }] : []),
   ];
   container.append(filterBar, viewport);
   draw();

@@ -10,18 +10,26 @@ import type { FilterState, TimelineEvent } from '../types.js';
 export interface FilterBarState {
   query: string;
   tracks: Set<string>;
+  showSecret: boolean;
 }
 
-// Returns { bar, state }. state = { query, tracks:Set } is mutated in place as
-// the user edits, so the caller can read it directly inside its redraw.
-// Returns the wrapping `bar` (search + chips, for standalone use) plus the two
-// parts on their own (`search`, `chips`) so a host can place them under separate
+// Returns { bar, state }. state = { query, tracks:Set, showSecret } is mutated in
+// place as the user edits, so the caller can read it directly inside its redraw.
+// Returns the wrapping `bar` (search + chips, for standalone use) plus the parts
+// on their own (`search`, `chips`, and `secret` — the DM-only toggle, null when
+// the data carries no secret beats) so a host can place them under separate
 // labels — and the mutable `state`.
 export function buildFilterBar(
   events: TimelineEvent[],
   onChange: (state: FilterState) => void,
-  initial?: { query: string; tracks: string[] },
-): { bar: HTMLDivElement; search: HTMLInputElement; chips: HTMLDivElement; state: FilterBarState } {
+  initial?: { query: string; tracks: string[]; showSecret?: boolean },
+): {
+  bar: HTMLDivElement;
+  search: HTMLInputElement;
+  chips: HTMLDivElement;
+  secret: HTMLButtonElement | null;
+  state: FilterBarState;
+} {
   const bar = document.createElement('div');
   bar.className = 'chart-filterbar';
 
@@ -32,7 +40,7 @@ export function buildFilterBar(
   // A loaded view seeds the selection (still-present tracks only — caller
   // intersects against the live track list before passing them in).
   const seedTracks = new Set(initial?.tracks ?? []);
-  const state: FilterBarState = { query: initial?.query ?? '', tracks: new Set() };
+  const state: FilterBarState = { query: initial?.query ?? '', tracks: new Set(), showSecret: initial?.showSecret ?? false };
 
   const search = document.createElement('input');
   search.type = 'search';
@@ -65,6 +73,26 @@ export function buildFilterBar(
     chips.appendChild(chip);
   }
 
+  // DM-only toggle: a single chip that surfaces secret beats. Only built when the
+  // data actually carries secret beats — a player-safe export drops them entirely,
+  // so there's nothing to toggle and the control stays hidden. Off by default so
+  // the chart opens player-safe even when secret beats are present.
+  let secret: HTMLButtonElement | null = null;
+  if (events.some((e) => e.secret)) {
+    secret = document.createElement('button');
+    secret.type = 'button';
+    secret.className = 'chart-chip chart-chip-secret';
+    secret.textContent = 'DM-only';
+    secret.classList.toggle('is-on', state.showSecret);
+    secret.setAttribute('aria-pressed', String(state.showSecret));
+    secret.addEventListener('click', () => {
+      state.showSecret = secret!.classList.toggle('is-on');
+      secret!.setAttribute('aria-pressed', String(state.showSecret));
+      onChange(state);
+    });
+  }
+
   bar.append(search, chips);
-  return { bar, search, chips, state };
+  if (secret) bar.append(secret);
+  return { bar, search, chips, secret, state };
 }

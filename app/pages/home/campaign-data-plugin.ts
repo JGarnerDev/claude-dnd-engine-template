@@ -22,13 +22,17 @@ const GRAPH_DIRS = ['data', 'historian', 'scheduler'];
 
 // Run the PowerShell extractor and return its JSON text (or 'null' on failure —
 // the page then renders its empty state rather than crashing the dev server).
+// -Full so secret beats reach the DM's own home page tagged `secret: true`; the
+// chart's DM-only toggle keeps them hidden by default (player-safe to glance at),
+// and the DM flips it to reveal them. The shipped artifact stays player-safe —
+// only this local DM-side page opts into the full set.
 function extract(repoRoot: string): string {
   const script = resolve(repoRoot, 'scripts', 'timeline-data.ps1');
   const exe = process.platform === 'win32' ? 'powershell.exe' : 'pwsh';
   try {
     const out = execFileSync(
       exe,
-      ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', script, '-JsonOnly', '-Root', repoRoot],
+      ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', script, '-JsonOnly', '-Full', '-Root', repoRoot],
       { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 },
     );
     return rewriteSources(out.trim() || 'null', repoRoot);

@@ -64,3 +64,27 @@ describe('applyFilters', () => {
     expect(applyFilters(tagged, { query: 'cult of the hollow' }).map((e) => e.label)).toEqual(['A quiet betrayal']);
   });
 });
+
+describe('secret (DM-only) filtering', () => {
+  const mixed = [
+    { date: '1340-01-01', label: 'Public coronation', track: 'world' },
+    { date: '1341-01-01', label: 'The hidden pact', track: 'faction', secret: true },
+  ];
+
+  it('hides secret beats by default (player-safe)', () => {
+    expect(applyFilters(mixed).map((e) => e.label)).toEqual(['Public coronation']);
+    expect(applyFilters(mixed, {}).map((e) => e.label)).toEqual(['Public coronation']);
+    expect(applyFilters(mixed, { showSecret: false }).map((e) => e.label)).toEqual(['Public coronation']);
+  });
+
+  it('reveals secret beats when showSecret is on', () => {
+    expect(applyFilters(mixed, { showSecret: true })).toHaveLength(2);
+  });
+
+  it('still applies query/track filters to revealed secret beats', () => {
+    expect(applyFilters(mixed, { showSecret: true, tracks: new Set(['world']) }).map((e) => e.label)).toEqual([
+      'Public coronation',
+    ]);
+    expect(applyFilters(mixed, { showSecret: true, query: 'hidden' }).map((e) => e.label)).toEqual(['The hidden pact']);
+  });
+});

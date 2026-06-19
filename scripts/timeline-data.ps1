@@ -10,7 +10,10 @@
 # build:timeline`) and writes the result to historian/timeline/timeline.html.
 #
 # No node needed here -- the JS/CSS are already bundled into the shell; this only
-# swaps the data line. Secret events excluded unless -Full.
+# swaps the data line. Secret events are dropped entirely in the default
+# (player-safe) export so they can't leak from the artifact. With -Full they are
+# emitted carrying `secret: true`, and the chart's DM-only toggle hides them by
+# default -- so a -Full export opens player-safe but lets the DM reveal them.
 #
 # Usage: .\scripts\timeline-data.ps1 [-Full] [-JsonOnly] [-Root <repo root>]
 
@@ -90,13 +93,15 @@ function Get-EventBeats {
             $fm = Get-Frontmatter $f.FullName
             if ($fm['type'] -ne 'event') { continue }
             if (-not $fm['timeline_date']) { continue }
-            if ((Test-Secret $fm) -and -not $Full) { continue }
+            $isSecret = Test-Secret $fm
+            if ($isSecret -and -not $Full) { continue }
             $beat = [ordered]@{
                 date   = $fm['timeline_date']
                 label  = $fm['name']
                 track  = if ($fm['track']) { $fm['track'] } else { 'world' }  # D7: explicit track wins
                 source = Get-RelSource $f.FullName $Root
             }
+            if ($isSecret) { $beat['secret'] = $true }  # DM-only: chart hides unless toggled
             Add-Weight $beat $fm
             $kw = Get-Keywords $fm
             if ($kw.Count -gt 0) { $beat['keywords'] = @($kw) }
@@ -242,7 +247,7 @@ $outFile = Join-Path $outDir 'timeline.html'
 Write-NoBom $outFile $html
 
 Write-Host "Wrote interactive timeline to $outFile"
-Write-Host "  events: $($events.Count)   spans: $($spans.Count)   mode: $(if ($Full) { 'FULL (secret included)' } else { 'player-safe' })"
+Write-Host "  events: $($events.Count)   spans: $($spans.Count)   mode: $(if ($Full) { 'FULL (secret beats tagged, hidden behind the DM-only toggle)' } else { 'player-safe' })"
 if ($script:warnFallback -gt 0) {
     Write-Host "  note: $($script:warnFallback) session(s) have no in_world_end_date -- plotted by real-world played/planned_date. Backfill in_world_end_date for a true in-world axis."
 }
