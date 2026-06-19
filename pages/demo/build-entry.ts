@@ -3,7 +3,6 @@
 // generator (scripts/timeline-data.ps1) injects the real campaign blob into
 // window.__TL_DATA__; absent that (e.g. the raw build output), it falls back to
 // sample-data so the artifact is never blank.
-import './style.css';
 import { renderTimelineView } from './view.js';
 import { sampleData } from './sample-data.js';
 import type { TimelineData } from '../../components/charts/_common/types.js';

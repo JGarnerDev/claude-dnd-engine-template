@@ -1,0 +1,39 @@
+/* View switcher (view.ts): fixed tabs on top, the active chart fills the rest.
+   Relies on the theme tokens defined in components/charts/_common/common.css,
+   which the charts mounted below import. */
+
+/* View host: fixed tabs on top, the active view fills the rest. The flex chain
+   (host → content → .chart-root) keeps a definite height all the way down so each
+   view's own scroll container (.chart-viewport / .chart-swim) bounds its overflow,
+   instead of the page growing scrollbars. */
+.chart-viewhost {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+/* The active view renders INTO this node — it also carries .chart-root (same
+   element), so style it directly. flex:1 fills the host below the tabs; the
+   min-width/height:0 let it shrink below its canvas size so the inner scroll
+   container (.chart-swim / .chart-viewport) clips overflow instead of the page. */
+.chart-viewcontent {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  height: auto; /* height comes from the flex parent, not 100% of an indefinite box */
+  display: flex;
+  flex-direction: column;
+}
+
+/* View toggle (World | Tracks) */
+.chart-viewtabs { display: flex; gap: 6px; padding: 8px 8px 0; }
+.chart-viewtab {
+  padding: 4px 12px;
+  font-size: 13px;
+  color: var(--chart-muted);
+  background: var(--chart-surface);
+  border: 1px solid var(--chart-axis);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.chart-viewtab.is-active { color: var(--chart-text); border-color: var(--chart-muted); }

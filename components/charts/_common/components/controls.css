@@ -1,0 +1,22 @@
+/* Hover detail tooltip — fixed, follows the pointer (positioned by controls.ts).
+   Shared widget; relies on the theme tokens defined in _common/common.css. */
+
+.chart-tooltip {
+  position: fixed;
+  z-index: 10;
+  max-width: 260px;
+  padding: 6px 9px;
+  font-size: 12px;
+  color: var(--chart-text);
+  background: var(--chart-surface);
+  border: 1px solid var(--chart-axis);
+  border-radius: 4px;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+.chart-tooltip-title { font-weight: 600; }
+.chart-tooltip-meta {
+  margin-top: 2px;
+  color: var(--chart-muted);
+  text-transform: capitalize;
+}

@@ -16,8 +16,8 @@ describe('buildFilterBar', () => {
 
   it('renders a search box and one chip per track, all on by default', () => {
     const { bar, state } = buildFilterBar(events, () => {});
-    expect(bar.querySelector('.tl-search')).toBeTruthy();
-    const chips = [...bar.querySelectorAll<HTMLElement>('.tl-chip')];
+    expect(bar.querySelector('.chart-search')).toBeTruthy();
+    const chips = [...bar.querySelectorAll<HTMLElement>('.chart-chip')];
     expect(chips.map((c) => c.dataset.track)).toEqual(['world', 'faction', 'party']);
     expect(chips.every((c) => c.classList.contains('is-on'))).toBe(true);
     expect([...state.tracks]).toEqual(['world', 'faction', 'party']);
@@ -25,7 +25,7 @@ describe('buildFilterBar', () => {
 
   it('updates the query and fires onChange on input', () => {
     const { bar, state } = buildFilterBar(events, (s) => calls.push(s.query));
-    const search = bar.querySelector<HTMLInputElement>('.tl-search')!;
+    const search = bar.querySelector<HTMLInputElement>('.chart-search')!;
     search.value = 'pact';
     search.dispatchEvent(new Event('input'));
     expect(state.query).toBe('pact');
@@ -34,7 +34,7 @@ describe('buildFilterBar', () => {
 
   it('toggles a track off then on, firing onChange each time', () => {
     const { bar, state } = buildFilterBar(events, () => calls.push([...state.tracks]));
-    const faction = [...bar.querySelectorAll<HTMLElement>('.tl-chip')].find(
+    const faction = [...bar.querySelectorAll<HTMLElement>('.chart-chip')].find(
       (c) => c.dataset.track === 'faction',
     )!;
     faction.click();

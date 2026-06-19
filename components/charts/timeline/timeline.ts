@@ -3,6 +3,8 @@
 // toolbar, and attaches pan. Depends on the DOM, so its test runs under
 // happy-dom.
 
+import '../_common/common.css';
+import './timeline.css';
 import { DEFAULT_CALENDAR } from '../_common/helpers/calendar.js';
 import { computeLayoutFrom } from './helpers/layout.js';
 import { barHeightFor } from '../_common/helpers/cluster.js';
@@ -23,27 +25,27 @@ interface TimelineApi {
 // Build one individual marker, fully positioned. The individual set changes with
 // zoom (density buckets dissolve as you zoom in), so markers are rebuilt per draw
 // rather than repositioned — but the set is small (the crowd rolls into bars), so
-// this is cheap. tl-bare follows the density gate; visible drives .tl-hidden.
+// this is cheap. chart-bare follows the density gate; visible drives .chart-hidden.
 function buildMarker(item: LayoutItem, visible: boolean): HTMLDivElement {
   const marker = document.createElement('div');
-  let cls = `tl-marker ${item.weight} ${item.side}`;
-  if (!item.showLabel) cls += ' tl-bare';
+  let cls = `chart-marker ${item.weight} ${item.side}`;
+  if (!item.showLabel) cls += ' chart-bare';
   if (item.source) cls += ' has-source';
-  if (!visible) cls += ' tl-hidden';
+  if (!visible) cls += ' chart-hidden';
   marker.className = cls;
   marker.style.left = `${item.x}px`;
-  marker.style.setProperty('--tl-offset', `${item.offset}px`);
+  marker.style.setProperty('--chart-offset', `${item.offset}px`);
   marker.dataset.track = item.track;
   marker.dataset.label = item.label; // full, unclamped — hover shows it all
   marker.dataset.date = item.date;
   if (item.source) marker.dataset.source = item.source;
 
   const dot = document.createElement('div');
-  dot.className = 'tl-dot';
+  dot.className = 'chart-dot';
   const leader = document.createElement('div');
-  leader.className = 'tl-leader';
+  leader.className = 'chart-leader';
   const label = document.createElement('div');
-  label.className = 'tl-label';
+  label.className = 'chart-label';
   label.textContent = item.text;
 
   marker.append(dot, leader, label);
@@ -54,7 +56,7 @@ function buildMarker(item: LayoutItem, visible: boolean): HTMLDivElement {
 // height/count are filter-dependent and set by styleBar.
 function buildBar(bar: DensityBar): HTMLDivElement {
   const el = document.createElement('div');
-  el.className = 'tl-bar';
+  el.className = 'chart-bar';
   el.style.left = `${bar.centerX}px`;
   el.dataset.centerx = String(bar.centerX);
   return el;
@@ -75,10 +77,10 @@ function styleBar(el: HTMLElement, bar: DensityBar, events: readonly TimelineEve
     }
   }
   if (count === 0) {
-    el.classList.add('tl-hidden');
+    el.classList.add('chart-hidden');
     return 0;
   }
-  el.classList.remove('tl-hidden');
+  el.classList.remove('chart-hidden');
   el.classList.toggle('has-major', hasMajor);
   el.style.height = `${barHeightFor(count)}px`;
   el.dataset.count = String(count);
@@ -88,10 +90,10 @@ function styleBar(el: HTMLElement, bar: DensityBar, events: readonly TimelineEve
 
 function buildTick(tick: Tick): [HTMLDivElement, HTMLDivElement] {
   const line = document.createElement('div');
-  line.className = 'tl-tick';
+  line.className = 'chart-tick';
   line.style.left = `${tick.x}px`;
   const label = document.createElement('div');
-  label.className = 'tl-tick-label';
+  label.className = 'chart-tick-label';
   label.style.left = `${tick.x}px`;
   label.textContent = tick.label;
   return [line, label];
@@ -100,11 +102,11 @@ function buildTick(tick: Tick): [HTMLDivElement, HTMLDivElement] {
 
 function buildToolbar(onZoom: (kind: ZoomKind) => void): HTMLDivElement {
   const bar = document.createElement('div');
-  bar.className = 'tl-toolbar';
+  bar.className = 'chart-toolbar';
   const mk = (label: string, title: string, kind: ZoomKind): HTMLButtonElement => {
     const b = document.createElement('button');
     b.type = 'button';
-    b.className = 'tl-zoom-btn';
+    b.className = 'chart-zoom-btn';
     b.textContent = label;
     b.title = title;
     b.addEventListener('click', () => onZoom(kind));
@@ -120,7 +122,7 @@ function buildToolbar(onZoom: (kind: ZoomKind) => void): HTMLDivElement {
 
 function buildEmpty(text: string): HTMLDivElement {
   const empty = document.createElement('div');
-  empty.className = 'tl-empty';
+  empty.className = 'chart-empty';
   empty.textContent = text;
   return empty;
 }
@@ -130,7 +132,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   const viewportWidth = container.clientWidth || 800;
 
   container.innerHTML = '';
-  container.classList.add('tl-root');
+  container.classList.add('chart-root');
 
   // Sort + day-index every event exactly once; every zoom level reuses this.
   const idx = indexEvents(data.events, cal);
@@ -180,7 +182,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   const canvasHeight = layoutAt(fitDensity).canvasHeight;
 
   const viewport = document.createElement('div') as PanViewport;
-  viewport.className = 'tl-viewport';
+  viewport.className = 'chart-viewport';
 
   let currentLayout: Layout | null = null;
   // Nodes from the last draw, in layout order. A filter edit reuses them to retoggle
@@ -190,7 +192,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   let barNodes: HTMLElement[] = [];
 
   // Filtering keeps the layout (axis, ticks, bar positions, lanes) fixed — so this
-  // never relayouts. Individual markers toggle .tl-hidden in place; density bars
+  // never relayouts. Individual markers toggle .chart-hidden in place; density bars
   // re-count their matching members and rescale (height/badge/hide) so the
   // histogram reflects the filtered/searched set, not the full one. eventCount is
   // the total matching beats — individuals plus bar members.
@@ -200,7 +202,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
     let count = 0;
     currentLayout.items.forEach((item, i) => {
       const vis = match(item);
-      markerNodes[i]?.classList.toggle('tl-hidden', !vis);
+      markerNodes[i]?.classList.toggle('chart-hidden', !vis);
       if (vis) count++;
     });
     currentLayout.bars.forEach((bar, i) => {
@@ -220,7 +222,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   }
 
   function applyItemScale() {
-    viewport.style.setProperty('--tl-item-scale', itemScale().toFixed(3));
+    viewport.style.setProperty('--chart-item-scale', itemScale().toFixed(3));
   }
 
   // Filter bar owns the mutable filter state; a filter edit just retoggles
@@ -239,12 +241,12 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
     const match = makeMatcher(filterState);
 
     const canvas = document.createElement('div');
-    canvas.className = 'tl-canvas';
+    canvas.className = 'chart-canvas';
     canvas.style.width = `${layout.contentWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
 
     const axis = document.createElement('div');
-    axis.className = 'tl-axis';
+    axis.className = 'chart-axis';
     canvas.appendChild(axis);
 
     for (const tick of layout.ticks) canvas.append(...buildTick(tick));
@@ -320,7 +322,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   // to a client x for the shared anchored zoom). Skipped after a pan-drag.
   viewport.addEventListener('click', (e) => {
     if (viewport._tlDragged) return;
-    const bar = (e.target as Element | null)?.closest<HTMLElement>('.tl-bar');
+    const bar = (e.target as Element | null)?.closest<HTMLElement>('.chart-bar');
     if (!bar) return;
     const cx = Number(bar.dataset.centerx);
     const left = viewport.getBoundingClientRect?.().left || 0;

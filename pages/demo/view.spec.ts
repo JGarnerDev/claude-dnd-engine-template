@@ -19,32 +19,32 @@ describe('renderTimelineView', () => {
   };
 
   const tab = (label: string) =>
-    [...container.querySelectorAll<HTMLElement>('.tl-viewtab')].find((b) => b.textContent === label)!;
+    [...container.querySelectorAll<HTMLElement>('.chart-viewtab')].find((b) => b.textContent === label)!;
 
   it('renders a World and Tracks tab', () => {
     renderTimelineView(container, data);
-    const labels = [...container.querySelectorAll('.tl-viewtab')].map((b) => b.textContent);
+    const labels = [...container.querySelectorAll('.chart-viewtab')].map((b) => b.textContent);
     expect(labels).toEqual(['World', 'Tracks']);
   });
 
   it('shows the world view by default (single-axis markers, no swimlanes)', () => {
     renderTimelineView(container, data);
-    expect(container.querySelector('.tl-canvas')).toBeTruthy();
-    expect(container.querySelector('.tl-swim-canvas')).toBeFalsy();
+    expect(container.querySelector('.chart-canvas')).toBeTruthy();
+    expect(container.querySelector('.chart-swim-canvas')).toBeFalsy();
     expect(tab('World').classList.contains('is-active')).toBe(true);
   });
 
   it('honors an explicit initial view', () => {
     renderTimelineView(container, data, 'tracks');
-    expect(container.querySelector('.tl-swim-canvas')).toBeTruthy();
+    expect(container.querySelector('.chart-swim-canvas')).toBeTruthy();
     expect(tab('Tracks').classList.contains('is-active')).toBe(true);
   });
 
   it('swaps to the swimlane view when Tracks is clicked', () => {
     renderTimelineView(container, data);
     tab('Tracks').click();
-    expect(container.querySelector('.tl-swim-canvas')).toBeTruthy();
-    expect(container.querySelector('.tl-canvas')).toBeFalsy();
+    expect(container.querySelector('.chart-swim-canvas')).toBeTruthy();
+    expect(container.querySelector('.chart-canvas')).toBeFalsy();
     expect(tab('Tracks').classList.contains('is-active')).toBe(true);
     expect(tab('World').classList.contains('is-active')).toBe(false);
   });
@@ -52,7 +52,7 @@ describe('renderTimelineView', () => {
   it('swaps back to the world view', () => {
     renderTimelineView(container, data, 'tracks');
     tab('World').click();
-    expect(container.querySelector('.tl-canvas')).toBeTruthy();
-    expect(container.querySelector('.tl-swim-canvas')).toBeFalsy();
+    expect(container.querySelector('.chart-canvas')).toBeTruthy();
+    expect(container.querySelector('.chart-swim-canvas')).toBeFalsy();
   });
 });

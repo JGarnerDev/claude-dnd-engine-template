@@ -1,6 +1,7 @@
 // Interaction wiring for the timeline. Kept apart from render.js so DOM
 // assembly stays one concern and pointer/scroll behavior is another. DOM-bound.
 
+import './controls.css';
 import type { PanViewport, ZoomKind } from '../types.js';
 
 // Drag-to-pan: press and drag horizontally to scroll the viewport along the
@@ -27,7 +28,7 @@ export function enablePan(viewport: PanViewport): void {
   const end = (): void => {
     if (!dragging) return;
     dragging = false;
-    viewport.classList.remove('tl-grabbing');
+    viewport.classList.remove('chart-grabbing');
     window.removeEventListener('pointermove', onMove);
     window.removeEventListener('pointerup', end);
     window.removeEventListener('pointercancel', end);
@@ -36,13 +37,13 @@ export function enablePan(viewport: PanViewport): void {
   viewport.addEventListener('pointerdown', (e) => {
     // Don't pan when the press lands on an interactive control or the sticky
     // track gutter — let those receive their own clicks.
-    if ((e.target as Element | null)?.closest('button, a, input, .tl-swim-gutter')) return;
+    if ((e.target as Element | null)?.closest('button, a, input, .chart-swim-gutter')) return;
     dragging = true;
     startX = e.clientX;
     startScroll = viewport.scrollLeft;
     // Reset the drag flag the click handler reads to tell a pan from a tap.
     viewport._tlDragged = false;
-    viewport.classList.add('tl-grabbing');
+    viewport.classList.add('chart-grabbing');
     window.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup', end);
     window.addEventListener('pointercancel', end);
@@ -69,19 +70,19 @@ export function enableWheelZoom(viewport: HTMLElement, onZoom: (kind: ZoomKind, 
 // called on a click that wasn't a pan (see enablePan's _tlDragged flag).
 export function enableMarkerInteraction(viewport: PanViewport, onOpen: (source: string) => void): void {
   const tip = document.createElement('div');
-  tip.className = 'tl-tooltip';
+  tip.className = 'chart-tooltip';
   tip.hidden = true;
   // Build the title/meta nodes once; hover only sets their textContent (no
   // per-mouseover element churn).
   const title = document.createElement('div');
-  title.className = 'tl-tooltip-title';
+  title.className = 'chart-tooltip-title';
   const meta = document.createElement('div');
-  meta.className = 'tl-tooltip-meta';
+  meta.className = 'chart-tooltip-meta';
   tip.append(title, meta);
   document.body.appendChild(tip);
 
   const markerAt = (e: Event): HTMLElement | null =>
-    (e.target as Element | null)?.closest<HTMLElement>('.tl-marker') ?? null;
+    (e.target as Element | null)?.closest<HTMLElement>('.chart-marker') ?? null;
 
   viewport.addEventListener('mouseover', (e) => {
     const m = markerAt(e);

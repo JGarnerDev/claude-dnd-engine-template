@@ -2,6 +2,7 @@
 // filter state and fires onChange after every edit; render.js re-filters and
 // redraws from that state. DOM-bound — pairs with filters.js (pure matching).
 
+import './filterbar.css';
 import { trackList } from '../helpers/filters.js';
 import type { FilterState, TimelineEvent } from '../types.js';
 
@@ -18,14 +19,14 @@ export function buildFilterBar(
   onChange: (state: FilterState) => void,
 ): { bar: HTMLDivElement; state: FilterBarState } {
   const bar = document.createElement('div');
-  bar.className = 'tl-filterbar';
+  bar.className = 'chart-filterbar';
 
   const tracks = trackList(events); // computed once; seeds the state set and the chips
   const state: FilterBarState = { query: '', tracks: new Set(tracks) };
 
   const search = document.createElement('input');
   search.type = 'search';
-  search.className = 'tl-search';
+  search.className = 'chart-search';
   search.placeholder = 'Search beats…';
   search.addEventListener('input', () => {
     state.query = search.value;
@@ -33,11 +34,11 @@ export function buildFilterBar(
   });
 
   const chips = document.createElement('div');
-  chips.className = 'tl-chips';
+  chips.className = 'chart-chips';
   for (const track of tracks) {
     const chip = document.createElement('button');
     chip.type = 'button';
-    chip.className = 'tl-chip is-on';
+    chip.className = 'chart-chip is-on';
     chip.dataset.track = track;
     chip.textContent = track;
     chip.addEventListener('click', () => {

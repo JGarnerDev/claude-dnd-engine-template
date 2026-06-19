@@ -16,7 +16,7 @@ export const MONTH_VIEW_FRAC = 0.6;
 export const MARGIN = 80; // left/right gutter inside the canvas, in px. >= LABEL_W/2 so an edge beat's centered label never spills past the canvas bound
 export const EDGE_PAD = 0.05; // breathing room before first / after last beat, as a fraction of span
 
-// Label box geometry (mirrors .tl-label in style.css). Labels occupy a fixed
+// Label box geometry (mirrors .chart-label in timeline/timeline.css). Labels occupy a fixed
 // slot so lane assignment needs no DOM measurement (works under happy-dom too).
 export const LABEL_W = 150;
 export const LABEL_GAP = 6; // min horizontal gap between labels sharing a lane
@@ -63,7 +63,7 @@ export const MIN_TICK_PX = 60;
 // reserved band at the top, and a fixed left gutter holds the track-tree labels.
 export const ROW_H = 34; // height of one track row, in px
 export const SWIM_LABEL_GAP = 90; // min px between two labelled dots in a row; below this the later label is dropped (density gate)
-export const SWIM_LABEL_LEFT = 9; // px from dot center to label start (mirrors .tl-swim-label left)
+export const SWIM_LABEL_LEFT = 9; // px from dot center to label start (mirrors .chart-swim-label left)
 export const SWIM_LABEL_PAD = 10; // breathing gap so a label stops short of the next dot
 export const SWIM_LABEL_MIN = 40; // floor for a label's responsive max-width, px
 export const SWIM_LABEL_MAX = 260; // cap so an isolated label doesn't stretch across empty space, px

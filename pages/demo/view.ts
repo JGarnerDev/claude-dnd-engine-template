@@ -2,6 +2,7 @@
 // single-axis layout (render.ts); Tracks = the swimlane multi-track layout
 // (swimlane-render.ts). Thin host — each view fully owns its own content node.
 
+import './view.css';
 import { renderTimeline } from '../../components/charts/timeline/timeline.js';
 import { renderSwimlane } from '../../components/charts/swimlane/swimlane.js';
 import type { TimelineData } from '../../components/charts/_common/types.js';
@@ -10,12 +11,12 @@ export type View = 'world' | 'tracks';
 
 export function renderTimelineView(container: HTMLElement, data: TimelineData, initial: View = 'world'): void {
   container.innerHTML = '';
-  container.classList.add('tl-viewhost');
+  container.classList.add('chart-viewhost');
 
   const tabs = document.createElement('div');
-  tabs.className = 'tl-viewtabs';
+  tabs.className = 'chart-viewtabs';
   const content = document.createElement('div');
-  content.className = 'tl-viewcontent';
+  content.className = 'chart-viewcontent';
 
   const tabBtns = new Map<View, HTMLButtonElement>();
   const select = (v: View) => {
@@ -27,7 +28,7 @@ export function renderTimelineView(container: HTMLElement, data: TimelineData, i
   const mk = (v: View, label: string) => {
     const b = document.createElement('button');
     b.type = 'button';
-    b.className = 'tl-viewtab';
+    b.className = 'chart-viewtab';
     b.textContent = label;
     b.addEventListener('click', () => select(v));
     tabBtns.set(v, b);

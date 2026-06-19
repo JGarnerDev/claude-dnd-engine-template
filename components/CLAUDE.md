@@ -23,7 +23,18 @@ Each chart is its own folder under `components/charts/`, named after the chart; 
 - `_common/helpers/` — pure logic shared by more than one chart (+ specs).
 - `_common/components/` — DOM widgets/behavior shared by more than one chart (+ specs).
 - `_common/constants.ts` (static data) and `_common/types.ts` (shared types).
-- `pages/demo/` (at the **repo root**, sibling of `components/` — not under `components/`) — the cross-chart switcher (`view.ts`), build entry (`build-entry.ts`), fixtures (`*-data.ts`), `*.html`, `style.css`, `dist/`. This is the Vite root (see `vite.config.js`) and what `npm run dev` opens; its `.ts` import the charts via `../../components/charts/…`.
+- `pages/demo/` (at the **repo root**, sibling of `components/` — not under `components/`) — the cross-chart switcher (`view.ts`), build entry (`build-entry.ts`), fixtures (`*-data.ts`), `*.html`, `dist/`. This is the Vite root (see `vite.config.js`) and what `npm run dev` opens; its `.ts` import the charts via `../../components/charts/…`.
+
+### Styling (CSS)
+
+CSS lives next to the code that produces the DOM and is pulled in by a side-effect `import './x.css'` in that module — Vite bundles and inlines it into the self-contained artifact (no `<link>` needed). Mirror the same file layout as the source:
+
+- `<chart>/<chart>.css` — styles for that chart only (e.g. `timeline/timeline.css`, `swimlane/swimlane.css`), imported by `<chart>/<chart>.ts`.
+- `_common/common.css` — theme tokens (`:root --chart-*` / `--track-*`), shared base classes (`.chart-root`, `.chart-dot`, `.chart-marker` + weight/state), and the shared scrollbar styling. Each chart imports it (Vite dedupes).
+- `_common/components/<widget>.css` — styles for a shared widget (e.g. `filterbar.css`, `controls.css`), imported by its `.ts`.
+- `pages/demo/view.css` — styles for the page-level view switcher, imported by `view.ts`.
+
+Classes are prefixed `chart-` (page-agnostic). Keep a rule with the element that owns it; lift a rule to `_common/` only when more than one chart needs it (the "shared when applicable" rule). The dev HTML harnesses carry only page chrome (`.demo-header`, `body`) inline — chart CSS reaches them through the JS import chain. When CSS geometry and layout math must agree, the constant lives in `_common/constants.ts` and the CSS comments point back to it.
 
 Pure helpers are unit-testable without a DOM (node env); DOM files use `// @vitest-environment happy-dom`. Don't let a chart's private helper be imported by another chart — if both need it, it belongs in `_common` (this is why `weightOf` lives in `_common/helpers/weight.ts`).
 

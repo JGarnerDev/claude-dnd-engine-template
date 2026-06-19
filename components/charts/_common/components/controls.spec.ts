@@ -38,9 +38,9 @@ describe('enablePan', () => {
 
   it('toggles the grabbing class across a drag', () => {
     viewport.dispatchEvent(pointer('pointerdown', 100));
-    expect(viewport.classList.contains('tl-grabbing')).toBe(true);
+    expect(viewport.classList.contains('chart-grabbing')).toBe(true);
     viewport.dispatchEvent(pointer('pointerup', 100));
-    expect(viewport.classList.contains('tl-grabbing')).toBe(false);
+    expect(viewport.classList.contains('chart-grabbing')).toBe(false);
   });
 
   it('does not pan when the press lands on a button (so its click survives)', () => {
@@ -49,12 +49,12 @@ describe('enablePan', () => {
     btn.dispatchEvent(pointer('pointerdown', 100)); // bubbles to viewport, target = btn
     viewport.dispatchEvent(pointer('pointermove', 60));
     expect(viewport.scrollLeft).toBe(200); // unchanged — no pan started
-    expect(viewport.classList.contains('tl-grabbing')).toBe(false);
+    expect(viewport.classList.contains('chart-grabbing')).toBe(false);
   });
 
   it('does not pan when the press lands in the track gutter', () => {
     const gutter = document.createElement('div');
-    gutter.className = 'tl-swim-gutter';
+    gutter.className = 'chart-swim-gutter';
     viewport.appendChild(gutter);
     gutter.dispatchEvent(pointer('pointerdown', 100));
     viewport.dispatchEvent(pointer('pointermove', 60));
@@ -89,7 +89,7 @@ describe('enableMarkerInteraction', () => {
     viewport = document.createElement('div');
     document.body.appendChild(viewport);
     marker = document.createElement('div');
-    marker.className = 'tl-marker';
+    marker.className = 'chart-marker';
     Object.assign(marker.dataset, {
       label: 'Redfen burns',
       date: '1342-08-01',
@@ -104,14 +104,14 @@ describe('enableMarkerInteraction', () => {
   const fire = (type: string, target: Element = marker) =>
     target.dispatchEvent(new MouseEvent(type, { bubbles: true, clientX: 50, clientY: 60 }));
 
-  const tooltip = () => document.querySelector<HTMLElement>('.tl-tooltip')!;
+  const tooltip = () => document.querySelector<HTMLElement>('.chart-tooltip')!;
 
   it('shows a tooltip with the full label and meta on hover', () => {
     fire('mouseover');
     const tip = tooltip();
     expect(tip.hidden).toBe(false);
-    expect(tip.querySelector('.tl-tooltip-title')!.textContent).toBe('Redfen burns');
-    expect(tip.querySelector('.tl-tooltip-meta')!.textContent).toContain('click to open');
+    expect(tip.querySelector('.chart-tooltip-title')!.textContent).toBe('Redfen burns');
+    expect(tip.querySelector('.chart-tooltip-meta')!.textContent).toContain('click to open');
   });
 
   it('hides the tooltip on mouseout', () => {
