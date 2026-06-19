@@ -253,6 +253,9 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
       if (vis) count++;
     }
 
+    // Markers about to be discarded — drop any tip hovering one so it can't
+    // outlive its marker (mouseout never fires for a removed node).
+    viewport._tlHideTip?.();
     viewport.replaceChildren(canvas);
     api.eventCount = count;
     api.contentWidth = layout.contentWidth;

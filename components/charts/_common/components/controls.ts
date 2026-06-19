@@ -115,6 +115,18 @@ export function enableMarkerInteraction(viewport: PanViewport, onOpen: (source: 
     if (markerAt(e)) tip.hidden = true;
   });
 
+  // Belt-and-suspenders against a stale tip: `mouseout` is missed when the
+  // hovered marker is removed from the DOM under the pointer (every zoom/filter/
+  // pan rebuild discards markers). Hiding on viewport `mouseleave` clears the tip
+  // the moment the pointer leaves the chart, and `hideTip` lets the renderer drop
+  // it on rebuild while the pointer sits still.
+  viewport.addEventListener('mouseleave', () => {
+    tip.hidden = true;
+  });
+  viewport._tlHideTip = () => {
+    tip.hidden = true;
+  };
+
   viewport.addEventListener('click', (e) => {
     if (viewport._tlDragged) return; // it was a pan, not a tap
     const source = markerAt(e)?.dataset.source;

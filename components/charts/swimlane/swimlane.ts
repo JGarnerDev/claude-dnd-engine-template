@@ -314,6 +314,9 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData): Swim
     const built = buildCanvas(layout, idx.events, match);
     markerNodes = built.markers;
     barNodes = built.bars;
+    // Drop any tip hovering a marker we're about to discard (mouseout never
+    // fires for a removed node, so the tip would otherwise go stale).
+    swim._tlHideTip?.();
     swim.replaceChildren(buildGutter(layout.rows, layout.totalHeight, toggle), built.canvas);
 
     api.eventCount = built.visibleCount;

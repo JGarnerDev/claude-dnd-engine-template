@@ -189,4 +189,4 @@ export interface SwimLayout {
 
 // The viewport element carries a flag set by enablePan so the click handler can
 // tell a pan-drag from a tap.
-export type PanViewport = HTMLElement & { _tlDragged?: boolean };
+export type PanViewport = HTMLElement & { _tlDragged?: boolean; _tlHideTip?: () => void };
