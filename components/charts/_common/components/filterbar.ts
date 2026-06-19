@@ -20,7 +20,8 @@ export function buildFilterBar(
   const bar = document.createElement('div');
   bar.className = 'tl-filterbar';
 
-  const state: FilterBarState = { query: '', tracks: new Set(trackList(events)) };
+  const tracks = trackList(events); // computed once; seeds the state set and the chips
+  const state: FilterBarState = { query: '', tracks: new Set(tracks) };
 
   const search = document.createElement('input');
   search.type = 'search';
@@ -33,7 +34,7 @@ export function buildFilterBar(
 
   const chips = document.createElement('div');
   chips.className = 'tl-chips';
-  for (const track of trackList(events)) {
+  for (const track of tracks) {
     const chip = document.createElement('button');
     chip.type = 'button';
     chip.className = 'tl-chip is-on';

@@ -31,20 +31,40 @@ export function parseDate(str: string): DateParts {
   };
 }
 
-function daysPerYear(cal: Calendar): number {
-  return cal.months.reduce((sum, mo) => sum + mo.days, 0);
+// Precomputed, calendar-constant lookup tables. The calendar never changes
+// within a render, so derive these once and reuse them: daysPerYear (full year
+// length) + monthPrefix (days before each 0-based month). With them a day index
+// is O(1) — no per-call month loop. monthPrefix.length === months.length.
+export interface CalendarTables {
+  daysPerYear: number;
+  monthPrefix: number[];
+}
+
+export function calendarTables(cal: Calendar = DEFAULT_CALENDAR): CalendarTables {
+  const monthPrefix: number[] = [];
+  let acc = 0;
+  for (const mo of cal.months) {
+    monthPrefix.push(acc);
+    acc += mo.days;
+  }
+  return { daysPerYear: acc, monthPrefix };
+}
+
+// O(1) absolute day index from precomputed tables. Hot paths (indexEvents over N
+// events) build the tables once and call this per event.
+export function dayIndexWith(date: DateParts, { daysPerYear, monthPrefix }: CalendarTables): number {
+  const { year, month, day } = date;
+  if (month < 1 || month > monthPrefix.length) {
+    throw new RangeError(`month ${month} out of range 1..${monthPrefix.length}`);
+  }
+  return year * daysPerYear + monthPrefix[month - 1] + (day - 1);
 }
 
 // Absolute day index from year 0, month 1, day 1. Monotonic across the calendar,
-// so it doubles as a sort key and as the domain value for createScale.
+// so it doubles as a sort key and as the domain value for createScale. Thin
+// wrapper over dayIndexWith for one-off callers/tests; loops should reuse tables.
 export function dayIndex(date: DateParts, cal: Calendar = DEFAULT_CALENDAR): number {
-  const { year, month, day } = date;
-  if (month < 1 || month > cal.months.length) {
-    throw new RangeError(`month ${month} out of range 1..${cal.months.length}`);
-  }
-  let before = 0;
-  for (let i = 0; i < month - 1; i++) before += cal.months[i].days;
-  return year * daysPerYear(cal) + before + (day - 1);
+  return dayIndexWith(date, calendarTables(cal));
 }
 
 // Linear scale: day index -> x in [0, width]. min maps to 0, max maps to width.

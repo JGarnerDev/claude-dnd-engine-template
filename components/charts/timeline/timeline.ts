@@ -8,7 +8,7 @@ import { computeLayoutFrom } from './helpers/layout.js';
 import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
 import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT } from '../_common/constants.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
-import { matchesFilters } from '../_common/helpers/filters.js';
+import { makeMatcher } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
 import type { Layout, LayoutItem, Tick, TimelineData, ZoomKind } from '../_common/types.js';
 
@@ -19,21 +19,17 @@ interface TimelineApi {
   laneCount: number;
 }
 
-function buildMarker(item: LayoutItem): HTMLDivElement {
+// Create a marker's persistent structure + its zoom-invariant data (track/label/
+// date/source, full text). Geometry that changes with zoom (x/offset/side/bare)
+// is applied separately by positionMarker, so the node can be reused across zoom
+// levels instead of torn down and rebuilt. The event set is fixed per render, so
+// these are built once and repositioned thereafter.
+function createMarker(item: LayoutItem): HTMLDivElement {
   const marker = document.createElement('div');
-  marker.className = `tl-marker ${item.weight} ${item.side}`;
-  marker.style.left = `${item.x}px`;
-  marker.style.setProperty('--tl-offset', `${item.offset}px`);
   marker.dataset.track = item.track;
   marker.dataset.label = item.label; // full, unclamped — hover shows it all
   marker.dataset.date = item.date;
-  // Density-gated bare dot: keep it on the axis with no label/leader (CSS hides
-  // them). The label element still renders in the DOM so hover/data stays intact.
-  if (!item.showLabel) marker.classList.add('tl-bare');
-  if (item.source) {
-    marker.dataset.source = item.source;
-    marker.classList.add('has-source');
-  }
+  if (item.source) marker.dataset.source = item.source;
 
   const dot = document.createElement('div');
   dot.className = 'tl-dot';
@@ -41,10 +37,26 @@ function buildMarker(item: LayoutItem): HTMLDivElement {
   leader.className = 'tl-leader';
   const label = document.createElement('div');
   label.className = 'tl-label';
-  label.textContent = item.text;
+  label.textContent = item.text; // density-independent in the world view
 
   marker.append(dot, leader, label);
   return marker;
+}
+
+// Apply the per-zoom geometry to an existing marker node. Rewrites the class list
+// from scratch (side flips with lane repacking; tl-bare follows the density gate)
+// and the position vars. visible drives .tl-hidden so a zoom under an active
+// filter keeps hidden beats hidden. Cheap string + style writes, no node churn.
+function positionMarker(marker: HTMLElement, item: LayoutItem, visible: boolean): void {
+  // Density-gated bare dot: on the axis with no label/leader (CSS hides them);
+  // the label element stays in the DOM so hover/data is intact.
+  let cls = `tl-marker ${item.weight} ${item.side}`;
+  if (!item.showLabel) cls += ' tl-bare';
+  if (item.source) cls += ' has-source';
+  if (!visible) cls += ' tl-hidden';
+  marker.className = cls;
+  marker.style.left = `${item.x}px`;
+  marker.style.setProperty('--tl-offset', `${item.offset}px`);
 }
 
 function buildTick(tick: Tick): [HTMLDivElement, HTMLDivElement] {
@@ -58,30 +70,6 @@ function buildTick(tick: Tick): [HTMLDivElement, HTMLDivElement] {
   return [line, label];
 }
 
-// isVisible(item) decides which markers show. The layout is always the full set
-// (so x/y never shift on filter); unmatched markers are just hidden in place.
-function buildCanvas(
-  layout: Layout,
-  height: number = layout.canvasHeight,
-  isVisible: (item: LayoutItem) => boolean = () => true,
-): HTMLDivElement {
-  const canvas = document.createElement('div');
-  canvas.className = 'tl-canvas';
-  canvas.style.width = `${layout.contentWidth}px`;
-  canvas.style.height = `${height}px`;
-
-  const axis = document.createElement('div');
-  axis.className = 'tl-axis';
-  canvas.appendChild(axis);
-
-  for (const tick of layout.ticks) canvas.append(...buildTick(tick));
-  for (const item of layout.items) {
-    const marker = buildMarker(item);
-    if (!isVisible(item)) marker.classList.add('tl-hidden');
-    canvas.appendChild(marker);
-  }
-  return canvas;
-}
 
 function buildToolbar(onZoom: (kind: ZoomKind) => void): HTMLDivElement {
   const bar = document.createElement('div');
@@ -163,18 +151,25 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   viewport.className = 'tl-viewport';
 
   let currentLayout: Layout | null = null;
+  // Persistent canvas + nodes, built once and reused across every zoom. The event
+  // set is fixed per render, so markers are created once (createMarker) and only
+  // repositioned (positionMarker) on a density change — no teardown/rebuild. Only
+  // the ticks (granularity changes with density) are swapped per zoom.
+  let canvasEl: HTMLDivElement | null = null;
+  let markerNodes: HTMLElement[] = [];
+  let tickNodes: HTMLElement[] = [];
 
   // Filtering only toggles marker visibility — the layout (axis, ticks, lane
   // stacking) is identical for any filter, so this never recomputes or rebuilds
-  // the canvas. Markers render in layout.items order, so we can zip the live
-  // nodes against the items to retoggle .tl-hidden in place.
+  // the canvas. Zip the cached nodes against layout.items to retoggle .tl-hidden
+  // in place; the matcher normalizes the query once (not per item).
   function applyVisibility() {
     if (!currentLayout) return;
-    const markers = viewport.querySelectorAll<HTMLElement>('.tl-marker');
+    const match = makeMatcher(filterState);
     let count = 0;
     currentLayout.items.forEach((item, i) => {
-      const vis = matchesFilters(item, filterState);
-      markers[i]?.classList.toggle('tl-hidden', !vis);
+      const vis = match(item);
+      markerNodes[i]?.classList.toggle('tl-hidden', !vis);
       if (vis) count++;
     });
     api.eventCount = count;
@@ -184,19 +179,54 @@ export function renderTimeline(container: HTMLElement, data: TimelineData): Time
   // visibility, no relayout.
   const { bar: filterBar, state: filterState } = buildFilterBar(data.events, applyVisibility);
 
-  // Full geometry rebuild — only zoom (density change) needs it. anchor (or
-  // null) is the point to hold fixed: { frac } = position along the timeline
-  // (0..1), { x } = px from the viewport left to keep it under — so zooming
-  // feels anchored on the cursor.
+  // Geometry update — only zoom (density change) calls this. anchor (or null) is
+  // the point to hold fixed: { frac } = position along the timeline (0..1),
+  // { x } = px from the viewport left to keep it under — so zooming feels
+  // anchored on the cursor. First call builds the canvas + markers once; every
+  // later call reuses those nodes, swapping only ticks and repositioning markers.
   function draw(anchor?: { frac: number; x: number }) {
     const layout = layoutAt(fitDensity * zoomLevel);
     currentLayout = layout;
-    const visible = (item: LayoutItem) => matchesFilters(item, filterState);
-    // Always render the chart (axis, ticks, scale) regardless of how many beats
-    // match — filtering only toggles marker visibility, never blanks the view.
-    viewport.innerHTML = '';
-    viewport.appendChild(buildCanvas(layout, canvasHeight, visible));
-    api.eventCount = layout.items.filter(visible).length;
+    const match = makeMatcher(filterState);
+
+    if (!canvasEl) {
+      // One-time build: canvas shell + axis + the full (fixed) marker set.
+      canvasEl = document.createElement('div');
+      canvasEl.className = 'tl-canvas';
+      canvasEl.style.height = `${canvasHeight}px`;
+      const axis = document.createElement('div');
+      axis.className = 'tl-axis';
+      canvasEl.appendChild(axis);
+      markerNodes = layout.items.map((item) => {
+        const marker = createMarker(item);
+        canvasEl!.appendChild(marker);
+        return marker;
+      });
+      viewport.appendChild(canvasEl);
+    }
+
+    canvasEl.style.width = `${layout.contentWidth}px`;
+
+    // Ticks change granularity with density, so swap them. Re-add before the
+    // first marker to keep the tick grid painted behind the markers.
+    for (const n of tickNodes) n.remove();
+    tickNodes = [];
+    const before = markerNodes[0] ?? null;
+    for (const tick of layout.ticks) {
+      const [line, lab] = buildTick(tick);
+      canvasEl.insertBefore(line, before);
+      canvasEl.insertBefore(lab, before);
+      tickNodes.push(line, lab);
+    }
+
+    // Reposition the persistent markers (x/offset/side/bare) + apply visibility.
+    let count = 0;
+    layout.items.forEach((item, i) => {
+      const vis = match(item);
+      positionMarker(markerNodes[i], item, vis);
+      if (vis) count++;
+    });
+    api.eventCount = count;
     api.contentWidth = layout.contentWidth;
     api.laneCount = layout.laneCount;
     if (anchor) viewport.scrollLeft = anchor.frac * layout.contentWidth - anchor.x;

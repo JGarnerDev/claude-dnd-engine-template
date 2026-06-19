@@ -64,6 +64,13 @@ export function enableMarkerInteraction(viewport: PanViewport, onOpen: (source: 
   const tip = document.createElement('div');
   tip.className = 'tl-tooltip';
   tip.hidden = true;
+  // Build the title/meta nodes once; hover only sets their textContent (no
+  // per-mouseover element churn).
+  const title = document.createElement('div');
+  title.className = 'tl-tooltip-title';
+  const meta = document.createElement('div');
+  meta.className = 'tl-tooltip-meta';
+  tip.append(title, meta);
   document.body.appendChild(tip);
 
   const markerAt = (e: Event): HTMLElement | null =>
@@ -73,21 +80,27 @@ export function enableMarkerInteraction(viewport: PanViewport, onOpen: (source: 
     const m = markerAt(e);
     if (!m) return;
     const { label, date, track, source } = m.dataset;
-    tip.textContent = '';
-    const title = document.createElement('div');
-    title.className = 'tl-tooltip-title';
     title.textContent = label ?? '';
-    const meta = document.createElement('div');
-    meta.className = 'tl-tooltip-meta';
     meta.textContent = source ? `${date} · ${track} · click to open` : `${date} · ${track}`;
-    tip.append(title, meta);
     tip.hidden = false;
   });
 
+  // Pointer-following position. mousemove fires at pointer rate and each style
+  // write forces a reflow, so coalesce to one write per frame: stash the latest
+  // coords and flush in a single rAF (skip if one is already pending).
+  let moveRaf = 0;
+  let lastX = 0;
+  let lastY = 0;
   viewport.addEventListener('mousemove', (e) => {
     if (tip.hidden) return;
-    tip.style.left = `${e.clientX + 14}px`;
-    tip.style.top = `${e.clientY + 14}px`;
+    lastX = e.clientX;
+    lastY = e.clientY;
+    if (moveRaf) return;
+    moveRaf = requestAnimationFrame(() => {
+      moveRaf = 0;
+      tip.style.left = `${lastX + 14}px`;
+      tip.style.top = `${lastY + 14}px`;
+    });
   });
 
   viewport.addEventListener('mouseout', (e) => {

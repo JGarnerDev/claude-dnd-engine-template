@@ -5,6 +5,7 @@
 // view and the swimlane (both go through computeAxis).
 
 import { MIN_TICK_PX } from '../constants.js';
+import { calendarTables } from './calendar.js';
 import type { Calendar, Tick } from '../types.js';
 
 // "Nice" year steps so multi-year ticks land on round numbers (…, 1950, 1960).
@@ -28,7 +29,7 @@ export function buildTicks(
   pxPerYear: number,
   xOf: (idx: number) => number,
 ): Tick[] {
-  const daysPerYear = cal.months.reduce((s, m) => s + m.days, 0);
+  const { daysPerYear } = calendarTables(cal);
   const monthsPerYear = cal.months.length;
   const firstYear = Math.floor(minIdx / daysPerYear);
   const lastYear = Math.floor(maxIdx / daysPerYear);

@@ -10,14 +10,26 @@ export function trackList(events: TimelineEvent[]): string[] {
   return [...new Set(events.map((e) => e.track || 'world'))];
 }
 
-// Does one event pass the filter state? state: { query?, tracks? }
-//  - query   : case-insensitive substring match against the label (blank = all)
-//  - tracks  : whitelist of track names; omit/null = every track passes
-export function matchesFilters(e: TimelineEvent, { query = '', tracks = null }: FilterState = {}): boolean {
-  if (tracks && !tracks.has(e.track || 'world')) return false;
+// Build a reusable predicate from a filter state. The query is trimmed +
+// lowercased *once* here, not per event — hot paths (applyVisibility over N
+// markers, draw over N items) call this once per filter edit and reuse the
+// closure, instead of re-normalizing the same query string N times.
+//   - query   : case-insensitive substring match against the label (blank = all)
+//   - tracks  : whitelist of track names; omit/null = every track passes
+export function makeMatcher({ query = '', tracks = null }: FilterState = {}): (e: TimelineEvent) => boolean {
   const q = query.trim().toLowerCase();
-  if (q && !e.label.toLowerCase().includes(q)) return false;
-  return true;
+  return (e: TimelineEvent): boolean => {
+    if (tracks && !tracks.has(e.track || 'world')) return false;
+    if (q && !e.label.toLowerCase().includes(q)) return false;
+    return true;
+  };
+}
+
+// Does one event pass the filter state? Convenience wrapper over makeMatcher for
+// one-off / non-hot callers and tests; per-item hot loops should build a matcher
+// once with makeMatcher and reuse it.
+export function matchesFilters(e: TimelineEvent, state: FilterState = {}): boolean {
+  return makeMatcher(state)(e);
 }
 
 // Subset of events that pass the filter. Note: the renderer lays out the *full*

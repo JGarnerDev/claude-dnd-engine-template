@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseDate, dayIndex, createScale, DEFAULT_CALENDAR } from './calendar.js';
+import { parseDate, dayIndex, calendarTables, dayIndexWith, createScale, DEFAULT_CALENDAR } from './calendar.js';
 
 describe('parseDate', () => {
   it('parses a full date', () => {
@@ -80,6 +80,38 @@ describe('dayIndex (custom fantasy calendar)', () => {
 
   it('range-checks against the custom month count', () => {
     expect(() => dayIndex(parseDate('0-04-01'), cal)).toThrow(RangeError);
+  });
+});
+
+describe('calendarTables', () => {
+  it('sums daysPerYear and builds a 0-based month prefix', () => {
+    const t = calendarTables({
+      epochLabel: '',
+      months: [
+        { name: 'a', days: 30 },
+        { name: 'b', days: 31 },
+        { name: 'c', days: 28 },
+      ],
+    });
+    expect(t.daysPerYear).toBe(89);
+    expect(t.monthPrefix).toEqual([0, 30, 61]); // days before each month
+  });
+
+  it('defaults to the 360-day calendar', () => {
+    expect(calendarTables().daysPerYear).toBe(360);
+  });
+});
+
+describe('dayIndexWith', () => {
+  it('matches dayIndex via precomputed tables', () => {
+    const t = calendarTables();
+    expect(dayIndexWith(parseDate('1342-05-01'), t)).toBe(dayIndex(parseDate('1342-05-01')));
+  });
+
+  it('range-checks the month against the table', () => {
+    const t = calendarTables();
+    expect(() => dayIndexWith(parseDate('1342-13-01'), t)).toThrow(RangeError);
+    expect(() => dayIndexWith(parseDate('1342-00-01'), t)).toThrow(RangeError);
   });
 });
 

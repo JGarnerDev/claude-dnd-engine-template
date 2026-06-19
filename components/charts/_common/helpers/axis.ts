@@ -2,7 +2,7 @@
 // swimlane layout (track rows) need the same date→x mapping, domain padding,
 // content width, and year ticks — this is the one source for all of it.
 
-import { parseDate, dayIndex, createScale, DEFAULT_CALENDAR } from './calendar.js';
+import { parseDate, calendarTables, dayIndexWith, createScale, DEFAULT_CALENDAR } from './calendar.js';
 import { PX_PER_YEAR, MARGIN, EDGE_PAD } from '../constants.js';
 import { buildTicks } from './ticks.js';
 import type { Calendar, Tick, TimelineEvent } from '../types.js';
@@ -23,9 +23,12 @@ export interface IndexedEvents {
 }
 
 export function indexEvents(rawEvents: TimelineEvent[], cal: Calendar = DEFAULT_CALENDAR): IndexedEvents {
-  const daysPerYear = cal.months.reduce((s, m) => s + m.days, 0);
+  // Calendar is constant across the set, so build the lookup tables once; the
+  // per-event index is then O(1) (no month loop, no daysPerYear recompute).
+  const tables = calendarTables(cal);
+  const daysPerYear = tables.daysPerYear;
   const events: IndexedEvent[] = rawEvents
-    .map((e) => ({ ...e, _idx: dayIndex(parseDate(e.date), cal) }))
+    .map((e) => ({ ...e, _idx: dayIndexWith(parseDate(e.date), tables) }))
     .sort((a, b) => a._idx - b._idx);
   if (events.length === 0) return { events, daysPerYear, minIdx: 0, maxIdx: 0 };
   return { events, daysPerYear, minIdx: events[0]._idx, maxIdx: events[events.length - 1]._idx };
