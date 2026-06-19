@@ -1,10 +1,10 @@
 # Frontend components — working rules
 
-Auto-loaded when working under `components/`. These are UI components (charts, views) for the engine — dev-only source that a generator inlines into self-contained HTML. The runtime artifact ships with no build step and no dependencies; the tooling here (Vite, Vitest, TypeScript) is dev-only.
+Auto-loaded when working under `app/components/`. These are UI components (charts, views) for the engine — dev-only source that a generator inlines into self-contained HTML. All JS/TS tooling (`components/`, `pages/`, `package.json`, the configs) lives under `app/`; run `npm` from there. The campaign content (`data/`, `historian/`, `scheduler/`, `meta/`, `maps/`) and the PowerShell engine scripts (`scripts/`) stay at the repo root, one level up. The runtime artifact ships with no build step and no dependencies; the tooling here (Vite, Vitest, TypeScript) is dev-only.
 
 ## TypeScript
 
-Source is **TypeScript**, `strict` mode (`tsconfig.json` at repo root). Run `npm run typecheck` (`tsc --noEmit`) — it must stay clean. Shared types live in one `types.ts` per component; importers use `import type { … }` (the config sets `verbatimModuleSyntax`). Import specifiers keep the `.js` extension (e.g. `import { x } from './layout.js'`) — the bundler resolves them to the `.ts` files. Avoid `any`; in tests, type `querySelector` with its generic (`querySelector<HTMLInputElement>('…')`) and assert non-null (`!`) where the element is known to exist.
+Source is **TypeScript**, `strict` mode (`app/tsconfig.json`). Run `npm run typecheck` (`tsc --noEmit`) — it must stay clean. Shared types live in one `types.ts` per component; importers use `import type { … }` (the config sets `verbatimModuleSyntax`). Import specifiers keep the `.js` extension (e.g. `import { x } from './layout.js'`) — the bundler resolves them to the `.ts` files. Avoid `any`; in tests, type `querySelector` with its generic (`querySelector<HTMLInputElement>('…')`) and assert non-null (`!`) where the element is known to exist.
 
 ## File splitting
 
@@ -23,7 +23,7 @@ Each chart is its own folder under `components/charts/`, named after the chart; 
 - `_common/helpers/` — pure logic shared by more than one chart (+ specs).
 - `_common/components/` — DOM widgets/behavior shared by more than one chart (+ specs).
 - `_common/constants.ts` (static data) and `_common/types.ts` (shared types).
-- `pages/demo/` (at the **repo root**, sibling of `components/` — not under `components/`) — the cross-chart switcher (`view.ts`), build entry (`build-entry.ts`), fixtures (`*-data.ts`), `*.html`, `dist/`. This is the Vite root (see `vite.config.js`) and what `npm run dev` opens; its `.ts` import the charts via `../../components/charts/…`.
+- `app/pages/demo/` (sibling of `app/components/` — not under `components/`) — the cross-chart switcher (`view.ts`), build entry (`build-entry.ts`), fixtures (`*-data.ts`), `*.html`, `dist/`. This is the Vite root (see `app/vite.config.js`) and what `npm run dev` opens; its `.ts` import the charts via `../../components/charts/…`.
 
 ### Styling (CSS)
 

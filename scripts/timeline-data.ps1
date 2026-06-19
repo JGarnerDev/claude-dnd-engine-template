@@ -3,10 +3,10 @@
 # consumers: .claude/commands/timeline.md, CLAUDE.md (scripts table)
 #
 # Reads entity frontmatter (events, sessions, acts, chronicle beats) and builds
-# the JSON shape components/charts/timeline/render.js consumes:
+# the JSON shape app/components/charts/timeline/timeline.js consumes:
 #   { calendar:{epochLabel,months:[{name,days}]}, events:[...], spans:[...] }
 # Then rewrites the data sentinel inside the prebuilt shell
-# (components/charts/timeline/dist/timeline.html, produced by `npm run
+# (app/pages/demo/dist/timeline.html, produced by `npm run
 # build:timeline`) and writes the result to historian/timeline/timeline.html.
 #
 # No node needed here -- the JS/CSS are already bundled into the shell; this only
@@ -221,7 +221,7 @@ $json = $data | ConvertTo-Json -Depth 8 -Compress
 if ($JsonOnly) { Write-Output $json; return }
 
 # -- inject into the prebuilt shell --------------------------------------------
-$shell = if ($Shell) { $Shell } else { Join-Path $Root 'pages\demo\dist\timeline.html' }
+$shell = if ($Shell) { $Shell } else { Join-Path $Root 'app\pages\demo\dist\timeline.html' }
 if (-not (Test-Path $shell)) {
     Write-Error "Shell not built: $shell`nRun ``npm run build:timeline`` first."
     exit 1

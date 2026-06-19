@@ -11,8 +11,8 @@ import { dirname, resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import { campaignData } from './campaign-data-plugin';
 
-const here = dirname(fileURLToPath(import.meta.url)); // pages/home
-const repoRoot = resolve(here, '..', '..');
+const here = dirname(fileURLToPath(import.meta.url)); // app/pages/home
+const repoRoot = resolve(here, '..', '..', '..'); // up out of app/pages/home to the campaign repo root
 
 export default defineConfig({
   root: here,
