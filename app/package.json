@@ -1,0 +1,22 @@
+{
+  "name": "dnd-engine-components",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dev-only tooling for engine UI components (timeline chart). Output is self-contained HTML; these deps never ship.",
+  "scripts": {
+    "dev": "vite pages/demo --open",
+    "home": "vite --config pages/home/vite.config.ts",
+    "build:timeline": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "happy-dom": "^20.10.5",
+    "typescript": "^6.0.3",
+    "vite": "^5.0.0",
+    "vite-plugin-singlefile": "^2.3.3",
+    "vitest": "^1.6.0"
+  }
+}

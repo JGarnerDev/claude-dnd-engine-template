@@ -84,7 +84,7 @@ After presenting all events, offer one line:
 
 **Developing further:** Expand the event's setup, involved factions, NPCs, or consequences. Text only — no files.
 
-**Committing an event:** If the DM wants an event to actually happen in the world, begin entity creation. Read `meta/entity-creation.md`, then `meta/schemas/event.md`. Follow full entity creation protocol — confirm with DM before writing any file.
+**Committing an event:** If the DM wants an event to actually happen in the world, begin entity creation. Read `meta/entity-creation.md`, then `meta/schemas/event.md`. Follow full entity creation protocol — confirm with DM before writing any file. When the event has a known in-world year, ask for it and set `timeline_date` (flat `"YYYY[-MM[-DD]]"`, year required, month/day to whatever precision is known) so the event plots on the `/timeline` world-history gantt. If the year is unknown or purely relative ("ages ago"), leave `timeline_date` blank and keep only the prose `date:`.
 
 ---
 

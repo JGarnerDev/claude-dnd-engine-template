@@ -6,6 +6,7 @@
 #   meta/mysteries.md                — campaign load-bearing unknowns; create fresh per campaign
 #   meta/campaign-design-preferences.md — this group's wishlist; create fresh per campaign
 #   meta/party-relationships.md      — this party's bonds; create fresh per campaign
+#   meta/calendar.md                 — this world's months/epoch; built from meta/calendar-template.md per campaign
 #   data/factions/*, data/locations/*, data/routes/*, data/lore/*, data/characters/*
 #   data/items/magic/*               — may contain campaign-specific items
 #   data/world-events-pool.md        — campaign event pool
@@ -19,6 +20,7 @@ CLAUDE.md
 README.md
 .template-sync
 .markdownlint.json
+.gitignore
 
 # Git hooks — pre-commit Markdown auto-format (paired with scripts/setup-hooks.ps1)
 .githooks/pre-commit
@@ -46,6 +48,7 @@ README.md
 
 # Meta — engine protocol and structural guidelines
 meta/schemas/*.md
+meta/calendar-template.md
 meta/character-focus.md
 meta/entity-creation.md
 meta/graph-settings.md
@@ -109,6 +112,7 @@ scripts/gen-tiles.py
 scripts/index-entities.py
 scripts/inventory-brief.ps1
 scripts/location-entities.ps1
+scripts/map-common.ps1
 scripts/map-crop.ps1
 scripts/monster-lookup.ps1
 scripts/naming-status.ps1
@@ -132,4 +136,5 @@ scripts/validate.ps1
 
 # IDE / graph config
 .vscode/settings.json
+.vscode/extensions.json
 .obsidian/graph.json

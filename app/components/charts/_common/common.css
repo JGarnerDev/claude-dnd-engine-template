@@ -1,0 +1,112 @@
+/* Shared chart styles: theme tokens, root layout, common widgets, scrollbars.
+   Imported by every chart so its custom properties and base classes resolve.
+   Dark mode (R6). Track colors keyed off data-track. */
+
+:root {
+  --chart-bg: #0f172a;
+  --chart-surface: #1f2937;
+  --chart-text: #e5e7eb;
+  --chart-muted: #94a3b8;
+  --chart-axis: #475569;
+  --chart-grid: #1e293b;
+
+  --track-world: #60a5fa;
+  --track-party: #c084fc;
+  --track-character: #4ade80;
+  --track-faction: #fb923c;
+  --track-continent: #f472b6;
+}
+
+.chart-root {
+  background: var(--chart-bg);
+  color: var(--chart-text);
+  font-family: system-ui, sans-serif;
+  padding: 8px 0;
+  width: 100%;
+  box-sizing: border-box;
+  /* Fill the host's height so the chart can sit centered in the viewport.
+     Falls back gracefully when the host has no fixed height (shrinks to fit). */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-empty {
+  padding: 24px;
+  color: var(--chart-muted);
+}
+
+/* Marker dot (both views). Track color comes from a data-track override (world
+   view) or an inline background (tracks view). --chart-item-scale (set on the
+   world viewport) grows the dot — and its hit area — when few beats are on
+   screen; defaults to 1×. */
+.chart-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(var(--chart-item-scale, 1));
+  background: var(--track-world);
+  border: 2px solid var(--chart-bg);
+  box-shadow: 0 0 0 1px var(--chart-axis);
+  transition: transform 120ms ease-out;
+}
+
+/* Marker base (both views). The world view anchors each marker on the center
+   axis (top:50%); the tracks view overrides top per row (.chart-swim-marker).
+   --chart-offset is the world-view leader/label gap (set inline per marker). */
+.chart-marker {
+  position: absolute;
+  top: 50%;
+  --chart-offset: 16px;
+  --chart-shift: 0px; /* world view: px the label slides right off the dot (leader bridges it) */
+}
+/* Beats backed by a source .md invite a click */
+.chart-marker.has-source .chart-dot { cursor: pointer; }
+/* Filtered-out beats hide in place — layout unchanged, surviving markers keep
+   their x/y; these just drop out (and out of hover/click). */
+.chart-marker.chart-hidden { display: none; }
+/* Weight: major = larger dot, minor = smaller + dimmed */
+.chart-marker.is-major .chart-dot { width: 15px; height: 15px; }
+.chart-marker.is-minor .chart-dot { width: 8px; height: 8px; opacity: 0.7; }
+
+/* Scrollbars (both scroll containers): slim, faded at rest, brighter on hover
+   and brightest while dragging the thumb. WebKit + Firefox. */
+.chart-swim,
+.chart-viewport {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.2) transparent; /* Firefox: thumb, track */
+}
+.chart-swim:hover,
+.chart-viewport:hover {
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+.chart-swim::-webkit-scrollbar,
+.chart-viewport::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.chart-swim::-webkit-scrollbar-track,
+.chart-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chart-swim::-webkit-scrollbar-thumb,
+.chart-viewport::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+.chart-swim::-webkit-scrollbar-thumb:hover,
+.chart-viewport::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+.chart-swim::-webkit-scrollbar-thumb:active,
+.chart-viewport::-webkit-scrollbar-thumb:active {
+  background: rgba(148, 163, 184, 0.7);
+}
+.chart-swim::-webkit-scrollbar-corner,
+.chart-viewport::-webkit-scrollbar-corner {
+  background: transparent;
+}

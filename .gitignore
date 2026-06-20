@@ -1,3 +1,14 @@
 .template-sync.local
 node_modules
 node_modules/
+__pycache__/
+
+# No map images in git. Map masters, generated tiles, and crops are large binaries
+# whose repeated diffs bloat the .git history badly. Keep them out of version control:
+# supply your own masters in maps/world/masters/ and generate tiles locally
+# (scripts/gen-tiles.py). How you obtain/store the masters is up to you.
+maps/**/*.png
+maps/**/*.webp
+maps/**/*.jpg
+maps/**/*.jpeg
+maps/**/*.gif

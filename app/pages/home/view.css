@@ -1,0 +1,88 @@
+/* View switcher (view.ts): a header bar on top (tabs left, actions right), the
+   active chart fills the rest. Relies on the theme tokens defined in
+   components/charts/_common/common.css, which the charts mounted below import. */
+
+/* View host: header bar on top, the active view fills the rest. The flex chain
+   (host → content → .chart-root) keeps a definite height all the way down so each
+   view's own scroll container (.chart-viewport / .chart-swim) bounds its overflow,
+   instead of the page growing scrollbars. */
+.chart-viewhost {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Header bar: tabs on the left edge, action buttons on the right edge. */
+.chart-headerbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+}
+/* Right-side action cluster (settings gear + future buttons). Positioning context
+   for the settings overlay (settingspanel.css) — the panel anchors to this
+   cluster's right edge so it lines up flush under the gear, expanding leftward.
+   The panel's own max-width (in vw) keeps it inside the page. */
+.chart-actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* The active view renders INTO this node — it also carries .chart-root (same
+   element), so style it directly. flex:1 fills the host below the tabs; the
+   min-width/height:0 let it shrink below its canvas size so the inner scroll
+   container (.chart-swim / .chart-viewport) clips overflow instead of the page. */
+.chart-viewcontent {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  height: auto; /* height comes from the flex parent, not 100% of an indefinite box */
+  display: flex;
+  flex-direction: column;
+}
+
+/* View toggle (World | Campaign) — pill tab group at the header's left edge */
+.chart-viewtabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--chart-surface);
+  border-radius: 9px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.chart-viewtab {
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--chart-muted);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 120ms ease, background 120ms ease;
+}
+.chart-viewtab:hover { color: var(--chart-text); }
+.chart-viewtab.is-active {
+  color: var(--chart-text);
+  background: var(--chart-axis);
+}
+
+/* Empty state (renderEmpty in view.ts): instructive copy when the data carries
+   no dated beats yet. Hard-coded colors — this branch renders before any chart
+   mounts, so the common.css theme tokens aren't guaranteed in scope. */
+.chart-empty {
+  color: #cbd5e1;
+  font: 15px/1.6 system-ui, sans-serif;
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+.chart-empty h1 { color: #f1f5f9; font-weight: 600; }
+.chart-empty code {
+  background: #1e293b;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}

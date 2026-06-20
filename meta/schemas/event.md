@@ -63,9 +63,15 @@ tags:
   - region/
 
 # --- MANDATORY (event) ---
-date: ""              # in-world date, era, or relative time
+date: ""              # in-world date, era, or relative time (human label)
 outcome: ""
 consequences: []      # what about the present world exists because of this
+
+# --- OPTIONAL (event, machine date for /timeline) ---
+timeline_date: ""     # flat "YYYY[-MM[-DD]]" — year required, month/day optional.
+                      # month = 1-based index into meta/calendar.md `months`.
+                      # Plots the event on the /timeline world-history gantt; coexists
+                      # with `date:`. See meta/calendar-template.md for the contract.
 
 # --- OPTIONAL (entity base) ---
 aliases:
@@ -91,7 +97,7 @@ awareness: widely-known | regional | secret | forgotten | disputed
 | Form answer | Field |
 |---|---|
 | Name | `name`, filename |
-| When | `date` |
+| When | `date` (prose) + `timeline_date` (machine, if a year is known) |
 | What happened | `description` + body prose |
 | Who was involved | `participants` |
 | Outcome | `outcome` |

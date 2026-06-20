@@ -110,6 +110,7 @@ PowerShell scripts in `./scripts/` replace repetitive multi-file reads. **Run th
 | `region-brief.ps1` | Resume a `/region` session — compressed draft summary | `.\scripts\region-brief.ps1 [-Region <slug>]` |
 | `naming-status.ps1` | Show named vs. unnamed entries in world-naming questionnaire | `.\scripts\naming-status.ps1 [-Section <name>]` |
 | `map-crop.ps1` | Crop world map by feature name or col/row; saves to `maps/locations/` | `.\scripts\map-crop.ps1 -Feature "<name>"` or `-ColMin <n> -ColMax <n> -RowMin <n> -RowMax <n> [-Margin <px>] [-Temp]` |
+| `timeline-gantt.ps1` | Regenerate the world-history + party-history gantt charts in `historian/timeline/` from event/session/act dates (backs `/timeline`) | `.\scripts\timeline-gantt.ps1 [-Full]` |
 | `gen-tiles.py` | Regenerate all 9 world map tiles from `world-names.png` after replacing the source image | `python scripts\gen-tiles.py` |
 | `index-entities.py` | Build/rebuild the semantic vector index (run after adding new entities) | `py -3.10 scripts\index-entities.py [--reset]` |
 | `semantic-search.ps1` | Semantic similarity search — find entities by meaning, not keywords | `.\scripts\semantic-search.ps1 -Query "<text>" [-Type <type>] [-Subtype <sub>] [-Exists true\|false] [-Source data\|historian\|scheduler] [-K <n>]` |
@@ -202,3 +203,4 @@ No DM brief card needed. No other formats unless explicitly requested.
 - `/transition` — `.claude/commands/transition.md` — guided campaign transition flow; also auto-triggered by language cues
 - `/todo` — `.claude/commands/todo.md` — plain-language DM dashboard of everything needing attention or action
 - `/idea [rough idea] [--build]` — `.claude/commands/idea.md` — develop a rough engine idea into a grounded, executable change via the staged idea-process flow; read-only until `--build`
+- `/timeline [--full]` — `.claude/commands/timeline.md` — regenerate the world-history and party-history gantt charts from event/session/act dates; `--full` includes secret events

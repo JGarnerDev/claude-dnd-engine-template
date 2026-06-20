@@ -100,4 +100,10 @@
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true
   },
+
+  // Markdown Preview Enhanced — dark preview page so the /timeline gantt charts
+  // (which carry their own dark %%{init}%% theme) read correctly. The charts also
+  // render in Obsidian natively; this only affects the VSCode MPE preview.
+  "markdown-preview-enhanced.previewTheme": "github-dark.css",
+  "markdown-preview-enhanced.mermaidTheme": "dark",
 }

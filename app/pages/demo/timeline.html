@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Campaign Timeline</title>
+    <style>
+      html, body { height: 100%; }
+      body { margin: 0; background: #0f172a; }
+      #timeline { height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="timeline"></div>
+    <!-- Data sentinel: scripts/timeline-data.ps1 rewrites the value between the
+         markers with the generated JSON blob. Keep the markers byte-for-byte. -->
+    <script>window.__TL_DATA__ = /*TL_DATA_START*/null/*TL_DATA_END*/;</script>
+    <script type="module" src="./build-entry.ts"></script>
+  </body>
+</html>

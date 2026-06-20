@@ -1,0 +1,82 @@
+/* Floating settings panel (settingspanel.ts) — Excalidraw-style island. The gear
+   button lives in the header actions slot (next to the view tabs); its overlay
+   card drops below it and expands leftward, layered over the full-bleed canvas.
+   Relies on the theme tokens in _common/common.css and on the actions cluster
+   (.chart-actions) being the positioning context — the panel anchors to the
+   gear's right edge (right: 0), so the two line up flush. */
+
+.chart-settings-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  color: var(--chart-muted);
+  background: var(--chart-surface);
+  border: 1px solid var(--chart-axis);
+  border-radius: 9px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: color 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+.chart-settings-btn:hover { color: var(--chart-text); border-color: var(--chart-muted); }
+.chart-settings-btn.is-active {
+  color: var(--chart-text);
+  border-color: var(--chart-muted);
+  background: var(--chart-bg);
+}
+.chart-settings-btn svg { display: block; }
+
+.chart-settings-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 30;
+  width: 260px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px;
+  background: var(--chart-surface);
+  border: 1px solid var(--chart-axis);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+
+  /* Closed by default: faded, lifted, and click-through. .is-open animates it in. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms;
+}
+.chart-settings-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.chart-settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.chart-settings-grouplabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--chart-muted);
+}
+
+/* Hosted controls inside the panel: the search input fills the group width (its
+   in-flow flex-basis would otherwise size its height in this column layout). */
+.chart-settings-panel .chart-search {
+  flex: none;
+  width: 100%;
+  box-sizing: border-box;
+}

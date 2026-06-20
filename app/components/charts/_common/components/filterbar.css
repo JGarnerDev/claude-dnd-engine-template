@@ -1,0 +1,85 @@
+/* Filter bar: search box + track toggle chips. Shared widget (filterbar.ts).
+   Relies on the theme tokens defined in _common/common.css. */
+
+.chart-filterbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 8px;
+}
+/* When a host hoists the search + chips out into its own panel, the leftover
+   wrapper is empty — collapse it so it leaves no strip above the chart. */
+.chart-filterbar:empty { display: none; }
+
+.chart-search {
+  flex: 0 1 220px;
+  padding: 5px 10px;
+  font-size: 13px;
+  color: var(--chart-text);
+  background: var(--chart-surface);
+  border: 1px solid var(--chart-axis);
+  border-radius: 4px;
+}
+.chart-search::placeholder { color: var(--chart-muted); }
+.chart-search:focus { outline: none; border-color: var(--chart-muted); }
+
+.chart-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* A chip's accent is its track color; "off" chips dim to muted. */
+.chart-chip {
+  padding: 3px 10px;
+  font-size: 12px;
+  text-transform: capitalize;
+  color: var(--chart-text);
+  background: var(--chart-surface);
+  border: 1px solid var(--chart-axis);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.chart-chip::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  vertical-align: middle;
+  background: var(--chart-muted);
+}
+.chart-chip[data-track='world']::before { background: var(--track-world); }
+.chart-chip[data-track='party']::before { background: var(--track-party); }
+.chart-chip[data-track='character']::before { background: var(--track-character); }
+.chart-chip[data-track='faction']::before { background: var(--track-faction); }
+.chart-chip[data-track='continent']::before { background: var(--track-continent); }
+.chart-chip:not(.is-on) {
+  color: var(--chart-muted);
+  opacity: 0.55;
+}
+.chart-chip:not(.is-on)::before { background: var(--chart-muted); }
+
+/* "Known by" viewpoint chips: amber accent so they read as a knowledge filter, not
+   a track. When on, the border picks up the tint. The chip dot uses the amber tint
+   instead of a track colour. */
+.chart-chip-audience::before { background: #c2710c; }
+.chart-chip-audience.is-on {
+  color: #c2710c;
+  border-color: #c2710c;
+}
+.chart-chip-audience:not(.is-on)::before { background: var(--chart-muted); }
+
+/* The DM chip leads the group and sees everything incl. secrets — a lock glyph
+   marks it as the omniscient view rather than a single character. Two-class
+   selector so it outranks the muted-dot rule above and the lock never gets a fill. */
+.chart-chip-audience.chart-chip-dm::before {
+  content: '🔒';
+  background: none;
+  width: auto;
+  height: auto;
+  font-size: 11px;
+  line-height: 1;
+}

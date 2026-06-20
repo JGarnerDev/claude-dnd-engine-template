@@ -1,0 +1,11 @@
+{
+  // Recommended extensions for working this campaign engine in VSCode.
+  // VSCode prompts to install these on first open of the workspace.
+  "recommendations": [
+    // Wikilink / backlink / graph navigation over the [[linked]] entity vault (Obsidian-parity).
+    "foam.foam-vscode",
+    // Renders mermaid (the /timeline gantt) stably in preview. Preferred over bierner.markdown-mermaid,
+    // whose injected SVG flashes-then-vanishes on VSCode's built-in preview refresh cycle.
+    "shd101wyy.markdown-preview-enhanced"
+  ]
+}

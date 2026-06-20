@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Campaign</title>
+    <style>
+      /* Page chrome only — chart + tab styles load via the JS imports in view.ts. */
+      html, body { height: 100%; }
+      body { margin: 0; background: #0f172a; display: flex; flex-direction: column; }
+      #app { flex: 1; min-height: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- Explicit .ts: Vite's dev html-proxy resolver doesn't apply the .js->.ts
+         fallback that module-to-module imports use. -->
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

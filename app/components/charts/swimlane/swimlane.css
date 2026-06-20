@@ -1,0 +1,136 @@
+/* Tracks view (M4) — multi-track swimlane layout. Theme tokens, base dot, and
+   scrollbars live in _common/common.css; this file owns the swimlane layout. */
+
+/* Scroll container = pan/zoom target. Gutter sticks left; canvas scrolls. */
+.chart-swim {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: flex-start;
+  cursor: grab;
+}
+.chart-swim.chart-grabbing { cursor: grabbing; }
+
+.chart-swim-gutter {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  flex: none;
+  width: 160px; /* GUTTER_W */
+  box-sizing: border-box; /* keep the border-right inside 160px (no extra scroll width) */
+  background: var(--chart-bg);
+  border-right: 1px solid var(--chart-grid);
+  cursor: default; /* gutter isn't pannable — don't show the grab cursor here */
+}
+.chart-swim-gutter-head {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 12px;
+  color: var(--chart-muted);
+  border-bottom: 1px solid var(--chart-grid);
+  box-sizing: border-box;
+}
+.chart-swim-rowlabel {
+  position: absolute;
+  left: 0;
+  width: 160px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  font-size: 12px;
+  /* button reset (toggle rows are <button>; leaf rows are <div>) */
+  margin: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+}
+.chart-swim-rowlabel.depth-1 { padding-left: 22px; }
+/* Whole label is the hit target on toggleable rows */
+.chart-swim-rowlabel.is-toggle { cursor: pointer; }
+.chart-swim-rowlabel.is-toggle:hover { background: rgba(148, 163, 184, 0.08); }
+.chart-swim-toggle {
+  flex: none;
+  margin-left: auto; /* push to the right edge of the label */
+  width: 14px;
+  font-size: 10px;
+  line-height: 1;
+  text-align: center;
+  color: var(--chart-muted);
+}
+.chart-swim-rowname {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--chart-text);
+  border-left: 3px solid var(--row-color, var(--chart-axis));
+  padding-left: 6px;
+}
+.chart-swim-rowlabel.depth-1 .chart-swim-rowname { color: var(--chart-muted); }
+
+.chart-swim-canvas { position: relative; flex: none; }
+
+.chart-swim-grid { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--chart-grid); }
+.chart-swim-ticklabel {
+  position: absolute;
+  top: 6px;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--chart-muted);
+}
+.chart-swim-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+.chart-swim-band.is-child { background: rgba(255, 255, 255, 0.02); }
+
+/* Per-row density bars (LOD): a short column centered on the row, height ∝ count
+   (set inline), colored by the row's track. Click to zoom into the cluster. */
+.chart-swim-bar {
+  position: absolute;
+  width: 5px;
+  transform: translate(-50%, -50%); /* center on (x, row centerY) */
+  border-radius: 2px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.chart-swim-bar:hover { opacity: 0.8; }
+.chart-swim-bar.chart-hidden { display: none; } /* nothing in the bucket matches the filter */
+.chart-swim-bar.has-major { opacity: 0.7; }
+.chart-swim-bar.has-major::before {
+  content: '★';
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  line-height: 1;
+  color: #fbbf24;
+}
+
+/* Swimlane markers position by explicit top (override the world view's top:50%) */
+.chart-swim-marker { top: 0; }
+
+/* Density-gated inline label: sits to the right of the dot, vertically centered,
+   one line, truncated so a long label can't crowd the next dot. */
+.chart-swim-label {
+  position: absolute;
+  left: 9px; /* mirrors SWIM_LABEL_LEFT */
+  top: 0;
+  transform: translateY(-50%);
+  /* max-width set inline per dot (responsive to the gap to the next label) */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--chart-text);
+  pointer-events: none; /* clicks fall through to the marker (open source) */
+}
+.chart-swim-marker.is-minor .chart-swim-label { color: var(--chart-muted); }
