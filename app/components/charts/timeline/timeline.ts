@@ -7,15 +7,18 @@ import '../_common/common.css';
 import './timeline.css';
 import { DEFAULT_CALENDAR } from '../_common/helpers/calendar.js';
 import { computeLayoutFrom } from './helpers/layout.js';
+import { layoutLabels } from './helpers/labels.js';
 import { barHeightFor } from '../_common/helpers/cluster.js';
 import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
 import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, TARGET_PX_PER_BEAT, MONTH_VIEW_FRAC, ZOOM_UPSCALE_FROM, ITEM_SCALE_MAX } from '../_common/constants.js';
+import { AXIS_GAP, TIER_H, LABEL_BOX_PAD, LABEL_MIN_TIERS, LABEL_TIER_CEIL } from '../_common/constants.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
-import { makeMatcher, trackList } from '../_common/helpers/filters.js';
+import { makeMatcher, trackList, audienceList } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
+import { DM_AUDIENCE } from '../_common/constants.js';
 import { clampZoom, resolveTracks, serializeState, DEFAULT_STATE } from '../_common/helpers/viewstate.js';
 import type { SettingsSection } from '../_common/components/settingspanel.js';
-import type { ChartState, DensityBar, Layout, LayoutItem, PanViewport, Tick, TimelineData, TimelineEvent, ZoomKind } from '../_common/types.js';
+import type { ChartState, DensityBar, Layout, LayoutItem, PanViewport, Side, Tick, TimelineData, TimelineEvent, ZoomKind } from '../_common/types.js';
 
 // Mutable handle returned to the caller; tests read these counts. `controls` are
 // the chrome nodes (zoom toolbar, filter bar) for the host to hoist into its
@@ -29,19 +32,38 @@ interface TimelineApi {
   getState(): ChartState;
 }
 
+// Apply the (filter-dependent) label placement to a marker: which side of the
+// axis, how far out (offset), and how far the label slides horizontally off the
+// dot (shift). The leader is a 1px line rotated from the dot to the label anchor
+// (dx = shift, dy = ±offset), so it bridges both the vertical gap and any sideways
+// displacement. Re-run on every draw/filter so a beat's label can move as the
+// visible set changes. Pure DOM; geometry comes from layoutLabels.
+function placeMarker(marker: HTMLElement, side: Side, offset: number, shift: number, showLabel: boolean): void {
+  marker.classList.toggle('chart-bare', !showLabel);
+  marker.classList.toggle('above', side === 'above');
+  marker.classList.toggle('below', side === 'below');
+  marker.style.setProperty('--chart-offset', `${offset}px`);
+  marker.style.setProperty('--chart-shift', `${shift}px`);
+  const leader = marker.querySelector<HTMLElement>('.chart-leader');
+  if (leader) {
+    const dy = side === 'above' ? -offset : offset;
+    leader.style.width = `${Math.hypot(shift, dy)}px`;
+    leader.style.transform = `rotate(${(Math.atan2(dy, shift) * 180) / Math.PI}deg)`;
+  }
+}
+
 // Build one individual marker, fully positioned. The individual set changes with
 // zoom (density buckets dissolve as you zoom in), so markers are rebuilt per draw
 // rather than repositioned — but the set is small (the crowd rolls into bars), so
-// this is cheap. chart-bare follows the density gate; visible drives .chart-hidden.
+// this is cheap. Placement (side/offset/shift/bare) is applied via placeMarker so
+// the same logic runs again on filter edits; visible drives .chart-hidden.
 function buildMarker(item: LayoutItem, visible: boolean): HTMLDivElement {
   const marker = document.createElement('div');
-  let cls = `chart-marker ${item.weight} ${item.side}`;
-  if (!item.showLabel) cls += ' chart-bare';
+  let cls = `chart-marker ${item.weight}`;
   if (item.source) cls += ' has-source';
   if (!visible) cls += ' chart-hidden';
   marker.className = cls;
   marker.style.left = `${item.x}px`;
-  marker.style.setProperty('--chart-offset', `${item.offset}px`);
   marker.dataset.track = item.track;
   marker.dataset.label = item.label; // full, unclamped — hover shows it all
   marker.dataset.date = item.date;
@@ -56,6 +78,7 @@ function buildMarker(item: LayoutItem, visible: boolean): HTMLDivElement {
   label.textContent = item.text;
 
   marker.append(dot, leader, label);
+  placeMarker(marker, item.side, item.offset, item.shift, item.showLabel);
   return marker;
 }
 
@@ -117,6 +140,13 @@ function buildEmpty(text: string): HTMLDivElement {
 export function renderTimeline(container: HTMLElement, data: TimelineData, initialState?: ChartState): TimelineApi {
   const cal = data.calendar || DEFAULT_CALENDAR;
   const viewportWidth = container.clientWidth || 800;
+  const viewportHeight = container.clientHeight || 600;
+  // Label lane budget from the actual vertical room: how many TIER_H tiers fit in
+  // each half of the viewport (×2 for the above + below stacks), clamped so a short
+  // panel keeps a usable minimum and a very tall one can't tile an absurd wall.
+  // This is the #1 lever — labels fill the empty vertical space instead of a fixed 4.
+  const tiersPerSide = Math.max(1, Math.floor((viewportHeight / 2 - AXIS_GAP - LABEL_BOX_PAD) / TIER_H));
+  const maxTiers = Math.min(LABEL_TIER_CEIL, Math.max(LABEL_MIN_TIERS, tiersPerSide * 2));
 
   container.innerHTML = '';
   container.classList.add('chart-root');
@@ -155,7 +185,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData, initi
     controls: [],
     // Snapshot the live view. filterState/viewport are declared below but only
     // read when getState is called (post-render), so the closure is safe.
-    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, viewport.scrollLeft, filterState.showSecret),
+    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, viewport.scrollLeft, filterState.audiences),
   };
 
   // Memoize the layout per density. Filtering never changes geometry (see
@@ -166,7 +196,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData, initi
   const layoutAt = (pxPerYear: number): Layout => {
     let layout = layoutCache.get(pxPerYear);
     if (!layout) {
-      layout = computeLayoutFrom(idx, cal, pxPerYear);
+      layout = computeLayoutFrom(idx, cal, pxPerYear, maxTiers);
       layoutCache.set(pxPerYear, layout);
     }
     return layout;
@@ -187,19 +217,32 @@ export function renderTimeline(container: HTMLElement, data: TimelineData, initi
   let markerNodes: HTMLElement[] = [];
   let barNodes: HTMLElement[] = [];
 
-  // Filtering keeps the layout (axis, ticks, bar positions, lanes) fixed — so this
-  // never relayouts. Individual markers toggle .chart-hidden in place; density bars
-  // re-count their matching members and rescale (height/badge/hide) so the
-  // histogram reflects the filtered/searched set, not the full one. eventCount is
-  // the total matching beats — individuals plus bar members.
+  // Filtering keeps the layout geometry (axis, ticks, bar positions, x) fixed — so
+  // this never relayouts the timeline. Individual markers toggle .chart-hidden in
+  // place; density bars re-count their matching members and rescale. Labels DO
+  // recompute: layoutLabels re-gates over only the matching beats, so narrowing
+  // the view frees label budget for the survivors (search/regional-density aware)
+  // — a lone hit on an empty axis regains its label instead of staying a bare dot.
+  // Only side/offset (vertical lane) and the bare flag change; x is untouched, so
+  // the time scale never shifts. eventCount = matching individuals + bar members.
   function applyVisibility() {
     if (!currentLayout) return;
     const match = makeMatcher(filterState);
+    const items = currentLayout.items;
+    const visible = items.map((it) => match(it));
+    const { showLabel, side, offset, shift } = layoutLabels(
+      items.map((it) => ({ x: it.x, major: !!it.major })),
+      visible,
+      { maxTiers },
+    );
     let count = 0;
-    currentLayout.items.forEach((item, i) => {
-      const vis = match(item);
-      markerNodes[i]?.classList.toggle('chart-hidden', !vis);
-      if (vis) count++;
+    items.forEach((_, i) => {
+      const node = markerNodes[i];
+      if (node) {
+        node.classList.toggle('chart-hidden', !visible[i]);
+        placeMarker(node, side[i], offset[i], shift[i], showLabel[i]);
+      }
+      if (visible[i]) count++;
     });
     currentLayout.bars.forEach((bar, i) => {
       if (barNodes[i]) count += styleBar(barNodes[i], bar, idx.events, match);
@@ -223,10 +266,19 @@ export function renderTimeline(container: HTMLElement, data: TimelineData, initi
 
   // Filter bar owns the mutable filter state; a filter edit just retoggles
   // visibility, no relayout. A loaded view seeds query + still-present tracks.
+  // Available viewpoint audiences for fail-soft seeding: characters from any beat's
+  // knownBy, plus the DM sentinel when secret beats exist. resolveTracks is reused
+  // verbatim — same intersect-by-presence, order-preserving operation as tracks.
+  const characters = audienceList(data.events);
+  const available = data.events.some((e) => e.secret) ? [DM_AUDIENCE, ...characters] : characters;
   const seed = initialState
-    ? { query: initialState.query, tracks: resolveTracks(initialState.tracks, trackList(data.events)), showSecret: initialState.showSecret }
+    ? {
+        query: initialState.query,
+        tracks: resolveTracks(initialState.tracks, trackList(data.events)),
+        audiences: resolveTracks(initialState.audiences, available),
+      }
     : undefined;
-  const { bar: filterBar, search, chips, secret, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
+  const { bar: filterBar, search, chips, audience, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
 
   // Rebuild the canvas for the current density. Only zoom (density change) calls
   // this. The individual-marker set changes with zoom (density buckets dissolve as
@@ -272,7 +324,10 @@ export function renderTimeline(container: HTMLElement, data: TimelineData, initi
     // outlive its marker (mouseout never fires for a removed node).
     viewport._tlHideTip?.();
     viewport.replaceChildren(canvas);
-    api.eventCount = count;
+    // Re-gate labels for the active filter at this density: a zoom rebuilds the
+    // marker set, so reapply the filter-aware label budget (the build above used
+    // the full-set placement baked into the layout).
+    applyVisibility();
     api.contentWidth = layout.contentWidth;
     api.laneCount = layout.laneCount;
     if (anchor) viewport.scrollLeft = anchor.frac * layout.contentWidth - anchor.x;
@@ -337,7 +392,7 @@ export function renderTimeline(container: HTMLElement, data: TimelineData, initi
   api.controls = [
     { label: 'Search', node: search },
     { label: 'Filter', node: chips },
-    ...(secret ? [{ label: 'Visibility', node: secret }] : []),
+    ...(audience ? [{ label: 'Known by', node: audience }] : []),
   ];
   container.append(filterBar, viewport);
   draw();

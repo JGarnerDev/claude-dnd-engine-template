@@ -109,15 +109,17 @@ describe('computeLayout', () => {
   }));
 
   it('gates labels off for crowded individuals at low density', () => {
-    const out = computeLayout(spaced, undefined, 50);
+    // px=20 → ~20px between year-apart beats, so a 156px label window holds far
+    // more than the tier budget → the gate must drop some (still individual, no bars).
+    const out = computeLayout(spaced, undefined, 20);
     const labelled = out.items.filter((i) => i.showLabel).length;
-    expect(out.bars).toHaveLength(0); // a year apart → still individual, no bars
+    expect(out.bars).toHaveLength(0); // 20px apart > cluster-off gap → still individual
     expect(labelled).toBeLessThan(out.items.length);
     expect(labelled).toBeGreaterThan(0);
   });
 
   it('reveals more labels as density rises (zoom in)', () => {
-    const lo = computeLayout(spaced, undefined, 50).items.filter((i) => i.showLabel).length;
+    const lo = computeLayout(spaced, undefined, 20).items.filter((i) => i.showLabel).length;
     const hi = computeLayout(spaced, undefined, 2000).items.filter((i) => i.showLabel).length;
     expect(hi).toBeGreaterThan(lo);
   });

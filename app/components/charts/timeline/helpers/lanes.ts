@@ -1,24 +1,8 @@
-// Greedy label-lane assignment (D9). Pure — no DOM.
+// Lane -> placement. Pure — no DOM. The interval packing itself lives in
+// labels.ts (layoutLabels); this just maps a lane index to a side/tier/offset.
 
-import { LABEL_W, LABEL_GAP, AXIS_GAP, TIER_H } from '../../_common/constants.js';
+import { AXIS_GAP, TIER_H } from '../../_common/constants.js';
 import type { Placement } from '../../_common/types.js';
-
-// Greedy interval coloring. `centers` must be ascending (events are sorted by
-// time). Returns a lane index per center such that labels never horizontally
-// overlap within a lane.
-export function assignLanes(centers: number[], labelW = LABEL_W, gap = LABEL_GAP): number[] {
-  const laneRight: number[] = [];
-  return centers.map((cx) => {
-    const left = cx - labelW / 2;
-    const right = cx + labelW / 2;
-    for (let lane = 0; ; lane++) {
-      if (laneRight[lane] === undefined || laneRight[lane] + gap <= left) {
-        laneRight[lane] = right;
-        return lane;
-      }
-    }
-  });
-}
 
 // Lane -> placement. Even lanes go above the axis, odd below; each pair steps
 // one tier further out.

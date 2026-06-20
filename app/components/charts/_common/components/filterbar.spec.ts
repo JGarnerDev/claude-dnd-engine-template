@@ -62,35 +62,53 @@ describe('buildFilterBar', () => {
     expect(calls).toHaveLength(2);
   });
 
-  describe('DM-only toggle', () => {
-    const withSecret = [...events, { date: '1343-01-01', label: 'Hidden pact', track: 'world', secret: true }];
+  describe('Known-by viewpoint group', () => {
+    const withKnowledge = [
+      ...events,
+      { date: '1343-01-01', label: 'Mara overhears', track: 'world', knownBy: ['Mara'] },
+      { date: '1344-01-01', label: 'Borin and Mara', track: 'world', knownBy: ['Borin', 'Mara'] },
+      { date: '1345-01-01', label: 'Nameless rite', track: 'world', secret: true }, // DM-only
+    ];
+    const chipText = (group: HTMLElement) =>
+      [...group.querySelectorAll<HTMLElement>('.chart-chip-audience')].map((c) => c.textContent);
+    const chip = (group: HTMLElement, label: string) =>
+      [...group.querySelectorAll<HTMLElement>('.chart-chip-audience')].find((c) => c.textContent === label)!;
 
-    it('is absent when no beat is secret', () => {
-      const { secret } = buildFilterBar(events, () => {});
-      expect(secret).toBeNull();
+    it('is absent when no beat has knownBy and none is secret', () => {
+      const { audience } = buildFilterBar(events, () => {});
+      expect(audience).toBeNull();
     });
 
-    it('appears (off by default) when a beat is secret', () => {
-      const { secret, state } = buildFilterBar(withSecret, () => {});
-      expect(secret).toBeTruthy();
-      expect(secret!.classList.contains('is-on')).toBe(false);
-      expect(state.showSecret).toBe(false);
+    it('builds a DM chip (secrets present) + one chip per character, all off', () => {
+      const { audience, state } = buildFilterBar(withKnowledge, () => {});
+      expect(audience).toBeTruthy();
+      expect(chipText(audience!)).toEqual(['DM', 'Mara', 'Borin']);
+      expect(audience!.querySelector('.chart-chip-dm')).toBeTruthy();
+      expect([...audience!.querySelectorAll('.is-on')]).toHaveLength(0);
+      expect([...state.audiences]).toEqual([]);
     });
 
-    it('toggles showSecret and fires onChange', () => {
-      const { secret, state } = buildFilterBar(withSecret, (s) => calls.push(s.showSecret));
-      secret!.click();
-      expect(state.showSecret).toBe(true);
-      expect(secret!.classList.contains('is-on')).toBe(true);
-      secret!.click();
-      expect(state.showSecret).toBe(false);
-      expect(calls).toEqual([true, false]);
+    it('omits the DM chip when there are no secret beats', () => {
+      const noSecret = [...events, { date: '1343-01-01', label: 'Mara overhears', track: 'world', knownBy: ['Mara'] }];
+      const { audience } = buildFilterBar(noSecret, () => {});
+      expect(chipText(audience!)).toEqual(['Mara']);
     });
 
-    it('seeds showSecret from an initial snapshot', () => {
-      const { secret, state } = buildFilterBar(withSecret, () => {}, { query: '', tracks: [], showSecret: true });
-      expect(state.showSecret).toBe(true);
-      expect(secret!.classList.contains('is-on')).toBe(true);
+    it('toggles an audience into the set and fires onChange', () => {
+      const { audience, state } = buildFilterBar(withKnowledge, (s) => calls.push([...(s.audiences ?? [])]));
+      const mara = chip(audience!, 'Mara');
+      mara.click();
+      expect(mara.classList.contains('is-on')).toBe(true);
+      expect(state.audiences.has('Mara')).toBe(true);
+      mara.click();
+      expect(state.audiences.has('Mara')).toBe(false);
+      expect(calls).toEqual([['Mara'], []]);
+    });
+
+    it('seeds selected audiences from an initial snapshot', () => {
+      const { audience, state } = buildFilterBar(withKnowledge, () => {}, { query: '', tracks: [], audiences: ['Borin'] });
+      expect([...state.audiences]).toEqual(['Borin']);
+      expect(chip(audience!, 'Borin').classList.contains('is-on')).toBe(true);
     });
   });
 });

@@ -30,7 +30,8 @@ export interface TimelineEvent {
   minor?: boolean;
   source?: string;
   keywords?: string[];
-  secret?: boolean; // DM-only beat: hidden unless the DM-only filter is toggled on
+  secret?: boolean; // DM-only beat: only the DM viewpoint shows it; characters never do
+  knownBy?: string[]; // character names who know this beat (drives the per-character "Known by" viewpoint)
 }
 
 // Act/mission span bar. Extracted by the generator; render consumes it in M4.
@@ -62,6 +63,7 @@ export interface LayoutItem extends TimelineEvent {
   x: number;
   side: Side;
   offset: number;
+  shift: number; // px the label box slides right off the dot (leader spans it); 0 = centered
   weight: Weight;
   track: string; // resolved (defaults to 'world')
   text: string;
@@ -98,7 +100,11 @@ export interface Layout {
 export interface FilterState {
   query?: string;
   tracks?: Set<string> | null;
-  showSecret?: boolean; // when false (default), secret beats are filtered out
+  // Viewpoint whitelist (see knownTo). Empty/absent (default) = no filter: every
+  // beat shows, secrets included. Otherwise a beat passes if any selected audience
+  // knows it — DM_AUDIENCE knows everything; a character knows public beats + the
+  // non-secret beats it's in knownBy of, never a secret.
+  audiences?: Set<string> | null;
 }
 
 export type ZoomKind = 'in' | 'out';
@@ -114,7 +120,7 @@ export interface ChartState {
   tracks: string[];
   zoomLevel: number;
   scrollLeft: number;
-  showSecret: boolean; // DM-only filter state (default false = player-safe)
+  audiences: string[]; // viewpoint whitelist (empty = no filter); DM_AUDIENCE or character names
 }
 
 export interface SavedView {

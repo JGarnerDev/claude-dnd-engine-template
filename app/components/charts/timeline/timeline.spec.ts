@@ -128,6 +128,22 @@ describe('renderTimeline', () => {
     expect(visible[0].querySelector('.chart-label')!.textContent).toBe('Tax revolt');
   });
 
+  it('re-gates labels to the filtered set: a lone search hit regains its label', () => {
+    // 30 year-apart beats: at fit density their 150px labels collide heavily, so
+    // the full-view gate leaves many bare. Narrowing to one match frees the budget.
+    const many: TimelineData = {
+      calendar: null,
+      events: Array.from({ length: 30 }, (_, i) => ({ date: `${1340 + i}-06-01`, label: `beat ${i}`, track: 'world' })),
+    };
+    renderTimeline(container, many);
+    expect(container.querySelectorAll('.chart-marker.chart-bare').length).toBeGreaterThan(0); // collisions force bare dots
+    fireInput('beat 5'); // unique match
+    const visible = [...container.querySelectorAll<HTMLElement>('.chart-marker:not(.chart-hidden)')];
+    expect(visible).toHaveLength(1);
+    expect(visible[0].classList.contains('chart-bare')).toBe(false); // lone survivor labels
+    expect(visible[0].dataset.label).toBe('beat 5');
+  });
+
   it('selects a track to show only its markers', () => {
     renderTimeline(container, data);
     chip('world').click(); // whitelist world -> only the two world beats show
@@ -224,7 +240,7 @@ describe('renderTimeline', () => {
   });
 
   it('seeds the filter UI from initialState and round-trips through getState()', () => {
-    const api = renderTimeline(container, data, { query: 'pact', tracks: ['faction'], zoomLevel: 1, scrollLeft: 0, showSecret: false });
+    const api = renderTimeline(container, data, { query: 'pact', tracks: ['faction'], zoomLevel: 1, scrollLeft: 0, audiences: [] });
     expect(container.querySelector<HTMLInputElement>('.chart-search')!.value).toBe('pact');
     expect(chip('faction').classList.contains('is-on')).toBe(true);
     const visible = [...container.querySelectorAll<HTMLElement>('.chart-marker:not(.chart-hidden)')];
@@ -235,42 +251,52 @@ describe('renderTimeline', () => {
   });
 
   it('drops a seeded track that no longer exists in the data (fail soft)', () => {
-    const api = renderTimeline(container, data, { query: '', tracks: ['gone'], zoomLevel: 1, scrollLeft: 0, showSecret: false });
+    const api = renderTimeline(container, data, { query: '', tracks: ['gone'], zoomLevel: 1, scrollLeft: 0, audiences: [] });
     expect(api.getState().tracks).toEqual([]);
     // no track filter -> all beats visible
     expect(container.querySelectorAll('.chart-marker:not(.chart-hidden)')).toHaveLength(3);
   });
 
-  describe('DM-only (secret) beats', () => {
-    const withSecret: TimelineData = {
+  describe('Known-by viewpoint beats', () => {
+    const withKnowledge: TimelineData = {
       calendar: null,
       events: [
-        ...data.events,
-        { date: '1343-01-01', label: 'The hidden pact', track: 'world', secret: true },
+        ...data.events, // 3 public beats
+        { date: '1343-01-01', label: 'Mara overhears', track: 'world', knownBy: ['Mara'] },
+        { date: '1343-06-01', label: 'The nameless rite', track: 'world', secret: true }, // DM-only
       ],
     };
-    const secretChip = () => container.querySelector<HTMLButtonElement>('.chart-chip-secret');
+    const audChip = (label: string) =>
+      [...container.querySelectorAll<HTMLButtonElement>('.chart-chip-audience')].find((c) => c.textContent === label);
+    const visibleLabels = () =>
+      [...container.querySelectorAll<HTMLElement>('.chart-marker:not(.chart-hidden)')].map((m) => m.dataset.label);
 
-    it('hides secret markers by default and exposes a DM-only toggle', () => {
-      const api = renderTimeline(container, withSecret);
-      expect(api.eventCount).toBe(3); // secret beat excluded from the count
-      const hidden = [...container.querySelectorAll<HTMLElement>('.chart-marker.chart-hidden')];
-      expect(hidden.map((m) => m.dataset.label)).toContain('The hidden pact');
-      expect(secretChip()).toBeTruthy();
+    it('shows everything by default (no viewpoint) and exposes DM + character chips', () => {
+      const api = renderTimeline(container, withKnowledge);
+      expect(api.eventCount).toBe(5); // all beats, secret included
+      expect(audChip('DM')).toBeTruthy();
+      expect(audChip('Mara')).toBeTruthy();
     });
 
-    it('reveals secret markers when the toggle is clicked', () => {
-      const api = renderTimeline(container, withSecret);
-      secretChip()!.click();
-      expect(api.eventCount).toBe(4);
-      const visible = [...container.querySelectorAll<HTMLElement>('.chart-marker:not(.chart-hidden)')];
-      expect(visible.map((m) => m.dataset.label)).toContain('The hidden pact');
-      expect(api.getState().showSecret).toBe(true);
+    it('scopes to a character\'s knowledge (public + their knownBy, no secret) when clicked', () => {
+      const api = renderTimeline(container, withKnowledge);
+      audChip('Mara')!.click();
+      expect(visibleLabels()).toContain('Mara overhears');
+      expect(visibleLabels()).not.toContain('The nameless rite'); // characters don't see secrets
+      expect(api.eventCount).toBe(4); // 3 public + Mara's beat
+      expect(api.getState().audiences).toEqual(['Mara']);
     });
 
-    it('shows no DM-only toggle when no beat is secret', () => {
+    it('shows every beat incl. the secret when the DM chip is clicked', () => {
+      const api = renderTimeline(container, withKnowledge);
+      audChip('DM')!.click();
+      expect(api.eventCount).toBe(5);
+      expect(visibleLabels()).toContain('The nameless rite');
+    });
+
+    it('shows no viewpoint chips when no beat has knownBy or is secret', () => {
       renderTimeline(container, data);
-      expect(secretChip()).toBeNull();
+      expect(container.querySelector('.chart-chip-audience')).toBeNull();
     });
   });
 });

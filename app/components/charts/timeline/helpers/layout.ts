@@ -6,22 +6,23 @@
 import { DEFAULT_CALENDAR } from '../../_common/helpers/calendar.js';
 import { computeAxisFrom, indexEvents } from '../../_common/helpers/axis.js';
 import type { IndexedEvents } from '../../_common/helpers/axis.js';
-import { assignLanes, placement } from './lanes.js';
 import { clusterBeats } from '../../_common/helpers/cluster.js';
-import { gateLabels } from './labels.js';
+import { layoutLabels } from './labels.js';
 import { weightOf } from '../../_common/helpers/weight.js';
-import { PX_PER_YEAR, AXIS_GAP, TIER_H, MIN_CANVAS_HEIGHT, BAR_MAX_H, CLUSTER_OFF_GAP } from '../../_common/constants.js';
+import { PX_PER_YEAR, AXIS_GAP, TIER_H, MIN_CANVAS_HEIGHT, BAR_MAX_H, CLUSTER_OFF_GAP, LABEL_MAX_TIERS, LABEL_BOX_PAD } from '../../_common/constants.js';
 import type { Calendar, DensityBar, Layout, TimelineEvent } from '../../_common/types.js';
 
 // pxPerYear is the axis density (driven by the zoom control); higher = stretched.
-// Returns { isEmpty, contentWidth, canvasHeight, items, ticks, laneCount, spanYears }.
-// item: { ...event, x, side, offset, weight, track, text }; tick: { label, x }
+// maxTiers is the label lane budget (the renderer derives it from viewport height;
+// pure callers get the LABEL_MAX_TIERS fallback). Returns { isEmpty, contentWidth,
+// canvasHeight, items, ticks, laneCount, spanYears }.
 export function computeLayout(
   rawEvents: TimelineEvent[],
   cal: Calendar = DEFAULT_CALENDAR,
   pxPerYear: number = PX_PER_YEAR,
+  maxTiers: number = LABEL_MAX_TIERS,
 ): Layout {
-  return computeLayoutFrom(indexEvents(rawEvents, cal), cal, pxPerYear);
+  return computeLayoutFrom(indexEvents(rawEvents, cal), cal, pxPerYear, maxTiers);
 }
 
 // Zoom step: lays out from pre-indexed events (sorted/day-indexed once by the
@@ -31,6 +32,7 @@ export function computeLayoutFrom(
   idx: IndexedEvents,
   cal: Calendar = DEFAULT_CALENDAR,
   pxPerYear: number = PX_PER_YEAR,
+  maxTiers: number = LABEL_MAX_TIERS,
 ): Layout {
   const axis = computeAxisFrom(idx, cal, pxPerYear);
   if (axis.isEmpty) {
@@ -54,39 +56,33 @@ export function computeLayoutFrom(
     avgGap < CLUSTER_OFF_GAP
       ? clusterBeats(events.map((e, i) => ({ x: xs[i], major: !!e.major })))
       : { individuals: events.map((_, i) => i), bars: [] as DensityBar[] };
-  const indXs = individuals.map((ei) => xs[ei]);
 
-  // Priority, capped label gate over the individuals: majors claim the limited
-  // label slots first, then non-majors fill leftover gaps — but all obey the same
-  // spacing, so labels can't tile into a wall even when thousands of beats (majors
-  // included) crowd the axis. Unlabelled beats are bare on-axis dots (hover still
-  // shows the text) and consume no collision lane. Recomputed per zoom.
-  const showLabel = gateLabels(indXs, individuals.map((ei) => !!events[ei].major));
+  // Priority, capped label gate + lane packing over the individuals (all visible
+  // here — the renderer re-runs layoutLabels over the filter-matching subset when
+  // a search/filter narrows the view). Majors claim the limited label slots first,
+  // then non-majors fill leftover gaps; all obey the same spacing, so labels can't
+  // tile into a wall even when thousands of beats crowd the axis. Bare beats are
+  // on-axis dots (hover still shows the text) and consume no collision lane. The
+  // full-set layout here is the worst case, so it sets the (locked) canvas height.
+  const { showLabel, side: sideOf, offset: offsetOf, shift: shiftOf, laneCount } = layoutLabels(
+    individuals.map((ei) => ({ x: xs[ei], major: !!events[ei].major })),
+    individuals.map(() => true),
+    { maxTiers },
+  );
+  const maxLane = Math.max(0, laneCount - 1);
 
-  // Lanes pack only the labelled individuals — their boxes are the only things
-  // that can overlap. Map each lane back; bare beats get lane -1.
-  const labelledLanes = assignLanes(indXs.filter((_, k) => showLabel[k]));
-  let maxLane = 0;
-  let li = 0;
-  const laneOf: number[] = individuals.map((_, k) => {
-    if (!showLabel[k]) return -1;
-    const lane = labelledLanes[li++];
-    maxLane = Math.max(maxLane, lane);
-    return lane;
-  });
-
-  const halfHeight = AXIS_GAP + (Math.floor(maxLane / 2) + 1) * TIER_H + 28;
+  const halfHeight = AXIS_GAP + (Math.floor(maxLane / 2) + 1) * TIER_H + LABEL_BOX_PAD;
   // Below-axis half must also clear the tallest density bar.
-  const canvasHeight = Math.max(MIN_CANVAS_HEIGHT, halfHeight * 2, (AXIS_GAP + BAR_MAX_H + 28) * 2);
+  const canvasHeight = Math.max(MIN_CANVAS_HEIGHT, halfHeight * 2, (AXIS_GAP + BAR_MAX_H + LABEL_BOX_PAD) * 2);
 
   const items = individuals.map((ei, k) => {
     const e = events[ei];
-    const { side, offset } = showLabel[k] ? placement(laneOf[k]) : { side: 'above' as const, offset: 0 };
     return {
       ...e,
       x: xs[ei],
-      side,
-      offset,
+      side: sideOf[k],
+      offset: offsetOf[k],
+      shift: shiftOf[k],
       weight: weightOf(e),
       track: e.track || 'world',
       text: e.major ? `★ ${e.label}` : e.label,

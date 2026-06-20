@@ -9,8 +9,9 @@ import { DEFAULT_CALENDAR } from '../_common/helpers/calendar.js';
 import { computeSwimlaneFrom } from './helpers/swimlane-layout.js';
 import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
 import { buildTrackTree, DEFAULT_CATEGORIES } from './helpers/tracks.js';
-import { makeMatcher, trackList } from '../_common/helpers/filters.js';
+import { makeMatcher, trackList, audienceList } from '../_common/helpers/filters.js';
 import { buildFilterBar } from '../_common/components/filterbar.js';
+import { DM_AUDIENCE } from '../_common/constants.js';
 import { clampZoom, resolveTracks, serializeState, DEFAULT_STATE } from '../_common/helpers/viewstate.js';
 import type { SettingsSection } from '../_common/components/settingspanel.js';
 import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
@@ -265,7 +266,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
     controls: [],
     // filterState/swim are declared below but only read when getState runs
     // (post-render), so the closure is safe.
-    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, swim.scrollLeft, filterState.showSecret),
+    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, swim.scrollLeft, filterState.audiences),
   };
 
   const swim = document.createElement('div') as PanViewport;
@@ -312,10 +313,18 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
   }
 
   // A loaded view seeds query + still-present tracks (decision H intersection).
+  // Available viewpoint audiences for fail-soft seeding (see timeline.ts): the
+  // characters from any beat's knownBy + the DM sentinel when secrets exist.
+  const characters = audienceList(data.events);
+  const available = data.events.some((e) => e.secret) ? [DM_AUDIENCE, ...characters] : characters;
   const seed = initialState
-    ? { query: initialState.query, tracks: resolveTracks(initialState.tracks, trackList(data.events)), showSecret: initialState.showSecret }
+    ? {
+        query: initialState.query,
+        tracks: resolveTracks(initialState.tracks, trackList(data.events)),
+        audiences: resolveTracks(initialState.audiences, available),
+      }
     : undefined;
-  const { bar: filterBar, search, chips, secret, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
+  const { bar: filterBar, search, chips, audience, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
 
   // Rebuild the gutter + canvas for the current density/collapse state. Both zoom
   // and collapse change the layout (the individual/bar split shifts with zoom, rows
@@ -400,7 +409,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
   api.controls = [
     { label: 'Search', node: search },
     { label: 'Filter', node: chips },
-    ...(secret ? [{ label: 'Visibility', node: secret }] : []),
+    ...(audience ? [{ label: 'Known by', node: audience }] : []),
   ];
   container.append(filterBar, swim);
   draw();

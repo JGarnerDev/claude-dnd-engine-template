@@ -61,6 +61,7 @@
   position: absolute;
   top: 50%;
   --chart-offset: 16px;
+  --chart-shift: 0px; /* world view: px the label slides right off the dot (leader bridges it) */
 }
 /* Beats backed by a source .md invite a click */
 .chart-marker.has-source .chart-dot { cursor: pointer; }

@@ -7,7 +7,7 @@ const KEY = 'campaign:saved-views:v1';
 const mk = (name: string, tab: SavedView['tab'] = 'world'): SavedView => ({
   name,
   tab,
-  state: { query: '', tracks: [], zoomLevel: 1, scrollLeft: 0, showSecret: false },
+  state: { query: '', tracks: [], zoomLevel: 1, scrollLeft: 0, audiences: [] },
 });
 
 describe('viewstore', () => {
@@ -73,7 +73,7 @@ describe('viewstore', () => {
     expect(views[0]).toEqual({
       name: 'ok',
       tab: 'world',
-      state: { query: 'q', tracks: [], zoomLevel: 1, scrollLeft: 0, showSecret: false },
+      state: { query: 'q', tracks: [], zoomLevel: 1, scrollLeft: 0, audiences: [] },
     });
   });
 });

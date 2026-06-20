@@ -5,8 +5,8 @@
 
 import type { ChartState } from '../types.js';
 
-// The "nothing saved" baseline: fit zoom, no filter/search, no pan, DM-only off.
-export const DEFAULT_STATE: ChartState = { query: '', tracks: [], zoomLevel: 1, scrollLeft: 0, showSecret: false };
+// The "nothing saved" baseline: fit zoom, no filter/search, no pan, no viewpoint.
+export const DEFAULT_STATE: ChartState = { query: '', tracks: [], zoomLevel: 1, scrollLeft: 0, audiences: [] };
 
 // Clamp a saved zoom to the current data's range. maxZoom is data-derived and
 // may differ from when the view was saved, so an over-range value snaps to the
@@ -31,9 +31,9 @@ export function serializeState(
   tracks: Iterable<string>,
   zoomLevel: number,
   scrollLeft: number,
-  showSecret: boolean,
+  audiences: Iterable<string>,
 ): ChartState {
-  return { query, tracks: [...tracks], zoomLevel, scrollLeft, showSecret };
+  return { query, tracks: [...tracks], zoomLevel, scrollLeft, audiences: [...audiences] };
 }
 
 // Coerce an unknown/partial payload into a safe ChartState — every field gets a
@@ -45,6 +45,6 @@ export function applyDefaults(raw: Partial<ChartState> | null | undefined): Char
     tracks: Array.isArray(raw.tracks) ? raw.tracks.filter((t): t is string => typeof t === 'string') : [],
     zoomLevel: typeof raw.zoomLevel === 'number' && Number.isFinite(raw.zoomLevel) ? raw.zoomLevel : 1,
     scrollLeft: typeof raw.scrollLeft === 'number' && Number.isFinite(raw.scrollLeft) ? raw.scrollLeft : 0,
-    showSecret: typeof raw.showSecret === 'boolean' ? raw.showSecret : false,
+    audiences: Array.isArray(raw.audiences) ? raw.audiences.filter((a): a is string => typeof a === 'string') : [],
   };
 }

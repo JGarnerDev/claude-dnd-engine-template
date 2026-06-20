@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { applyFilters, trackList } from './filters.js';
+import { applyFilters, trackList, audienceList } from './filters.js';
+import { DM_AUDIENCE } from '../constants.js';
 
 const events = [
   { date: '1340-01-01', label: 'The Long Winter begins', track: 'world' },
@@ -65,26 +66,69 @@ describe('applyFilters', () => {
   });
 });
 
-describe('secret (DM-only) filtering', () => {
+describe('audience (Known-by) filtering', () => {
   const mixed = [
-    { date: '1340-01-01', label: 'Public coronation', track: 'world' },
-    { date: '1341-01-01', label: 'The hidden pact', track: 'faction', secret: true },
+    { date: '1340-01-01', label: 'Public coronation', track: 'world' }, // no knownBy: common knowledge
+    { date: '1341-01-01', label: 'Mara overhears', track: 'faction', knownBy: ['Mara'] },
+    { date: '1342-01-01', label: 'Borin and Mara find the ledger', track: 'faction', knownBy: ['Borin', 'Mara'] },
+    { date: '1343-01-01', label: 'A nameless rite', track: 'world', secret: true }, // DM-only
   ];
 
-  it('hides secret beats by default (player-safe)', () => {
-    expect(applyFilters(mixed).map((e) => e.label)).toEqual(['Public coronation']);
-    expect(applyFilters(mixed, {}).map((e) => e.label)).toEqual(['Public coronation']);
-    expect(applyFilters(mixed, { showSecret: false }).map((e) => e.label)).toEqual(['Public coronation']);
+  it('shows everything (secrets included) when no audience is selected', () => {
+    expect(applyFilters(mixed)).toHaveLength(4);
+    expect(applyFilters(mixed, {})).toHaveLength(4);
+    expect(applyFilters(mixed, { audiences: new Set() })).toHaveLength(4);
   });
 
-  it('reveals secret beats when showSecret is on', () => {
-    expect(applyFilters(mixed, { showSecret: true })).toHaveLength(2);
+  it('DM sees everything including secrets', () => {
+    expect(applyFilters(mixed, { audiences: new Set([DM_AUDIENCE]) })).toHaveLength(4);
   });
 
-  it('still applies query/track filters to revealed secret beats', () => {
-    expect(applyFilters(mixed, { showSecret: true, tracks: new Set(['world']) }).map((e) => e.label)).toEqual([
+  it('a character sees public beats + their own knownBy, never a secret', () => {
+    expect(applyFilters(mixed, { audiences: new Set(['Mara']) }).map((e) => e.label)).toEqual([
       'Public coronation',
+      'Mara overhears',
+      'Borin and Mara find the ledger',
     ]);
-    expect(applyFilters(mixed, { showSecret: true, query: 'hidden' }).map((e) => e.label)).toEqual(['The hidden pact']);
+  });
+
+  it('scopes out beats another character knows but this one does not', () => {
+    expect(applyFilters(mixed, { audiences: new Set(['Borin']) }).map((e) => e.label)).toEqual([
+      'Public coronation',
+      'Borin and Mara find the ledger', // not "Mara overhears" — Borin isn't on it
+    ]);
+  });
+
+  it('never shows a secret to a character', () => {
+    expect(applyFilters(mixed, { audiences: new Set(['Mara', 'Borin']) }).map((e) => e.label)).not.toContain(
+      'A nameless rite',
+    );
+  });
+
+  it('unions selected audiences (DM + character = everything)', () => {
+    expect(applyFilters(mixed, { audiences: new Set([DM_AUDIENCE, 'Borin']) })).toHaveLength(4);
+  });
+
+  it('still applies query/track filters on top of the viewpoint', () => {
+    expect(applyFilters(mixed, { audiences: new Set(['Mara']), tracks: new Set(['faction']) }).map((e) => e.label)).toEqual([
+      'Mara overhears',
+      'Borin and Mara find the ledger',
+    ]);
+  });
+});
+
+describe('audienceList', () => {
+  it('lists every character in any beat\'s knownBy, first-appearance order, deduped', () => {
+    const events = [
+      { date: '1340', label: 'public', track: 'world' },
+      { date: '1341', label: 'a', knownBy: ['Mara', 'Borin'] },
+      { date: '1342', label: 'b', secret: true, knownBy: ['Borin', 'Sela'] }, // secret beats still contribute names
+      { date: '1343', label: 'c', secret: true }, // no knownBy contributes nobody
+    ];
+    expect(audienceList(events)).toEqual(['Mara', 'Borin', 'Sela']);
+  });
+
+  it('returns [] when no beat has knownBy', () => {
+    expect(audienceList([{ date: '1340', label: 'x', track: 'world' }])).toEqual([]);
   });
 });

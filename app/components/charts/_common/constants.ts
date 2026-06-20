@@ -22,8 +22,35 @@ export const LABEL_W = 150;
 export const LABEL_GAP = 6; // min horizontal gap between labels sharing a lane
 export const AXIS_GAP = 16; // gap from axis to the nearest tier
 export const TIER_H = 70; // vertical step per tier (exceeds clamped label height)
+// Lane budget (alternating above/below) for the label packer. This is the
+// FALLBACK budget for pure callers/tests; the renderer overrides it per-draw with
+// a value derived from the actual viewport height (see timeline.ts), so labels
+// fill whatever vertical room is on screen instead of a magic constant. Labels
+// that collide horizontally stack onto these lanes; beyond the budget a beat is a
+// bare hover-only dot. LABEL_TIER_CEIL caps the viewport-derived value so a very
+// tall panel can't tile an absurd wall; LABEL_MIN_TIERS floors a short one.
+export const LABEL_MAX_TIERS = 4;
+export const LABEL_MIN_TIERS = 2;
+export const LABEL_TIER_CEIL = 14;
+// Max px a label box may slide horizontally off its dot to fit a tier (the leader
+// slants to bridge the gap). Lets crowded labels claim adjacent empty axis space
+// instead of dropping; bounded so the leader stays short enough to read.
+export const LABEL_MAX_SHIFT = LABEL_W;
+// Vertical padding (label box height-ish) added per side when sizing the canvas
+// and when converting viewport height -> tier budget. Mirrors the +28 the
+// half-height math reserves above the outermost tier.
+export const LABEL_BOX_PAD = 28;
 
 export const MIN_CANVAS_HEIGHT = 320;
+
+// Viewpoint filter ("Known by"). Works like the track filter: no audience selected
+// = no filter (every beat shows, secrets included). Selecting audiences narrows to
+// the union of what they know. DM_AUDIENCE is the sentinel for "the DM", who knows
+// everything (incl. secrets). Any other value is a character name: a character
+// knows the public beats plus the non-secret beats that name `knownBy`, but never
+// a secret beat. The sentinel is `\0`-prefixed so it can't collide with a name.
+export const DM_AUDIENCE = '\0dm';
+export const DM_LABEL = 'DM';
 
 // Density histogram (LOD). When beats crowd below one bar per BUCKET_PX, the
 // world view buckets the non-major beats into fixed-width pixel columns and draws

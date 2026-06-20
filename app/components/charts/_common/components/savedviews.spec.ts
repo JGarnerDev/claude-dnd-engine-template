@@ -9,7 +9,7 @@ const state = (over: Partial<ChartState> = {}): ChartState => ({
   tracks: [],
   zoomLevel: 1,
   scrollLeft: 0,
-  showSecret: false,
+  audiences: [],
   ...over,
 });
 

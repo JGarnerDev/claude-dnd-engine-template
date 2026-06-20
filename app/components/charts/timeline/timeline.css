@@ -92,17 +92,25 @@
 .chart-marker[data-track='faction'] .chart-dot { background: var(--track-faction); }
 .chart-marker[data-track='continent'] .chart-dot { background: var(--track-continent); }
 
-/* Leader line from the axis dot out to the label */
+/* Leader line from the axis dot out to the (possibly displaced) label. It's a
+   1px bar anchored at the dot; placeMarker() sets its length (width) and angle
+   (transform: rotate) inline so it spans both the vertical offset and any
+   horizontal --chart-shift. A shift of 0 just rotates to vertical. */
 .chart-leader {
   position: absolute;
   left: 0;
-  width: 1px;
-  height: var(--chart-offset);
-  transform: translateX(-50%);
+  top: 0;
+  height: 1px;
+  width: 0;
+  transform-origin: 0 50%;
   background: var(--chart-axis);
+  /* Markers aren't stacking contexts (position:absolute, z-index auto), so these
+     z-indexes resolve in the shared canvas context: every leader sits behind
+     every dot and label, never painting over a neighbouring marker's label. */
+  z-index: 1;
 }
-.chart-marker.above .chart-leader { top: calc(-1 * var(--chart-offset)); }
-.chart-marker.below .chart-leader { top: 0; }
+.chart-marker .chart-dot { z-index: 2; }
+.chart-label { z-index: 3; }
 
 /* Fixed label slot: clamped to 3 lines so tiers stack at a uniform step */
 .chart-label {
@@ -126,11 +134,11 @@
 }
 .chart-marker.above .chart-label {
   top: calc(-1 * var(--chart-offset));
-  transform: translate(-50%, -100%);
+  transform: translate(calc(-50% + var(--chart-shift, 0px)), -100%);
 }
 .chart-marker.below .chart-label {
   top: var(--chart-offset);
-  transform: translateX(-50%);
+  transform: translate(calc(-50% + var(--chart-shift, 0px)), 0);
 }
 
 /* Weight label styling (dot sizing is shared in _common/common.css) */
