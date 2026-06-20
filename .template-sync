@@ -42,6 +42,7 @@ README.md
 .claude/commands/session.md
 .claude/commands/sync.md
 .claude/commands/threads.md
+.claude/commands/timeline.md
 .claude/commands/todo.md
 .claude/commands/transition.md
 .claude/commands/voice.md
@@ -130,9 +131,17 @@ scripts/session-state.ps1
 scripts/setup-hooks.ps1
 scripts/spotlight-balance.ps1
 scripts/threads-brief.ps1
+scripts/timeline-data.ps1
+scripts/timeline-gantt.ps1
 scripts/todo-brief.ps1
 scripts/validate-refs.ps1
 scripts/validate.ps1
+
+# Charting app — timeline/swimlane chart engine (TS + Vite)
+# Whole tree is shareable engine infrastructure (components, helpers, specs,
+# build config, lockfile). Demo page is template-only debugging scaffolding.
+app/**
+!app/pages/demo/**
 
 # IDE / graph config
 .vscode/settings.json
