@@ -104,3 +104,11 @@ Progress tracker for getting this project ready to generate sessions and run cam
 - **between games** → keep seeding with `/entity-questionnaire`, surface loose ends with `/threads`, check for forgotten content with `/find`, and run `/todo` to see what needs attention
 
 Run `/commands` any time for the full list. The world keeps growing from play — every canonized session feeds the next.
+
+---
+
+## Engine Maintenance (template upkeep)
+
+*Not campaign setup — housekeeping to keep this template in sync with the source engine.*
+
+- [ ] Sync the PowerShell→Python script migration into this template. `scripts/lib/common.ps1` and `scripts/timeline-{data,gantt}.ps1` (plus other already-ported clusters) still ship as `.ps1` here; replace them with their `.py` versions and update `.template-sync` to match. Template currently lags the source repo's migration. Surfaced reviewing PR #10 (2026-07-01).
