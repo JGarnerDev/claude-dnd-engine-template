@@ -2,10 +2,10 @@
 // filter state and fires onChange after every edit; render.js re-filters and
 // redraws from that state. DOM-bound — pairs with filters.js (pure matching).
 
-import './filterbar.css';
-import { trackList, audienceList } from '../helpers/filters.js';
-import { DM_AUDIENCE, DM_LABEL } from '../constants.js';
-import type { FilterState, TimelineEvent } from '../types.js';
+import "./filterbar.css";
+import { trackList, audienceList } from "../helpers/filters.js";
+import { DM_AUDIENCE, DM_LABEL } from "../constants.js";
+import type { FilterState, TimelineEvent } from "../types.js";
 
 // Mutable state the bar owns; render reads it in place on each redraw.
 export interface FilterBarState {
@@ -31,8 +31,8 @@ export function buildFilterBar(
   audience: HTMLDivElement | null;
   state: FilterBarState;
 } {
-  const bar = document.createElement('div');
-  bar.className = 'chart-filterbar';
+  const bar = document.createElement("div");
+  bar.className = "chart-filterbar";
 
   const tracks = trackList(events); // computed once; seeds the chips
   // Start with NO tracks selected — an empty set means "filter nothing" (all
@@ -41,32 +41,36 @@ export function buildFilterBar(
   // A loaded view seeds the selection (still-present tracks only — caller
   // intersects against the live track list before passing them in).
   const seedTracks = new Set(initial?.tracks ?? []);
-  const state: FilterBarState = { query: initial?.query ?? '', tracks: new Set(), audiences: new Set() };
+  const state: FilterBarState = {
+    query: initial?.query ?? "",
+    tracks: new Set(),
+    audiences: new Set(),
+  };
 
-  const search = document.createElement('input');
-  search.type = 'search';
-  search.className = 'chart-search';
-  search.placeholder = 'Search beats…';
+  const search = document.createElement("input");
+  search.type = "search";
+  search.className = "chart-search";
+  search.placeholder = "Search beats…";
   search.value = state.query; // reflect a seeded query in the box
-  search.addEventListener('input', () => {
+  search.addEventListener("input", () => {
     state.query = search.value;
     onChange(state);
   });
 
-  const chips = document.createElement('div');
-  chips.className = 'chart-chips';
+  const chips = document.createElement("div");
+  chips.className = "chart-chips";
   for (const track of tracks) {
-    const chip = document.createElement('button');
-    chip.type = 'button';
-    chip.className = 'chart-chip'; // off by default; is-on added on selection
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "chart-chip"; // off by default; is-on added on selection
     chip.dataset.track = track;
     chip.textContent = track;
     if (seedTracks.has(track)) {
-      chip.classList.add('is-on'); // restore a loaded view's chip state
+      chip.classList.add("is-on"); // restore a loaded view's chip state
       state.tracks.add(track);
     }
-    chip.addEventListener('click', () => {
-      const on = chip.classList.toggle('is-on');
+    chip.addEventListener("click", () => {
+      const on = chip.classList.toggle("is-on");
       if (on) state.tracks.add(track);
       else state.tracks.delete(track);
       onChange(state);
@@ -87,24 +91,24 @@ export function buildFilterBar(
   let audience: HTMLDivElement | null = null;
   if (hasSecret || characters.length > 0) {
     const seedAudiences = new Set(initial?.audiences ?? []);
-    audience = document.createElement('div');
-    audience.className = 'chart-chips chart-audiences';
+    audience = document.createElement("div");
+    audience.className = "chart-chips chart-audiences";
 
     const addAudienceChip = (key: string, label: string, isDm: boolean) => {
-      const chip = document.createElement('button');
-      chip.type = 'button';
-      chip.className = `chart-chip chart-chip-audience${isDm ? ' chart-chip-dm' : ''}`;
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = `chart-chip chart-chip-audience${isDm ? " chart-chip-dm" : ""}`;
       chip.dataset.audience = key;
       chip.textContent = label;
       const on = seedAudiences.has(key);
-      chip.classList.toggle('is-on', on);
-      chip.setAttribute('aria-pressed', String(on));
+      chip.classList.toggle("is-on", on);
+      chip.setAttribute("aria-pressed", String(on));
       if (on) state.audiences.add(key);
-      chip.addEventListener('click', () => {
-        const nowOn = chip.classList.toggle('is-on');
+      chip.addEventListener("click", () => {
+        const nowOn = chip.classList.toggle("is-on");
         if (nowOn) state.audiences.add(key);
         else state.audiences.delete(key);
-        chip.setAttribute('aria-pressed', String(nowOn));
+        chip.setAttribute("aria-pressed", String(nowOn));
         onChange(state);
       });
       audience!.appendChild(chip);

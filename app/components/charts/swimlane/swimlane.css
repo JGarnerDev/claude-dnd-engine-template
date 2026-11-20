@@ -9,7 +9,9 @@
   align-items: flex-start;
   cursor: grab;
 }
-.chart-swim.chart-grabbing { cursor: grabbing; }
+.chart-swim.chart-grabbing {
+  cursor: grabbing;
+}
 
 .chart-swim-gutter {
   position: sticky;
@@ -49,10 +51,16 @@
   font-family: inherit;
   text-align: left;
 }
-.chart-swim-rowlabel.depth-1 { padding-left: 22px; }
+.chart-swim-rowlabel.depth-1 {
+  padding-left: 22px;
+}
 /* Whole label is the hit target on toggleable rows */
-.chart-swim-rowlabel.is-toggle { cursor: pointer; }
-.chart-swim-rowlabel.is-toggle:hover { background: rgba(148, 163, 184, 0.08); }
+.chart-swim-rowlabel.is-toggle {
+  cursor: pointer;
+}
+.chart-swim-rowlabel.is-toggle:hover {
+  background: rgba(148, 163, 184, 0.08);
+}
 .chart-swim-toggle {
   flex: none;
   margin-left: auto; /* push to the right edge of the label */
@@ -70,11 +78,22 @@
   border-left: 3px solid var(--row-color, var(--chart-axis));
   padding-left: 6px;
 }
-.chart-swim-rowlabel.depth-1 .chart-swim-rowname { color: var(--chart-muted); }
+.chart-swim-rowlabel.depth-1 .chart-swim-rowname {
+  color: var(--chart-muted);
+}
 
-.chart-swim-canvas { position: relative; flex: none; }
+.chart-swim-canvas {
+  position: relative;
+  flex: none;
+}
 
-.chart-swim-grid { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--chart-grid); }
+.chart-swim-grid {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--chart-grid);
+}
 .chart-swim-ticklabel {
   position: absolute;
   top: 6px;
@@ -88,7 +107,9 @@
   right: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
-.chart-swim-band.is-child { background: rgba(255, 255, 255, 0.02); }
+.chart-swim-band.is-child {
+  background: rgba(255, 255, 255, 0.02);
+}
 
 /* Per-row density bars (LOD): a short column centered on the row, height ∝ count
    (set inline), colored by the row's track. Click to zoom into the cluster. */
@@ -100,11 +121,17 @@
   opacity: 0.5;
   cursor: pointer;
 }
-.chart-swim-bar:hover { opacity: 0.8; }
-.chart-swim-bar.chart-hidden { display: none; } /* nothing in the bucket matches the filter */
-.chart-swim-bar.has-major { opacity: 0.7; }
+.chart-swim-bar:hover {
+  opacity: 0.8;
+}
+.chart-swim-bar.chart-hidden {
+  display: none;
+} /* nothing in the bucket matches the filter */
+.chart-swim-bar.has-major {
+  opacity: 0.7;
+}
 .chart-swim-bar.has-major::before {
-  content: '★';
+  content: "★";
   position: absolute;
   top: -11px;
   left: 50%;
@@ -115,7 +142,9 @@
 }
 
 /* Swimlane markers position by explicit top (override the world view's top:50%) */
-.chart-swim-marker { top: 0; }
+.chart-swim-marker {
+  top: 0;
+}
 
 /* Density-gated inline label: sits to the right of the dot, vertically centered,
    one line, truncated so a long label can't crowd the next dot. */
@@ -133,4 +162,6 @@
   color: var(--chart-text);
   pointer-events: none; /* clicks fall through to the marker (open source) */
 }
-.chart-swim-marker.is-minor .chart-swim-label { color: var(--chart-muted); }
+.chart-swim-marker.is-minor .chart-swim-label {
+  color: var(--chart-muted);
+}

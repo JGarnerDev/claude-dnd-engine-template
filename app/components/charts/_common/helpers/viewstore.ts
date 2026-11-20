@@ -5,19 +5,23 @@
 // offline HTML file and must never break on storage. No DOM beyond
 // `localStorage`, so it's unit-testable with a stub.
 
-import type { SavedView } from '../types.js';
-import { applyDefaults } from './viewstate.js';
+import type { SavedView } from "../types.js";
+import { applyDefaults } from "./viewstate.js";
 
-const KEY = 'campaign:saved-views:v1';
+const KEY = "campaign:saved-views:v1";
 const VERSION = 1;
 
 // Coerce one raw entry into a valid SavedView, or null if it can't be salvaged.
 function toView(raw: unknown): SavedView | null {
-  if (!raw || typeof raw !== 'object') return null;
+  if (!raw || typeof raw !== "object") return null;
   const r = raw as Record<string, unknown>;
-  if (typeof r.name !== 'string' || !r.name) return null;
-  const tab = r.tab === 'tracks' ? 'tracks' : 'world'; // unknown tab -> 'world'
-  return { name: r.name, tab, state: applyDefaults(r.state as Parameters<typeof applyDefaults>[0]) };
+  if (typeof r.name !== "string" || !r.name) return null;
+  const tab = r.tab === "tracks" ? "tracks" : "world"; // unknown tab -> 'world'
+  return {
+    name: r.name,
+    tab,
+    state: applyDefaults(r.state as Parameters<typeof applyDefaults>[0]),
+  };
 }
 
 // Read the stored list. Returns [] on absent/corrupt data or any thrown access.

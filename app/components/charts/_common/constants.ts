@@ -49,8 +49,8 @@ export const MIN_CANVAS_HEIGHT = 320;
 // everything (incl. secrets). Any other value is a character name: a character
 // knows the public beats plus the non-secret beats that name `knownBy`, but never
 // a secret beat. The sentinel is `\0`-prefixed so it can't collide with a name.
-export const DM_AUDIENCE = '\0dm';
-export const DM_LABEL = 'DM';
+export const DM_AUDIENCE = "\0dm";
+export const DM_LABEL = "DM";
 
 // Density histogram (LOD). When beats crowd below one bar per BUCKET_PX, the
 // world view buckets the non-major beats into fixed-width pixel columns and draws

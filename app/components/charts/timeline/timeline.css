@@ -11,7 +11,9 @@
   display: flex;
   align-items: center;
 }
-.chart-viewport.chart-grabbing { cursor: grabbing; }
+.chart-viewport.chart-grabbing {
+  cursor: grabbing;
+}
 
 .chart-canvas {
   position: relative;
@@ -50,12 +52,16 @@
 /* Markers anchor on the center axis (base in _common/common.css); on the world
    view the dot sits on the axis and a leader rises/drops --chart-offset px to
    the label. Source-backed beats also make the label clickable. */
-.chart-marker.has-source .chart-label { cursor: pointer; }
+.chart-marker.has-source .chart-label {
+  cursor: pointer;
+}
 
 /* Density-gated bare dot: no label box / leader, just the dot on the axis. The
    label element stays in the DOM (hover/data) — only visually suppressed. */
 .chart-marker.chart-bare .chart-label,
-.chart-marker.chart-bare .chart-leader { display: none; }
+.chart-marker.chart-bare .chart-leader {
+  display: none;
+}
 
 /* Density bars (LOD): one per crowded bucket, centered on the axis. height is
    set inline (∝ count); they read as a histogram of how much happened when, and
@@ -70,13 +76,19 @@
   border-radius: 2px;
   cursor: pointer;
 }
-.chart-bar:hover { opacity: 0.75; }
-.chart-bar.chart-hidden { display: none; } /* nothing in the bucket matches the filter */
+.chart-bar:hover {
+  opacity: 0.75;
+}
+.chart-bar.chart-hidden {
+  display: none;
+} /* nothing in the bucket matches the filter */
 /* A bucket containing a major beat: keep it a bar (no wall) but flag it with a
    star badge above the column so "something big happened here" still reads. */
-.chart-bar.has-major { opacity: 0.6; }
+.chart-bar.has-major {
+  opacity: 0.6;
+}
 .chart-bar.has-major::before {
-  content: '★';
+  content: "★";
   position: absolute;
   top: -13px;
   left: 50%;
@@ -87,10 +99,18 @@
 }
 
 /* Track-colored dots (base dot styling lives in _common/common.css) */
-.chart-marker[data-track='party'] .chart-dot { background: var(--track-party); }
-.chart-marker[data-track='character'] .chart-dot { background: var(--track-character); }
-.chart-marker[data-track='faction'] .chart-dot { background: var(--track-faction); }
-.chart-marker[data-track='continent'] .chart-dot { background: var(--track-continent); }
+.chart-marker[data-track="party"] .chart-dot {
+  background: var(--track-party);
+}
+.chart-marker[data-track="character"] .chart-dot {
+  background: var(--track-character);
+}
+.chart-marker[data-track="faction"] .chart-dot {
+  background: var(--track-faction);
+}
+.chart-marker[data-track="continent"] .chart-dot {
+  background: var(--track-continent);
+}
 
 /* Leader line from the axis dot out to the (possibly displaced) label. It's a
    1px bar anchored at the dot; placeMarker() sets its length (width) and angle
@@ -109,8 +129,12 @@
      every dot and label, never painting over a neighbouring marker's label. */
   z-index: 1;
 }
-.chart-marker .chart-dot { z-index: 2; }
-.chart-label { z-index: 3; }
+.chart-marker .chart-dot {
+  z-index: 2;
+}
+.chart-label {
+  z-index: 3;
+}
 
 /* Fixed label slot: clamped to 3 lines so tiers stack at a uniform step */
 .chart-label {
@@ -142,5 +166,10 @@
 }
 
 /* Weight label styling (dot sizing is shared in _common/common.css) */
-.chart-marker.is-major .chart-label { font-weight: 700; }
-.chart-marker.is-minor .chart-label { color: var(--chart-muted); opacity: 0.85; }
+.chart-marker.is-major .chart-label {
+  font-weight: 700;
+}
+.chart-marker.is-minor .chart-label {
+  color: var(--chart-muted);
+  opacity: 0.85;
+}

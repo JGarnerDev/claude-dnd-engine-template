@@ -18,15 +18,23 @@
   border-radius: 9px;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  transition: color 120ms ease, border-color 120ms ease, background 120ms ease;
+  transition:
+    color 120ms ease,
+    border-color 120ms ease,
+    background 120ms ease;
 }
-.chart-settings-btn:hover { color: var(--chart-text); border-color: var(--chart-muted); }
+.chart-settings-btn:hover {
+  color: var(--chart-text);
+  border-color: var(--chart-muted);
+}
 .chart-settings-btn.is-active {
   color: var(--chart-text);
   border-color: var(--chart-muted);
   background: var(--chart-bg);
 }
-.chart-settings-btn svg { display: block; }
+.chart-settings-btn svg {
+  display: block;
+}
 
 .chart-settings-panel {
   position: absolute;
@@ -51,7 +59,10 @@
   visibility: hidden;
   transform: translateY(-6px);
   pointer-events: none;
-  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms;
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease,
+    visibility 140ms;
 }
 .chart-settings-panel.is-open {
   opacity: 1;

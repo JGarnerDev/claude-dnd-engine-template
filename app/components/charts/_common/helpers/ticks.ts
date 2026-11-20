@@ -4,9 +4,9 @@
 // that yearly ticks would crowd below MIN_TICK_PX. One source for both the world
 // view and the swimlane (both go through computeAxis).
 
-import { MIN_TICK_PX } from '../constants.js';
-import { calendarTables } from './calendar.js';
-import type { Calendar, Tick } from '../types.js';
+import { MIN_TICK_PX } from "../constants.js";
+import { calendarTables } from "./calendar.js";
+import type { Calendar, Tick } from "../types.js";
 
 // "Nice" year steps so multi-year ticks land on round numbers (…, 1950, 1960).
 const NICE_YEAR_STEPS = [1, 2, 5, 10, 25, 50, 100, 250, 500, 1000];
@@ -52,7 +52,7 @@ export function buildTicks(
   // Year / multi-year granularity, aligned to the chosen nice step.
   const step = yearStepFor(pxPerYear);
   for (let y = firstYear; y <= lastYear; y++) {
-    if ((((y % step) + step) % step) !== 0) continue; // keep multiples of step (negatives too)
+    if (((y % step) + step) % step !== 0) continue; // keep multiples of step (negatives too)
     ticks.push({ label: yearLabel(y), x: xOf(y * daysPerYear) });
   }
   return ticks;

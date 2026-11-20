@@ -2,10 +2,16 @@
 // swimlane layout (track rows) need the same date→x mapping, domain padding,
 // content width, and year ticks — this is the one source for all of it.
 
-import { parseDate, calendarTables, dayIndexWith, createScale, DEFAULT_CALENDAR } from './calendar.js';
-import { PX_PER_YEAR, MARGIN, EDGE_PAD } from '../constants.js';
-import { buildTicks } from './ticks.js';
-import type { Calendar, Tick, TimelineEvent } from '../types.js';
+import {
+  parseDate,
+  calendarTables,
+  dayIndexWith,
+  createScale,
+  DEFAULT_CALENDAR,
+} from "./calendar.js";
+import { PX_PER_YEAR, MARGIN, EDGE_PAD } from "../constants.js";
+import { buildTicks } from "./ticks.js";
+import type { Calendar, Tick, TimelineEvent } from "../types.js";
 
 export interface IndexedEvent extends TimelineEvent {
   _idx: number;
@@ -22,7 +28,10 @@ export interface IndexedEvents {
   maxIdx: number;
 }
 
-export function indexEvents(rawEvents: TimelineEvent[], cal: Calendar = DEFAULT_CALENDAR): IndexedEvents {
+export function indexEvents(
+  rawEvents: TimelineEvent[],
+  cal: Calendar = DEFAULT_CALENDAR,
+): IndexedEvents {
   // Calendar is constant across the set, so build the lookup tables once; the
   // per-event index is then O(1) (no month loop, no daysPerYear recompute).
   const tables = calendarTables(cal);
@@ -75,7 +84,17 @@ export function computeAxisFrom(
   const { events, daysPerYear, minIdx, maxIdx } = idx;
 
   if (events.length === 0) {
-    return { isEmpty: true, events: [], daysPerYear, minIdx: 0, maxIdx: 0, contentWidth: 0, spanYears: 0, xOf: () => MARGIN, ticks: [] };
+    return {
+      isEmpty: true,
+      events: [],
+      daysPerYear,
+      minIdx: 0,
+      maxIdx: 0,
+      contentWidth: 0,
+      spanYears: 0,
+      xOf: () => MARGIN,
+      ticks: [],
+    };
   }
 
   // Pad the date domain by EDGE_PAD of its span on each side so the first and
@@ -93,5 +112,15 @@ export function computeAxisFrom(
   // Tick granularity adapts to the current density (months / years / multi-year).
   const ticks: Tick[] = buildTicks(minIdx, maxIdx, cal, pxPerYear, xOf);
 
-  return { isEmpty: false, events, daysPerYear, minIdx, maxIdx, contentWidth, spanYears, xOf, ticks };
+  return {
+    isEmpty: false,
+    events,
+    daysPerYear,
+    minIdx,
+    maxIdx,
+    contentWidth,
+    spanYears,
+    xOf,
+    ticks,
+  };
 }

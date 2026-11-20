@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
@@ -8,7 +8,7 @@ export default defineConfig({
     // One forked child process PER FILE, run serially. singleFork:true (all
     // files in one process) clashes when files use different environments
     // (happy-dom vs node) and reports "no tests".
-    pool: 'forks',
+    pool: "forks",
     fileParallelism: false,
   },
 });

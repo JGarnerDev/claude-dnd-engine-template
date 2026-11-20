@@ -24,7 +24,10 @@
   visibility: hidden;
   transform: translateY(-6px);
   pointer-events: none;
-  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms;
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease,
+    visibility 140ms;
 }
 .chart-sv-popover.is-open {
   opacity: 1;
@@ -62,7 +65,9 @@
   font: inherit;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 120ms ease, background 120ms ease;
+  transition:
+    border-color 120ms ease,
+    background 120ms ease;
 }
 .chart-sv-confirm:hover {
   border-color: var(--chart-muted);
@@ -104,7 +109,9 @@
   border-radius: 8px;
   font: inherit;
   cursor: pointer;
-  transition: border-color 120ms ease, background 120ms ease;
+  transition:
+    border-color 120ms ease,
+    background 120ms ease;
 }
 .chart-sv-load:hover {
   border-color: var(--chart-muted);
@@ -120,7 +127,9 @@
   font-size: 16px;
   line-height: 1;
   cursor: pointer;
-  transition: color 120ms ease, border-color 120ms ease;
+  transition:
+    color 120ms ease,
+    border-color 120ms ease;
 }
 .chart-sv-del:hover {
   color: var(--chart-text);

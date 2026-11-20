@@ -64,13 +64,24 @@
   --chart-shift: 0px; /* world view: px the label slides right off the dot (leader bridges it) */
 }
 /* Beats backed by a source .md invite a click */
-.chart-marker.has-source .chart-dot { cursor: pointer; }
+.chart-marker.has-source .chart-dot {
+  cursor: pointer;
+}
 /* Filtered-out beats hide in place — layout unchanged, surviving markers keep
    their x/y; these just drop out (and out of hover/click). */
-.chart-marker.chart-hidden { display: none; }
+.chart-marker.chart-hidden {
+  display: none;
+}
 /* Weight: major = larger dot, minor = smaller + dimmed */
-.chart-marker.is-major .chart-dot { width: 15px; height: 15px; }
-.chart-marker.is-minor .chart-dot { width: 8px; height: 8px; opacity: 0.7; }
+.chart-marker.is-major .chart-dot {
+  width: 15px;
+  height: 15px;
+}
+.chart-marker.is-minor .chart-dot {
+  width: 8px;
+  height: 8px;
+  opacity: 0.7;
+}
 
 /* Scrollbars (both scroll containers): slim, faded at rest, brighter on hover
    and brightest while dragging the thumb. WebKit + Firefox. */

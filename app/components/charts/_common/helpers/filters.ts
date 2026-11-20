@@ -2,8 +2,8 @@
 // that should render. No DOM — render.js applies this before computeLayout, and
 // it's directly unit-testable.
 
-import type { FilterState, TimelineEvent } from '../types.js';
-import { DM_AUDIENCE } from '../constants.js';
+import type { FilterState, TimelineEvent } from "../types.js";
+import { DM_AUDIENCE } from "../constants.js";
 
 // Does a single audience know this beat? The DM knows everything (secrets too). A
 // character never sees a secret beat; otherwise it knows a beat whose knownBy
@@ -26,7 +26,7 @@ function audienceVisible(e: TimelineEvent, audiences: Set<string> | null): boole
 // Unique track names in source order (first appearance wins). Untagged events
 // fall back to 'world', matching computeLayout's default.
 export function trackList(events: TimelineEvent[]): string[] {
-  return [...new Set(events.map((e) => e.track || 'world'))];
+  return [...new Set(events.map((e) => e.track || "world"))];
 }
 
 // Distinct character names that appear in any beat's knownBy, in first-appearance
@@ -55,11 +55,11 @@ export function audienceList(events: TimelineEvent[]): string[] {
 function searchText(e: TimelineEvent): string {
   const parts = [e.label];
   if (e.track) {
-    const i = e.track.indexOf(':');
+    const i = e.track.indexOf(":");
     if (i >= 0) parts.push(e.track.slice(i + 1)); // track member, not the category slug
   }
   if (e.keywords) parts.push(...e.keywords);
-  return parts.join(' ').toLowerCase();
+  return parts.join(" ").toLowerCase();
 }
 
 // Build a reusable predicate from a filter state. The query is trimmed +
@@ -73,11 +73,13 @@ function searchText(e: TimelineEvent): string {
 //   - audiences: viewpoint whitelist (see audienceVisible). Empty/null (default)
 //                = no filter; otherwise the union of what the selected audiences
 //                know. DM sees all; a character sees their non-secret knowledge.
-export function makeMatcher({ query = '', tracks = null, audiences = null }: FilterState = {}): (e: TimelineEvent) => boolean {
+export function makeMatcher({ query = "", tracks = null, audiences = null }: FilterState = {}): (
+  e: TimelineEvent,
+) => boolean {
   const q = query.trim().toLowerCase();
   return (e: TimelineEvent): boolean => {
     if (!audienceVisible(e, audiences)) return false;
-    if (tracks && tracks.size > 0 && !tracks.has(e.track || 'world')) return false;
+    if (tracks && tracks.size > 0 && !tracks.has(e.track || "world")) return false;
     if (q && !searchText(e).includes(q)) return false;
     return true;
   };

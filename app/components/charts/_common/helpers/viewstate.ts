@@ -3,10 +3,16 @@
 // both lean on these so the rules can't drift between read and apply. Tested in
 // the default node env.
 
-import type { ChartState } from '../types.js';
+import type { ChartState } from "../types.js";
 
 // The "nothing saved" baseline: fit zoom, no filter/search, no pan, no viewpoint.
-export const DEFAULT_STATE: ChartState = { query: '', tracks: [], zoomLevel: 1, scrollLeft: 0, audiences: [] };
+export const DEFAULT_STATE: ChartState = {
+  query: "",
+  tracks: [],
+  zoomLevel: 1,
+  scrollLeft: 0,
+  audiences: [],
+};
 
 // Clamp a saved zoom to the current data's range. maxZoom is data-derived and
 // may differ from when the view was saved, so an over-range value snaps to the
@@ -39,12 +45,18 @@ export function serializeState(
 // Coerce an unknown/partial payload into a safe ChartState — every field gets a
 // typed default if missing or the wrong type. Never throws (fail soft).
 export function applyDefaults(raw: Partial<ChartState> | null | undefined): ChartState {
-  if (!raw || typeof raw !== 'object') return { ...DEFAULT_STATE };
+  if (!raw || typeof raw !== "object") return { ...DEFAULT_STATE };
   return {
-    query: typeof raw.query === 'string' ? raw.query : '',
-    tracks: Array.isArray(raw.tracks) ? raw.tracks.filter((t): t is string => typeof t === 'string') : [],
-    zoomLevel: typeof raw.zoomLevel === 'number' && Number.isFinite(raw.zoomLevel) ? raw.zoomLevel : 1,
-    scrollLeft: typeof raw.scrollLeft === 'number' && Number.isFinite(raw.scrollLeft) ? raw.scrollLeft : 0,
-    audiences: Array.isArray(raw.audiences) ? raw.audiences.filter((a): a is string => typeof a === 'string') : [],
+    query: typeof raw.query === "string" ? raw.query : "",
+    tracks: Array.isArray(raw.tracks)
+      ? raw.tracks.filter((t): t is string => typeof t === "string")
+      : [],
+    zoomLevel:
+      typeof raw.zoomLevel === "number" && Number.isFinite(raw.zoomLevel) ? raw.zoomLevel : 1,
+    scrollLeft:
+      typeof raw.scrollLeft === "number" && Number.isFinite(raw.scrollLeft) ? raw.scrollLeft : 0,
+    audiences: Array.isArray(raw.audiences)
+      ? raw.audiences.filter((a): a is string => typeof a === "string")
+      : [],
   };
 }

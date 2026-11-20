@@ -9,9 +9,9 @@
 // Filtering re-runs this over only the visible subset, so narrowing the view frees
 // budget for the survivors — a lone search hit on an empty axis regains its label.
 
-import { LABEL_W, LABEL_GAP, LABEL_MAX_TIERS, LABEL_MAX_SHIFT } from '../../_common/constants.js';
-import { placement } from './lanes.js';
-import type { Side } from '../../_common/types.js';
+import { LABEL_W, LABEL_GAP, LABEL_MAX_TIERS, LABEL_MAX_SHIFT } from "../../_common/constants.js";
+import { placement } from "./lanes.js";
+import type { Side } from "../../_common/types.js";
 
 // Per-item placement, aligned to `items`. shift = label-center x minus the dot x
 // (>= 0; the leader spans it). Bare beats (hidden, or no tier within reach) are
@@ -36,7 +36,11 @@ export interface LabelOpts {
 // first, then non-majors, each left-to-right), take the lowest lane where the
 // label — pushed right just far enough to clear what's already there — still sits
 // within maxShift of the dot. None fits => bare.
-export function layoutLabels(items: { x: number; major: boolean }[], visible: boolean[], opts: LabelOpts = {}): LabelLayout {
+export function layoutLabels(
+  items: { x: number; major: boolean }[],
+  visible: boolean[],
+  opts: LabelOpts = {},
+): LabelLayout {
   const maxTiers = opts.maxTiers ?? LABEL_MAX_TIERS;
   const labelW = opts.labelW ?? LABEL_W;
   const gap = opts.gap ?? LABEL_GAP;
@@ -44,7 +48,7 @@ export function layoutLabels(items: { x: number; major: boolean }[], visible: bo
 
   const n = items.length;
   const showLabel = new Array<boolean>(n).fill(false);
-  const side: Side[] = new Array<Side>(n).fill('above');
+  const side: Side[] = new Array<Side>(n).fill("above");
   const offset = new Array<number>(n).fill(0);
   const shift = new Array<number>(n).fill(0);
 

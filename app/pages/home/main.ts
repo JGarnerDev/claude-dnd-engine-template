@@ -4,8 +4,8 @@
 // empty state when the graph carries no dated beats yet — a fresh template, not
 // an error.
 
-import { renderTimelineView } from './view.js';
-import data from 'virtual:campaign-data';
+import { renderTimelineView } from "./view.js";
+import data from "virtual:campaign-data";
 
-const root = document.getElementById('app');
+const root = document.getElementById("app");
 if (root) renderTimelineView(root, data);

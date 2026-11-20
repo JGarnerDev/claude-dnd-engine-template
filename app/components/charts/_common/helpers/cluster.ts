@@ -10,8 +10,14 @@
 // The world view clusters all beats on one axis; the swimlane clusters each track
 // row independently — both call clusterBeats per their own grouping.
 
-import { DENSITY_BUCKET_PX, DENSITY_MIN, BAR_MIN_H, BAR_MAX_H, BAR_FULL_COUNT } from '../constants.js';
-import type { DensityBar } from '../types.js';
+import {
+  DENSITY_BUCKET_PX,
+  DENSITY_MIN,
+  BAR_MIN_H,
+  BAR_MAX_H,
+  BAR_FULL_COUNT,
+} from "../constants.js";
+import type { DensityBar } from "../types.js";
 
 export interface ClusterInput {
   x: number; // pixel position on the axis

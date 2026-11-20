@@ -61,9 +61,13 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: color 120ms ease, background 120ms ease;
+  transition:
+    color 120ms ease,
+    background 120ms ease;
 }
-.chart-viewtab:hover { color: var(--chart-text); }
+.chart-viewtab:hover {
+  color: var(--chart-text);
+}
 .chart-viewtab.is-active {
   color: var(--chart-text);
   background: var(--chart-axis);
@@ -74,12 +78,17 @@
    mounts, so the common.css theme tokens aren't guaranteed in scope. */
 .chart-empty {
   color: #cbd5e1;
-  font: 15px/1.6 system-ui, sans-serif;
+  font:
+    15px/1.6 system-ui,
+    sans-serif;
   max-width: 38rem;
   margin: 0 auto;
   padding: 4rem 2rem;
 }
-.chart-empty h1 { color: #f1f5f9; font-weight: 600; }
+.chart-empty h1 {
+  color: #f1f5f9;
+  font-weight: 600;
+}
 .chart-empty code {
   background: #1e293b;
   padding: 0.1em 0.35em;

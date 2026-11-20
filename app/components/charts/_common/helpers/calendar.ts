@@ -8,10 +8,10 @@
 // a clean, monotonic fallback that's good enough for ordering and placement.
 // Supply a config for real fantasy month systems (custom names / lengths).
 
-import type { Calendar, DateParts } from '../types.js';
+import type { Calendar, DateParts } from "../types.js";
 
 export const DEFAULT_CALENDAR: Calendar = {
-  epochLabel: '',
+  epochLabel: "",
   months: Array.from({ length: 12 }, (_, i) => ({ name: `Month ${i + 1}`, days: 30 })),
 };
 
@@ -19,7 +19,7 @@ export const DEFAULT_CALENDAR: Calendar = {
 // Negative (pre-epoch) years allowed: "-300-02-01".
 export function parseDate(str: string): DateParts {
   // Runtime guard: dates arrive from external JSON, not only typed callers.
-  if (typeof str !== 'string') {
+  if (typeof str !== "string") {
     throw new TypeError(`date must be a string, got ${typeof str}`);
   }
   const m = str.trim().match(/^(-?\d+)(?:-(\d{1,2}))?(?:-(\d{1,2}))?$/);
@@ -52,7 +52,10 @@ export function calendarTables(cal: Calendar = DEFAULT_CALENDAR): CalendarTables
 
 // O(1) absolute day index from precomputed tables. Hot paths (indexEvents over N
 // events) build the tables once and call this per event.
-export function dayIndexWith(date: DateParts, { daysPerYear, monthPrefix }: CalendarTables): number {
+export function dayIndexWith(
+  date: DateParts,
+  { daysPerYear, monthPrefix }: CalendarTables,
+): number {
   const { year, month, day } = date;
   if (month < 1 || month > monthPrefix.length) {
     throw new RangeError(`month ${month} out of range 1..${monthPrefix.length}`);
@@ -69,7 +72,11 @@ export function dayIndex(date: DateParts, cal: Calendar = DEFAULT_CALENDAR): num
 
 // Linear scale: day index -> x in [0, width]. min maps to 0, max maps to width.
 // Degenerate domain (min === max) maps everything to 0.
-export function createScale(minIndex: number, maxIndex: number, width: number): (index: number) => number {
+export function createScale(
+  minIndex: number,
+  maxIndex: number,
+  width: number,
+): (index: number) => number {
   const span = maxIndex - minIndex;
   return (index: number) => (span === 0 ? 0 : ((index - minIndex) / span) * width);
 }

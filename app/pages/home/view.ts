@@ -6,15 +6,15 @@
 // the settings gear lives there and hoists the active chart's controls (zoom,
 // filter) into its overlay, so the chart canvas below takes the full height.
 
-import './view.css';
-import { renderTimeline } from '../../components/charts/timeline/timeline.js';
-import { renderSwimlane } from '../../components/charts/swimlane/swimlane.js';
-import { mountSettingsPanel } from '../../components/charts/_common/components/settingspanel.js';
-import type { SettingsSection } from '../../components/charts/_common/components/settingspanel.js';
-import { mountSavedViews } from '../../components/charts/_common/components/savedviews.js';
-import type { ChartState, TimelineData } from '../../components/charts/_common/types.js';
+import "./view.css";
+import { renderTimeline } from "../../components/charts/timeline/timeline.js";
+import { renderSwimlane } from "../../components/charts/swimlane/swimlane.js";
+import { mountSettingsPanel } from "../../components/charts/_common/components/settingspanel.js";
+import type { SettingsSection } from "../../components/charts/_common/components/settingspanel.js";
+import { mountSavedViews } from "../../components/charts/_common/components/savedviews.js";
+import type { ChartState, TimelineData } from "../../components/charts/_common/types.js";
 
-export type View = 'world' | 'tracks';
+export type View = "world" | "tracks";
 
 // The slice of each chart's api the host needs: its hoistable controls and a
 // snapshot of its full restorable state (both charts implement both).
@@ -44,27 +44,31 @@ function renderEmpty(container: HTMLElement): void {
     </div>`;
 }
 
-export function renderTimelineView(container: HTMLElement, data: TimelineData | null, initial: View = 'world'): void {
-  container.innerHTML = '';
+export function renderTimelineView(
+  container: HTMLElement,
+  data: TimelineData | null,
+  initial: View = "world",
+): void {
+  container.innerHTML = "";
 
   if (!data || !Array.isArray(data.events) || data.events.length === 0) {
     renderEmpty(container);
     return;
   }
 
-  container.classList.add('chart-viewhost');
+  container.classList.add("chart-viewhost");
 
   // Header: tabs on the left, action buttons (settings + future) on the right.
-  const header = document.createElement('div');
-  header.className = 'chart-headerbar';
-  const tabs = document.createElement('div');
-  tabs.className = 'chart-viewtabs';
-  const actions = document.createElement('div');
-  actions.className = 'chart-actions';
+  const header = document.createElement("div");
+  header.className = "chart-headerbar";
+  const tabs = document.createElement("div");
+  tabs.className = "chart-viewtabs";
+  const actions = document.createElement("div");
+  actions.className = "chart-actions";
   header.append(tabs, actions);
 
-  const content = document.createElement('div');
-  content.className = 'chart-viewcontent';
+  const content = document.createElement("div");
+  content.className = "chart-viewcontent";
 
   // Live refs the saved-views widget reads: which tab is showing and the active
   // chart's api. Switching tabs rebuilds the chart from scratch (discarding its
@@ -76,8 +80,11 @@ export function renderTimelineView(container: HTMLElement, data: TimelineData | 
   const tabBtns = new Map<View, HTMLButtonElement>();
   const select = (v: View, initialState?: ChartState) => {
     currentView = v;
-    for (const [key, btn] of tabBtns) btn.classList.toggle('is-active', key === v);
-    activeApi = v === 'world' ? renderTimeline(content, data, initialState) : renderSwimlane(content, data, initialState);
+    for (const [key, btn] of tabBtns) btn.classList.toggle("is-active", key === v);
+    activeApi =
+      v === "world"
+        ? renderTimeline(content, data, initialState)
+        : renderSwimlane(content, data, initialState);
     settings.setSections(activeApi.controls);
   };
 
@@ -94,15 +101,15 @@ export function renderTimelineView(container: HTMLElement, data: TimelineData | 
   const settings = mountSettingsPanel(actions);
 
   const mk = (v: View, label: string) => {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'chart-viewtab';
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chart-viewtab";
     b.textContent = label;
-    b.addEventListener('click', () => select(v));
+    b.addEventListener("click", () => select(v));
     tabBtns.set(v, b);
     return b;
   };
-  tabs.append(mk('world', 'World'), mk('tracks', 'Campaign'));
+  tabs.append(mk("world", "World"), mk("tracks", "Campaign"));
   container.append(header, content);
   select(initial);
 }

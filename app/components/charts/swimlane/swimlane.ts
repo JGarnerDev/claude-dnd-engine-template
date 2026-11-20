@@ -3,24 +3,55 @@
 // swimlane layout (swimlane.ts) and the same interaction wiring as the world
 // view (controls.ts) — dots are `.chart-marker`s so hover/click work unchanged.
 
-import '../_common/common.css';
-import './swimlane.css';
-import { DEFAULT_CALENDAR } from '../_common/helpers/calendar.js';
-import { computeSwimlaneFrom } from './helpers/swimlane-layout.js';
-import { indexEvents, spanYearsOf } from '../_common/helpers/axis.js';
-import { buildTrackTree, DEFAULT_CATEGORIES } from './helpers/tracks.js';
-import { makeMatcher, trackList, audienceList } from '../_common/helpers/filters.js';
-import { buildFilterBar } from '../_common/components/filterbar.js';
-import { DM_AUDIENCE } from '../_common/constants.js';
-import { clampZoom, resolveTracks, serializeState, DEFAULT_STATE } from '../_common/helpers/viewstate.js';
-import type { SettingsSection } from '../_common/components/settingspanel.js';
-import { enablePan, enableWheelZoom, enableMarkerInteraction } from '../_common/components/controls.js';
-import { barHeightFor } from '../_common/helpers/cluster.js';
-import { ZOOM_FACTOR, ZOOM_MAX, MARGIN, GUTTER_W, SWIM_TOP_PAD, MONTH_VIEW_FRAC, SWIM_BAR_MAX, SWIM_BAR_MIN, SWIM_BAR_FULL_COUNT } from '../_common/constants.js';
-import type { ChartState, PanViewport, SwimBar, SwimItem, SwimLayout, SwimRow, TimelineEvent, Tick, TimelineData, ZoomKind } from '../_common/types.js';
+import "../_common/common.css";
+import "./swimlane.css";
+import { DEFAULT_CALENDAR } from "../_common/helpers/calendar.js";
+import { computeSwimlaneFrom } from "./helpers/swimlane-layout.js";
+import { indexEvents, spanYearsOf } from "../_common/helpers/axis.js";
+import { buildTrackTree, DEFAULT_CATEGORIES } from "./helpers/tracks.js";
+import { makeMatcher, trackList, audienceList } from "../_common/helpers/filters.js";
+import { buildFilterBar } from "../_common/components/filterbar.js";
+import { DM_AUDIENCE } from "../_common/constants.js";
+import {
+  clampZoom,
+  resolveTracks,
+  serializeState,
+  DEFAULT_STATE,
+} from "../_common/helpers/viewstate.js";
+import type { SettingsSection } from "../_common/components/settingspanel.js";
+import {
+  enablePan,
+  enableWheelZoom,
+  enableMarkerInteraction,
+} from "../_common/components/controls.js";
+import { barHeightFor } from "../_common/helpers/cluster.js";
+import {
+  ZOOM_FACTOR,
+  ZOOM_MAX,
+  MARGIN,
+  GUTTER_W,
+  SWIM_TOP_PAD,
+  MONTH_VIEW_FRAC,
+  SWIM_BAR_MAX,
+  SWIM_BAR_MIN,
+  SWIM_BAR_FULL_COUNT,
+} from "../_common/constants.js";
+import type {
+  ChartState,
+  PanViewport,
+  SwimBar,
+  SwimItem,
+  SwimLayout,
+  SwimRow,
+  TimelineEvent,
+  Tick,
+  TimelineData,
+  ZoomKind,
+} from "../_common/types.js";
 
 // Per-row bar height for a member count (swimlane sizing — fits inside a row).
-const swimBarHeight = (count: number): number => barHeightFor(count, SWIM_BAR_MAX, SWIM_BAR_MIN, SWIM_BAR_FULL_COUNT);
+const swimBarHeight = (count: number): number =>
+  barHeightFor(count, SWIM_BAR_MAX, SWIM_BAR_MIN, SWIM_BAR_FULL_COUNT);
 
 interface SwimApi {
   eventCount: number;
@@ -38,7 +69,7 @@ interface SwimApi {
 // inline label is owned by positionDot (it appears/disappears with the density
 // gate).
 function createDot(item: SwimItem): HTMLDivElement {
-  const marker = document.createElement('div');
+  const marker = document.createElement("div");
   marker.className = `chart-marker chart-swim-marker ${item.weight}`;
   marker.style.top = `${item.y}px`;
   marker.dataset.label = item.label;
@@ -46,10 +77,10 @@ function createDot(item: SwimItem): HTMLDivElement {
   marker.dataset.track = item.track;
   if (item.source) {
     marker.dataset.source = item.source;
-    marker.classList.add('has-source');
+    marker.classList.add("has-source");
   }
-  const dot = document.createElement('div');
-  dot.className = 'chart-dot';
+  const dot = document.createElement("div");
+  dot.className = "chart-dot";
   dot.style.background = `var(${item.colorVar})`;
   marker.appendChild(dot);
   return marker;
@@ -67,13 +98,13 @@ function positionDot(
   visible: boolean,
 ): void {
   marker.style.left = `${item.x}px`;
-  marker.classList.toggle('chart-hidden', !visible);
+  marker.classList.toggle("chart-hidden", !visible);
   let label = labels[idx];
   if (item.showLabel) {
     if (!label) {
-      label = document.createElement('div');
-      label.className = 'chart-swim-label';
-      label.textContent = item.weight === 'is-major' ? `★ ${item.label}` : item.label;
+      label = document.createElement("div");
+      label.className = "chart-swim-label";
+      label.textContent = item.weight === "is-major" ? `★ ${item.label}` : item.label;
       marker.appendChild(label);
       labels[idx] = label;
     }
@@ -85,11 +116,11 @@ function positionDot(
 }
 
 function tickNodesFor(tick: Tick): [HTMLDivElement, HTMLDivElement] {
-  const line = document.createElement('div');
-  line.className = 'chart-swim-grid';
+  const line = document.createElement("div");
+  line.className = "chart-swim-grid";
   line.style.left = `${tick.x}px`;
-  const label = document.createElement('div');
-  label.className = 'chart-swim-ticklabel';
+  const label = document.createElement("div");
+  label.className = "chart-swim-ticklabel";
   label.style.left = `${tick.x}px`;
   label.textContent = tick.label;
   return [line, label];
@@ -98,8 +129,8 @@ function tickNodesFor(tick: Tick): [HTMLDivElement, HTMLDivElement] {
 // A per-row density bar (LOD), centered on its row at (x, y). Fixed geometry; the
 // height/count are filter-dependent and set by styleSwimBar.
 function buildSwimBar(bar: SwimBar): HTMLDivElement {
-  const el = document.createElement('div');
-  el.className = 'chart-swim-bar';
+  const el = document.createElement("div");
+  el.className = "chart-swim-bar";
   el.style.left = `${bar.x}px`;
   el.style.top = `${bar.y}px`;
   el.style.background = `var(${bar.colorVar})`;
@@ -110,7 +141,12 @@ function buildSwimBar(bar: SwimBar): HTMLDivElement {
 // Size a bar to its filter-matching members: height ∝ matched count, hidden when
 // none match, badged when a matched member is major. Geometry stays fixed
 // (scale-stable). Returns the matched count for the caller's total.
-function styleSwimBar(el: HTMLElement, bar: SwimBar, events: readonly TimelineEvent[], match: (e: TimelineEvent) => boolean): number {
+function styleSwimBar(
+  el: HTMLElement,
+  bar: SwimBar,
+  events: readonly TimelineEvent[],
+  match: (e: TimelineEvent) => boolean,
+): number {
   let count = 0;
   let hasMajor = false;
   for (const m of bar.members) {
@@ -121,14 +157,14 @@ function styleSwimBar(el: HTMLElement, bar: SwimBar, events: readonly TimelineEv
     }
   }
   if (count === 0) {
-    el.classList.add('chart-hidden');
+    el.classList.add("chart-hidden");
     return 0;
   }
-  el.classList.remove('chart-hidden');
-  el.classList.toggle('has-major', hasMajor);
+  el.classList.remove("chart-hidden");
+  el.classList.toggle("has-major", hasMajor);
   el.style.height = `${swimBarHeight(count)}px`;
   el.dataset.count = String(count);
-  el.title = `${count} beats${hasMajor ? ' (incl. a major)' : ''} · click to zoom in`;
+  el.title = `${count} beats${hasMajor ? " (incl. a major)" : ""} · click to zoom in`;
   return count;
 }
 
@@ -141,17 +177,21 @@ interface BuiltSwimCanvas {
   bars: HTMLElement[];
   visibleCount: number;
 }
-function buildCanvas(layout: SwimLayout, events: readonly TimelineEvent[], match: (e: TimelineEvent) => boolean): BuiltSwimCanvas {
-  const canvas = document.createElement('div');
-  canvas.className = 'chart-swim-canvas';
+function buildCanvas(
+  layout: SwimLayout,
+  events: readonly TimelineEvent[],
+  match: (e: TimelineEvent) => boolean,
+): BuiltSwimCanvas {
+  const canvas = document.createElement("div");
+  canvas.className = "chart-swim-canvas";
   canvas.style.width = `${layout.contentWidth}px`;
   canvas.style.height = `${layout.totalHeight}px`;
 
   for (const tick of layout.ticks) canvas.append(...tickNodesFor(tick));
   // Faint row bands so dots read as sitting on a lane.
   for (const row of layout.rows) {
-    const band = document.createElement('div');
-    band.className = `chart-swim-band${row.depth ? ' is-child' : ''}`;
+    const band = document.createElement("div");
+    band.className = `chart-swim-band${row.depth ? " is-child" : ""}`;
     band.style.top = `${row.y}px`;
     band.style.height = `${row.height}px`;
     canvas.appendChild(band);
@@ -180,40 +220,44 @@ function buildCanvas(layout: SwimLayout, events: readonly TimelineEvent[], match
   return { canvas, markers, bars, visibleCount };
 }
 
-function buildGutter(rows: SwimRow[], height: number, onToggle: (category: string) => void): HTMLDivElement {
-  const gutter = document.createElement('div');
-  gutter.className = 'chart-swim-gutter';
+function buildGutter(
+  rows: SwimRow[],
+  height: number,
+  onToggle: (category: string) => void,
+): HTMLDivElement {
+  const gutter = document.createElement("div");
+  gutter.className = "chart-swim-gutter";
   gutter.style.height = `${height}px`;
 
-  const head = document.createElement('div');
-  head.className = 'chart-swim-gutter-head';
+  const head = document.createElement("div");
+  head.className = "chart-swim-gutter-head";
   head.style.height = `${SWIM_TOP_PAD}px`;
-  head.textContent = 'Tracks';
+  head.textContent = "Tracks";
   gutter.appendChild(head);
 
   for (const row of rows) {
     // Toggleable rows are a full-width button so the whole label is the hit area,
     // not just the arrow. Leaf rows stay plain divs.
-    const label = document.createElement(row.hasToggle ? 'button' : 'div');
-    label.className = `chart-swim-rowlabel depth-${row.depth}${row.hasToggle ? ' is-toggle' : ''}`;
+    const label = document.createElement(row.hasToggle ? "button" : "div");
+    label.className = `chart-swim-rowlabel depth-${row.depth}${row.hasToggle ? " is-toggle" : ""}`;
     label.style.top = `${row.y}px`;
     label.style.height = `${row.height}px`;
 
     // Name first (so every row's colour bar + text align at the same x),
     // toggle arrow pushed to the right edge on toggleable rows.
-    const text = document.createElement('span');
-    text.className = 'chart-swim-rowname';
+    const text = document.createElement("span");
+    text.className = "chart-swim-rowname";
     text.textContent = row.label;
-    text.style.setProperty('--row-color', `var(${row.colorVar})`);
+    text.style.setProperty("--row-color", `var(${row.colorVar})`);
     label.appendChild(text);
 
     if (row.hasToggle) {
-      (label as HTMLButtonElement).type = 'button';
-      label.addEventListener('click', () => onToggle(row.category));
-      const tw = document.createElement('span');
-      tw.className = 'chart-swim-toggle';
-      tw.setAttribute('aria-hidden', 'true');
-      tw.textContent = row.collapsed ? '▸' : '▾';
+      (label as HTMLButtonElement).type = "button";
+      label.addEventListener("click", () => onToggle(row.category));
+      const tw = document.createElement("span");
+      tw.className = "chart-swim-toggle";
+      tw.setAttribute("aria-hidden", "true");
+      tw.textContent = row.collapsed ? "▸" : "▾";
       label.appendChild(tw);
     }
     gutter.appendChild(label);
@@ -221,11 +265,15 @@ function buildGutter(rows: SwimRow[], height: number, onToggle: (category: strin
   return gutter;
 }
 
-export function renderSwimlane(container: HTMLElement, data: TimelineData, initialState?: ChartState): SwimApi {
+export function renderSwimlane(
+  container: HTMLElement,
+  data: TimelineData,
+  initialState?: ChartState,
+): SwimApi {
   const cal = data.calendar || DEFAULT_CALENDAR;
   const viewportWidth = container.clientWidth || 800;
-  container.innerHTML = '';
-  container.classList.add('chart-root');
+  container.innerHTML = "";
+  container.classList.add("chart-root");
 
   // Initial collapse state from the configured defaults (only bites a category
   // that actually has children — see computeSwimlane).
@@ -235,11 +283,17 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
   // it (only the scale and row stacking change downstream).
   const idx = indexEvents(data.events, cal);
   if (idx.events.length === 0) {
-    const empty = document.createElement('div');
-    empty.className = 'chart-empty';
-    empty.textContent = 'No events to show.';
+    const empty = document.createElement("div");
+    empty.className = "chart-empty";
+    empty.textContent = "No events to show.";
     container.appendChild(empty);
-    return { eventCount: 0, rowCount: 0, contentWidth: 0, controls: [], getState: () => ({ ...DEFAULT_STATE }) };
+    return {
+      eventCount: 0,
+      rowCount: 0,
+      contentWidth: 0,
+      controls: [],
+      getState: () => ({ ...DEFAULT_STATE }),
+    };
   }
 
   // Track tree depends only on events (+ config) — zoom- and collapse-invariant.
@@ -266,18 +320,25 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
     controls: [],
     // filterState/swim are declared below but only read when getState runs
     // (post-render), so the closure is safe.
-    getState: () => serializeState(filterState.query, filterState.tracks, zoomLevel, swim.scrollLeft, filterState.audiences),
+    getState: () =>
+      serializeState(
+        filterState.query,
+        filterState.tracks,
+        zoomLevel,
+        swim.scrollLeft,
+        filterState.audiences,
+      ),
   };
 
-  const swim = document.createElement('div') as PanViewport;
-  swim.className = 'chart-swim';
+  const swim = document.createElement("div") as PanViewport;
+  swim.className = "chart-swim";
 
   // Memoize per (density, collapse state). The layout depends on zoom and which
   // categories are collapsed, but never on the filter — so filtering reuses the
   // current layout and only retoggles visibility.
   const layoutCache = new Map<string, SwimLayout>();
   const layoutAt = (pxPerYear: number): SwimLayout => {
-    const key = `${pxPerYear}|${[...collapsed].sort().join(',')}`;
+    const key = `${pxPerYear}|${[...collapsed].sort().join(",")}`;
     let layout = layoutCache.get(key);
     if (!layout) {
       layout = computeSwimlaneFrom(idx, tree, collapsed, cal, pxPerYear);
@@ -303,7 +364,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
     let count = 0;
     currentLayout.items.forEach((item, i) => {
       const vis = match(item);
-      markerNodes[i]?.classList.toggle('chart-hidden', !vis);
+      markerNodes[i]?.classList.toggle("chart-hidden", !vis);
       if (vis) count++;
     });
     currentLayout.bars.forEach((bar, i) => {
@@ -324,7 +385,13 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
         audiences: resolveTracks(initialState.audiences, available),
       }
     : undefined;
-  const { bar: filterBar, search, chips, audience, state: filterState } = buildFilterBar(data.events, applyVisibility, seed);
+  const {
+    bar: filterBar,
+    search,
+    chips,
+    audience,
+    state: filterState,
+  } = buildFilterBar(data.events, applyVisibility, seed);
 
   // Rebuild the gutter + canvas for the current density/collapse state. Both zoom
   // and collapse change the layout (the individual/bar split shifts with zoom, rows
@@ -365,7 +432,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
   }
 
   function applyZoom(kind: ZoomKind) {
-    if (kind === 'in') zoomLevel = Math.min(maxZoom, zoomLevel * ZOOM_FACTOR);
+    if (kind === "in") zoomLevel = Math.min(maxZoom, zoomLevel * ZOOM_FACTOR);
     else zoomLevel = Math.max(1, zoomLevel / ZOOM_FACTOR);
   }
 
@@ -393,13 +460,13 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
   }
 
   // Click a density bar → zoom in, anchored on the cluster. Skipped after a pan-drag.
-  swim.addEventListener('click', (e) => {
+  swim.addEventListener("click", (e) => {
     if (swim._tlDragged) return;
-    const bar = (e.target as Element | null)?.closest<HTMLElement>('.chart-swim-bar');
+    const bar = (e.target as Element | null)?.closest<HTMLElement>(".chart-swim-bar");
     if (!bar) return;
     const cx = Number(bar.dataset.centerx);
     const left = swim.getBoundingClientRect?.().left || 0;
-    zoom('in', left + (cx - swim.scrollLeft));
+    zoom("in", left + (cx - swim.scrollLeft));
   });
 
   // The filter controls are wired to this chart's state but handed to the host
@@ -407,9 +474,9 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
   // their own labels — leaving the canvas to fill the full height. Zoom is
   // wheel-only (+ density-bar click).
   api.controls = [
-    { label: 'Search', node: search },
-    { label: 'Filter', node: chips },
-    ...(audience ? [{ label: 'Known by', node: audience }] : []),
+    { label: "Search", node: search },
+    { label: "Filter", node: chips },
+    ...(audience ? [{ label: "Known by", node: audience }] : []),
   ];
   container.append(filterBar, swim);
   draw();
@@ -417,7 +484,7 @@ export function renderSwimlane(container: HTMLElement, data: TimelineData, initi
   if (initialState) swim.scrollLeft = initialState.scrollLeft;
   enablePan(swim);
   enableWheelZoom(swim, zoomWheel);
-  enableMarkerInteraction(swim, (source) => window.open(source, '_blank'));
+  enableMarkerInteraction(swim, (source) => window.open(source, "_blank"));
   return api;
 }
 

@@ -14,7 +14,9 @@
   pointer-events: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
-.chart-tooltip-title { font-weight: 600; }
+.chart-tooltip-title {
+  font-weight: 600;
+}
 .chart-tooltip-meta {
   margin-top: 2px;
   color: var(--chart-muted);

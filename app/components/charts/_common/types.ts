@@ -49,8 +49,8 @@ export interface TimelineData {
   spans?: Span[];
 }
 
-export type Side = 'above' | 'below';
-export type Weight = 'is-major' | 'is-minor' | 'is-normal';
+export type Side = "above" | "below";
+export type Weight = "is-major" | "is-minor" | "is-normal";
 
 export interface Placement {
   side: Side;
@@ -107,7 +107,7 @@ export interface FilterState {
   audiences?: Set<string> | null;
 }
 
-export type ZoomKind = 'in' | 'out';
+export type ZoomKind = "in" | "out";
 
 // --- Saved views (named UI snapshots) ---------------------------------------
 // ChartState is the per-tab restorable bundle both charts emit (getState) and
@@ -125,7 +125,7 @@ export interface ChartState {
 
 export interface SavedView {
   name: string;
-  tab: 'world' | 'tracks';
+  tab: "world" | "tracks";
   state: ChartState;
 }
 

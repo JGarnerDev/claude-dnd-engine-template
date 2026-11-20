@@ -5,7 +5,7 @@
 // contents per active view via the returned handle. DOM-bound; pairs with
 // settingspanel.css.
 
-import './settingspanel.css';
+import "./settingspanel.css";
 
 // One labelled group inside the panel (e.g. "Zoom" → the toolbar node).
 export interface SettingsSection {
@@ -24,33 +24,33 @@ export interface SettingsHandle {
 // positioning context — see settingspanel.css). The panel starts closed; the gear
 // toggles it, and an outside click or Escape closes it.
 export function mountSettingsPanel(host: HTMLElement): SettingsHandle {
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'chart-settings-btn';
-  btn.title = 'Settings';
-  btn.setAttribute('aria-label', 'Settings');
-  btn.setAttribute('aria-expanded', 'false');
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "chart-settings-btn";
+  btn.title = "Settings";
+  btn.setAttribute("aria-label", "Settings");
+  btn.setAttribute("aria-expanded", "false");
   btn.innerHTML = GEAR_SVG;
 
-  const panel = document.createElement('div');
-  panel.className = 'chart-settings-panel';
+  const panel = document.createElement("div");
+  panel.className = "chart-settings-panel";
 
   const setOpen = (open: boolean): void => {
-    panel.classList.toggle('is-open', open);
-    btn.classList.toggle('is-active', open);
-    btn.setAttribute('aria-expanded', String(open));
+    panel.classList.toggle("is-open", open);
+    btn.classList.toggle("is-active", open);
+    btn.setAttribute("aria-expanded", String(open));
   };
 
-  btn.addEventListener('click', (e) => {
+  btn.addEventListener("click", (e) => {
     e.stopPropagation();
-    setOpen(!panel.classList.contains('is-open'));
+    setOpen(!panel.classList.contains("is-open"));
   });
 
   // Outside click + Escape close. Clicks inside the panel keep it open.
-  panel.addEventListener('click', (e) => e.stopPropagation());
-  document.addEventListener('click', () => setOpen(false));
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') setOpen(false);
+  panel.addEventListener("click", (e) => e.stopPropagation());
+  document.addEventListener("click", () => setOpen(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setOpen(false);
   });
 
   host.append(btn, panel);
@@ -59,10 +59,10 @@ export function mountSettingsPanel(host: HTMLElement): SettingsHandle {
     setSections(sections: SettingsSection[]): void {
       panel.replaceChildren();
       for (const { label, node } of sections) {
-        const group = document.createElement('div');
-        group.className = 'chart-settings-group';
-        const head = document.createElement('div');
-        head.className = 'chart-settings-grouplabel';
+        const group = document.createElement("div");
+        group.className = "chart-settings-group";
+        const head = document.createElement("div");
+        head.className = "chart-settings-grouplabel";
         head.textContent = label;
         group.append(head, node); // appendChild relocates the control out of the chart flow
         panel.appendChild(group);
