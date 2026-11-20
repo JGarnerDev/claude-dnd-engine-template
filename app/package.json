@@ -10,10 +10,15 @@
     "build:timeline": "vite build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "lint": "oxlint -c ../.oxlintrc.json",
+    "format": "prettier --write . --ignore-path ../.gitignore --ignore-path ../.prettierignore",
+    "format:check": "prettier --check . --ignore-path ../.gitignore --ignore-path ../.prettierignore"
   },
   "devDependencies": {
     "happy-dom": "^20.10.5",
+    "oxlint": "1.94.0",
+    "prettier": "3.10.1",
     "typescript": "^7.0.2",
     "vite": "^8.2.1",
     "vite-plugin-singlefile": "^2.3.4",

@@ -1,0 +1,13 @@
+# Shared across Organized projects (source: hub new-project starter).
+# Errors block the commit (.githooks/pre-commit). How to avoid each: .claude/rules/LINT.md
+line-length = 100
+target-version = "py314"
+include = ["*.py", "*.pyi"]  # not the Python blocks inside Markdown
+
+[lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B"]
+ignore = [
+  "E741",           # names like `l`: fine in short loops
+  "UP030", "UP031", # %-formatting and indexed .format(): fine as written
+  "B905",           # zip(strict=): add it where lengths must match
+]
