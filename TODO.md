@@ -112,3 +112,4 @@ Run `/commands` any time for the full list. The world keeps growing from play �
 *Not campaign setup — housekeeping to keep this template in sync with the source engine.*
 
 - [ ] Sync the PowerShell→Python script migration into this template. `scripts/lib/common.ps1` and `scripts/timeline-{data,gantt}.ps1` (plus other already-ported clusters) still ship as `.ps1` here; replace them with their `.py` versions and update `.template-sync` to match. Template currently lags the source repo's migration. Surfaced reviewing PR #10 (2026-07-01).
+- [ ] Before the next `/sync`: the engine's `app/package.json` now depends on `jeff-ui` from the private repo `github:JGarnerDev/jeff-ui-project`, so syncing `app/**` would ship a dependency nobody else can install. Wait for Jeff's public-or-private decision (`jeff-ui-project/TODO.md`, phase 1). If jeff-ui goes public, sync as normal; if not, the template needs another way in. Noted 2026-11-20.
