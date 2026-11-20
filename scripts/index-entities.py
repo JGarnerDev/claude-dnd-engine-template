@@ -8,6 +8,7 @@ Usage: python scripts/index-entities.py [--dirs data historian scheduler] [--res
 import argparse
 import re
 import sys
+from datetime import UTC
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -200,9 +201,9 @@ def main():
         pass
 
     stamp_file = ROOT / "vector-index" / ".index-built"
-    from datetime import datetime, timezone
+    from datetime import datetime
 
-    stamp_file.write_text(f"{datetime.now(timezone.utc).isoformat()}\n{commit}\n", encoding="utf-8")
+    stamp_file.write_text(f"{datetime.now(UTC).isoformat()}\n{commit}\n", encoding="utf-8")
 
     print(f"\nDone. Indexed: {indexed} | Skipped: {skipped}")
     print(f"Total in collection: {collection.count()}")

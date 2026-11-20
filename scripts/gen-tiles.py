@@ -1,6 +1,7 @@
 # consumers: CLAUDE.md, maps/CLAUDE.md -- update these if usage, flags, or output format change.
-from PIL import Image
 import os
+
+from PIL import Image
 
 # Resolve maps/world relative to this script so the tool is path-portable.
 base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "maps", "world")
